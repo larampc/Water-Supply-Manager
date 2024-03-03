@@ -37,4 +37,6 @@ add_executable(watersuppymanager main.cpp
         project/Node.cpp
         project/Reservoir.h
         project/Reservoir.cpp
+        project/City.cpp
+        project/City.h
 )
