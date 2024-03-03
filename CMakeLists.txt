@@ -29,4 +29,7 @@ add_executable(watersuppymanager main.cpp
         project/Graph.h
         project/MutablePriorityQueue.h
         project/UFDS.cpp
+        project/UFDS.h
+        project/color_print.cpp
+        project/color_print.h
 )
