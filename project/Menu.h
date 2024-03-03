@@ -1,5 +1,5 @@
-#ifndef WATER_SUPPLY_MENU_H
-#define WATER_SUPPLY_MENU_H
+#ifndef WATERSUPPLYMANAGER_MENU_H
+#define WATERSUPPLYMANAGER_MENU_H
 
 /**
  * \mainpage Welcome to the Water Supply Management Program
@@ -41,4 +41,4 @@ public:
 };
 
 
-#endif //WATER_SUPPLY_MENU_H
+#endif //WATERSUPPLYMANAGER_MENU_H

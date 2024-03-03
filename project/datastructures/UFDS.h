@@ -6,8 +6,8 @@
  *      Author: Gonçalo Leão
  */
 
-#ifndef WATER_SUPPLY_UFDS
-#define WATER_SUPPLY_UFDS
+#ifndef WATERSUPPLYMANAGER_UFDS
+#define WATERSUPPLYMANAGER_UFDS
 
 #include <vector>
 
@@ -23,4 +23,4 @@ private:
 };
 
 
-#endif //WATER_SUPPLY_UFDS
+#endif //WATERSUPPLYMANAGER_UFDS

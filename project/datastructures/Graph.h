@@ -1,5 +1,5 @@
-#ifndef WATER_SUPPLY_GRAPH
-#define WATER_SUPPLY_GRAPH
+#ifndef WATERSUPPLYMANAGER_GRAPH
+#define WATERSUPPLYMANAGER_GRAPH
 
 #include <iostream>
 #include <vector>
@@ -660,4 +660,4 @@ Graph<T>::~Graph() {
     deleteMatrix(pathMatrix, vertexSet.size());
 }
 
-#endif //WATER_SUPPLY_GRAPH
+#endif //WATERSUPPLYMANAGER_GRAPH

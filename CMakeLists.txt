@@ -33,4 +33,8 @@ add_executable(watersuppymanager main.cpp
         project/ColorPrint.cpp
         project/ColorPrint.h
         project/Menu.cpp
+        project/Node.h
+        project/Node.cpp
+        project/Reservoir.h
+        project/Reservoir.cpp
 )
