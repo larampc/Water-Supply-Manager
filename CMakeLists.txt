@@ -32,4 +32,6 @@ add_executable(watersuppymanager main.cpp
         project/UFDS.h
         project/color_print.cpp
         project/color_print.h
+        project/Menu.cpp
+        project/Menu.h
 )
