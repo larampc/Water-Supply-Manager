@@ -6,8 +6,8 @@
  *      Author: Gonçalo Leão
  */
 
-#ifndef DA_TP_CLASSES_UFDS
-#define DA_TP_CLASSES_UFDS
+#ifndef WATER_SUPPLY_UFDS
+#define WATER_SUPPLY_UFDS
 
 #include <vector>
 
@@ -23,4 +23,4 @@ private:
 };
 
 
-#endif //DA_TP_CLASSES_UFDS
+#endif //WATER_SUPPLY_UFDS

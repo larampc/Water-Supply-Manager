@@ -1,5 +1,5 @@
-#ifndef DA_TP_CLASSES_GRAPH
-#define DA_TP_CLASSES_GRAPH
+#ifndef WATER_SUPPLY_GRAPH
+#define WATER_SUPPLY_GRAPH
 
 #include <iostream>
 #include <vector>
@@ -660,4 +660,4 @@ Graph<T>::~Graph() {
     deleteMatrix(pathMatrix, vertexSet.size());
 }
 
-#endif /* DA_TP_CLASSES_GRAPH */
+#endif //WATER_SUPPLY_GRAPH

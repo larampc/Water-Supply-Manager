@@ -30,8 +30,7 @@ add_executable(watersuppymanager main.cpp
         project/datastructures/MutablePriorityQueue.h
         project/datastructures/UFDS.cpp
         project/datastructures/UFDS.h
-        project/color_print.cpp
-        project/color_print.h
+        project/ColorPrint.cpp
+        project/ColorPrint.h
         project/Menu.cpp
-        project/Menu.h
 )
