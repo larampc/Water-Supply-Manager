@@ -1,64 +1,53 @@
 #include "Menu.h"
 #include <iostream>
-#include <limits>
-#include "color_print.h"
-using namespace std;
-extern bool color_mode;
+#include "ColorPrint.h"
 
-void invalid(){
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    Color_Print("red", "Invalid Input, please try again\n");
-}
-void Menu::run() {
-    Color_Print("blue", "-----------------------------------\n");
-    Color_Print("blue", "\tFlight Management System\n");
-    Color_Print("blue", "-----------------------------------\n");
-    Color_Print("blue", "Select option:\n");
-    Color_Print("white", "Get Information");
-    Color_Print("cyan", " - press 1\n");
-    Color_Print("white", "Make requests");
-    Color_Print("cyan", " - press 2\n");
-    Color_Print("white", "Settings");
-    Color_Print("cyan", " - press 3\n");
-    Color_Print("red", "Quit Manager");
-    Color_Print("cyan", " - press 4\n");
-    string option; cin >> option;
-    while(option != "1" && option != "2" && option != "3" && option != "4") {
-        invalid();
-        cin >> option;
+using namespace std;
+
+char Menu::readOption(int n){
+    string option;
+    getline(cin, option);
+    while(option.size() > to_string(n).size() || option < "1" || option > to_string(n)){
+        if (!option.empty()) ColorPrint("red", "Invalid Input, please try again\n");
+        getline(cin, option);
     }
-    switch (option[0]) {
-        case '1':
-            getInformation();
-            break;
-        case '2':
-            getRequest();
-            break;
+    return option[0];
+}
+
+void Menu::run() {
+    ColorPrint("blue", "\n-----------------------------------\n");
+    ColorPrint("blue", "Water Supply Management System\n");
+    ColorPrint("blue", "-----------------------------------\n");
+    ColorPrint("blue", "Select option:\n");
+    ColorPrint("cyan", "1. ");
+    ColorPrint("white", "Network Information \n");
+    ColorPrint("cyan", "2. ");
+    ColorPrint("white", "Plan trip \n");
+    ColorPrint("cyan", "3. ");
+    ColorPrint("white", "Settings \n");
+    ColorPrint("cyan", "4. ");
+    ColorPrint("red", "Quit Manager \n");
+    cin.sync();
+    switch (readOption(4)) {
         case '3':
             settings();
             break;
+        case '4':
+            exit(0);
     }
 }
 
-
 void Menu::settings() {
     string option;
-    Color_Print("cyan", "1- ");
-    if (color_mode) Color_Print("yellow", "Disable");
-    else Color_Print("yellow", "Enable");
-    Color_Print("white", " Color Mode\t");
-    Color_Print("cyan", "2- ");
-    Color_Print("red", "Cancel\n");
-
-    cin >> option;
-    while(option != "1" && option != "2") {
-        invalid();
-        cin >> option;
-    }
-    if (option == "1") {
-        color_mode = !color_mode;
-        if (color_mode) Color_Print("cyan", "Color mode enabled\n");
-        else Color_Print("cyan", "Color mode disabled\n");
+    ColorPrint("blue", "Select option:\n");
+    ColorPrint("cyan", "1. ");
+    ColorPrint("yellow", ColorPrint::colorMode ? "Disable" : "Enable");
+    ColorPrint("white", " Color Mode\n");
+    ColorPrint("cyan", "2. ");
+    ColorPrint("red", "Cancel\n");
+    if (readOption(2) == '1') {
+        ColorPrint::swapColorMode();
+        ColorPrint("cyan", ColorPrint::colorMode ? "Color mode enabled\n" : "Color mode disabled\n");
     }
     run();
 }
