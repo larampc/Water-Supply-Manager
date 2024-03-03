@@ -6,12 +6,12 @@ set(CMAKE_CXX_STANDARD 17)
 # Doxygen Build
 find_package(Doxygen)
 if(DOXYGEN_FOUND)
-    set(BUILD_DOC_DIR "${CMAKE_SOURCE_DIR}/docs/output")
+    set(BUILD_DOC_DIR "${CMAKE_SOURCE_DIR}/Docs/output")
     if(NOT EXISTS "${BUILD_DOC_DIR}")
         file(MAKE_DIRECTORY "${BUILD_DOC_DIR}")
     endif()
 
-    set(DOXYGEN_IN "${CMAKE_CURRENT_SOURCE_DIR}/docs/Doxyfile")
+    set(DOXYGEN_IN "${CMAKE_CURRENT_SOURCE_DIR}/Docs/Doxyfile")
     set(DOXYGEN_OUT "${CMAKE_CURRENT_BINARY_DIR}/Doxyfile")
     configure_file("${DOXYGEN_IN}" "${DOXYGEN_OUT}" @ONLY)
 
@@ -26,10 +26,10 @@ else(DOXYGEN_FOUND)
 endif(DOXYGEN_FOUND)
 
 add_executable(watersuppymanager main.cpp
-        project/Graph.h
-        project/MutablePriorityQueue.h
-        project/UFDS.cpp
-        project/UFDS.h
+        project/datastructures/Graph.h
+        project/datastructures/MutablePriorityQueue.h
+        project/datastructures/UFDS.cpp
+        project/datastructures/UFDS.h
         project/color_print.cpp
         project/color_print.h
         project/Menu.cpp
