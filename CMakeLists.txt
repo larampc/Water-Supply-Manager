@@ -27,4 +27,6 @@ endif(DOXYGEN_FOUND)
 
 add_executable(watersuppymanager main.cpp
         project/Graph.h
+        project/MutablePriorityQueue.h
+        project/UFDS.cpp
 )
