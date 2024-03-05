@@ -9,7 +9,8 @@ private:
 public:
     WaterSupply();
     void loadCities();
-    void addCity(City& city);
+    void loadReservoir();
+    void loadStations();
     Graph getNetwork();
 };
 
