@@ -15,6 +15,8 @@
  * Change settings such enabling colour mode.
  */
 
+#include "WaterSupply.h"
+
 /**
  * \class Menu
  * \brief This class handles and runs the different commands.
@@ -24,7 +26,7 @@
  */
 class Menu {
 private:
-
+    WaterSupply waterSupply;
 public:
     /**
      * \brief Outputs the main menu and handles the respective inputs.

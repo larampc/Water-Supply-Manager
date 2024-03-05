@@ -6,13 +6,13 @@
 class City: public Node{
 private:
     std::string name;
-    int demand;
-    int population;
+    std::string demand;
+    std::string population;
 public:
-    City(int id, std::string code, std::string name, int demand, int population): Node(id, code), name(name), demand(demand), population(population) {};
+    City(int id, std::string code, std::string name, std::string demand, std::string population): Node(id, code), name(name), demand(demand), population(population) {};
     std::string getName() const;
-    int getDemand() const;
-    int getPopulation() const;
+    std::string getDemand() const;
+    std::string getPopulation() const;
 };
 
 

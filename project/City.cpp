@@ -5,10 +5,10 @@ std::string City::getName() const {
     return name;
 }
 
-int City::getDemand() const {
+std::string City::getDemand() const {
     return demand;
 }
 
-int City::getPopulation() const {
+std::string City::getPopulation() const {
     return population;
 }

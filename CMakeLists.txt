@@ -26,7 +26,6 @@ else(DOXYGEN_FOUND)
 endif(DOXYGEN_FOUND)
 
 add_executable(watersuppymanager main.cpp
-        project/datastructures/Graph.h
         project/datastructures/MutablePriorityQueue.h
         project/datastructures/UFDS.cpp
         project/datastructures/UFDS.h
@@ -39,4 +38,8 @@ add_executable(watersuppymanager main.cpp
         project/Reservoir.cpp
         project/City.cpp
         project/City.h
+        project/WaterSupply.h
+        project/WaterSupply.cpp
+        project/datastructures/Graph.cpp
+        project/datastructures/Graph.cpp
 )
