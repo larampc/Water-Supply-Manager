@@ -13,7 +13,7 @@
 #include <algorithm>
 #include <unordered_map>
 #include <unordered_set>
-#include "../Node.h"
+#include "../Station.h"
 
 using namespace std;
 
@@ -29,7 +29,7 @@ class Graph;
  * This class keeps track of the Vertex Airport, Edges, in degree, number, low and if it was visited or is processing.
  */
 class Vertex {
-    Node info;               // contents
+    std::string info;               // contents
     vector<Edge> adj;           // list of outgoing edges
     bool visited;               // auxiliary field
     bool processing;            // auxiliary field
@@ -63,7 +63,7 @@ public:
      *
      * @param in The Airport of the Vertex.
      */
-    Vertex(Node in);
+    Vertex(std::string in);
     /**
      * \brief Gets the Airport of the Vertex.
      *
@@ -72,7 +72,7 @@ public:
      * \par Complexity
      * O(1)
      */
-    Node getInfo() const;
+    std::string getInfo() const;
     /**
      * \brief Sets the Airport of the Vertex.
      *
@@ -81,7 +81,7 @@ public:
      * \par Complexity
      * O(1)
      */
-    void setInfo(Node in);
+    void setInfo(std::string in);
     /**
      * \brief Gets the visited status of the Vertex.
      *
@@ -263,7 +263,6 @@ public:
  */
 class Graph {
     unordered_map<std::string, Vertex*> vertexMap;
-
 public:
     /**
      * \brief Gets the Vertex of the given Airport.
@@ -274,7 +273,7 @@ public:
      * \par Complexity
      * O(1)
      */
-    Vertex* findVertex(const Node &in) const;
+    Vertex* findVertex(const string &in) const;
     /**
      * \brief Gets the total number of Vertex in the Graph.
      *
@@ -293,7 +292,7 @@ public:
      * \par Complexity
      * O(1)
      */
-    bool addVertex(const Node &in);
+    bool addVertex(const string &in);
     /**
      * \brief Removes the Vertex with the given Airport from the Graph.
      *
@@ -303,7 +302,7 @@ public:
      * \par Complexity
      * O(1)
      */
-    bool removeVertex(const Node &in);
+    bool removeVertex(const string &in);
     /**
      * \brief Creates and adds a new Edge from the source Vertex to the destination Vertex.
      *
@@ -315,7 +314,7 @@ public:
      * \par Complexity
      * O(1)
      */
-    bool addEdge(const Node &sourc, const Node &dest, std::string w);
+    bool addEdge(const string &sourc, const string &dest, std::string w);
     /**
      * \brief Removes Edge from the source Vertex to the destination Vertex with the corresponding weight.
      *
@@ -327,7 +326,7 @@ public:
      * \par Complexity
      * O(E) in which E is the number of edges of the vertex
      */
-    bool removeEdge(const Node &sourc, const Node &dest, const string& airline);
+    bool removeEdge(const string &sourc, const string &dest, const string& airline);
     /**
      * \brief Gets the VertexSet of the Graph.
      *

@@ -1,6 +1,6 @@
 # WaterSupplyManager
 
-Distinção de nodes atraves de herança, pai - Node -> filhos: reservoir, city
+Distinção de nodes atraves de herança, pai - string -> filhos: reservoir, city
 
 
 arestas -> info pipe

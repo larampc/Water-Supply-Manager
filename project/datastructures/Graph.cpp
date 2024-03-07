@@ -1,28 +1,25 @@
-//
-// Created by larap on 05/03/2024.
-//
-
 #include "Graph.h"
 #include <string>
+#include <utility>
 
-Vertex::Vertex(Node in): info(in) {}
+Vertex::Vertex(string in): info(std::move(in)) {}
 
-Edge::Edge(Vertex *d, string w): dest(d), weight(w) {}
+Edge::Edge(Vertex *d, string w): dest(d), weight(std::move(w)) {}
 
 size_t Graph::getNumVertex() const {
     return vertexMap.size();
 }
 
-unordered_map<std::string, Vertex*> Graph::getVertexSet() const {
+unordered_map<string, Vertex*> Graph::getVertexSet() const {
     return vertexMap;
 }
 
-Node Vertex::getInfo() const {
+std::string Vertex::getInfo() const {
     return info;
 }
 
-void Vertex::setInfo(Node in) {
-    Vertex::info = in;
+void Vertex::setInfo(std::string in) {
+    Vertex::info = std::move(in);
 }
 
 bool Vertex::isProcessing() const {
@@ -52,10 +49,10 @@ void Edge::setWeight(std::string airline) {
 /*
  * Auxiliary function to find a vertex with a given content.
  */
-Vertex* Graph::findVertex(const Node &in) const {
-    auto it = vertexMap.find(in.getCode());
+Vertex* Graph::findVertex(const string &in) const {
+    auto it = vertexMap.find(in);
     if (it == vertexMap.end()) return nullptr;
-    return vertexMap.at(in.getCode());
+    return vertexMap.at(in);
 }
 
 bool Vertex::isVisited() const {
@@ -103,10 +100,10 @@ void Vertex::setAdj(const vector<Edge> &adj) {
  *  Adds a vertex with a given content or info (in) to a graph (this).
  *  Returns true if successful, and false if a vertex with that content already exists.
  */
-bool Graph::addVertex(const Node &in) {
+bool Graph::addVertex(const std::string &in) {
     if (findVertex(in) != nullptr)
         return false;
-    vertexMap.insert(make_pair(in.getCode(), new Vertex(in)));
+    vertexMap.insert(make_pair(in, new Vertex(in)));
     return true;
 }
 
@@ -116,7 +113,7 @@ bool Graph::addVertex(const Node &in) {
  * destination vertices and the edge weight (w).
  * Returns true if successful, and false if the source or destination vertex does not exist.
  */
-bool Graph::addEdge(const Node &sourc, const Node &dest, std::string w) {
+bool Graph::addEdge(const string &sourc, const string &dest, std::string w) {
     auto v1 = findVertex(sourc);
     auto v2 = findVertex(dest);
     if (v1 == nullptr || v2 == nullptr)
@@ -140,7 +137,7 @@ void Vertex::addEdge(Vertex *d, std::string w) {
  * The edge is identified by the source (sourc) and destination (dest) contents.
  * Returns true if successful, and false if such edge does not exist.
  */
-bool Graph::removeEdge(const Node &sourc, const Node &dest, const string& airline) {
+bool Graph::removeEdge(const string &sourc, const string &dest, const string& airline) {
     auto v1 = findVertex(sourc);
     auto v2 = findVertex(dest);
     if (v1 == nullptr || v2 == nullptr)
@@ -169,6 +166,6 @@ bool Vertex::removeEdgeTo(Vertex *d, const string& airline) {
  *  all outgoing and incoming edges.
  *  Returns true if successful, and false if such vertex does not exist.
  */
-bool Graph::removeVertex(const Node &in) {
-    return vertexMap.erase(in.getCode());
+bool Graph::removeVertex(const string &in) {
+    return vertexMap.erase(in);
 }

@@ -6,11 +6,14 @@
 class WaterSupply {
 private:
     Graph network;
-public:
-    WaterSupply();
+    unordered_map<std::string, City> cities;
+    unordered_map<std::string, City> reservoirs;
+    unordered_map<std::string, City> stations;
     void loadCities();
     void loadReservoir();
     void loadStations();
+public:
+    WaterSupply();
     Graph getNetwork();
 };
 

@@ -8,7 +8,7 @@ using namespace std;
 WaterSupply::WaterSupply() {
     loadCities();
     loadReservoir();
-//    loadStations();
+    loadStations();
 }
 
 void WaterSupply::loadCities() {
@@ -23,7 +23,7 @@ void WaterSupply::loadCities() {
         getline(iss, code, ',');
         getline(iss, demand, ',');
         getline(iss, population);
-        network.addVertex(City(stoi(id), code, city, demand, population));
+        if (!code.empty()) network.addVertex(code);
     }
     citiesFile.close();
 }
@@ -44,23 +44,23 @@ void WaterSupply::loadReservoir() {
         getline(iss, id, ',');
         getline(iss, code, ',');
         getline(iss, maxDelivery, ',');
-        network.addVertex(Reservoir(stoi(id), code, name, municipality, stoi(maxDelivery)));
+        if (!code.empty()) network.addVertex(code);
     }
     citiesFile.close();
 }
 
-//void WaterSupply::loadStations() {
-//    ifstream citiesFile("../dataSetSmall/Stations_Madeira.csv");
-//    string line;
-//    getline(citiesFile, line);
-//    while (getline(citiesFile, line)) {
-//        string id, code;
-//        istringstream iss(line);
-//        getline(iss, id, ',');
-//        getline(iss, code, ',');
-//        network.addVertex(Node(stoi(id), code));
-//    }
-//    citiesFile.close();
-//}
+void WaterSupply::loadStations() {
+    ifstream stationsFile("../dataSetSmall/Stations_Madeira.csv");
+    string line;
+    getline(stationsFile, line);
+    while (getline(stationsFile, line)) {
+        string id, code;
+        istringstream iss(line);
+        getline(iss, id, ',');
+        getline(iss, code, ',');
+        if (!code.empty()) network.addVertex(code);
+    }
+    stationsFile.close();
+}
 
 

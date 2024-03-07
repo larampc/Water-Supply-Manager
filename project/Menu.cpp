@@ -29,7 +29,7 @@ void Menu::run() {
     ColorPrint("red", "Quit Manager \n");
     cin.sync();
     for (auto n: waterSupply.getNetwork().getVertexSet()) {
-        cout << n.second->getInfo().getCode() << endl;
+        cout << n.second->getInfo() << endl;
     }
     switch (readOption(4)) {
         case '3':
