@@ -41,4 +41,5 @@ add_executable(watersuppymanager main.cpp
         project/WaterSupply.h
         project/WaterSupply.cpp
         project/datastructures/Graph.cpp
+        project/datastructures/Graph.h
 )

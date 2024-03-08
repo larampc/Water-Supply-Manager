@@ -95,12 +95,9 @@ void WaterSupply::loadPipes() {
         getline(iss, b, ',');
         getline(iss, capacity, ',');
         getline(iss, direction);
-        network.addEdge(a, b, stoi(capacity));
-        if (!stoi(direction)) {
-
-        }
+        if (stoi(direction)) network.addEdge(a, b, stoi(capacity));
+        else network.addBidirectionalEdge(a,b,stoi(capacity));
     }
     pipesFile.close();
-
 }
 
