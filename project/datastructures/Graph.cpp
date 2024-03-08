@@ -186,7 +186,8 @@ std::unordered_map<std::string, Vertex*> Graph::getVertexSet() const {
  * Auxiliary function to find a vertex with a given content.
  */
 Vertex* Graph::findVertex(const std::string&in) const {
-    return vertexSet.at(in);
+    auto it = vertexSet.find(in);
+    return (it != vertexSet.end()) ? it->second : nullptr;
 }
 
 
@@ -195,6 +196,7 @@ Vertex* Graph::findVertex(const std::string&in) const {
  *  Returns true if successful, and false if a vertex with that content already exists.
  */
 bool Graph::addVertex(const std::string &in) {
+    if(findVertex(in) != nullptr) return false;
     vertexSet.emplace(in, new Vertex(in));
     return true;
 }
