@@ -1,10 +1,5 @@
 # WaterSupplyManager
 
-Distinção de nodes atraves de herança, pai - string -> filhos: reservoir, city
-
-
-arestas -> info pipe
-
 4.1-
 
     4.1 - Max flow -> 1 target (city), com todas sources
@@ -19,3 +14,7 @@ arestas -> info pipe
     confirmar se reservoir pode receber
 
     ideia de UFDS
+
+Backlog:
+    
+    

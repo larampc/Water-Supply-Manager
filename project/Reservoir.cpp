@@ -13,3 +13,7 @@ std::string Reservoir::getMunicipality() const {
 int Reservoir::getDelivery() const {
     return maxDelivery;
 }
+
+int Reservoir::getId() const {
+    return id;
+}
