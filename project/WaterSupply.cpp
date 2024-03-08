@@ -23,6 +23,7 @@ void WaterSupply::loadCities() {
         getline(iss, code, ',');
         getline(iss, demand, ',');
         getline(iss, population);
+        cities.emplace(code, City(stoi(id), code, city, demand, population));
         if (!code.empty()) network.addVertex(code);
     }
     citiesFile.close();
@@ -33,10 +34,10 @@ Graph WaterSupply::getNetwork() {
 }
 
 void WaterSupply::loadReservoir() {
-    ifstream citiesFile("../dataSetSmall/Reservoirs_Madeira.csv");
+    ifstream reservoirsFile("../dataSetSmall/Reservoirs_Madeira.csv");
     string line;
-    getline(citiesFile, line);
-    while (getline(citiesFile, line)) {
+    getline(reservoirsFile, line);
+    while (getline(reservoirsFile, line)) {
         string name, id, code, municipality, maxDelivery;
         istringstream iss(line);
         getline(iss, name, ',');
@@ -44,9 +45,10 @@ void WaterSupply::loadReservoir() {
         getline(iss, id, ',');
         getline(iss, code, ',');
         getline(iss, maxDelivery, ',');
+        reservoirs.emplace(code, Reservoir(stoi(id), code, name, municipality, stoi(maxDelivery)));
         if (!code.empty()) network.addVertex(code);
     }
-    citiesFile.close();
+    reservoirsFile.close();
 }
 
 void WaterSupply::loadStations() {
@@ -58,6 +60,7 @@ void WaterSupply::loadStations() {
         istringstream iss(line);
         getline(iss, id, ',');
         getline(iss, code, ',');
+        stations.emplace(code, Station(stoi(id), code));
         if (!code.empty()) network.addVertex(code);
     }
     stationsFile.close();

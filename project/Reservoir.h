@@ -9,12 +9,12 @@ private:
     std::string code;
     std::string name;
     std::string municipality;
-    int maxDelivery;
+    int maxDelivery; // m³/sec
 public:
-    Reservoir(int id, std::string code, std::string name, std::string municipality, int maxDelivery): id(id), code(code), name(name), municipality(municipality), maxDelivery(maxDelivery) {};
-    std::string getName() const;
-    std::string getMunicipality() const;
-    int getDelivery() const;
+    Reservoir(int id, std::string code, std::string name, std::string municipality, int maxDelivery): id(id), code(std::move(code)), name(std::move(name)), municipality(std::move(municipality)), maxDelivery(maxDelivery) {};
+    [[nodiscard]] std::string getName() const;
+    [[nodiscard]] std::string getMunicipality() const;
+    [[nodiscard]] int getDelivery() const;
 };
 
 

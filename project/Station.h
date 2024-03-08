@@ -9,9 +9,9 @@ private:
     int id;
     std::string code;
 public:
-    Station(int id, std::string code): id(id), code(code) {};
-    int getId() const;
-    std::string getCode() const;
+    Station(int id, std::string code): id(id), code(std::move(code)) {};
+    [[nodiscard]] int getId() const;
+    [[nodiscard]] std::string getCode() const;
 };
 
 
