@@ -32,6 +32,9 @@ void Menu::run() {
         case '1':
             getNetworkInfo();
             break;
+        case '2':
+            waterSupply.maxFlow("C_1");
+            break;
         case '3':
             settings();
             break;

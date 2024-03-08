@@ -22,6 +22,7 @@ public:
     City getCity(std::string code);
     Reservoir getReservoir(std::string code);
     Station getStation(std::string code);
+    void maxFlow(std::string target);
 };
 
 
