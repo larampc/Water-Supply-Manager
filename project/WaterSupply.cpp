@@ -237,17 +237,6 @@ bool findAugPath(Graph* g, Vertex* src, Vertex* target){
                 }
             }
         }
-        for(Edge* adj : v->getIncoming()){
-            auto w = adj->getOrig();
-            if(!w->isVisited() && residualC(adj, false) > 0) {
-                w->setPath(adj);
-                aux.push(w);
-                w->setVisited(true);
-                if(w == target){
-                    return true;
-                }
-            }
-        }
     }
     return false;
 }
@@ -261,25 +250,38 @@ void getSuperSource(Graph* g) {
     }
 }
 
-void WaterSupply::maxFlow(std::string target) {
+void getSuperSink(Graph* g) {
+    g->addVertex("sink");
+    for(auto v: g->getVertexSet()){
+        if (v.first.substr(0,1) == "C") {
+            g->addEdge(v.first, "sink", INF);
+        }
+    }
+}
+
+void WaterSupply::maxFlow() {
     getSuperSource(&network);
+    getSuperSink(&network);
     for(auto v: network.getVertexSet()){
         for(Edge* e: v.second->getAdj()){
             e->setFlow(0);
         }
     }
     Vertex* src = network.findVertex("src");
-    Vertex* sink = network.findVertex(target);
+    Vertex* sink = network.findVertex("sink");
     while(findAugPath(&network, src, sink)){
         double cf = getCf(src, sink);
         augmentPath(src, sink, cf);
     }
-    Vertex* start = network.findVertex("src");
-    Vertex* end = network.findVertex(target);
-    while (start != end) {
-        cout << end->getPath()->getOrig()->getInfo() << endl;
-        end = end->getPath()->getOrig();
+    for (auto v: cities) {
+        Vertex* end = network.findVertex(v.first);
+        int count = 0;
+        for (Edge* e: end->getIncoming()) {
+            count += e->getFlow();
+        }
+        cout << end->getInfo() << " " << count << endl;
     }
     network.removeVertex("src");
+    network.removeVertex("sink");
 }
 

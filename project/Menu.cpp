@@ -22,7 +22,7 @@ void Menu::run() {
     ColorPrint("cyan", "1. ");
     ColorPrint("white", "Network Information \n");
     ColorPrint("cyan", "2. ");
-    ColorPrint("white", "--- \n");
+    ColorPrint("white", "Get max flow \n");
     ColorPrint("cyan", "3. ");
     ColorPrint("white", "Settings \n");
     ColorPrint("cyan", "4. ");
@@ -33,7 +33,7 @@ void Menu::run() {
             getNetworkInfo();
             break;
         case '2':
-            waterSupply.maxFlow("C_1");
+            waterSupply.maxFlow();
             break;
         case '3':
             settings();
