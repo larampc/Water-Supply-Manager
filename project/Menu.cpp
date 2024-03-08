@@ -22,16 +22,16 @@ void Menu::run() {
     ColorPrint("cyan", "1. ");
     ColorPrint("white", "Network Information \n");
     ColorPrint("cyan", "2. ");
-    ColorPrint("white", "Plan trip \n");
+    ColorPrint("white", "--- \n");
     ColorPrint("cyan", "3. ");
     ColorPrint("white", "Settings \n");
     ColorPrint("cyan", "4. ");
     ColorPrint("red", "Quit Manager \n");
     cin.sync();
-    for (auto n: waterSupply.getNetwork().getVertexSet()) {
-        cout << n.second->getInfo() << endl;
-    }
     switch (readOption(4)) {
+        case '1':
+            getNetworkInfo();
+            break;
         case '3':
             settings();
             break;
@@ -51,6 +51,36 @@ void Menu::settings() {
     if (readOption(2) == '1') {
         ColorPrint::swapColorMode();
         ColorPrint("cyan", ColorPrint::colorMode ? "Color mode enabled\n" : "Color mode disabled\n");
+    }
+    run();
+}
+
+void Menu::getNetworkInfo() {
+    ColorPrint("blue", "Select option:\n");
+    ColorPrint("cyan", "1. ");
+    ColorPrint("white", "Get Cities \n");
+    ColorPrint("cyan", "2. ");
+    ColorPrint("white", "Get Reservoirs \n");
+    ColorPrint("cyan", "3. ");
+    ColorPrint("white", "Get Stations \n");
+    ColorPrint("cyan", "4. ");
+    ColorPrint("red", "Cancel \n");
+    cin.sync();
+    switch (readOption(4)) {
+        case '1':
+            for (auto n: waterSupply.getNetwork().getVertexSet()) {
+                if (n.second->getInfo().substr(0, 1) == "C") cout << waterSupply.getCity(n.second->getInfo()).getName() << endl;
+            }
+            break;
+        case '2':
+            for (auto n: waterSupply.getNetwork().getVertexSet()) {
+                if (n.second->getInfo().substr(0, 1) == "R") cout << waterSupply.getReservoir(n.second->getInfo()).getName() << endl;
+            }
+            break;
+        case '3':
+            for (auto n: waterSupply.getNetwork().getVertexSet()) {
+                if (n.second->getInfo().substr(0, 2) == "PS") cout << waterSupply.getStation(n.second->getInfo()).getId() << endl;
+            }
     }
     run();
 }

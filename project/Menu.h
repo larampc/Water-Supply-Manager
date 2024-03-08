@@ -40,6 +40,7 @@ public:
      * \brief Outputs the settings menu and handles the respective inputs.
      */
     void settings();
+    void getNetworkInfo();
 };
 
 

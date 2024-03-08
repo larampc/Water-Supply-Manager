@@ -16,15 +16,17 @@ void WaterSupply::loadCities() {
     string line;
     getline(citiesFile, line);
     while (getline(citiesFile, line)) {
-        string city, id, code, demand, population;
+        string name, id, code, demand, population;
         istringstream iss(line);
-        getline(iss, city, ',');
+        getline(iss, name, ',');
         getline(iss, id, ',');
         getline(iss, code, ',');
         getline(iss, demand, ',');
         getline(iss, population);
-        cities.emplace(code, City(stoi(id), code, city, demand, population));
-        if (!code.empty()) network.addVertex(code);
+        if (!code.empty()) {
+            network.addVertex(code);
+            cities.emplace(code, City(stoi(id), code, name, demand, population));
+        }
     }
     citiesFile.close();
 }
@@ -45,8 +47,10 @@ void WaterSupply::loadReservoir() {
         getline(iss, id, ',');
         getline(iss, code, ',');
         getline(iss, maxDelivery, ',');
-        reservoirs.emplace(code, Reservoir(stoi(id), code, name, municipality, stoi(maxDelivery)));
-        if (!code.empty()) network.addVertex(code);
+        if (!code.empty()) {
+            network.addVertex(code);
+            reservoirs.emplace(code, Reservoir(stoi(id), code, name, municipality, stoi(maxDelivery)));
+        }
     }
     reservoirsFile.close();
 }
@@ -60,10 +64,43 @@ void WaterSupply::loadStations() {
         istringstream iss(line);
         getline(iss, id, ',');
         getline(iss, code, ',');
-        stations.emplace(code, Station(stoi(id), code));
-        if (!code.empty()) network.addVertex(code);
+        if (!code.empty()) {
+            network.addVertex(code);
+            stations.emplace(code, Station(stoi(id), code));
+        }
     }
     stationsFile.close();
 }
 
+City WaterSupply::getCity(std::string code) {
+    if (cities.find(code)!=cities.end()) return cities.at(code);
+}
+
+Reservoir WaterSupply::getReservoir(std::string code) {
+    if (reservoirs.find(code)!=reservoirs.end()) return reservoirs.at(code);
+}
+
+Station WaterSupply::getStation(std::string code) {
+    if (stations.find(code)!=stations.end()) return stations.at(code);
+}
+
+void WaterSupply::loadPipes() {
+    ifstream pipesFile("../dataSetSmall/Pipes_Madeira.csv");
+    string line;
+    getline(pipesFile, line);
+    while (getline(pipesFile, line)) {
+        string a, b, capacity, direction;
+        istringstream iss(line);
+        getline(iss, a, ',');
+        getline(iss, b, ',');
+        getline(iss, capacity, ',');
+        getline(iss, direction);
+        network.addEdge(a, b, stoi(capacity));
+        if (!stoi(direction)) {
+
+        }
+    }
+    pipesFile.close();
+
+}
 

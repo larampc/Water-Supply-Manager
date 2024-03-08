@@ -1,357 +1,620 @@
-//
-// Created by larap on 05/03/2024.
-//
+#ifndef DA_TP_CLASSES_GRAPH
+#define DA_TP_CLASSES_GRAPH
 
-#ifndef WATERSUPPLYMANAGER_GRAPH_H
-#define WATERSUPPLYMANAGER_GRAPH_H
-
-#include <cstddef>
+#include <iostream>
 #include <vector>
 #include <queue>
-#include <stack>
-#include <list>
+#include <limits>
 #include <algorithm>
 #include <unordered_map>
-#include <unordered_set>
-#include "../Station.h"
-
-using namespace std;
 
 class Edge;
-class Graph;
 
-/****************** Provided structures  ********************/
+#define INF std::numeric_limits<double>::max()
 
-/**
- * \class Vertex
- * \brief This is a class for representing a graph Vertex.
- *
- * This class keeps track of the Vertex Airport, Edges, in degree, number, low and if it was visited or is processing.
- */
+/************************* Vertex  **************************/
+
 class Vertex {
-    std::string info;               // contents
-    vector<Edge> adj;           // list of outgoing edges
-    bool visited;               // auxiliary field
-    bool processing;            // auxiliary field
-    int indegree = 0;               // auxiliary field
-    int num = 0;                    // auxiliary field
-    int low = 0;                    // auxiliary field
-
-    /**
-     * \brief Adds a new Edge to the Vertex.
-     *
-     * @param dest The destination Vertex of the new Edge.
-     * @param w The weight (Airline code) of the new Edge.
-     *
-     * \par Complexity
-     * O(1)
-     */
-    void addEdge(Vertex *dest, std::string w);
-    /**
-     * \brief Removes the Edge with the given destination Vertex.
-     *
-     * @param d The destination Vertex of the Edge to remove.
-     * @return True if removed an Edge, false otherwise.
-     *
-     * \par Complexity
-     * O(E) in which E is the number of edges of the vertex
-     */
-    bool removeEdgeTo(Vertex *d, const string& airline);
 public:
-    /**
-     * \brief Creates a new Vertex.
-     *
-     * @param in The Airport of the Vertex.
-     */
     Vertex(std::string in);
-    /**
-     * \brief Gets the Airport of the Vertex.
-     *
-     * @return The Airport of the Vertex.
-     *
-     * \par Complexity
-     * O(1)
-     */
+    bool operator<(Vertex & vertex) const; // required by MutablePriorityQueue
+
     std::string getInfo() const;
-    /**
-     * \brief Sets the Airport of the Vertex.
-     *
-     * @param in The Airport to set.
-     *
-     * \par Complexity
-     * O(1)
-     */
-    void setInfo(std::string in);
-    /**
-     * \brief Gets the visited status of the Vertex.
-     *
-     * @return True is is visited, false otherwise.
-     *
-     * \par Complexity
-     * O(1)
-     */
+    std::vector<Edge*> getAdj() const;
     bool isVisited() const;
-    /**
-     * \brief Sets the visited status of the Vertex.
-     *
-     * @param v The visited status to set.
-     *
-     * \par Complexity
-     * O(1)
-     */
-    void setVisited(bool v);
-    /**
-     * \brief Gets the processing status of the Vertex.
-     *
-     * @return True is is processing, false otherwise.
-     *
-     * \par Complexity
-     * O(1)
-     */
     bool isProcessing() const;
-    /**
-     * \brief Sets the processing status of the Vertex.
-     *
-     * @param p The processing status to set.
-     *
-     * \par Complexity
-     * O(1)
-     */
-    void setProcessing(bool p);
-    /**
-     * \brief Gets the Edges of the Vertex.
-     *
-     * @return The Edges of the Vertex.
-     *
-     * \par Complexity
-     * O(1)
-     */
-    const vector<Edge> &getAdj() const;
-    /**
-     * \brief Sets the Edges of the Vertex.
-     *
-     * @param adj The Edges to set.
-     *
-     * \par Complexity
-     * O(1)
-     */
-    void setAdj(const vector<Edge> &adj);
+    unsigned int getIndegree() const;
+    double getDist() const;
+    Edge *getPath() const;
+    std::vector<Edge *> getIncoming() const;
 
-    /**
-     * \brief Gets the in degree of the Vertex.
-     *
-     * @return The in degree of the Vertex.
-     *
-     * \par Complexity
-     * O(1)
-     */
-    int getIndegree() const;
-    /**
-     * \brief Sets the in degree of the Vertex.
-     *
-     * @param indegree The in degree to set.
-     *
-     * \par Complexity
-     * O(1)
-     */
-    void setIndegree(int indegree);
+    void setInfo(std::string info);
+    void setVisited(bool visited);
+    void setProcesssing(bool processing);
+    void setIndegree(unsigned int indegree);
+    void setDist(double dist);
+    void setPath(Edge *path);
+    Edge * addEdge(Vertex *dest, double w);
+    bool removeEdge(std::string in);
+    void removeOutgoingEdges();
 
-    /**
-     * \brief Gets the number of the Vertex.
-     *
-     * @return The number of the Vertex.
-     *
-     * \par Complexity
-     * O(1)
-     */
-    int getNum() const;
-    /**
-     * \brief Sets the number of the Vertex.
-     *
-     * @param num The number to set.
-     *
-     * \par Complexity
-     * O(1)
-     */
-    void setNum(int num);
+protected:
+    std::string info;                // info node
+    std::vector<Edge *> adj;  // outgoing edges
 
-    /**
-     * \brief Gets the low of the Vertex.
-     *
-     * @return The low of the Vertex.
-     *
-     * \par Complexity
-     * O(1)
-     */
-    int getLow() const;
-    /**
-     * \brief Sets the low of the Vertex.
-     *
-     * @param low The low to set.
-     *
-     * \par Complexity
-     * O(1)
-     */
-    void setLow(int low);
+    // auxiliary fields
+    bool visited = false; // used by DFS, BFS, Prim ...
+    bool processing = false; // used by isDAG (in addition to the visited attribute)
+    unsigned int indegree; // used by topsort
+    double dist = 0;
+    Edge *path = nullptr;
 
+    std::vector<Edge *> incoming; // incoming edges
 
-    friend class Graph;
+    int queueIndex = 0; 		// required by MutablePriorityQueue and UFDS
+
+    void deleteEdge(Edge *edge);
 };
 
-/**
- * \class Edge
- * \brief This is a class for representing a graph Edge (connection between two vertices of a graph).
- *
- * This class keeps track of the destination Vertex and the weight (Airline code) of the Edge.
- */
+/********************** Edge  ****************************/
+
+
 class Edge {
-    Vertex * dest;      // destination vertex
-    std::string weight;         // edge weight
 public:
-    /**
-     * \brief Creates a new Edge.
-     *
-     * @param d The destination Vertex of the Edge.
-     * @param w The weight (Airline code) of the Edge.
-     */
-    Edge(Vertex *d, std::string w);
-    /**
-     * \brief Gets the destination Vertex of the Edge.
-     *
-     * @return The destination Vertex of the Edge.
-     *
-     * \par Complexity
-     * O(1)
-     */
-    Vertex *getDest() const;
-    /**
-     * \brief Sets the destination Vertex of the Edge.
-     *
-     * @param dest The destination Vertex to set.
-     *
-     * \par Complexity
-     * O(1)
-     */
-    void setDest(Vertex *dest);
-    /**
-     * \brief Gets the weight (Airline code) of the Edge.
-     *
-     * @return The weight (Airline code) of the Edge.
-     *
-     * \par Complexity
-     * O(1)
-     */
-    std::string getWeight() const;
-    /**
-     * \brief Sets the weight (Airline code) of the Edge.
-     *
-     * @param airline The weight (Airline code) to set.
-     *
-     * \par Complexity
-     * O(1)
-     */
-    void setWeight(std::string airline);
-    friend class Graph;
-    friend class Vertex;
+    Edge(Vertex *orig, Vertex *dest, double w);
+
+    Vertex * getDest() const;
+    double getWeight() const;
+    bool isSelected() const;
+    Vertex * getOrig() const;
+    Edge *getReverse() const;
+    double getFlow() const;
+
+    void setSelected(bool selected);
+    void setReverse(Edge *reverse);
+    void setFlow(double flow);
+protected:
+    Vertex * dest; // destination vertex
+    double weight; // edge weight, can also be used for capacity
+
+    // auxiliary fields
+    bool selected = false;
+
+    // used for bidirectional edges
+    Vertex *orig;
+    Edge *reverse = nullptr;
+
+    double flow; // for flow-related problems
 };
+
+/********************** Graph  ****************************/
+
+
+class Graph {
+public:
+    ~Graph();
+    /*
+    * Auxiliary function to find a vertex with a given the content.
+    */
+    Vertex *findVertex(const std::string &in) const;
+    /*
+     *  Adds a vertex with a given content or info (in) to a graph (this).
+     *  Returns true if successful, and false if a vertex with that content already exists.
+     */
+    bool addVertex(const std::string &in);
+    bool removeVertex(const std::string &in);
+
+    /*
+     * Adds an edge to a graph (this), given the contents of the source and
+     * destination vertices and the edge weight (w).
+     * Returns true if successful, and false if the source or destination vertex does not exist.
+     */
+    bool addEdge(const std::string &sourc, const std::string &dest, double w);
+    bool removeEdge(const std::string &source, const std::string &dest);
+    bool addBidirectionalEdge(const std::string &sourc, const std::string &dest, double w);
+
+    int getNumVertex() const;
+    std::unordered_map<std::string, Vertex*> getVertexSet() const;
+
+    std::vector<std::string> dfs() const;
+    std::vector<std::string> dfs(const std::string & source) const;
+    void dfsVisit(Vertex *v,  std::vector<std::string> & res) const;
+    std::vector<std::string> bfs(const std::string & source) const;
+
+    bool isDAG() const;
+    bool dfsIsDAG(Vertex *v) const;
+    std::vector<std::string> topsort() const;
+protected:
+    std::unordered_map<std::string, Vertex *> vertexSet;    // vertex set
+
+    double ** distMatrix = nullptr;   // dist matrix for Floyd-Warshall
+    int **pathMatrix = nullptr;   // path matrix for Floyd-Warshall
+
+    /*
+     * Finds the index of the vertex with a given content.
+     */
+    int findVertexIdx(const std::string& in) const;
+};
+
+void deleteMatrix(int **m, int n);
+void deleteMatrix(double **m, int n);
+
+
+/************************* Vertex  **************************/
+
+
+Vertex::Vertex(std::string in): info(in) {}
+/*
+ * Auxiliary function to add an outgoing edge to a vertex (this),
+ * with a given destination vertex (d) and edge weight (w).
+ */
+
+Edge * Vertex::addEdge(Vertex *d, double w) {
+    auto newEdge = new Edge(this, d, w);
+    adj.push_back(newEdge);
+    d->incoming.push_back(newEdge);
+    return newEdge;
+}
+
+/*
+ * Auxiliary function to remove an outgoing edge (with a given destination (d))
+ * from a vertex (this).
+ * Returns true if successful, and false if such edge does not exist.
+ */
+
+bool Vertex::removeEdge(std::string in) {
+    bool removedEdge = false;
+    auto it = adj.begin();
+    while (it != adj.end()) {
+        Edge *edge = *it;
+        Vertex *dest = edge->getDest();
+        if (dest->getInfo() == in) {
+            it = adj.erase(it);
+            deleteEdge(edge);
+            removedEdge = true; // allows for multiple edges to connect the same pair of vertices (multigraph)
+        }
+        else {
+            it++;
+        }
+    }
+    return removedEdge;
+}
+
+/*
+ * Auxiliary function to remove an outgoing edge of a vertex.
+ */
+
+void Vertex::removeOutgoingEdges() {
+    auto it = adj.begin();
+    while (it != adj.end()) {
+        Edge *edge = *it;
+        it = adj.erase(it);
+        deleteEdge(edge);
+    }
+}
+
+
+bool Vertex::operator<(Vertex & vertex) const {
+    return this->dist < vertex.dist;
+}
+
+std::string
+Vertex::getInfo() const {
+    return this->info;
+}
+
+std::vector<Edge*> Vertex::getAdj() const {
+    return this->adj;
+}
+
+bool Vertex::isVisited() const {
+    return this->visited;
+}
+
+bool Vertex::isProcessing() const {
+    return this->processing;
+}
+
+unsigned int Vertex::getIndegree() const {
+    return this->indegree;
+}
+
+double Vertex::getDist() const {
+    return this->dist;
+}
+
+Edge *Vertex::getPath() const {
+    return this->path;
+}
+
+std::vector<Edge *> Vertex::getIncoming() const {
+    return this->incoming;
+}
+
+void Vertex::setInfo(std::string in) {
+    this->info = in;
+}
+
+void Vertex::setVisited(bool visited) {
+    this->visited = visited;
+}
+
+void Vertex::setProcesssing(bool processing) {
+    this->processing = processing;
+}
+
+void Vertex::setIndegree(unsigned int indegree) {
+    this->indegree = indegree;
+}
+
+void Vertex::setDist(double dist) {
+    this->dist = dist;
+}
+
+void Vertex::setPath(Edge *path) {
+    this->path = path;
+}
+
+void Vertex::deleteEdge(Edge *edge) {
+    Vertex *dest = edge->getDest();
+    // Remove the corresponding edge from the incoming list
+    auto it = dest->incoming.begin();
+    while (it != dest->incoming.end()) {
+        if ((*it)->getOrig()->getInfo() == info) {
+            it = dest->incoming.erase(it);
+        }
+        else {
+            it++;
+        }
+    }
+    delete edge;
+}
+
+/********************** Edge  ****************************/
+
+
+Edge::Edge(Vertex *orig, Vertex *dest, double w): orig(orig), dest(dest), weight(w) {}
+
+Vertex * Edge::getDest() const {
+    return this->dest;
+}
+
+double Edge::getWeight() const {
+    return this->weight;
+}
+
+Vertex * Edge::getOrig() const {
+    return this->orig;
+}
+
+Edge *Edge::getReverse() const {
+    return this->reverse;
+}
+
+bool Edge::isSelected() const {
+    return this->selected;
+}
+
+double Edge::getFlow() const {
+    return flow;
+}
+
+void Edge::setSelected(bool selected) {
+    this->selected = selected;
+}
+
+void Edge::setReverse(Edge *reverse) {
+    this->reverse = reverse;
+}
+
+void Edge::setFlow(double flow) {
+    this->flow = flow;
+}
+
+/********************** Graph  ****************************/
+
+
+int Graph::getNumVertex() const {
+    return vertexSet.size();
+}
+
+std::unordered_map<std::string, Vertex*> Graph::getVertexSet() const {
+    return vertexSet;
+}
+
+/*
+ * Auxiliary function to find a vertex with a given content.
+ */
+Vertex* Graph::findVertex(const std::string&in) const {
+    return vertexSet.at(in);
+}
+
+
+/*
+ *  Adds a vertex with a given content or info (in) to a graph (this).
+ *  Returns true if successful, and false if a vertex with that content already exists.
+ */
+bool Graph::addVertex(const std::string &in) {
+    vertexSet.emplace(in, new Vertex(in));
+    return true;
+}
+
+/*
+ *  Removes a vertex with a given content (in) from a graph (this), and
+ *  all outgoing and incoming edges.
+ *  Returns true if successful, and false if such vertex does not exist.
+ */
+
+bool Graph::removeVertex(const std::string& in) {
+    auto it = vertexSet.find(in);
+    if (it != vertexSet.end()) {
+        Vertex* v = it->second;
+        v->removeOutgoingEdges();
+        for (auto u: vertexSet) {
+            (u.second)->removeEdge(v->getInfo());
+        }
+            vertexSet.erase(it);
+            delete v;
+            return true;
+        }
+    return false;
+}
+
+/*
+ * Adds an edge to a graph (this), given the contents of the source and
+ * destination vertices and the edge weight (w).
+ * Returns true if successful, and false if the source or destination vertex does not exist.
+ */
+
+bool Graph::addEdge(const std::string &sourc, const std::string& dest, double w) {
+    auto v1 = findVertex(sourc);
+    auto v2 = findVertex(dest);
+    if (v1 == nullptr || v2 == nullptr)
+        return false;
+    v1->addEdge(v2, w);
+    return true;
+}
+
+/*
+ * Removes an edge from a graph (this).
+ * std::string
+ * he edge is identified by the source (sourc) and destination (dest) contents.
+ * Returns true if successful, and false if such edge does not exist.
+ */
+bool Graph::removeEdge(const std::string& sourc, const std::string& dest) {
+    Vertex * srcVertex = findVertex(sourc);
+    if (srcVertex == nullptr) {
+        return false;
+    }
+    return srcVertex->removeEdge(dest);
+}
+
+bool Graph::addBidirectionalEdge(const std::string& sourc, const std::string& dest, double w) {
+    auto v1 = findVertex(sourc);
+    auto v2 = findVertex(dest);
+    if (v1 == nullptr || v2 == nullptr)
+        return false;
+    auto e1 = v1->addEdge(v2, w);
+    auto e2 = v2->addEdge(v1, w);
+    e1->setReverse(e2);
+    e2->setReverse(e1);
+    return true;
+}
+
+/****************** DFS ********************/
+
+/*
+ * Performs a depth-first search (dfs) traversal in a graph (this).
+ * Returns a vector with the contents of the vertices by dfs order.
+ */
+
+std::vector<std::string> Graph::dfs() const {
+    std::vector<std::string> res;
+    for (auto v : vertexSet)
+        v.second->setVisited(false);
+    for (auto v : vertexSet)
+        if (!v.second->isVisited())
+            dfsVisit(v.second, res);
+    return res;
+}
+
+/*
+ * Performs a depth-first search (dfs) in a graph (this) from the source node.
+ * Returns a vector with the contents of the vertices by dfs order.
+ */
+
+std::vector<std::string> Graph::dfs(const std::string& source) const {
+    std::vector<std::string> res;
+    // Get the source vertex
+    auto s = findVertex(source);
+    if (s == nullptr) {
+        return res;
+    }
+    // Set that no vertex has been visited yet
+    for (auto v : vertexSet) {
+        v.second->setVisited(false);
+    }
+    // Perform the actual DFS using recursion
+    dfsVisit(s, res);
+
+    return res;
+}
+
+/*
+ * Auxiliary function that visits a vertex (v) and its adjacent, recursively.
+ * Updates a parameter with the list of visited node contents.
+ */
+
+void Graph::dfsVisit(Vertex *v, std::vector<std::string> & res) const {
+    v->setVisited(true);
+    res.push_back(v->getInfo());
+    for (auto & e : v->getAdj()) {
+        auto w = e->getDest();
+        if (!w->isVisited()) {
+            dfsVisit(w, res);
+        }
+    }
+}
+
+/****************** BFS ********************/
+/*
+ * Performs a breadth-first search (bfs) in a graph (this), starting
+ * from the vertex with the given source contents (source).
+ * Returns a vector with the contents of the vertices by bfs order.
+ */
+
+std::vector<std::string> Graph::bfs(const std::string
+& source) const {
+    std::vector<std::string> res;
+    // Get the source vertex
+    auto s = findVertex(source);
+    if (s == nullptr) {
+        return res;
+    }
+
+    // Set that no vertex has been visited yet
+    for (auto v : vertexSet) {
+        v.second->setVisited(false);
+    }
+
+    // Perform the actual BFS using a queue
+    std::queue<Vertex *> q;
+    q.push(s);
+    s->setVisited(true);
+    while (!q.empty()) {
+        auto v = q.front();
+        q.pop();
+        res.push_back(v->getInfo());
+        for (auto & e : v->getAdj()) {
+            auto w = e->getDest();
+            if ( ! w->isVisited()) {
+                q.push(w);
+                w->setVisited(true);
+            }
+        }
+    }
+    return res;
+}
+
+/****************** isDAG  ********************/
+/*
+ * Performs a depth-first search in a graph (this), to determine if the graph
+ * is acyclic (acyclic directed graph or DAG).
+ * During the search, a cycle is found if an edge connects to a vertex
+ * that is being processed in the stack of recursive calls (see theoretical classes).
+ * Returns true if the graph is acyclic, and false otherwise.
+ */
+
+bool Graph::isDAG() const {
+    for (auto v : vertexSet) {
+        v.second->setVisited(false);
+        v.second->setProcesssing(false);
+    }
+    for (auto v : vertexSet) {
+        if (! v.second->isVisited()) {
+            if ( ! dfsIsDAG(v.second) ) return false;
+        }
+    }
+    return true;
+}
 
 /**
- * \class Graph
- * \brief This is a class for representing a Graph.
- *
- * This class keeps track of the vertices and their respective Airport.
+ * Auxiliary function that visits a vertex (v) and its adjacent, recursively.
+ * Returns false (not acyclic) if an edge to a vertex in the stack is found.
  */
-class Graph {
-    unordered_map<std::string, Vertex*> vertexMap;
-public:
-    /**
-     * \brief Gets the Vertex of the given Airport.
-     *
-     * @param in The Airport of the Vertex.
-     * @return The Vertex of the given Airport.
-     *
-     * \par Complexity
-     * O(1)
-     */
-    Vertex* findVertex(const string &in) const;
-    /**
-     * \brief Gets the total number of Vertex in the Graph.
-     *
-     * @return The total number of Vertex in the Graph.
-     *
-     * \par Complexity
-     * O(1)
-     */
-    size_t getNumVertex() const;
-    /**
-     * \brief Creates and adds a new Vertex to the Graph.
-     *
-     * @param in The Airport of the new Vertex.
-     * @return False if Vertex already exists, true otherwise.
-     *
-     * \par Complexity
-     * O(1)
-     */
-    bool addVertex(const string &in);
-    /**
-     * \brief Removes the Vertex with the given Airport from the Graph.
-     *
-     * @param in The Airport of the Vertex to remove.
-     * @return False if nothing was removed, true otherwise.
-     *
-     * \par Complexity
-     * O(1)
-     */
-    bool removeVertex(const string &in);
-    /**
-     * \brief Creates and adds a new Edge from the source Vertex to the destination Vertex.
-     *
-     * @param sourc The Airport of the source Vertex.
-     * @param dest The Airport of the destination Vertex.
-     * @param w The weight (Airline code) of the Edge to create.
-     * @return False if either the source or destination Vertex doesn't exist, true otherwise.
-     *
-     * \par Complexity
-     * O(1)
-     */
-    bool addEdge(const string &sourc, const string &dest, std::string w);
-    /**
-     * \brief Removes Edge from the source Vertex to the destination Vertex with the corresponding weight.
-     *
-     * @param sourc The Airport of the source Vertex.
-     * @param dest The Airport of the destination Vertex.
-     * @param airline The airline of the Edge to remove
-     * @return False if the Edge was not found, True on successful removal.
-     *
-     * \par Complexity
-     * O(E) in which E is the number of edges of the vertex
-     */
-    bool removeEdge(const string &sourc, const string &dest, const string& airline);
-    /**
-     * \brief Gets the VertexSet of the Graph.
-     *
-     * @return The VertexSet of the Graph.
-     *
-     * \par Complexity
-     * O(1)
-     */
-    unordered_map<std::string, Vertex *> getVertexSet() const;
-    /**
-     * \brief Resets all the vertices in the graph to the initial state.
-     *
-     * \par Complexity
-     * O(V)
-     */
-    void resetVertex() const;
-    /**
-      * \brief Maximum trip (number of stops) and corresponding pair of source-destination airports.
-      *
-      * @return The maximum number of stops in one trip and the pair source-destination of that trip.
-      *
-      * \par Complexity
-      * O(V(V+E))
-      */
-};
+
+bool Graph::dfsIsDAG(Vertex *v) const {
+    v->setVisited(true);
+    v->setProcesssing(true);
+    for (auto e : v->getAdj()) {
+        auto w = e->getDest();
+        if (w->isProcessing()) return false;
+        if (! w->isVisited()) {
+            if (! dfsIsDAG(w)) return false;
+        }
+    }
+    v->setProcesssing(false);
+    return true;
+}
+
+/****************** toposort ********************/
+//=============================================================================
+// Exercise 1: std::string
+// opological Sorting
+//=============================================================================
+// std::string
+// ODO
+/*
+ * Performs a topological sorting of the vertices of a graph (this).
+ * Returns a vector with the contents of the vertices by topological order.
+ * If the graph has cycles, returns an empty vector.
+ * Follows the algorithm described in theoretical classes.
+ */
 
 
-#endif //WATERSUPPLYMANAGER_GRAPH_H
+std::vector<std::string> Graph::topsort() const {
+    std::vector<std::string> res;
+
+    for (auto v : vertexSet) {
+        v.second->setIndegree(0);
+    }
+    for (auto v : vertexSet) {
+        for (auto e : v.second->getAdj()) {
+            unsigned int indegree = e->getDest()->getIndegree();
+            e->getDest()->setIndegree(indegree + 1);
+        }
+    }
+
+    std::queue<Vertex *> q;
+    for (auto v : vertexSet) {
+        if (v.second->getIndegree() == 0) {
+            q.push(v.second);
+        }
+    }
+
+    while( !q.empty() ) {
+        Vertex * v = q.front();
+        q.pop();
+        res.push_back(v->getInfo());
+        for(auto e : v->getAdj()) {
+            auto w = e->getDest();
+            w->setIndegree(w->getIndegree() - 1);
+            if(w->getIndegree() == 0) {
+                q.push(w);
+            }
+        }
+    }
+
+    if ( res.size() != vertexSet.size() ) {
+        //std::cout << "Impossible topological ordering!" << std::endl;
+        res.clear();
+        return res;
+    }
+
+    return res;
+}
+
+inline void deleteMatrix(int **m, int n) {
+    if (m != nullptr) {
+        for (int i = 0; i < n; i++)
+            if (m[i] != nullptr)
+                delete [] m[i];
+        delete [] m;
+    }
+}
+
+inline void deleteMatrix(double **m, int n) {
+    if (m != nullptr) {
+        for (int i = 0; i < n; i++)
+            if (m[i] != nullptr)
+                delete [] m[i];
+        delete [] m;
+    }
+}
+
+Graph::~Graph() {
+    deleteMatrix(distMatrix, vertexSet.size());
+    deleteMatrix(pathMatrix, vertexSet.size());
+}
+
+#endif /* DA_TP_CLASSES_GRAPH */

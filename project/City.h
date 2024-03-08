@@ -1,7 +1,7 @@
 #ifndef WATERSUPPLYMANAGER_CITY_H
 #define WATERSUPPLYMANAGER_CITY_H
 
-#include "Station.h"
+#include <string>
 
 class City {
 private:

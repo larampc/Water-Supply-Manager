@@ -1,7 +1,7 @@
 #ifndef WATERSUPPLYMANAGER_RESERVOIR_H
 #define WATERSUPPLYMANAGER_RESERVOIR_H
 
-#include "Station.h"
+#include <string>
 
 class Reservoir {
 private:
