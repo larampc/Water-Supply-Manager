@@ -9,12 +9,12 @@ private:
     std::string code;
     std::string name;
     std::string demand;
-    std::string population;
+    unsigned population;
 public:
-    City(int id, std::string code, std::string name, std::string demand, std::string population): id(id), code(std::move(code)), name(std::move(name)), demand(std::move(demand)), population(std::move(population)) {};
+    City(int id, std::string code, std::string name, std::string demand, int population): id(id), code(std::move(code)), name(std::move(name)), demand(std::move(demand)), population(population) {};
     [[nodiscard]] std::string getName() const;
     [[nodiscard]] std::string getDemand() const;
-    [[nodiscard]] std::string getPopulation() const;
+    [[nodiscard]] unsigned getPopulation() const;
 };
 
 
