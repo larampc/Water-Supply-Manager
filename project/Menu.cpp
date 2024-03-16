@@ -72,18 +72,21 @@ void Menu::getNetworkInfo() {
     cin.sync();
     switch (readOption(4)) {
         case '1':
+            ColorPrint("blue", "Code | City | Demand | Population\n");
             for (auto c: waterSupply.getCities()) {
-                cout << c.second.getName() << endl;
+                ColorPrint("white", c.first + " | " + c.second.getName() + " | " + c.second.getDemand() + " | " + to_string(c.second.getPopulation()) + "\n");
             }
             break;
         case '2':
+            ColorPrint("blue", "Code | Reservoir | Municipality | Max Delivery \n");
             for (auto r: waterSupply.getReservoirs()) {
-                cout << r.second.getName() << endl;
+                ColorPrint("white", r.first + " |  " + r.second.getName() + " | " + r.second.getMunicipality() + " | " + to_string(r.second.getDelivery()) + "\n");
             }
             break;
         case '3':
+            ColorPrint("blue", "Code\n");
             for (auto s: waterSupply.getStations()) {
-                cout << s.second.getCode() << endl;
+                ColorPrint("white", s.first + "\n");
             }
     }
     run();
