@@ -412,7 +412,7 @@ vector<City> WaterSupply::getCityMaxDemand() {
             max.push_back(c.second);
             maxDemand = c.second.getDemand();
         }
-        if (c.second.getDemand() == maxDemand) {
+        else if (c.second.getDemand() == maxDemand) {
             max.push_back(c.second);
         }
     }
@@ -428,7 +428,7 @@ vector<City> WaterSupply::getCityMinDemand() {
             max.push_back(c.second);
             minDemand = c.second.getDemand();
         }
-        if (c.second.getDemand() == minDemand) {
+        else if (c.second.getDemand() == minDemand) {
             max.push_back(c.second);
         }
     }
