@@ -32,6 +32,8 @@ public:
     std::string existsReservoirByID(int id);
     bool existsReservoirByCode(std::string code);
     std::vector<Reservoir> existsMunicipality(std::string municipality);
+    void getSuperSource();
+    void getSuperSink();
     void maxFlow();
     void computeAverageAndVarianceOfPipes();
     void computeCitiesStatistics();

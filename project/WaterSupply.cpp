@@ -253,27 +253,23 @@ bool findAugPath(Graph* g, Vertex* src, Vertex* target){
     return false;
 }
 
-void getSuperSource(Graph* g) {
-    g->addVertex("src");
-    for(auto v: g->getVertexSet()){
-        if (v.first.substr(0,1) == "R") {
-            g->addEdge("src", v.first, INF);
-        }
+void WaterSupply::getSuperSource() {
+    network.addVertex("src");
+    for(auto v: reservoirs) {
+        network.addEdge("src", v.first, v.second.getDelivery());
     }
 }
 
-void getSuperSink(Graph* g) {
-    g->addVertex("sink");
-    for(auto v: g->getVertexSet()){
-        if (v.first.substr(0,1) == "C") {
-            g->addEdge(v.first, "sink", INF);
-        }
+void WaterSupply::getSuperSink() {
+    network.addVertex("sink");
+    for(auto v: cities) {
+        network.addEdge( v.first, "sink", v.second.getDemand());
     }
 }
 
 void WaterSupply::maxFlow() {
-    getSuperSource(&network);
-    getSuperSink(&network);
+    getSuperSource();
+    getSuperSink();
     for(auto v: network.getVertexSet()){
         for(Edge* e: v.second->getAdj()){
             e->setFlow(0);
@@ -292,10 +288,9 @@ void WaterSupply::maxFlow() {
         for (Edge* e: end->getIncoming()) {
             count += e->getFlow();
         }
-        cout << end->getInfo() << " " << count << ((getCity(end->getInfo()).getDemand()) < count? " Meets demand" : " Doesn't meet demand") << endl;
         total += count;
     }
-    cout << "Total " << total;
+    cout << "Total " << total << endl;
     network.removeVertex("src");
     network.removeVertex("sink");
 }
@@ -337,7 +332,7 @@ void WaterSupply::computeCitiesStatistics() {
         cout << "City " << v.second.getName();
         if ((v.second.getDemand()) < flow) cout << " Over demand by " << flow - (v.second.getDemand()) << "." << endl;
         else if ((v.second.getDemand()) > flow) cout << " Under demand by " << (v.second.getDemand()) - flow << "." << endl;
-        else cout << " Exactly on demand." << endl;
+        else cout << " Exactly on demand. " << v.second.getDemand() << endl;
     }
 }
 

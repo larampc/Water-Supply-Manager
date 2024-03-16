@@ -143,6 +143,7 @@ void Menu::run() {
                 break;
             case '2':
                 waterSupply.maxFlow();
+                waterSupply.computeCitiesStatistics();
                 break;
             case '3':
                 settings();
@@ -238,7 +239,7 @@ void Menu::getCityInfo() {
 }
 
 void Menu::printCity(City city) {
-    ColorPrint("white", city.getCode() + " | " + city.getName() + " | " + convertDouble(city.getDemand()) + " | " + to_string(city.getPopulation()) + "\n");
+    ColorPrint("white", city.getCode() + " | " + city.getName() + " | " + to_string(city.getDemand()) + " | " + to_string(city.getPopulation()) + "\n");
 }
 
 void Menu::getReservoirInfo() {
