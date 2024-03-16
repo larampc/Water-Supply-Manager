@@ -34,6 +34,7 @@ public:
     std::vector<Reservoir> existsMunicipality(std::string municipality);
     void maxFlow();
     void computeAverageAndVarianceOfPipes();
+    void computeCitiesStatistics();
 };
 
 
