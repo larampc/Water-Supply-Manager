@@ -40,7 +40,6 @@ void WaterSupply::loadCities() {
         istringstream iss(string(s.begin(), s.end()));
         iss.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t,0x10ffff, std::consume_header>));
         getline(iss, name, ',');
-        cout << name;
         getline(iss, id, ',');
         getline(iss, code, ',');
         getline(iss, demand, ',');
