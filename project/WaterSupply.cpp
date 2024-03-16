@@ -476,7 +476,7 @@ std::vector<Reservoir> WaterSupply::getReservoirMaxDel() {
             max.push_back(c.second);
             maxDel = c.second.getDelivery();
         }
-        if (c.second.getDelivery() == maxDel) {
+        else if (c.second.getDelivery() == maxDel) {
             max.push_back(c.second);
         }
     }
@@ -492,7 +492,7 @@ std::vector<Reservoir> WaterSupply::getReservoirMinDel() {
             max.push_back(c.second);
             maxDel = c.second.getDelivery();
         }
-        if (c.second.getDelivery() == maxDel) {
+        else if (c.second.getDelivery() == maxDel) {
             max.push_back(c.second);
         }
     }
