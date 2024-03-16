@@ -299,7 +299,6 @@ bool compareString(string s1, string s2) {
 string WaterSupply::existsCityByName(std::string name) {
     for (const auto& c: cities) {
         string nameC = c.second.getName();
-        cout << c.second.getName();
         transform(nameC.begin(), nameC.end(), nameC.begin(), ::toupper);
         if (compareString(nameC, name)) return c.first;
     }
