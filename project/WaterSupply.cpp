@@ -273,6 +273,7 @@ void WaterSupply::maxFlow() {
         double cf = getCf(src, sink);
         augmentPath(src, sink, cf);
     }
+    int total = 0;
     for (auto v: cities) {
         Vertex* end = network.findVertex(v.first);
         int count = 0;
@@ -280,7 +281,9 @@ void WaterSupply::maxFlow() {
             count += e->getFlow();
         }
         cout << end->getInfo() << " " << count << endl;
+        total += count;
     }
+    cout << "Total" << total;
     network.removeVertex("src");
     network.removeVertex("sink");
 }
