@@ -14,6 +14,106 @@ char Menu::readOption(int n){
     return option[0];
 }
 
+string Menu::readCityCode(){
+    string code;
+    ColorPrint("cyan", "City code: \n");
+    getline(cin, code);
+    transform(code.begin(), code.end(), code.begin(), ::toupper);
+    while(!waterSupply.existsCityByCode(code)) {
+        ColorPrint("red","Invalid city code, please try again\n");
+        getline(cin, code);
+        transform(code.begin(), code.end(), code.begin(), ::toupper);
+    }
+    return code;
+}
+
+string Menu::readReservoirCode(){
+    string code;
+    ColorPrint("cyan", "Reservoir code: \n");
+    getline(cin, code);
+    transform(code.begin(), code.end(), code.begin(), ::toupper);
+    while(!waterSupply.existsReservoirByCode(code)) {
+        ColorPrint("red","Invalid reservoir code, please try again\n");
+        getline(cin, code);
+        transform(code.begin(), code.end(), code.begin(), ::toupper);
+    }
+    return code;
+}
+
+
+string Menu::readCityId(){
+    string id;
+    ColorPrint("cyan", "City ID: \n");
+    getline(cin, id);
+    string code = waterSupply.existsCityByID(stoi(id));
+    while(code.empty()) {
+        ColorPrint("red","Invalid city ID, please try again\n");
+        getline(cin, id);
+        code = waterSupply.existsCityByID(stoi(id));
+    }
+    return code;
+}
+
+string Menu::readReservoirID(){
+    string id;
+    ColorPrint("cyan", "Reservoir ID: \n");
+    getline(cin, id);
+    string code = waterSupply.existsReservoirByID(stoi(id));
+    while(code.empty()) {
+        ColorPrint("red","Invalid reservoir ID, please try again\n");
+        getline(cin, id);
+        code = waterSupply.existsReservoirByID(stoi(id));
+    }
+    return code;
+}
+
+
+string Menu::readCityName(){
+    string name;
+    ColorPrint("cyan", "City Name: \n");
+    getline(cin, name);
+    transform(name.begin(), name.end(), name.begin(), ::toupper);
+    string code = waterSupply.existsCityByName(name);
+    while(code.empty()) {
+        ColorPrint("red","Invalid city name, please try again\n");
+        getline(cin, name);
+        transform(name.begin(), name.end(), name.begin(), ::toupper);
+        code = waterSupply.existsCityByName(name);
+    }
+    return code;
+}
+
+string Menu::readReservoirName(){
+    string name;
+    ColorPrint("cyan", "Reservoir Name: \n");
+    getline(cin, name);
+    transform(name.begin(), name.end(), name.begin(), ::toupper);
+    string code = waterSupply.existsReservoirByName(name);
+    while(code.empty()) {
+        ColorPrint("red","Invalid reservoir name, please try again\n");
+        getline(cin, name);
+        transform(name.begin(), name.end(), name.begin(), ::toupper);
+        code = waterSupply.existsReservoirByName(name);
+    }
+    return code;
+}
+vector<Reservoir> Menu::readReservoirMunicipality(){
+    string municipality;
+    ColorPrint("cyan", "Municipality: \n");
+    getline(cin, municipality);
+    transform(municipality.begin(), municipality.end(), municipality.begin(), ::toupper);
+    vector<Reservoir> res = waterSupply.existsMunicipality(municipality);
+    while(res.empty()) {
+        ColorPrint("red","Invalid municipality, please try again\n");
+        getline(cin, municipality);
+        transform(municipality.begin(), municipality.end(), municipality.begin(), ::toupper);
+        res = waterSupply.existsMunicipality(municipality);
+    }
+    return res;
+}
+
+
+
 void Menu::run() {
     while (true) {
         ColorPrint("blue", "\n-----------------------------------\n");
@@ -62,9 +162,9 @@ void Menu::settings() {
 void Menu::getNetworkInfo() {
     ColorPrint("blue", "Select option:\n");
     ColorPrint("cyan", "1. ");
-    ColorPrint("white", "Get Cities \n");
+    ColorPrint("white", "Get City info \n");
     ColorPrint("cyan", "2. ");
-    ColorPrint("white", "Get Reservoirs \n");
+    ColorPrint("white", "Get Reservoir info \n");
     ColorPrint("cyan", "3. ");
     ColorPrint("white", "Get Stations \n");
     ColorPrint("cyan", "4. ");
@@ -72,16 +172,10 @@ void Menu::getNetworkInfo() {
     cin.sync();
     switch (readOption(4)) {
         case '1':
-            ColorPrint("blue", "Code | City | Demand | Population\n");
-            for (auto c: waterSupply.getCities()) {
-                ColorPrint("white", c.first + " | " + c.second.getName() + " | " + c.second.getDemand() + " | " + to_string(c.second.getPopulation()) + "\n");
-            }
+            getCityInfo();
             break;
         case '2':
-            ColorPrint("blue", "Code | Reservoir | Municipality | Max Delivery \n");
-            for (auto r: waterSupply.getReservoirs()) {
-                ColorPrint("white", r.first + " |  " + r.second.getName() + " | " + r.second.getMunicipality() + " | " + to_string(r.second.getDelivery()) + "\n");
-            }
+            getReservoirInfo();
             break;
         case '3':
             ColorPrint("blue", "Code\n");
@@ -89,5 +183,106 @@ void Menu::getNetworkInfo() {
                 ColorPrint("white", s.first + "\n");
             }
     }
-    run();
 }
+
+void Menu::getCityInfo() {
+    ColorPrint("blue", "Select option:\n");
+    ColorPrint("cyan", "1. ");
+    ColorPrint("white", "Search by code\n");
+    ColorPrint("cyan", "2. ");
+    ColorPrint("white", "Search by name\n");
+    ColorPrint("cyan", "3. ");
+    ColorPrint("white", "Search by ID\n");
+    ColorPrint("cyan", "4. ");
+    ColorPrint("white", "List all cities \n");
+    ColorPrint("cyan", "5. ");
+    ColorPrint("white", "Statistics \n");
+    ColorPrint("cyan", "6. ");
+    ColorPrint("red", "Cancel \n");
+    cin.sync();
+    string code;
+    switch (readOption(6)) {
+        case '1':
+            code = readCityCode();
+            ColorPrint("blue", "Code | City | Demand | Population\n");
+            printCity(waterSupply.getCity(code));
+            break;
+        case '2':
+            code = readCityName();
+            ColorPrint("blue", "Code | City | Demand | Population\n");
+            printCity(waterSupply.getCity(code));
+            break;
+        case '3':
+            code = readCityId();
+            ColorPrint("blue", "Code | City | Demand | Population\n");
+            printCity(waterSupply.getCity(code));
+            break;
+        case '4':
+            ColorPrint("blue", "Code | City | Demand | Population\n");
+            for (auto c: waterSupply.getCities()) {
+                printCity(c.second);
+            }
+            break;
+    }
+}
+
+void Menu::printCity(City city) {
+    ColorPrint("white", city.getCode() + " | " + city.getName() + " | " + city.getDemand() + " | " + to_string(city.getPopulation()) + "\n");
+}
+
+void Menu::getReservoirInfo() {
+    ColorPrint("blue", "Select option:\n");
+    ColorPrint("cyan", "1. ");
+    ColorPrint("white", "Search by code\n");
+    ColorPrint("cyan", "2. ");
+    ColorPrint("white", "Search by name\n");
+    ColorPrint("cyan", "3. ");
+    ColorPrint("white", "Search by ID\n");
+    ColorPrint("cyan", "4. ");
+    ColorPrint("white", "Search by Municipality\n");
+    ColorPrint("cyan", "5. ");
+    ColorPrint("white", "List all reservoirs \n");
+    ColorPrint("cyan", "6. ");
+    ColorPrint("white", "Statistics \n");
+    ColorPrint("cyan", "7. ");
+    ColorPrint("red", "Cancel \n");
+    cin.sync();
+    string code;
+    vector<Reservoir> mun;
+    switch (readOption(6)) {
+        case '1':
+            code = readReservoirCode();
+            ColorPrint("blue", "Code | Reservoir | Municipality | Max Delivery \n");
+            printReservoir(waterSupply.getReservoir(code));
+            break;
+        case '2':
+            code = readReservoirName();
+            ColorPrint("blue", "Code | Reservoir | Municipality | Max Delivery \n");
+            printReservoir(waterSupply.getReservoir(code));
+            break;
+        case '3':
+            code = readReservoirID();
+            ColorPrint("blue", "Code | Reservoir | Municipality | Max Delivery \n");
+            printReservoir(waterSupply.getReservoir(code));
+            break;
+        case '4':
+            mun = readReservoirMunicipality();
+            ColorPrint("blue", "Code | Reservoir | Municipality | Max Delivery \n");
+            for (auto r: mun) {
+                printReservoir(r);
+            }
+            break;
+        case '5':
+            ColorPrint("blue", "Code | Reservoir | Municipality | Max Delivery \n");
+            for (auto r: waterSupply.getReservoirs()) {
+                printReservoir(r.second);
+            }
+            break;
+    }
+}
+
+void Menu::printReservoir(Reservoir reservoir) {
+    ColorPrint("white", reservoir.getCode() + " |  " + reservoir.getName() + " | " + reservoir.getMunicipality() + " | " + to_string(reservoir.getDelivery()) + "\n");
+}
+
+

@@ -338,3 +338,53 @@ std::unordered_map<std::string, Station> WaterSupply::getStations() {
     return stations;
 }
 
+string WaterSupply::existsCityByID(int id) {
+    for (const auto& c: cities) {
+        if (c.second.getID() == id) return c.first;
+    }
+    return "";
+}
+
+bool WaterSupply::existsCityByCode(std::string code) {
+    return cities.count(code);
+}
+
+string WaterSupply::existsCityByName(std::string name) {
+    for (const auto& c: cities) {
+        string nameC = c.second.getName();
+        transform(nameC.begin(), nameC.end(), nameC.begin(), ::toupper);
+        if (nameC == name) return c.first;
+    }
+    return "";
+}
+
+string WaterSupply::existsReservoirByName(std::string name) {
+    for (const auto& r: reservoirs) {
+        string nameR = r.second.getName();
+        transform(nameR.begin(), nameR.end(), nameR.begin(), ::toupper);
+        if (nameR == name) return r.first;
+    }
+    return "";
+}
+
+std::string WaterSupply::existsReservoirByID(int id) {
+    for (const auto& r: reservoirs) {
+        if (r.second.getId() == id) return r.first;
+    }
+    return "";
+}
+
+bool WaterSupply::existsReservoirByCode(std::string code) {
+    return reservoirs.count(code);
+}
+
+vector<Reservoir> WaterSupply::existsMunicipality(std::string municipality) {
+    vector<Reservoir> res;
+    for (const auto& r: reservoirs) {
+        string mun = r.second.getMunicipality();
+        transform(mun.begin(), mun.end(), mun.begin(), ::toupper);
+        if (mun == municipality) res.push_back(r.second);
+    }
+    return res;
+}
+

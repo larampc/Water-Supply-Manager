@@ -15,6 +15,8 @@ public:
     [[nodiscard]] std::string getName() const;
     [[nodiscard]] std::string getDemand() const;
     [[nodiscard]] unsigned getPopulation() const;
+    int getID() const;
+    std::string getCode();
 };
 
 

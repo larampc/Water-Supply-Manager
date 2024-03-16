@@ -17,3 +17,7 @@ int Reservoir::getDelivery() const {
 int Reservoir::getId() const {
     return id;
 }
+
+std::string Reservoir::getCode() const {
+    return code;
+}

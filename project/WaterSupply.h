@@ -25,6 +25,13 @@ public:
     std::unordered_map<std::string, City> getCities();
     std::unordered_map<std::string, Reservoir> getReservoirs();
     std::unordered_map<std::string, Station> getStations();
+    std::string existsCityByID(int id);
+    bool existsCityByCode(std::string code);
+    std::string existsCityByName(std::string name);
+    std::string existsReservoirByName(std::string name);
+    std::string existsReservoirByID(int id);
+    bool existsReservoirByCode(std::string code);
+    std::vector<Reservoir> existsMunicipality(std::string municipality);
     void maxFlow();
     void computeAverageAndVarianceOfPipes();
 };

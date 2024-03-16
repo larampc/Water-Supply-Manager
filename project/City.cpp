@@ -12,3 +12,11 @@ std::string City::getDemand() const {
 unsigned City::getPopulation() const {
     return population;
 }
+
+int City::getID() const {
+    return id;
+}
+
+std::string City::getCode() {
+    return code;
+}

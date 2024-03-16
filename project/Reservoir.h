@@ -16,6 +16,7 @@ public:
     [[nodiscard]] std::string getMunicipality() const;
     [[nodiscard]] int getDelivery() const;
     [[nodiscard]] int getId() const;
+    std::string getCode() const;
 };
 
 

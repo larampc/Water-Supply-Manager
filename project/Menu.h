@@ -39,8 +39,22 @@ public:
     /**
      * \brief Outputs the settings menu and handles the respective inputs.
      */
+    std::string readCityCode();
+    std::string readCityId();
+    std::string readCityName();
+    std::string readReservoirCode();
+    std::string readReservoirID();
+    std::string readReservoirName();
+    std::vector<Reservoir> readReservoirMunicipality();
+    void printCity(City city);
+
     void settings();
     void getNetworkInfo();
+    void getCityInfo();
+    void getReservoirInfo();
+    void getStationInfo();
+    void printReservoir(Reservoir reservoir);
+
 };
 
 
