@@ -35,6 +35,13 @@ public:
     void maxFlow();
     void computeAverageAndVarianceOfPipes();
     void computeCitiesStatistics();
+    std::vector<City> getCityMaxDemand();
+    std::vector<City> getCityMinDemand();
+    std::vector<City> getCityMaxPop();
+    std::vector<City> getCityMinPop();
+    std::vector<Reservoir> getReservoirMaxDel();
+    std::vector<Reservoir> getReservoirMinDel();
+
 };
 
 

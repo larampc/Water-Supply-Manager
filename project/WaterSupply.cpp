@@ -3,6 +3,8 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include <float.h>
+#include <climits>
 using namespace std;
 
 unsigned readPopulation(string pop){
@@ -36,7 +38,7 @@ void WaterSupply::loadCities() {
         getline(iss,population);
         if (!code.empty()) {
             network.addVertex(code);
-            cities.emplace(code, City(stoi(id), code, name, demand, readPopulation(population)));
+            cities.emplace(code, City(stoi(id), code, name, stod(demand), readPopulation(population)));
         }
     }
     citiesFile.close();
@@ -290,7 +292,7 @@ void WaterSupply::maxFlow() {
         for (Edge* e: end->getIncoming()) {
             count += e->getFlow();
         }
-        cout << end->getInfo() << " " << count << (stoi(getCity(end->getInfo()).getDemand()) < count? " Meets demand" : " Doesn't meet demand") << endl;
+        cout << end->getInfo() << " " << count << ((getCity(end->getInfo()).getDemand()) < count? " Meets demand" : " Doesn't meet demand") << endl;
         total += count;
     }
     cout << "Total " << total;
@@ -333,8 +335,8 @@ void WaterSupply::computeCitiesStatistics() {
             flow += e->getFlow();
         }
         cout << "City " << v.second.getName();
-        if (stoi(v.second.getDemand()) < flow) cout << " Over demand by " << flow - stoi(v.second.getDemand()) << "." << endl;
-        else if (stoi(v.second.getDemand()) > flow) cout << " Under demand by " << stoi(v.second.getDemand()) - flow << "." << endl;
+        if ((v.second.getDemand()) < flow) cout << " Over demand by " << flow - (v.second.getDemand()) << "." << endl;
+        else if ((v.second.getDemand()) > flow) cout << " Under demand by " << (v.second.getDemand()) - flow << "." << endl;
         else cout << " Exactly on demand." << endl;
     }
 }
@@ -399,5 +401,101 @@ vector<Reservoir> WaterSupply::existsMunicipality(std::string municipality) {
         if (mun == municipality) res.push_back(r.second);
     }
     return res;
+}
+
+vector<City> WaterSupply::getCityMaxDemand() {
+    int maxDemand = 0;
+    vector<City> max;
+    for (const auto& c: cities) {
+        if (c.second.getDemand() > maxDemand) {
+            max.clear();
+            max.push_back(c.second);
+            maxDemand = c.second.getDemand();
+        }
+        if (c.second.getDemand() == maxDemand) {
+            max.push_back(c.second);
+        }
+    }
+    return max;
+}
+
+vector<City> WaterSupply::getCityMinDemand() {
+    int minDemand = DBL_MAX;
+    vector<City> max;
+    for (const auto &c: cities) {
+        if (c.second.getDemand() < minDemand) {
+            max.clear();
+            max.push_back(c.second);
+            minDemand = c.second.getDemand();
+        }
+        if (c.second.getDemand() == minDemand) {
+            max.push_back(c.second);
+        }
+    }
+    return max;
+}
+
+vector<City> WaterSupply::getCityMaxPop() {
+    int maxPop = 0;
+    vector<City> max;
+    for (const auto& c: cities) {
+        if (c.second.getPopulation() > maxPop) {
+            max.clear();
+            max.push_back(c.second);
+            maxPop = c.second.getPopulation();
+        }
+        if (c.second.getPopulation() == maxPop) {
+            max.push_back(c.second);
+        }
+    }
+    return max;
+}
+
+vector<City> WaterSupply::getCityMinPop() {
+    int minPop = UINT_MAX;
+    vector<City> max;
+    for (const auto& c: cities) {
+        if (c.second.getPopulation() < minPop) {
+            max.clear();
+            max.push_back(c.second);
+            minPop = c.second.getPopulation();
+        }
+        if (c.second.getPopulation() == minPop) {
+            max.push_back(c.second);
+        }
+    }
+    return max;
+}
+
+std::vector<Reservoir> WaterSupply::getReservoirMaxDel() {
+    int maxDel = 0;
+    vector<Reservoir> max;
+    for (const auto& c: reservoirs) {
+        if (c.second.getDelivery() > maxDel) {
+            max.clear();
+            max.push_back(c.second);
+            maxDel = c.second.getDelivery();
+        }
+        if (c.second.getDelivery() == maxDel) {
+            max.push_back(c.second);
+        }
+    }
+    return max;
+}
+
+std::vector<Reservoir> WaterSupply::getReservoirMinDel() {
+    int maxDel = UINT_MAX;
+    vector<Reservoir> max;
+    for (const auto& c: reservoirs) {
+        if (c.second.getDelivery() < maxDel) {
+            max.clear();
+            max.push_back(c.second);
+            maxDel = c.second.getDelivery();
+        }
+        if (c.second.getDelivery() == maxDel) {
+            max.push_back(c.second);
+        }
+    }
+    return max;
 }
 

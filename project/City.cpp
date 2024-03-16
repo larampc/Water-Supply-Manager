@@ -5,7 +5,7 @@ std::string City::getName() const {
     return name;
 }
 
-std::string City::getDemand() const {
+double City::getDemand() const {
     return demand;
 }
 

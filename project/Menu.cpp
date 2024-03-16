@@ -179,7 +179,7 @@ void Menu::getNetworkInfo() {
             break;
         case '3':
             ColorPrint("blue", "Code\n");
-            for (auto s: waterSupply.getStations()) {
+            for (const auto& s: waterSupply.getStations()) {
                 ColorPrint("white", s.first + "\n");
             }
     }
@@ -219,15 +219,18 @@ void Menu::getCityInfo() {
             break;
         case '4':
             ColorPrint("blue", "Code | City | Demand | Population\n");
-            for (auto c: waterSupply.getCities()) {
+            for (const auto& c: waterSupply.getCities()) {
                 printCity(c.second);
             }
+            break;
+        case '5':
+            getCityStatistics();
             break;
     }
 }
 
 void Menu::printCity(City city) {
-    ColorPrint("white", city.getCode() + " | " + city.getName() + " | " + city.getDemand() + " | " + to_string(city.getPopulation()) + "\n");
+    ColorPrint("white", city.getCode() + " | " + city.getName() + " | " + to_string(city.getDemand()) + " | " + to_string(city.getPopulation()) + "\n");
 }
 
 void Menu::getReservoirInfo() {
@@ -249,7 +252,7 @@ void Menu::getReservoirInfo() {
     cin.sync();
     string code;
     vector<Reservoir> mun;
-    switch (readOption(6)) {
+    switch (readOption(7)) {
         case '1':
             code = readReservoirCode();
             ColorPrint("blue", "Code | Reservoir | Municipality | Max Delivery \n");
@@ -268,21 +271,92 @@ void Menu::getReservoirInfo() {
         case '4':
             mun = readReservoirMunicipality();
             ColorPrint("blue", "Code | Reservoir | Municipality | Max Delivery \n");
-            for (auto r: mun) {
+            for (const auto& r: mun) {
                 printReservoir(r);
             }
             break;
         case '5':
             ColorPrint("blue", "Code | Reservoir | Municipality | Max Delivery \n");
-            for (auto r: waterSupply.getReservoirs()) {
+            for (const auto& r: waterSupply.getReservoirs()) {
                 printReservoir(r.second);
+            }
+            break;
+        case '6':
+            getReservoirStatistics();
+            break;
+    }
+}
+
+void Menu::printReservoir(const Reservoir& reservoir) {
+    ColorPrint("white", reservoir.getCode() + " |  " + reservoir.getName() + " | " + reservoir.getMunicipality() + " | " + to_string(reservoir.getDelivery()) + "\n");
+}
+
+void Menu::getCityStatistics() {
+    ColorPrint("blue", "Select option:\n");
+    ColorPrint("cyan", "1. ");
+    ColorPrint("white", "Max demand\n");
+    ColorPrint("cyan", "2. ");
+    ColorPrint("white", "Min demand\n");
+    ColorPrint("cyan", "3. ");
+    ColorPrint("white", "Max population\n");
+    ColorPrint("cyan", "4. ");
+    ColorPrint("white", "Min population\n");
+    ColorPrint("cyan", "5. ");
+    ColorPrint("red", "Cancel \n");
+    cin.sync();
+    vector<City> values;
+    switch (readOption(5)) {
+        case '1':
+            values = waterSupply.getCityMaxDemand();
+            for (const auto& v: values) {
+                printCity(v);
+            }
+            break;
+        case '2':
+            values = waterSupply.getCityMinDemand();
+            for (const auto& v: values) {
+                printCity(v);
+            }
+            break;
+        case '3':
+            values = waterSupply.getCityMaxPop();
+            for (const auto& v: values) {
+                printCity(v);
+            }
+            break;
+        case '4':
+            values = waterSupply.getCityMinPop();
+            for (const auto& v: values) {
+                printCity(v);
             }
             break;
     }
 }
 
-void Menu::printReservoir(Reservoir reservoir) {
-    ColorPrint("white", reservoir.getCode() + " |  " + reservoir.getName() + " | " + reservoir.getMunicipality() + " | " + to_string(reservoir.getDelivery()) + "\n");
+void Menu::getReservoirStatistics() {
+    ColorPrint("blue", "Select option:\n");
+    ColorPrint("cyan", "1. ");
+    ColorPrint("white", "Biggest max delivery\n");
+    ColorPrint("cyan", "2. ");
+    ColorPrint("white", "Lowest max delivery\n");
+    ColorPrint("cyan", "3. ");
+    ColorPrint("red", "Cancel \n");
+    cin.sync();
+    vector<Reservoir> values;
+    switch (readOption(3)) {
+        case '1':
+            values = waterSupply.getReservoirMaxDel();
+            for (auto r: values) {
+                printReservoir(r);
+            }
+            break;
+        case '2':
+            values = waterSupply.getReservoirMinDel();
+            for (auto r: values) {
+                printReservoir(r);
+            }
+            break;
+    }
 }
 
 

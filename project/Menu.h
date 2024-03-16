@@ -52,9 +52,9 @@ public:
     void getNetworkInfo();
     void getCityInfo();
     void getReservoirInfo();
-    void getStationInfo();
-    void printReservoir(Reservoir reservoir);
-
+    void printReservoir(const Reservoir& reservoir);
+    void getCityStatistics();
+    void getReservoirStatistics();
 };
 
 
