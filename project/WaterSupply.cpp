@@ -62,9 +62,15 @@ Graph WaterSupply::getNetwork() {
 
 void WaterSupply::loadReservoir() {
     string path = dataSet? "../dataSet/Reservoir.csv": "../dataSetSmall/Reservoirs_Madeira.csv";
+#ifdef _WIN32
+    setlocale (LC_ALL, "");
     wifstream  reservoirsFile(path);
     reservoirsFile.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t,0x10ffff, std::consume_header>));
     wstring line;
+#else
+    ifstream  reservoirsFile(path);
+    string  line;
+#endif
     getline(reservoirsFile, line);
     while (getline(reservoirsFile, line)) {
         string name, id, code, municipality, maxDelivery;
