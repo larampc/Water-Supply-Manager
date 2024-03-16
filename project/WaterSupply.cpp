@@ -444,7 +444,7 @@ vector<City> WaterSupply::getCityMaxPop() {
             max.push_back(c.second);
             maxPop = c.second.getPopulation();
         }
-        if (c.second.getPopulation() == maxPop) {
+        else if (c.second.getPopulation() == maxPop) {
             max.push_back(c.second);
         }
     }
@@ -460,7 +460,7 @@ vector<City> WaterSupply::getCityMinPop() {
             max.push_back(c.second);
             minPop = c.second.getPopulation();
         }
-        if (c.second.getPopulation() == minPop) {
+        else if (c.second.getPopulation() == minPop) {
             max.push_back(c.second);
         }
     }
