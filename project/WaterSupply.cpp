@@ -29,7 +29,7 @@ void WaterSupply::load() {
 
 void WaterSupply::loadCities() {
     string path = dataSet? "../dataSet/Cities.csv": "../dataSetSmall/Cities_Madeira.csv";
-    setlocale (LC_CTYPE, "C");
+    setlocale (LC_ALL, "");
     wifstream  file(path);
     file.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t,0x10ffff, std::consume_header>));
     wstring  s;
@@ -38,7 +38,6 @@ void WaterSupply::loadCities() {
         string name, id, code, demand;
         string population;
         istringstream iss(string(s.begin(), s.end()));
-        iss.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t,0x10ffff, std::consume_header>));
         getline(iss, name, ',');
         getline(iss, id, ',');
         getline(iss, code, ',');
@@ -58,12 +57,13 @@ Graph WaterSupply::getNetwork() {
 
 void WaterSupply::loadReservoir() {
     string path = dataSet? "../dataSet/Reservoir.csv": "../dataSetSmall/Reservoirs_Madeira.csv";
-    ifstream reservoirsFile(path);
-    string line;
+    wifstream  reservoirsFile(path);
+    reservoirsFile.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t,0x10ffff, std::consume_header>));
+    wstring line;
     getline(reservoirsFile, line);
     while (getline(reservoirsFile, line)) {
         string name, id, code, municipality, maxDelivery;
-        istringstream iss(line);
+        istringstream iss(string(line.begin(), line.end()));
         getline(iss, name, ',');
         getline(iss, municipality, ',');
         getline(iss, id, ',');
@@ -79,12 +79,13 @@ void WaterSupply::loadReservoir() {
 
 void WaterSupply::loadStations() {
     string path = dataSet ? "../dataSet/Stations.csv": "../dataSetSmall/Stations_Madeira.csv";
-    ifstream stationsFile(path);
-    string line;
+    wifstream  stationsFile(path);
+    stationsFile.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t,0x10ffff, std::consume_header>));
+    wstring line;
     getline(stationsFile, line);
     while (getline(stationsFile, line)) {
         string id, code;
-        istringstream iss(line);
+        istringstream iss(string(line.begin(), line.end()));
         getline(iss, id, ',');
         getline(iss, code, ',');
         if (!code.empty()) {
@@ -109,12 +110,13 @@ Station WaterSupply::getStation(std::string code) {
 
 void WaterSupply::loadPipes() {
     string path = dataSet? "../dataSet/Pipes.csv": "../dataSetSmall/Pipes_Madeira.csv";
-    ifstream pipesFile(path);
-    string line;
+    wifstream  pipesFile(path);
+    pipesFile.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t,0x10ffff, std::consume_header>));
+    wstring line;
     getline(pipesFile, line);
     while (getline(pipesFile, line)) {
         string a, b, capacity, direction;
-        istringstream iss(line);
+        istringstream iss(string(line.begin(), line.end()));
         getline(iss, a, ',');
         getline(iss, b, ',');
         getline(iss, capacity, ',');
@@ -277,11 +279,20 @@ bool WaterSupply::existsCityByCode(std::string code) {
     return cities.count(code);
 }
 
+bool compareString(string s1, string s2) {
+    int count = 0;
+    for (int i = 0; i < s1.size(); i++) {
+        if (s1[i] != s2[i]) count++;
+    }
+    return (count <= 2);
+}
+
 string WaterSupply::existsCityByName(std::string name) {
     for (const auto& c: cities) {
         string nameC = c.second.getName();
+        cout << c.second.getName();
         transform(nameC.begin(), nameC.end(), nameC.begin(), ::toupper);
-        if (nameC == name) return c.first;
+        if (compareString(nameC, name)) return c.first;
     }
     return "";
 }
@@ -290,7 +301,7 @@ string WaterSupply::existsReservoirByName(std::string name) {
     for (const auto& r: reservoirs) {
         string nameR = r.second.getName();
         transform(nameR.begin(), nameR.end(), nameR.begin(), ::toupper);
-        if (nameR == name) return r.first;
+        if (compareString(nameR, name)) return r.first;
     }
     return "";
 }
@@ -311,7 +322,7 @@ vector<Reservoir> WaterSupply::existsMunicipality(std::string municipality) {
     for (const auto& r: reservoirs) {
         string mun = r.second.getMunicipality();
         transform(mun.begin(), mun.end(), mun.begin(), ::toupper);
-        if (mun == municipality) res.push_back(r.second);
+        if (compareString(municipality, mun)) res.push_back(r.second);
     }
     return res;
 }

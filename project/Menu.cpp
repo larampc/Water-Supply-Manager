@@ -81,8 +81,6 @@ string Menu::readReservoirID(){
 string Menu::readCityName(){
     string name;
     ColorPrint("cyan", "City Name: \n");
-    setlocale (LC_CTYPE, "C");
-    cin.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t,0x10ffff, std::consume_header>));
     getline(cin, name);
     transform(name.begin(), name.end(), name.begin(), ::toupper);
     string code = waterSupply.existsCityByName(name);
