@@ -16,8 +16,11 @@ private:
     void loadReservoir();
     void loadStations();
     void loadPipes();
+    bool dataSet;
 public:
     WaterSupply();
+    void setDataSmall();
+    void setDataDefault();
     Graph getNetwork();
     City getCity(std::string code);
     Reservoir getReservoir(std::string code);

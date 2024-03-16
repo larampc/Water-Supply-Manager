@@ -28,6 +28,7 @@ class Menu {
 private:
     WaterSupply waterSupply;
 public:
+    void init();
     /**
      * \brief Outputs the main menu and handles the respective inputs.
      */

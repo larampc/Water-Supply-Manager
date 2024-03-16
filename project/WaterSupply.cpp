@@ -24,7 +24,8 @@ WaterSupply::WaterSupply() {
 }
 
 void WaterSupply::loadCities() {
-    ifstream citiesFile("../dataSetSmall/Cities_Madeira.csv");
+    string path = dataSet? "../dataSet/Cities.csv": "../dataSetSmall_Madeira/Cities.csv";
+    ifstream citiesFile(path);
     string line;
     getline(citiesFile, line);
     while (getline(citiesFile, line)) {
@@ -49,7 +50,8 @@ Graph WaterSupply::getNetwork() {
 }
 
 void WaterSupply::loadReservoir() {
-    ifstream reservoirsFile("../dataSetSmall/Reservoirs_Madeira.csv");
+    string path = dataSet? "../dataSet/Reservoir.csv": "../dataSetSmall/Reservoirs_Madeira.csv";
+    ifstream reservoirsFile(path);
     string line;
     getline(reservoirsFile, line);
     while (getline(reservoirsFile, line)) {
@@ -69,7 +71,8 @@ void WaterSupply::loadReservoir() {
 }
 
 void WaterSupply::loadStations() {
-    ifstream stationsFile("../dataSetSmall/Stations_Madeira.csv");
+    string path = dataSet ? "../dataSet/Stations.csv": "../dataSetSmall/Stations_Madeira.csv";
+    ifstream stationsFile(path);
     string line;
     getline(stationsFile, line);
     while (getline(stationsFile, line)) {
@@ -98,7 +101,8 @@ Station WaterSupply::getStation(std::string code) {
 }
 
 void WaterSupply::loadPipes() {
-    ifstream pipesFile("../dataSetSmall/Pipes_Madeira.csv");
+    string path = dataSet? "../dataSet/Pipes.csv": "../dataSetSmall/Pipes_Madeira.csv";
+    ifstream pipesFile(path);
     string line;
     getline(pipesFile, line);
     while (getline(pipesFile, line)) {
@@ -492,5 +496,13 @@ std::vector<Reservoir> WaterSupply::getReservoirMinDel() {
         }
     }
     return max;
+}
+
+void WaterSupply::setDataSmall() {
+    dataSet = false;
+}
+
+void WaterSupply::setDataDefault() {
+    dataSet = true;
 }
 

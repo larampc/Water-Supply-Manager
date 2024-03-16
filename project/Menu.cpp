@@ -121,7 +121,6 @@ vector<Reservoir> Menu::readReservoirMunicipality(){
 }
 
 
-
 void Menu::run() {
     while (true) {
         ColorPrint("blue", "\n-----------------------------------\n");
@@ -364,6 +363,23 @@ void Menu::getReservoirStatistics() {
             for (auto r: values) {
                 printReservoir(r);
             }
+            break;
+    }
+}
+
+void Menu::init() {
+    ColorPrint("blue", "Which data set do you wish to use?\n");
+    ColorPrint("cyan", "1. ");
+    ColorPrint("white", "Continental Portugal\n");
+    ColorPrint("cyan", "2. ");
+    ColorPrint("white", "Madeira\n");
+    cin.sync();
+    switch (readOption(2)) {
+        case '1':
+            waterSupply.setDataDefault();
+            break;
+        case '2':
+            waterSupply.setDataSmall();
             break;
     }
 }
