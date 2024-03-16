@@ -23,6 +23,7 @@ public:
     Reservoir getReservoir(std::string code);
     Station getStation(std::string code);
     void maxFlow();
+    void computeAverageAndVarianceOfPipes();
 };
 
 

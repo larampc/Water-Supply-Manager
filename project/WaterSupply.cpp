@@ -298,3 +298,28 @@ void WaterSupply::maxFlow() {
     network.removeVertex("sink");
 }
 
+void WaterSupply::computeAverageAndVarianceOfPipes() {
+    int n_edges = 0;
+    double sum = 0;
+    for(auto v: network.getVertexSet()){
+        for(Edge* e: v.second->getAdj()){
+            sum += (e->getWeight() - e->getFlow());
+            n_edges++;
+        }
+    }
+    double average = sum / ((double)n_edges);
+
+    cout << "Average (Capacity - Flow): " << average << endl;
+
+    double square_diff = 0;
+    for(auto v: network.getVertexSet()){
+        for(Edge* e: v.second->getAdj()){
+            square_diff += ((e->getWeight() - e->getFlow()) - average) * ((e->getWeight() - e->getFlow()) - average);
+            n_edges++;
+        }
+    }
+    double variance = square_diff / n_edges;
+
+    cout << "Variance (Capacity - Flow): " << variance << endl;
+}
+
