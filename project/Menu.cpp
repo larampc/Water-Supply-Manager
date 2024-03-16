@@ -1,8 +1,16 @@
 #include "Menu.h"
 #include <iostream>
+#include <sstream>
+#include <iomanip>
 #include "ColorPrint.h"
 
 using namespace std;
+
+std::string convertDouble(double d) {
+    ostringstream os;
+    os << std::fixed << std::setprecision(2) << d;
+    return os.str();
+}
 
 char Menu::readOption(int n){
     string option;
@@ -230,7 +238,7 @@ void Menu::getCityInfo() {
 }
 
 void Menu::printCity(City city) {
-    ColorPrint("white", city.getCode() + " | " + city.getName() + " | " + to_string(city.getDemand()) + " | " + to_string(city.getPopulation()) + "\n");
+    ColorPrint("white", city.getCode() + " | " + city.getName() + " | " + convertDouble(city.getDemand()) + " | " + to_string(city.getPopulation()) + "\n");
 }
 
 void Menu::getReservoirInfo() {
