@@ -2,6 +2,8 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
+#include <locale>
+#include <codecvt>
 #include "ColorPrint.h"
 
 using namespace std;
@@ -79,6 +81,8 @@ string Menu::readReservoirID(){
 string Menu::readCityName(){
     string name;
     ColorPrint("cyan", "City Name: \n");
+    setlocale (LC_CTYPE, "C");
+    cin.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t,0x10ffff, std::consume_header>));
     getline(cin, name);
     transform(name.begin(), name.end(), name.begin(), ::toupper);
     string code = waterSupply.existsCityByName(name);
@@ -238,6 +242,7 @@ void Menu::getCityInfo() {
 }
 
 void Menu::printCity(City city) {
+    cout << city.getName();
     ColorPrint("white", city.getCode() + " | " + city.getName() + " | " + to_string(city.getDemand()) + " | " + to_string(city.getPopulation()) + "\n");
 }
 

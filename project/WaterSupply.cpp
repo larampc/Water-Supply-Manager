@@ -5,6 +5,10 @@
 #include <string>
 #include <float.h>
 #include <climits>
+
+#include <locale>
+#include <codecvt>
+#include <iostream>
 using namespace std;
 
 unsigned readPopulation(string pop){
@@ -25,14 +29,18 @@ void WaterSupply::load() {
 
 void WaterSupply::loadCities() {
     string path = dataSet? "../dataSet/Cities.csv": "../dataSetSmall/Cities_Madeira.csv";
-    ifstream citiesFile(path);
-    string line;
-    getline(citiesFile, line);
-    while (getline(citiesFile, line)) {
+    setlocale (LC_CTYPE, "C");
+    wifstream  file(path);
+    file.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t,0x10ffff, std::consume_header>));
+    wstring  s;
+    getline(file, s);
+    while (getline(file, s)) {
         string name, id, code, demand;
         string population;
-        istringstream iss(line);
+        istringstream iss(string(s.begin(), s.end()));
+        iss.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t,0x10ffff, std::consume_header>));
         getline(iss, name, ',');
+        cout << name;
         getline(iss, id, ',');
         getline(iss, code, ',');
         getline(iss, demand, ',');
@@ -42,7 +50,7 @@ void WaterSupply::loadCities() {
             cities.emplace(code, City(stoi(id), code, name, stod(demand), readPopulation(population)));
         }
     }
-    citiesFile.close();
+    file.close();
 }
 
 Graph WaterSupply::getNetwork() {
