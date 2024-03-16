@@ -72,18 +72,18 @@ void Menu::getNetworkInfo() {
     cin.sync();
     switch (readOption(4)) {
         case '1':
-            for (auto n: waterSupply.getNetwork().getVertexSet()) {
-                if (n.second->getInfo().substr(0, 1) == "C") cout << waterSupply.getCity(n.second->getInfo()).getName() << endl;
+            for (auto c: waterSupply.getCities()) {
+                cout << c.second.getName() << endl;
             }
             break;
         case '2':
-            for (auto n: waterSupply.getNetwork().getVertexSet()) {
-                if (n.second->getInfo().substr(0, 1) == "R") cout << waterSupply.getReservoir(n.second->getInfo()).getName() << endl;
+            for (auto r: waterSupply.getReservoirs()) {
+                cout << r.second.getName() << endl;
             }
             break;
         case '3':
-            for (auto n: waterSupply.getNetwork().getVertexSet()) {
-                if (n.second->getInfo().substr(0, 2) == "PS") cout << waterSupply.getStation(n.second->getInfo()).getId() << endl;
+            for (auto s: waterSupply.getStations()) {
+                cout << s.second.getCode() << endl;
             }
     }
     run();

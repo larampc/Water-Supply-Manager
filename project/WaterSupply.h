@@ -22,6 +22,9 @@ public:
     City getCity(std::string code);
     Reservoir getReservoir(std::string code);
     Station getStation(std::string code);
+    std::unordered_map<std::string, City> getCities();
+    std::unordered_map<std::string, Reservoir> getReservoirs();
+    std::unordered_map<std::string, Station> getStations();
     void maxFlow();
     void computeAverageAndVarianceOfPipes();
 };

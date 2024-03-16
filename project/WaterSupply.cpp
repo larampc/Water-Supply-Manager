@@ -326,3 +326,15 @@ void WaterSupply::computeAverageAndVarianceOfPipes() {
     cout << "Variance (Capacity - Flow): " << variance << endl;
 }
 
+std::unordered_map<std::string, City> WaterSupply::getCities() {
+    return cities;
+}
+
+std::unordered_map<std::string, Reservoir> WaterSupply::getReservoirs() {
+    return reservoirs;
+}
+
+std::unordered_map<std::string, Station> WaterSupply::getStations() {
+    return stations;
+}
+
