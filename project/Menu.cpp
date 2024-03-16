@@ -15,31 +15,33 @@ char Menu::readOption(int n){
 }
 
 void Menu::run() {
-    ColorPrint("blue", "\n-----------------------------------\n");
-    ColorPrint("blue", "Water Supply Management System\n");
-    ColorPrint("blue", "-----------------------------------\n");
-    ColorPrint("blue", "Select option:\n");
-    ColorPrint("cyan", "1. ");
-    ColorPrint("white", "Network Information \n");
-    ColorPrint("cyan", "2. ");
-    ColorPrint("white", "Get max flow \n");
-    ColorPrint("cyan", "3. ");
-    ColorPrint("white", "Settings \n");
-    ColorPrint("cyan", "4. ");
-    ColorPrint("red", "Quit Manager \n");
-    cin.sync();
-    switch (readOption(4)) {
-        case '1':
-            getNetworkInfo();
-            break;
-        case '2':
-            waterSupply.maxFlow();
-            break;
-        case '3':
-            settings();
-            break;
-        case '4':
-            exit(0);
+    while (true) {
+        ColorPrint("blue", "\n-----------------------------------\n");
+        ColorPrint("blue", "Water Supply Management System\n");
+        ColorPrint("blue", "-----------------------------------\n");
+        ColorPrint("blue", "Select option:\n");
+        ColorPrint("cyan", "1. ");
+        ColorPrint("white", "Network Information \n");
+        ColorPrint("cyan", "2. ");
+        ColorPrint("white", "Get max flow \n");
+        ColorPrint("cyan", "3. ");
+        ColorPrint("white", "Settings \n");
+        ColorPrint("cyan", "4. ");
+        ColorPrint("red", "Quit Manager \n");
+        cin.sync();
+        switch (readOption(4)) {
+            case '1':
+                getNetworkInfo();
+                break;
+            case '2':
+                waterSupply.maxFlow();
+                break;
+            case '3':
+                settings();
+                break;
+            case '4':
+                exit(0);
+        }
     }
 }
 
@@ -55,7 +57,6 @@ void Menu::settings() {
         ColorPrint::swapColorMode();
         ColorPrint("cyan", ColorPrint::colorMode ? "Color mode enabled\n" : "Color mode disabled\n");
     }
-    run();
 }
 
 void Menu::getNetworkInfo() {
