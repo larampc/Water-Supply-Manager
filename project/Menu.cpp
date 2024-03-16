@@ -242,7 +242,6 @@ void Menu::getCityInfo() {
 }
 
 void Menu::printCity(City city) {
-    cout << city.getName();
     ColorPrint("white", city.getCode() + " | " + city.getName() + " | " + to_string(city.getDemand()) + " | " + to_string(city.getPopulation()) + "\n");
 }
 
