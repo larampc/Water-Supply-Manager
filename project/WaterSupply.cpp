@@ -29,10 +29,15 @@ void WaterSupply::load() {
 
 void WaterSupply::loadCities() {
     string path = dataSet? "../dataSet/Cities.csv": "../dataSetSmall/Cities_Madeira.csv";
+#ifdef _WIN32
     setlocale (LC_ALL, "");
     wifstream  file(path);
     file.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t,0x10ffff, std::consume_header>));
     wstring  s;
+#else
+    ifstream  file(path);
+    string  s;
+#endif
     getline(file, s);
     while (getline(file, s)) {
         string name, id, code, demand;
@@ -79,9 +84,8 @@ void WaterSupply::loadReservoir() {
 
 void WaterSupply::loadStations() {
     string path = dataSet ? "../dataSet/Stations.csv": "../dataSetSmall/Stations_Madeira.csv";
-    wifstream  stationsFile(path);
-    stationsFile.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t,0x10ffff, std::consume_header>));
-    wstring line;
+    ifstream  stationsFile(path);
+    string line;
     getline(stationsFile, line);
     while (getline(stationsFile, line)) {
         string id, code;
@@ -110,9 +114,8 @@ Station WaterSupply::getStation(std::string code) {
 
 void WaterSupply::loadPipes() {
     string path = dataSet? "../dataSet/Pipes.csv": "../dataSetSmall/Pipes_Madeira.csv";
-    wifstream  pipesFile(path);
-    pipesFile.imbue(std::locale(std::locale(), new std::codecvt_utf8<wchar_t,0x10ffff, std::consume_header>));
-    wstring line;
+    ifstream  pipesFile(path);
+    string line;
     getline(pipesFile, line);
     while (getline(pipesFile, line)) {
         string a, b, capacity, direction;
