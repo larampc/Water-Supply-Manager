@@ -27,6 +27,7 @@ public:
     std::unordered_map<std::string, Station> getStations();
     void maxFlow();
     void computeAverageAndVarianceOfPipes();
+    void computeCitiesStatistics();
 };
 
 

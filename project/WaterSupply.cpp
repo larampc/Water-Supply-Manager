@@ -326,6 +326,19 @@ void WaterSupply::computeAverageAndVarianceOfPipes() {
     cout << "Variance (Capacity - Flow): " << variance << endl;
 }
 
+void WaterSupply::computeCitiesStatistics() {
+    for(auto v: cities) {
+        double flow = 0;
+        for(Edge* e: network.findVertex(v.first)->getIncoming()) {
+            flow += e->getFlow();
+        }
+        cout << "City " << v.second.getName();
+        if (stoi(v.second.getDemand()) < flow) cout << " Over demand by " << flow - stoi(v.second.getDemand()) << "." << endl;
+        else if (stoi(v.second.getDemand()) > flow) cout << " Under demand by " << stoi(v.second.getDemand()) - flow << "." << endl;
+        else cout << " Exactly on demand." << endl;
+    }
+}
+
 std::unordered_map<std::string, City> WaterSupply::getCities() {
     return cities;
 }
