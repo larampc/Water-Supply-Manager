@@ -301,15 +301,18 @@ void WaterSupply::maxFlow() {
 void WaterSupply::computeAverageAndVarianceOfPipes() {
     int n_edges = 0;
     double sum = 0;
+    double max = 0;
     for(auto v: network.getVertexSet()){
         for(Edge* e: v.second->getAdj()){
             sum += (e->getWeight() - e->getFlow());
+            if (max < (e->getWeight() - e->getFlow())) max = (e->getWeight() - e->getFlow());
             n_edges++;
         }
     }
     double average = sum / ((double)n_edges);
 
     cout << "Average (Capacity - Flow): " << average << endl;
+    cout << "Max (Capacity - Flow): " << max << endl;
 
     double square_diff = 0;
     for(auto v: network.getVertexSet()){
