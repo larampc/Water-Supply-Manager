@@ -5,6 +5,15 @@
 #include <string>
 using namespace std;
 
+unsigned readPopulation(string pop){
+    string res;
+    pop = pop.substr(1,pop.length() - 2);
+    for(char c: pop){
+        if(c != ',') res.push_back(c);
+    }
+    return stoi(res);
+}
+
 WaterSupply::WaterSupply() {
     loadCities();
     loadReservoir();
@@ -17,16 +26,17 @@ void WaterSupply::loadCities() {
     string line;
     getline(citiesFile, line);
     while (getline(citiesFile, line)) {
-        string name, id, code, demand, population;
+        string name, id, code, demand;
+        string population;
         istringstream iss(line);
         getline(iss, name, ',');
         getline(iss, id, ',');
         getline(iss, code, ',');
         getline(iss, demand, ',');
-        getline(iss, population);
+        getline(iss,population);
         if (!code.empty()) {
             network.addVertex(code);
-            cities.emplace(code, City(stoi(id), code, name, demand, population));
+            cities.emplace(code, City(stoi(id), code, name, demand, readPopulation(population)));
         }
     }
     citiesFile.close();

@@ -9,6 +9,6 @@ std::string City::getDemand() const {
     return demand;
 }
 
-std::string City::getPopulation() const {
+unsigned City::getPopulation() const {
     return population;
 }
