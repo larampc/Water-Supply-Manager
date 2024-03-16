@@ -290,10 +290,10 @@ void WaterSupply::maxFlow() {
         for (Edge* e: end->getIncoming()) {
             count += e->getFlow();
         }
-        cout << end->getInfo() << " " << count << endl;
+        cout << end->getInfo() << " " << count << (stoi(getCity(end->getInfo()).getDemand()) < count? " Meets demand" : " Doesn't meet demand") << endl;
         total += count;
     }
-    cout << "Total" << total;
+    cout << "Total " << total;
     network.removeVertex("src");
     network.removeVertex("sink");
 }
