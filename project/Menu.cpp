@@ -382,6 +382,7 @@ void Menu::init() {
             waterSupply.setDataSmall();
             break;
     }
+    waterSupply.load();
 }
 
 

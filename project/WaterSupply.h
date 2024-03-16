@@ -18,7 +18,7 @@ private:
     void loadPipes();
     bool dataSet;
 public:
-    WaterSupply();
+    void load();
     void setDataSmall();
     void setDataDefault();
     Graph getNetwork();
