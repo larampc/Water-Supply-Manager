@@ -38,17 +38,53 @@ public:
      */
     static char readOption(int n);
     /**
-     * \brief Outputs the settings menu and handles the respective inputs.
+     * \brief Asks user for a valid city code.
+     *
+     * @return The given city code.
      */
     std::string readCityCode();
+    /**
+     * \brief Asks user for a valid city id.
+     *
+     * @return The given city id.
+     */
     std::string readCityId();
+    /**
+     * \brief Asks user for a valid city name.
+     *
+     * @return The given city name.
+     */
     std::string readCityName();
+    /**
+     * \brief Asks user for a valid reservoir code.
+     *
+     * @return The given reservoir code.
+     */
     std::string readReservoirCode();
+    /**
+     * \brief Asks user for a valid reservoir id.
+     *
+     * @return The given reservoir id.
+     */
     std::string readReservoirID();
+    /**
+     * \brief Asks user for a valid reservoir name.
+     *
+     * @return The given reservoir name.
+     */
     std::string readReservoirName();
+    /**
+     * \brief Asks user for a valid reservoir municipality.
+     *
+     * @return The given reservoir municipality.
+     */
     std::vector<Reservoir> readReservoirMunicipality();
     void printCity(City city);
 
+
+    /**
+     * \brief Outputs the settings menu and handles the respective inputs.
+     */
     void settings();
     void getNetworkInfo();
     void getCityInfo();
