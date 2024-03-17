@@ -160,26 +160,31 @@ void augmentPath(Vertex* source, Vertex* target, double cf) {
     }
 }
 
+void testAndVisit(queue<Vertex*>& q, Edge* e, Vertex* w, double residual) {
+    if (! w->isVisited() && residual > 0) {
+        w->setVisited(true);
+        w->setPath(e);
+        q.push(w);
+    }
+}
+
 bool findAugPath(Graph* g, Vertex* src, Vertex* target){
-    for(auto v : g->getVertexSet()) v.second->setVisited(false); //reset
-    std::queue<Vertex*> aux; aux.push(src);
+    for(auto v : g->getVertexSet())
+        v.second->setVisited(false); //reset
+    std::queue<Vertex*> aux;
+    aux.push(src);
     src->setVisited(true);
-    while(!aux.empty()){
+    while(!aux.empty() && !target->isVisited()){
         Vertex* v = aux.front();
         aux.pop();
         for(Edge* adj : v->getAdj()){
-            auto w = adj->getDest();
-            if(!w->isVisited() && residualC(adj, true) > 0) {
-                w->setPath(adj);
-                aux.push(w);
-                w->setVisited(true);
-                if(w == target){
-                    return true;
-                }
-            }
+            testAndVisit(aux, adj, adj->getDest(), residualC(adj, true));
+        }
+        for(Edge* adj : v->getIncoming()){
+            testAndVisit(aux, adj, adj->getOrig(), residualC(adj, false));
         }
     }
-    return false;
+    return target->isVisited();
 }
 
 void WaterSupply::getSuperSource() {
@@ -248,8 +253,8 @@ void WaterSupply::computeCitiesStatistics() {
             flow += e->getFlow();
         }
         cout << "City " << v.second.getName();
-        if ((v.second.getDemand()) < flow) cout << " Over demand by " << flow - (v.second.getDemand()) << "." << endl;
-        else if ((v.second.getDemand()) > flow) cout << " Under demand by " << (v.second.getDemand()) - flow << "." << endl;
+        if ((v.second.getDemand()) < flow) cout << " Over demand by " << flow - (v.second.getDemand()) << ". " << v.second.getDemand() << endl;
+        else if ((v.second.getDemand()) > flow) cout << " Under demand by " << (v.second.getDemand()) - flow << ". " << v.second.getDemand() << endl;
         else cout << " Exactly on demand. " << v.second.getDemand() << endl;
     }
 }
@@ -506,4 +511,73 @@ int WaterSupply::getCityFlow(std::string city) {
     }
     return count;
 }
+
+void augmentPathList(Vertex* source, Vertex* target, double cf, unordered_map<std::string, vector<pair<double, vector<Edge*>>>>& paths) {
+    Vertex* curr = target;
+    vector<Edge*> path;
+    string reservoir;
+    while (curr != source){
+        path.push_back(curr->getPath());
+        bool outgoing = curr->getPath()->getDest() == curr;
+        curr->getPath()->setFlow(outgoing ? curr->getPath()->getFlow() + cf : curr->getPath()->getFlow() - cf);
+        curr = outgoing ? curr->getPath()->getOrig() : curr->getPath()->getDest();
+        if (curr->getInfo().substr(0,1) == "R") reservoir = curr->getInfo();
+    }
+    path.erase(path.begin());
+    path.erase(path.end()-1);
+    if (paths.count(reservoir)) {
+        paths.at(reservoir).emplace_back(cf, path);
+    }
+    else {
+        paths.emplace(reservoir, vector<pair<double, vector<Edge*>>>{make_pair(cf, path)});
+    }
+}
+
+void WaterSupply::maxFlowWithList(    unordered_map<std::string, vector<pair<double, vector<Edge*>>>>& paths) {
+    getSuperSource();
+    getSuperSink();
+    Vertex* src = network.findVertex("src");
+    Vertex* snk = network.findVertex("sink");
+    for(auto v: network.getVertexSet()){
+        for(Edge* e: v.second->getAdj()){
+            e->setFlow(0);
+        }
+    }
+    while(findAugPath(&network, src, snk)){
+        double cf = getCf(src, snk);
+        augmentPathList(src, snk, cf, paths);
+    }
+    for (auto a:paths) {
+        cout << a.first << ": ";
+        for (auto c: a.second) {
+            cout << c.first<< "| ";
+            for (auto w: c.second) {
+                cout << w->getDest()->getInfo() << ", ";
+            }
+        }
+        cout << endl;
+    }
+}
+
+void WaterSupply::deleteReservoir(std::string reservoir) {
+    unordered_map<std::string, vector<pair<double, vector<Edge*>>>> paths;
+    maxFlowWithList(paths);
+    computeCitiesStatistics();
+    cout <<computeMaxFlow()<< endl;
+    for (auto p: paths.at(reservoir)) {
+        for (auto e: p.second) {
+            e->setFlow(e->getFlow()-p.first);
+        }
+    }
+    for(auto v: network.findVertex("src")->getAdj()) {
+        if (v->getDest()->getInfo() == reservoir) v->setWeight(0);
+    }
+    maxFlow("src", "sink");
+    cout << computeMaxFlow()<<endl;
+    network.removeVertex("src");
+    network.removeVertex("sink");
+    computeCitiesStatistics();
+}
+
+
 
