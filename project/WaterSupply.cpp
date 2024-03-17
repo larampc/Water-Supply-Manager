@@ -196,32 +196,21 @@ void WaterSupply::getSuperSink() {
     }
 }
 
-void WaterSupply::maxFlow() {
-    getSuperSource();
-    getSuperSink();
-    for(auto v: network.getVertexSet()){
-        for(Edge* e: v.second->getAdj()){
-            e->setFlow(0);
-        }
+
+void WaterSupply::setInfSuperSink() {
+    network.addVertex("sink");
+    for(auto v: cities) {
+        network.addEdge( v.first, "sink", INF);
     }
-    Vertex* src = network.findVertex("src");
-    Vertex* sink = network.findVertex("sink");
-    while(findAugPath(&network, src, sink)){
-        double cf = getCf(src, sink);
-        augmentPath(src, sink, cf);
+}
+
+void WaterSupply::maxFlow(string source, string sink) {
+    Vertex* src = network.findVertex(source);
+    Vertex* snk = network.findVertex(sink);
+    while(findAugPath(&network, src, snk)){
+        double cf = getCf(src, snk);
+        augmentPath(src, snk, cf);
     }
-    int total = 0;
-    for (auto v: cities) {
-        Vertex* end = network.findVertex(v.first);
-        int count = 0;
-        for (Edge* e: end->getIncoming()) {
-            count += e->getFlow();
-        }
-        total += count;
-    }
-    cout << "Total " << total << endl;
-    network.removeVertex("src");
-    network.removeVertex("sink");
 }
 
 void WaterSupply::computeAverageAndVarianceOfPipes() {
@@ -437,5 +426,84 @@ void WaterSupply::setDataSmall() {
 
 void WaterSupply::setDataDefault() {
     dataSet = true;
+}
+
+int WaterSupply::computeMaxFlow() {
+    int total = 0;
+    for (auto v: cities) {
+        Vertex* end = network.findVertex(v.first);
+        int count = 0;
+        for (Edge* e: end->getIncoming()) {
+            count += e->getFlow();
+        }
+        total += count;
+    }
+    return total;
+}
+
+void WaterSupply::optimalResMaxFlow() {
+    getSuperSource();
+    getSuperSink();
+    for(auto v: network.getVertexSet()){
+        for(Edge* e: v.second->getAdj()){
+            e->setFlow(0);
+        }
+    }
+    maxFlow("src", "sink");
+    network.removeVertex("src");
+    network.removeVertex("sink");
+}
+
+void WaterSupply::optimalExcessMaxFlow() {
+    getSuperSource();
+    getSuperSink();
+    for(auto v: network.getVertexSet()){
+        for(Edge* e: v.second->getAdj()){
+            e->setFlow(0);
+        }
+    }
+    maxFlow("src", "sink");
+    network.removeVertex("sink");
+    setInfSuperSink();
+    maxFlow("src", "sink");
+    network.removeVertex("src");
+    network.removeVertex("sink");
+}
+
+void WaterSupply::optimalExcessCityMaxFlow(std::string target) {
+    getSuperSource();
+    getSuperSink();
+    Vertex* targ = network.findVertex(target);
+    for (auto e: targ->getAdj()) {                          //only one edge but verify if it's sink
+        if (e->getDest()->getInfo() == "sink") e->setWeight(INF);
+    }
+    for(auto v: network.getVertexSet()){
+        for(Edge* e: v.second->getAdj()){
+            e->setFlow(0);
+        }
+    }
+    maxFlow("src", "sink");
+    network.removeVertex("src");
+    network.removeVertex("sink");
+}
+
+void WaterSupply::cityMaxFlow(std::string target) {
+    getSuperSource();
+    for(auto v: network.getVertexSet()){
+        for(Edge* e: v.second->getAdj()){
+            e->setFlow(0);
+        }
+    }
+    maxFlow("src", target);
+    network.removeVertex("src");
+}
+
+int WaterSupply::getCityFlow(std::string city) {
+    Vertex* end = network.findVertex(city);
+    int count = 0;
+    for (Edge* e: end->getIncoming()) {
+        count += e->getFlow();
+    }
+    return count;
 }
 

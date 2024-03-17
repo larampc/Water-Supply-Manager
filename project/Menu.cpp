@@ -143,8 +143,7 @@ void Menu::run() {
                 getNetworkInfo();
                 break;
             case '2':
-                waterSupply.maxFlow();
-                waterSupply.computeCitiesStatistics();
+                getMaxFlowOp();
                 break;
             case '3':
                 settings();
@@ -385,6 +384,51 @@ void Menu::init() {
             break;
     }
     waterSupply.load();
+}
+
+void Menu::getMaxFlowOp() {
+    ColorPrint("blue", "Select option:\n");
+    ColorPrint("cyan", "1. ");
+    ColorPrint("white", "Get optimal max flow\n");
+    ColorPrint("cyan", "2. ");
+    ColorPrint("white", "Get optimal max flow with excess\n");
+    ColorPrint("cyan", "3. ");
+    ColorPrint("white", "Get max flow to specific city\n");
+    ColorPrint("cyan", "4. ");
+    ColorPrint("white", "Get optimal max flow with excess to a specific city\n");
+    ColorPrint("cyan", "5. ");
+    ColorPrint("red", "Cancel \n");
+    cin.sync();
+    string code;
+    switch (readOption(5)) {
+        case '1':
+            waterSupply.optimalResMaxFlow();
+            waterSupply.computeCitiesStatistics();
+            ColorPrint("cyan", "Total: ");
+            ColorPrint("white", to_string(waterSupply.computeMaxFlow()));
+            break;
+        case '2':
+            waterSupply.optimalExcessMaxFlow();
+            waterSupply.computeCitiesStatistics();
+            ColorPrint("cyan", "Total: ");
+            ColorPrint("white", to_string(waterSupply.computeMaxFlow()));
+            break;
+        case '3':
+            code = readCityCode();
+            waterSupply.cityMaxFlow(code);
+            ColorPrint("cyan", "Total: ");
+            ColorPrint("white", to_string(waterSupply.getCityFlow(code)));
+            break;
+        case '4':
+            code = readCityCode();
+            waterSupply.optimalExcessCityMaxFlow(code);
+            waterSupply.computeCitiesStatistics();
+            ColorPrint("cyan", "Total to " + waterSupply.getCity(code).getName() + ": ");
+            ColorPrint("white", to_string(waterSupply.getCityFlow(code)) + "\n");
+            ColorPrint("cyan", "Total: ");
+            ColorPrint("white", to_string(waterSupply.computeMaxFlow()));
+            break;
+    }
 }
 
 

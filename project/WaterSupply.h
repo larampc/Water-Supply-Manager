@@ -37,7 +37,7 @@ public:
     std::vector<Reservoir> existsMunicipality(std::string municipality);
     void getSuperSource();
     void getSuperSink();
-    void maxFlow();
+    void maxFlow(std::string source, std::string sink);
     void computeAverageAndVarianceOfPipes();
     void computeCitiesStatistics();
     std::vector<City> getCityMaxDemand();
@@ -46,7 +46,13 @@ public:
     std::vector<City> getCityMinPop();
     std::vector<Reservoir> getReservoirMaxDel();
     std::vector<Reservoir> getReservoirMinDel();
-
+    void setInfSuperSink();
+    int computeMaxFlow();
+    int getCityFlow(std::string city);
+    void optimalResMaxFlow();
+    void optimalExcessMaxFlow();
+    void optimalExcessCityMaxFlow(std::string target);
+    void cityMaxFlow(std::string target);
 };
 
 

@@ -171,6 +171,10 @@ void Edge::setFlow(double flow) {
     this->flow = flow;
 }
 
+void Edge::setWeight(double weight) {
+    this->weight = weight;
+}
+
 /********************** Graph  ****************************/
 
 

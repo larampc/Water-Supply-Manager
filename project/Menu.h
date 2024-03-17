@@ -92,6 +92,7 @@ public:
     void printReservoir(const Reservoir& reservoir);
     void getCityStatistics();
     void getReservoirStatistics();
+    void getMaxFlowOp();
 };
 
 
