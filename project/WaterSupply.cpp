@@ -523,7 +523,6 @@ void augmentPathList(Vertex* source, Vertex* target, double cf, unordered_map<st
         curr = outgoing ? curr->getPath()->getOrig() : curr->getPath()->getDest();
         if (curr->getInfo().substr(0,1) == "R") reservoir = curr->getInfo();
     }
-    path.erase(path.begin());
     path.erase(path.end()-1);
     if (paths.count(reservoir)) {
         paths.at(reservoir).emplace_back(cf, path);
