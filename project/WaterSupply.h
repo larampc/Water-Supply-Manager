@@ -53,7 +53,7 @@ public:
     void optimalExcessMaxFlow();
     void optimalExcessCityMaxFlow(std::string target);
     void cityMaxFlow(std::string target);
-    void maxFlowWithList(std::unordered_map<std::string, std::vector<std::pair<double, std::vector<Edge*>>>>& paths);
+    void maxFlowWithList(std::unordered_map<std::string, std::vector<std::pair<double, std::vector<std::pair<bool, Edge*>>>>>& paths);
     void deleteReservoir(std::string reservoir);
 };
 

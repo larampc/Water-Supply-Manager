@@ -512,13 +512,13 @@ int WaterSupply::getCityFlow(std::string city) {
     return count;
 }
 
-void augmentPathList(Vertex* source, Vertex* target, double cf, unordered_map<std::string, vector<pair<double, vector<Edge*>>>>& paths) {
+void augmentPathList(Vertex* source, Vertex* target, double cf, unordered_map<std::string, vector<pair<double, vector<pair<bool, Edge*>>>>>& paths) {
     Vertex* curr = target;
-    vector<Edge*> path;
+    vector<pair<bool, Edge*>> path;
     string reservoir;
     while (curr != source){
-        path.push_back(curr->getPath());
         bool outgoing = curr->getPath()->getDest() == curr;
+        path.emplace_back(outgoing, curr->getPath());
         curr->getPath()->setFlow(outgoing ? curr->getPath()->getFlow() + cf : curr->getPath()->getFlow() - cf);
         curr = outgoing ? curr->getPath()->getOrig() : curr->getPath()->getDest();
         if (curr->getInfo().substr(0,1) == "R") reservoir = curr->getInfo();
@@ -529,11 +529,11 @@ void augmentPathList(Vertex* source, Vertex* target, double cf, unordered_map<st
         paths.at(reservoir).emplace_back(cf, path);
     }
     else {
-        paths.emplace(reservoir, vector<pair<double, vector<Edge*>>>{make_pair(cf, path)});
+        paths.emplace(reservoir, vector<pair<double, vector<pair<bool, Edge*>>>>{make_pair(cf, path)});
     }
 }
 
-void WaterSupply::maxFlowWithList(    unordered_map<std::string, vector<pair<double, vector<Edge*>>>>& paths) {
+void WaterSupply::maxFlowWithList(unordered_map<std::string, vector<pair<double, vector<pair<bool, Edge*>>>>>& paths) {
     getSuperSource();
     getSuperSink();
     Vertex* src = network.findVertex("src");
@@ -552,7 +552,7 @@ void WaterSupply::maxFlowWithList(    unordered_map<std::string, vector<pair<dou
         for (auto c: a.second) {
             cout << c.first<< "| ";
             for (auto w: c.second) {
-                cout << w->getDest()->getInfo() << ", ";
+                cout << w.second->getDest()->getInfo() << ", ";
             }
         }
         cout << endl;
@@ -560,13 +560,16 @@ void WaterSupply::maxFlowWithList(    unordered_map<std::string, vector<pair<dou
 }
 
 void WaterSupply::deleteReservoir(std::string reservoir) {
-    unordered_map<std::string, vector<pair<double, vector<Edge*>>>> paths;
+    unordered_map<std::string, vector<pair<double, vector<pair<bool, Edge*>>>>> paths;
     maxFlowWithList(paths);
     computeCitiesStatistics();
     cout <<computeMaxFlow()<< endl;
-    for (auto p: paths.at(reservoir)) {
-        for (auto e: p.second) {
-            e->setFlow(e->getFlow()-p.first);
+    if (paths.count(reservoir)) {
+        for (auto p: paths.at(reservoir)) {
+            for (auto e: p.second) {
+                if (e.first) e.second->setFlow(e.second->getFlow()-p.first);
+                else e.second->setFlow(e.second->getFlow()+p.first);
+            }
         }
     }
     for(auto v: network.findVertex("src")->getAdj()) {
