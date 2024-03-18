@@ -124,7 +124,7 @@ vector<Reservoir> Menu::readReservoirMunicipality(){
 
 
 void Menu::run() {
-    waterSupply.deleteReservoir("R_3");
+    waterSupply.verification();
     while (true) {
         ColorPrint("blue", "\n-----------------------------------\n");
         ColorPrint("blue", "Water Supply Management System\n");

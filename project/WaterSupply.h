@@ -55,6 +55,9 @@ public:
     void cityMaxFlow(std::string target);
     void maxFlowWithList(std::unordered_map<std::string, std::vector<std::pair<double, std::vector<std::pair<bool, Edge*>>>>>& paths);
     void deleteReservoir(std::string reservoir);
+    void optimalDelete(std::string reservoir);
+    void getSuperWithout(std::string reservoir);
+    void verification();
 };
 
 

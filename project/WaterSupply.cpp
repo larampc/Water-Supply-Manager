@@ -546,27 +546,47 @@ void WaterSupply::maxFlowWithList(unordered_map<std::string, vector<pair<double,
         double cf = getCf(src, snk);
         augmentPathList(src, snk, cf, paths);
     }
-    for (auto a:paths) {
-        cout << a.first << ": ";
-        for (auto c: a.second) {
-            cout << c.first<< "| ";
-            for (auto w: c.second) {
-                cout << w.second->getDest()->getInfo() << ", ";
-            }
-        }
-        cout << endl;
-    }
+//    for (auto a:paths) {
+//        cout << a.first << ": ";
+//        for (auto c: a.second) {
+//            cout << c.first<< "| ";
+//            for (auto w: c.second) {
+//                cout << w.second->getDest()->getInfo() << ", ";
+//            }
+//        }
+//        cout << endl;
+//    }
 }
 
 void WaterSupply::deleteReservoir(std::string reservoir) {
     unordered_map<std::string, vector<pair<double, vector<pair<bool, Edge*>>>>> paths;
     maxFlowWithList(paths);
-    computeCitiesStatistics();
-    cout <<computeMaxFlow()<< endl;
     if (paths.count(reservoir)) {
         for (auto p: paths.at(reservoir)) {
             for (auto e: p.second) {
-                if (e.first) e.second->setFlow(e.second->getFlow()-p.first);
+                if (e.first) {
+                    e.second->setFlow(e.second->getFlow()-p.first);
+                    if (e.second->getFlow() < 0) {
+                        for (auto d: reservoirs) {
+                            if (reservoir != d.first) {
+                                for (auto w: paths.at(d.first)) {
+                                    bool f = false;
+                                    int count = 0;
+                                    for (auto y: w.second) {
+                                        if (y.second->getDest() == e.second->getDest()) f = true;
+                                        count++;
+                                    }
+                                    if (f) {
+                                        for (auto y: w.second) {
+                                            if (y.first) y.second->setFlow(y.second->getFlow()-w.first);
+                                            else y.second->setFlow(y.second->getFlow()+w.first);
+                                        }
+                                        w.second.erase(w.second.begin()+count);}
+                                }
+                            }
+                        }
+                    }
+                }
                 else e.second->setFlow(e.second->getFlow()+p.first);
             }
         }
@@ -575,11 +595,46 @@ void WaterSupply::deleteReservoir(std::string reservoir) {
         if (v->getDest()->getInfo() == reservoir) v->setWeight(0);
     }
     maxFlow("src", "sink");
-    cout << computeMaxFlow()<<endl;
     network.removeVertex("src");
     network.removeVertex("sink");
-    computeCitiesStatistics();
 }
+
+void WaterSupply::verification() {
+    int count = 0;
+    for (auto c: reservoirs) {
+        optimalDelete(c.first);
+        int ex = computeMaxFlow();
+        cout << "Expected: " << ex;
+        deleteReservoir(c.first);
+        int g = computeMaxFlow();
+        cout << " Given: " << g << endl;
+        if (ex!=g) count++;
+    }
+    cout << "Total:" << count;
+}
+
+void WaterSupply::optimalDelete(std::string reservoir) {
+    getSuperWithout(reservoir);
+    getSuperSink();
+    for(auto v: network.getVertexSet()){
+        for(Edge* e: v.second->getAdj()){
+            e->setFlow(0);
+        }
+    }
+    maxFlow("src", "sink");
+    network.removeVertex("src");
+    network.removeVertex("sink");
+}
+
+void WaterSupply::getSuperWithout(std::string reservoir) {
+    network.addVertex("src");
+    for(auto v: reservoirs) {
+        if (v.first == reservoir) network.addEdge("src", v.first, 0);
+        else network.addEdge("src", v.first, v.second.getDelivery());
+    }
+}
+
+
 
 
 
