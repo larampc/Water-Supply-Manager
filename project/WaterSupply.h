@@ -58,6 +58,9 @@ public:
     void optimalDelete(std::string reservoir);
     void getSuperWithout(std::string reservoir);
     void verification();
+    void deleteTry(std::string reservoir);
+
+    void maxFlow2(std::string source, std::string sink);
 };
 
 

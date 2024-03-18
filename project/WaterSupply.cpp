@@ -600,17 +600,14 @@ void WaterSupply::deleteReservoir(std::string reservoir) {
 }
 
 void WaterSupply::verification() {
-    int count = 0;
     for (auto c: reservoirs) {
         optimalDelete(c.first);
         int ex = computeMaxFlow();
         cout << "Expected: " << ex;
-        deleteReservoir(c.first);
+        deleteTry(c.first);
         int g = computeMaxFlow();
         cout << " Given: " << g << endl;
-        if (ex!=g) count++;
     }
-    cout << "Total:" << count;
 }
 
 void WaterSupply::optimalDelete(std::string reservoir) {
@@ -634,7 +631,77 @@ void WaterSupply::getSuperWithout(std::string reservoir) {
     }
 }
 
+void WaterSupply::deleteTry(std::string reservoir) {
+    getSuperSource();
+    getSuperSink();
+    for(auto v: network.getVertexSet()){
+        for(Edge* e: v.second->getAdj()){
+            e->setFlow(0);
+        }
+    }
+    maxFlow("src", "sink");
+    maxFlow2(reservoir, "sink");
+    for(auto v: network.findVertex("src")->getAdj()) {
+        if (v->getDest()->getInfo() == reservoir) v->setWeight(0);
+    }
+    maxFlow("src", "sink");
+    network.removeVertex("src");
+    network.removeVertex("sink");
+}
 
+void augmentPath2(Vertex* source, Vertex* target, double cf) {
+    Vertex* curr = target;
+    while (curr != source){
+        bool outgoing = curr->getPath()->getDest() == curr;
+        curr->getPath()->setFlow(outgoing ? curr->getPath()->getFlow() - cf : curr->getPath()->getFlow() + cf);
+        curr = outgoing ? curr->getPath()->getOrig() : curr->getPath()->getDest();
+    }
+}
+void testAndVisit2(queue<Vertex*>& q, Edge* e, Vertex* w, double residual) {
+    if (!w->isVisited() && residual > 0) {
+        w->setVisited(true);
+        w->setPath(e);
+        q.push(w);
+    }
+}
+double residualC2(Edge* e, bool out){
+    return out ? e->getFlow() : e->getWeight() - e->getFlow();
+}
+bool findAugPath2(Graph* g, Vertex* src, Vertex* target){
+    for(auto v : g->getVertexSet())
+        v.second->setVisited(false); //reset
+    std::queue<Vertex*> aux;
+    aux.push(src);
+    src->setVisited(true);
+    while(!aux.empty() && !target->isVisited()){
+        Vertex* v = aux.front();
+        aux.pop();
+        for(Edge* adj : v->getAdj()){
+            testAndVisit2(aux, adj, adj->getDest(), residualC2(adj, true));
+        }
+        for(Edge* adj : v->getIncoming()){
+            testAndVisit2(aux, adj, adj->getOrig(), residualC2(adj, false));
+        }
+    }
+    return target->isVisited();
+}
+double getCf2(Vertex* source, Vertex* target) {
+    double minC = INF;
+    Vertex *curr = target;
+    while (curr != source) {
+        bool outgoing = curr->getPath()->getDest() == curr;
+        minC = std::min(minC, residualC2(curr->getPath(), outgoing));
+        curr = outgoing ? curr->getPath()->getOrig() : curr->getPath()->getDest();
+    }
+    return minC;
+}
 
-
+void WaterSupply::maxFlow2(string source, string sink) {
+    Vertex* src = network.findVertex(source);
+    Vertex* snk = network.findVertex(sink);
+    while(findAugPath2(&network, src, snk)){
+        double cf = getCf2(src, snk);
+        augmentPath2(src, snk, cf);
+    }
+}
 
