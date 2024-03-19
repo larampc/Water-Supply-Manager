@@ -21,8 +21,14 @@ private:
     std::vector<unsigned int> free;
 public:
     void load();
+    /********************** Setters  ****************************/
     void setDataSmall();
     void setDataDefault();
+    void setSuperSource();
+    void setSuperSink();
+    void setInfSuperSink();
+    void setSuperWithout(std::string reservoir);
+    /********************** Getters  ****************************/
     Graph getNetwork();
     City getCity(std::string code);
     Reservoir getReservoir(std::string code);
@@ -30,6 +36,7 @@ public:
     std::unordered_map<std::string, City> getCities();
     std::unordered_map<std::string, Reservoir> getReservoirs();
     std::unordered_map<std::string, Station> getStations();
+    /********************** Checkers  ****************************/
     std::string existsCityByID(int id);
     bool existsCityByCode(std::string code);
     std::string existsCityByName(std::string name);
@@ -37,37 +44,35 @@ public:
     std::string existsReservoirByID(int id);
     bool existsReservoirByCode(std::string code);
     std::vector<Reservoir> existsMunicipality(std::string municipality);
-    void setSuperSource();
-    void setSuperSink();
-    void maxFlow(std::string source, std::string sink);
-    void computeAverageAndVarianceOfPipes();
-    void computeCitiesStatistics();
+    /********************** Statistics  ****************************/
     std::vector<City> getCityMaxDemand();
     std::vector<City> getCityMinDemand();
     std::vector<City> getCityMaxPop();
     std::vector<City> getCityMinPop();
     std::vector<Reservoir> getReservoirMaxDel();
     std::vector<Reservoir> getReservoirMinDel();
-    void setInfSuperSink();
+    void computeAverageAndVarianceOfPipes();
+    void computeCitiesStatistics();
     int computeMaxFlow();
     int computeCityFlow(std::string city);
+    /********************** MaxFlow  ****************************/
+    void maxFlow(std::string source, std::string sink);
     void optimalResMaxFlow();
     void optimalExcessMaxFlow();
     void optimalExcessCityMaxFlow(std::string target);
     void cityMaxFlow(std::string target);
-    void maxFlowWithList();
-    void deleteReservoir(std::string reservoir);
-    void optimalDelete(std::string reservoir);
-    void setSuperWithout(std::string reservoir);
-    void verification();
-    void deleteReservoirMaxReverse(std::string reservoir);
-
+    /********************** MaxFlow Reverse ****************************/
     void reverseMaxFlow(std::string source, std::string sink);
+    void deleteReservoirMaxReverse(std::string reservoir);
+    /********************** MaxFlow List ****************************/
 
+    void maxFlowWithList();
     void augmentPathList(Vertex* source, Vertex* target, double cf);
     void resetPaths(std::unordered_set<int> pat);
-    void augmentPathList(Vertex* source, Vertex* target, double cf, std::unordered_map<std::string, std::vector<int>>& resPaths);
-    void resetPaths(std::vector<int> pat);
+    void deleteReservoir(std::string reservoir);
+    void verification();
+
+    void optimalDelete(std::string reservoir);
 
     static void OutputToFile(const std::string &fileName, const std::string &text);
 };
