@@ -84,6 +84,7 @@ public:
     void addPath(int p);
     void removePath(int p);
     void resetPath();
+    bool hasPath(int p);
 protected:
     Vertex * dest; // destination vertex
     double weight; // edge weight, can also be used for capacity

@@ -208,6 +208,10 @@ void Edge::resetPath() {
     paths.clear();
 }
 
+bool Edge::hasPath(int p) {
+    return paths.count(p);
+}
+
 /********************** Graph  ****************************/
 
 

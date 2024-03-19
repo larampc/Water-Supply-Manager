@@ -564,19 +564,7 @@ void WaterSupply::maxFlowWithList() {
 
 void WaterSupply::deleteReservoir(std::string reservoir) {
     Vertex* v = network.findVertex(reservoir);
-    for (auto k: v->getPaths()) {
-        if (paths.count(k)) {
-            for (auto e: paths.at(k).second) {
-                e.second->setFlow(e.second->getFlow() - (e.first ? paths.at(k).first: -paths.at(k).first));
-                e.second->removePath(k);
-                e.second->getDest()->removePath(k);
-                e.second->getOrig()->removePath(k);
-            }
-            paths.erase(k);
-            free.push_back(k);
-        }
-
-    }
+    resetPaths(v->getPaths());
     for(auto v: network.findVertex("src")->getAdj()) {
         if (v->getDest()->getInfo() == reservoir) v->setWeight(0);
     }
@@ -697,14 +685,19 @@ void WaterSupply::maxFlow2(string source, string sink) {
 
 void WaterSupply::resetPaths(std::unordered_set<int> pat) {
     for (auto k: pat) {
-        for (auto e: paths.at(k).second) {
-            e.second->setFlow(e.second->getFlow() - (e.first ? paths.at(k).first: -paths.at(k).first));
-            e.second->removePath(k);
-            e.second->getDest()->removePath(k);
-            e.second->getOrig()->removePath(k);
+        if (paths.count(k)) {
+            for (auto e: paths.at(k).second) {
+                if (e.second->hasPath(k)) {
+                    e.second->setFlow(e.second->getFlow() - (e.first ? paths.at(k).first: -paths.at(k).first));
+                    e.second->removePath(k);
+                    e.second->getDest()->removePath(k);
+                    e.second->getOrig()->removePath(k);
+                    if (e.second->getFlow() < 0) resetPaths(e.second->getPaths());
+                }
+            }
+            paths.erase(k);
+            free.push_back(k);
         }
-        paths.erase(k);
-        free.push_back(k);
     }
 }
 
