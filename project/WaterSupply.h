@@ -37,8 +37,8 @@ public:
     std::string existsReservoirByID(int id);
     bool existsReservoirByCode(std::string code);
     std::vector<Reservoir> existsMunicipality(std::string municipality);
-    void getSuperSource();
-    void getSuperSink();
+    void setSuperSource();
+    void setSuperSink();
     void maxFlow(std::string source, std::string sink);
     void computeAverageAndVarianceOfPipes();
     void computeCitiesStatistics();
@@ -50,7 +50,7 @@ public:
     std::vector<Reservoir> getReservoirMinDel();
     void setInfSuperSink();
     int computeMaxFlow();
-    int getCityFlow(std::string city);
+    int computeCityFlow(std::string city);
     void optimalResMaxFlow();
     void optimalExcessMaxFlow();
     void optimalExcessCityMaxFlow(std::string target);
@@ -58,11 +58,11 @@ public:
     void maxFlowWithList();
     void deleteReservoir(std::string reservoir);
     void optimalDelete(std::string reservoir);
-    void getSuperWithout(std::string reservoir);
+    void setSuperWithout(std::string reservoir);
     void verification();
-    void deleteTry(std::string reservoir);
+    void deleteReservoirMaxReverse(std::string reservoir);
 
-    void maxFlow2(std::string source, std::string sink);
+    void reverseMaxFlow(std::string source, std::string sink);
 
     void augmentPathList(Vertex* source, Vertex* target, double cf);
     void resetPaths(std::unordered_set<int> pat);

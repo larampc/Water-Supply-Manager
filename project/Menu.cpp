@@ -422,13 +422,13 @@ void Menu::getMaxFlowOp() {
             code = readCityCode();
             waterSupply.cityMaxFlow(code);
             ColorPrint("cyan", "Total: ");
-            ColorPrint("white", to_string(waterSupply.getCityFlow(code)));
+            ColorPrint("white", to_string(waterSupply.computeCityFlow(code)));
             break;
         case '4':
             oss << "City - Flow\n";
             for(const auto& c : waterSupply.getCities()){
                 waterSupply.cityMaxFlow(c.first);
-                oss << left << setw(4) << c.first << " - " + to_string(waterSupply.getCityFlow(c.first)) + "\n";
+                oss << left << setw(4) << c.first << " - " + to_string(waterSupply.computeCityFlow(c.first)) + "\n";
             }
             waterSupply.OutputToFile("../output/CitiesMaxFlow", oss.str());
             cout << oss.str();
@@ -438,7 +438,7 @@ void Menu::getMaxFlowOp() {
             waterSupply.optimalExcessCityMaxFlow(code);
             waterSupply.computeCitiesStatistics();
             ColorPrint("cyan", "Total to " + waterSupply.getCity(code).getName() + ": ");
-            ColorPrint("white", to_string(waterSupply.getCityFlow(code)) + "\n");
+            ColorPrint("white", to_string(waterSupply.computeCityFlow(code)) + "\n");
             ColorPrint("cyan", "Total: ");
             ColorPrint("white", to_string(waterSupply.computeMaxFlow()));
             break;
