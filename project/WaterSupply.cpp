@@ -571,17 +571,9 @@ void WaterSupply::deleteReservoir(std::string reservoir) {
         for (auto k: resPaths.at(reservoir)) {
             if (paths.count(k)) {
                 for (auto e: paths.at(k).second) {
-                    if (paths.count(k) && e.second->findPath(k)) {
-                        if (e.first) {
-                            e.second->setFlow(e.second->getFlow() - paths.at(k).first);
-                            e.second->removePath(k);
-                            if (e.second->getFlow() < 0) {
-                                resetPaths(e.second->getPaths());
-                            }
-                        } else  {e.second->setFlow(e.second->getFlow() + paths.at(k).first);e.second->removePath(k);
-                    }
-                    }
-
+                    e.second->setFlow(e.second->getFlow() - (e.first ? paths.at(k).first: -paths.at(k).first));
+                    e.second->removePath(k);
+                    if (e.second->getFlow() < 0) resetPaths(e.second->getPaths());
                 }
                 paths.erase(k);
             }
@@ -706,23 +698,12 @@ void WaterSupply::maxFlow2(string source, string sink) {
 }
 
 void WaterSupply::resetPaths(std::vector<int> pat) {
-        for (auto k: pat) {
-            if (paths.count(k)) {
-                for (auto e: paths.at(k).second) {
-                    if (paths.count(k) && e.second->findPath(k)) {
-                        if (e.first) {
-                            e.second->setFlow(e.second->getFlow() - paths.at(k).first);
-                            e.second->removePath(k);
-                        } else {
-                            e.second->setFlow(e.second->getFlow() + paths.at(k).first);
-                            e.second->removePath(k);
-                        }
-                    }
-
-                }
-                paths.erase(k);
-            }
-
+    for (auto k: pat) {
+        for (auto e: paths.at(k).second) {
+            e.second->setFlow(e.second->getFlow() - (e.first ? paths.at(k).first: -paths.at(k).first));
+            e.second->removePath(k);
         }
+        paths.erase(k);
+    }
 }
 
