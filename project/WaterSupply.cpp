@@ -688,8 +688,8 @@ void WaterSupply::resetPaths(std::unordered_set<int> pat) {
 void WaterSupply::deleteReservoir(std::string reservoir) {
     Vertex* v = network.findVertex(reservoir);
     resetPaths(v->getPaths());
-    for(auto v: network.findVertex("src")->getAdj()) {
-        if (v->getDest()->getInfo() == reservoir) v->setWeight(0);
+    for(auto r: network.findVertex("src")->getAdj()) {
+        if (r->getDest()->getInfo() == reservoir) r->setWeight(0);
     }
     maxFlowWithList();
 }
@@ -700,13 +700,31 @@ void WaterSupply::verification() {
     setSuperSource();
     setSuperSink();
     maxFlowWithList();
-    for (auto c: reservoirs) {
+    for (auto c: stations) {
         cout << c.first << " ";
-        deleteReservoir(c.first);
+        deleteStation(c.first);
         int g = computeMaxFlow();
         cout << " Given: " << g << endl;
     }
     cout << count;
     network.removeVertex("src");
     network.removeVertex("sink");
+}
+
+void WaterSupply::deleteStation(std::string station) {
+    Vertex* v = network.findVertex(station);
+    resetPaths(v->getPaths());
+    for(auto e: v->getAdj()) {
+        e->setWeight(0);
+    }
+    maxFlowWithList();
+}
+
+void WaterSupply::deletePipe(std::string source, std::string dest) {
+    Vertex* v = network.findVertex(source);
+    resetPaths(v->getPaths());
+    for(auto e: v->getAdj()) {
+        if (e->getDest()->getInfo() == dest) e->setWeight(0);
+    }
+    maxFlowWithList();
 }

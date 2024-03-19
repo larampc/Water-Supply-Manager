@@ -70,6 +70,8 @@ public:
     void augmentPathList(Vertex* source, Vertex* target, double cf);
     void resetPaths(std::unordered_set<int> pat);
     void deleteReservoir(std::string reservoir);
+    void deleteStation(std::string station);
+    void deletePipe(std::string source, std::string dest);
     void verification();
 
     void optimalDelete(std::string reservoir);
