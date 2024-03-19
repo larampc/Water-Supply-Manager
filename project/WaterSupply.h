@@ -17,6 +17,7 @@ private:
     void loadStations();
     void loadPipes();
     bool dataSet;
+    std::unordered_map<int, std::pair<double, std::vector<std::pair<bool, Edge*>>>> paths;
 public:
     void load();
     void setDataSmall();
@@ -53,7 +54,7 @@ public:
     void optimalExcessMaxFlow();
     void optimalExcessCityMaxFlow(std::string target);
     void cityMaxFlow(std::string target);
-    void maxFlowWithList(std::unordered_map<std::string, std::vector<std::pair<double, std::vector<std::pair<bool, Edge*>>>>>& paths);
+    void maxFlowWithList(std::unordered_map<std::string, std::vector<int>>& paths);
     void deleteReservoir(std::string reservoir);
     void optimalDelete(std::string reservoir);
     void getSuperWithout(std::string reservoir);
@@ -61,6 +62,9 @@ public:
     void deleteTry(std::string reservoir);
 
     void maxFlow2(std::string source, std::string sink);
+
+    void augmentPathList(Vertex* source, Vertex* target, double cf, std::unordered_map<std::string, std::vector<int>>& resPaths);
+    void resetPaths(std::vector<int> pat);
 };
 
 

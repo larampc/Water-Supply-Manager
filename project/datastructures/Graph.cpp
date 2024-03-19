@@ -175,6 +175,27 @@ void Edge::setWeight(double weight) {
     this->weight = weight;
 }
 
+std::vector<int> Edge::getPaths() {
+    return paths;
+}
+
+void Edge::addPath(int p) {
+    paths.push_back(p);
+
+}
+
+void Edge::removePath(int p) {
+    paths.erase(find(paths.begin(), paths.end(), p));
+}
+
+bool Edge::findPath(int p) {
+    return find(paths.begin(), paths.end(), p) != paths.end();
+}
+
+void Edge::resetPath() {
+    paths.clear();
+}
+
 /********************** Graph  ****************************/
 
 

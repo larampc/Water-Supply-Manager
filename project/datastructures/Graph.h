@@ -74,6 +74,11 @@ public:
     void setReverse(Edge *reverse);
     void setFlow(double flow);
     void setWeight(double weight);
+    std::vector<int> getPaths();
+    void addPath(int p);
+    void removePath(int p);
+    bool findPath(int p);
+    void resetPath();
 protected:
     Vertex * dest; // destination vertex
     double weight; // edge weight, can also be used for capacity
@@ -86,6 +91,7 @@ protected:
     Edge *reverse = nullptr;
 
     double flow; // for flow-related problems
+    std::vector<int> paths;
 };
 
 /********************** Graph  ****************************/
