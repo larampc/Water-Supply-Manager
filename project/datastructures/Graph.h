@@ -7,6 +7,7 @@
 #include <limits>
 #include <algorithm>
 #include <unordered_map>
+#include <unordered_set>
 
 class Edge;
 
@@ -37,6 +38,10 @@ public:
     Edge * addEdge(Vertex *dest, double w);
     bool removeEdge(std::string in);
     void removeOutgoingEdges();
+    std::unordered_set<int> getPaths();
+    void addPath(int p);
+    void removePath(int p);
+    void resetPath();
 
 protected:
     std::string info;                // info node
@@ -54,6 +59,7 @@ protected:
     int queueIndex = 0; 		// required by MutablePriorityQueue and UFDS
 
     void deleteEdge(Edge *edge);
+    std::unordered_set<int> paths;
 };
 
 /********************** Edge  ****************************/
@@ -74,10 +80,9 @@ public:
     void setReverse(Edge *reverse);
     void setFlow(double flow);
     void setWeight(double weight);
-    std::vector<int> getPaths();
+    std::unordered_set<int> getPaths();
     void addPath(int p);
     void removePath(int p);
-    bool findPath(int p);
     void resetPath();
 protected:
     Vertex * dest; // destination vertex
@@ -91,7 +96,7 @@ protected:
     Edge *reverse = nullptr;
 
     double flow; // for flow-related problems
-    std::vector<int> paths;
+    std::unordered_set<int> paths;
 };
 
 /********************** Graph  ****************************/

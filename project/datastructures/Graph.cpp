@@ -130,6 +130,22 @@ void Vertex::deleteEdge(Edge *edge) {
     delete edge;
 }
 
+std::unordered_set<int> Vertex::getPaths() {
+    return paths;
+}
+
+void Vertex::addPath(int p) {
+    paths.emplace(p);
+}
+
+void Vertex::removePath(int p) {
+    paths.erase(p);
+}
+
+void Vertex::resetPath() {
+    paths.clear();
+}
+
 /********************** Edge  ****************************/
 
 
@@ -175,21 +191,17 @@ void Edge::setWeight(double weight) {
     this->weight = weight;
 }
 
-std::vector<int> Edge::getPaths() {
+std::unordered_set<int> Edge::getPaths() {
     return paths;
 }
 
 void Edge::addPath(int p) {
-    paths.push_back(p);
+    paths.emplace(p);
 
 }
 
 void Edge::removePath(int p) {
-    paths.erase(find(paths.begin(), paths.end(), p));
-}
-
-bool Edge::findPath(int p) {
-    return find(paths.begin(), paths.end(), p) != paths.end();
+    paths.erase(p);
 }
 
 void Edge::resetPath() {

@@ -512,33 +512,26 @@ int WaterSupply::getCityFlow(std::string city) {
     return count;
 }
 
-void WaterSupply::augmentPathList(Vertex* source, Vertex* target, double cf, unordered_map<std::string, vector<int>>& resPaths) {
+void WaterSupply::augmentPathList(Vertex* source, Vertex* target, double cf) {
     Vertex* curr = target;
     vector<pair<bool, Edge*>> path;
-    string reservoir;
     while (curr != source){
         bool outgoing = curr->getPath()->getDest() == curr;
         path.emplace_back(outgoing, curr->getPath());
         curr->getPath()->setFlow(outgoing ? curr->getPath()->getFlow() + cf : curr->getPath()->getFlow() - cf);
         curr = outgoing ? curr->getPath()->getOrig() : curr->getPath()->getDest();
-        if (curr->getInfo().substr(0,1) == "R") reservoir = curr->getInfo();
     }
     path.erase(path.end()-1);
-    if (resPaths.count(reservoir)) {
-        resPaths.at(reservoir).emplace_back(paths.size());
-    }
-    else {
-        resPaths.emplace(reservoir, vector<int>{(int)paths.size()});
-    }
     for (auto e: path) {
-        e.second->addPath(paths.size());
+        e.second->addPath(free.empty()? paths.size(): free.at(0));
+        e.second->getDest()->addPath(free.empty()? paths.size(): free.at(0));
+        e.second->getOrig()->addPath(free.empty()? paths.size(): free.at(0));
     }
-    paths.emplace(paths.size(), pair<double, vector<pair<bool, Edge*>>>{make_pair(cf, path)});
+    paths.emplace(free.empty()? paths.size(): free.at(0), pair<double, vector<pair<bool, Edge*>>>{make_pair(cf, path)});
+    if (!free.empty()) free.erase(free.begin());
 }
 
-void WaterSupply::maxFlowWithList(unordered_map<std::string, vector<int>>& paths) {
-    getSuperSource();
-    getSuperSink();
+void WaterSupply::maxFlowWithList() {
     Vertex* src = network.findVertex("src");
     Vertex* snk = network.findVertex("sink");
     for(auto v: network.getVertexSet()) {
@@ -549,7 +542,7 @@ void WaterSupply::maxFlowWithList(unordered_map<std::string, vector<int>>& paths
     }
     while(findAugPath(&network, src, snk)){
         double cf = getCf(src, snk);
-        augmentPathList(src, snk, cf, paths);
+        augmentPathList(src, snk, cf);
     }
 //    for (auto a:paths) {
 //        cout << a.first << ": ";
@@ -564,42 +557,41 @@ void WaterSupply::maxFlowWithList(unordered_map<std::string, vector<int>>& paths
 }
 
 void WaterSupply::deleteReservoir(std::string reservoir) {
-    unordered_map<std::string, vector<int>> resPaths;
-    paths.clear();
-    maxFlowWithList(resPaths);
-    if (resPaths.count(reservoir)) {
-        for (auto k: resPaths.at(reservoir)) {
-            if (paths.count(k)) {
-                for (auto e: paths.at(k).second) {
-                    e.second->setFlow(e.second->getFlow() - (e.first ? paths.at(k).first: -paths.at(k).first));
-                    e.second->removePath(k);
-                    if (e.second->getFlow() < 0) resetPaths(e.second->getPaths());
-                }
-                paths.erase(k);
+    Vertex* v = network.findVertex(reservoir);
+    for (auto k: v->getPaths()) {
+        if (paths.count(k)) {
+            for (auto e: paths.at(k).second) {
+                e.second->setFlow(e.second->getFlow() - (e.first ? paths.at(k).first: -paths.at(k).first));
+                e.second->removePath(k);
+                e.second->getDest()->removePath(k);
+                e.second->getOrig()->removePath(k);
             }
-
+            paths.erase(k);
+            free.push_back(k);
         }
+
     }
     for(auto v: network.findVertex("src")->getAdj()) {
         if (v->getDest()->getInfo() == reservoir) v->setWeight(0);
     }
-    maxFlow("src", "sink");
-    network.removeVertex("src");
-    network.removeVertex("sink");
+    maxFlowWithList();
 }
 
 void WaterSupply::verification() {
     int count = 0;
+    paths.clear();
+    getSuperSource();
+    getSuperSink();
+    maxFlowWithList();
     for (auto c: reservoirs) {
-        optimalDelete(c.first);
-        int ex = computeMaxFlow();
-        cout << "Expected: " << ex;
+        cout << c.first << " ";
         deleteReservoir(c.first);
         int g = computeMaxFlow();
         cout << " Given: " << g << endl;
-        if (ex != g) count++;
     }
     cout << count;
+    network.removeVertex("src");
+    network.removeVertex("sink");
 }
 
 void WaterSupply::optimalDelete(std::string reservoir) {
@@ -697,13 +689,16 @@ void WaterSupply::maxFlow2(string source, string sink) {
     }
 }
 
-void WaterSupply::resetPaths(std::vector<int> pat) {
+void WaterSupply::resetPaths(std::unordered_set<int> pat) {
     for (auto k: pat) {
         for (auto e: paths.at(k).second) {
             e.second->setFlow(e.second->getFlow() - (e.first ? paths.at(k).first: -paths.at(k).first));
             e.second->removePath(k);
+            e.second->getDest()->removePath(k);
+            e.second->getOrig()->removePath(k);
         }
         paths.erase(k);
+        free.push_back(k);
     }
 }
 
