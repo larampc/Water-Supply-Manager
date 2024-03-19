@@ -4,6 +4,7 @@
 #include <iomanip>
 #include <locale>
 #include <codecvt>
+#include <fstream>
 #include "ColorPrint.h"
 
 using namespace std;
@@ -396,11 +397,14 @@ void Menu::getMaxFlowOp() {
     ColorPrint("cyan", "3. ");
     ColorPrint("white", "Get max flow to specific city\n");
     ColorPrint("cyan", "4. ");
-    ColorPrint("white", "Get optimal max flow with excess to a specific city\n");
+    ColorPrint("white", "Get max flow to each city\n");
     ColorPrint("cyan", "5. ");
+    ColorPrint("white", "Get optimal max flow with excess to a specific city\n");
+    ColorPrint("cyan", "6. ");
     ColorPrint("red", "Cancel \n");
     cin.sync();
     string code;
+    ostringstream oss;
     switch (readOption(5)) {
         case '1':
             waterSupply.optimalResMaxFlow();
@@ -421,6 +425,15 @@ void Menu::getMaxFlowOp() {
             ColorPrint("white", to_string(waterSupply.getCityFlow(code)));
             break;
         case '4':
+            oss << "City - Flow\n";
+            for(const auto& c : waterSupply.getCities()){
+                waterSupply.cityMaxFlow(c.first);
+                oss << left << setw(4) << c.first << " - " + to_string(waterSupply.getCityFlow(c.first)) + "\n";
+            }
+            waterSupply.OutputToFile("../output/CitiesMaxFlow", oss.str());
+            cout << oss.str();
+            break;
+        case '5':
             code = readCityCode();
             waterSupply.optimalExcessCityMaxFlow(code);
             waterSupply.computeCitiesStatistics();

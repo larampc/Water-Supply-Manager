@@ -9,6 +9,8 @@
 #include <locale>
 #include <codecvt>
 #include <iostream>
+#include <iomanip>
+
 using namespace std;
 
 unsigned readPopulation(string pop){
@@ -247,16 +249,20 @@ void WaterSupply::computeAverageAndVarianceOfPipes() {
 }
 
 void WaterSupply::computeCitiesStatistics() {
+    ostringstream oss;
+    oss << "City - Flow\n\n";
     for(auto v: cities) {
         double flow = 0;
         for(Edge* e: network.findVertex(v.first)->getIncoming()) {
             flow += e->getFlow();
         }
-        cout << "City " << v.second.getName();
-        if ((v.second.getDemand()) < flow) cout << " Over demand by " << flow - (v.second.getDemand()) << ". " << v.second.getDemand() << endl;
-        else if ((v.second.getDemand()) > flow) cout << " Under demand by " << (v.second.getDemand()) - flow << ". " << v.second.getDemand() << endl;
-        else cout << " Exactly on demand. " << v.second.getDemand() << endl;
+        oss << left << setw(4) << v.second.getCode() << " - " << setw(6) << v.second.getDemand();
+        if ((v.second.getDemand()) < flow) oss << " (Overflow by " << flow - (v.second.getDemand()) << ")";
+        else if ((v.second.getDemand()) > flow) oss << " (Underflow by " << (v.second.getDemand()) - flow << ")";
+        oss << "\n";
     }
+    cout << oss.str() << "\n";
+    OutputToFile("../output/MaxFlow", oss.str());
 }
 
 std::unordered_map<std::string, City> WaterSupply::getCities() {
@@ -702,3 +708,9 @@ void WaterSupply::resetPaths(std::unordered_set<int> pat) {
     }
 }
 
+
+void WaterSupply::OutputToFile(const string& fileName, const string& text){
+    ofstream out(fileName);
+    out << text;
+    out.close();
+}

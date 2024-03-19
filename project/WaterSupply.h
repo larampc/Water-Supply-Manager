@@ -66,6 +66,10 @@ public:
 
     void augmentPathList(Vertex* source, Vertex* target, double cf);
     void resetPaths(std::unordered_set<int> pat);
+    void augmentPathList(Vertex* source, Vertex* target, double cf, std::unordered_map<std::string, std::vector<int>>& resPaths);
+    void resetPaths(std::vector<int> pat);
+
+    static void OutputToFile(const std::string &fileName, const std::string &text);
 };
 
 
