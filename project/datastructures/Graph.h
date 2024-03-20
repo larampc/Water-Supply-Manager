@@ -42,7 +42,9 @@ public:
     void addPath(int p);
     void removePath(int p);
     void resetPath();
-
+    void desactivate();
+    void activate();
+    bool checkActive();
 protected:
     std::string info;                // info node
     std::vector<Edge *> adj;  // outgoing edges
@@ -60,6 +62,7 @@ protected:
 
     void deleteEdge(Edge *edge);
     std::unordered_set<int> paths;
+    bool isActive = true;
 };
 
 /********************** Edge  ****************************/
@@ -85,6 +88,9 @@ public:
     void removePath(int p);
     void resetPath();
     bool hasPath(int p);
+    void desactivate();
+    void activate();
+    bool checkActive();
 protected:
     Vertex * dest; // destination vertex
     double weight; // edge weight, can also be used for capacity
@@ -98,6 +104,7 @@ protected:
 
     double flow; // for flow-related problems
     std::unordered_set<int> paths;
+    bool isActive = true;
 };
 
 /********************** Graph  ****************************/

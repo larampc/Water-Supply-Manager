@@ -93,6 +93,7 @@ public:
     void getCityStatistics();
     void getReservoirStatistics();
     void getMaxFlowOp();
+    void reliabilityTesting();
 };
 
 

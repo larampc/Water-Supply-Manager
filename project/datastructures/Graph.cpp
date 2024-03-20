@@ -146,6 +146,18 @@ void Vertex::resetPath() {
     paths.clear();
 }
 
+void Vertex::activate() {
+    isActive = true;
+}
+
+void Vertex::desactivate() {
+    isActive = false;
+}
+
+bool Vertex::checkActive() {
+    return isActive;
+}
+
 /********************** Edge  ****************************/
 
 
@@ -210,6 +222,18 @@ void Edge::resetPath() {
 
 bool Edge::hasPath(int p) {
     return paths.count(p);
+}
+
+void Edge::desactivate() {
+    isActive = false;
+}
+
+void Edge::activate() {
+    isActive = true;
+}
+
+bool Edge::checkActive() {
+    return isActive;
 }
 
 /********************** Graph  ****************************/

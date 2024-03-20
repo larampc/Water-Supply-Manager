@@ -5,6 +5,7 @@
 #include "Reservoir.h"
 #include "Station.h"
 #include "unordered_map"
+#include "MaxFlow.h"
 
 class WaterSupply {
 private:
@@ -12,13 +13,13 @@ private:
     std::unordered_map<std::string, City> cities;
     std::unordered_map<std::string, Reservoir> reservoirs;
     std::unordered_map<std::string, Station> stations;
+    MaxFlow tester;
     void loadCities();
     void loadReservoir();
     void loadStations();
     void loadPipes();
     bool dataSet;
-    std::unordered_map<unsigned int, std::pair<double, std::vector<std::pair<bool, Edge*>>>> paths;
-    std::vector<unsigned int> free;
+
 public:
     void load();
     /********************** Setters  ****************************/
@@ -56,27 +57,18 @@ public:
     int computeMaxFlow();
     int computeCityFlow(std::string city);
     /********************** MaxFlow  ****************************/
-    void maxFlow(std::string source, std::string sink);
     void optimalResMaxFlow();
     void optimalExcessMaxFlow();
     void optimalExcessCityMaxFlow(std::string target);
     void cityMaxFlow(std::string target);
     /********************** MaxFlow Reverse ****************************/
-    void reverseMaxFlow(std::string source, std::string sink);
-    void deleteReservoirMaxReverse(std::string reservoir);
-    /********************** MaxFlow List ****************************/
-
-    void maxFlowWithList();
-    void augmentPathList(Vertex* source, Vertex* target, double cf);
-    void resetPaths(std::unordered_set<int> pat);
-    void deleteReservoir(std::string reservoir);
-    void deleteStation(std::string station);
-    void deletePipe(std::string source, std::string dest);
-    void verification();
-
+    void reliability();
+    void activate(std::string p);
     void optimalDelete(std::string reservoir);
 
     static void OutputToFile(const std::string &fileName, const std::string &text);
+
+    void deleteReservoirMaxReverse(std::string reservoir);
 };
 
 

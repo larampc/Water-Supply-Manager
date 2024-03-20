@@ -125,7 +125,6 @@ vector<Reservoir> Menu::readReservoirMunicipality(){
 
 
 void Menu::run() {
-//    waterSupply.verification();
     while (true) {
         ColorPrint("blue", "\n-----------------------------------\n");
         ColorPrint("blue", "Water Supply Management System\n");
@@ -136,8 +135,10 @@ void Menu::run() {
         ColorPrint("cyan", "2. ");
         ColorPrint("white", "Get max flow \n");
         ColorPrint("cyan", "3. ");
-        ColorPrint("white", "Settings \n");
+        ColorPrint("white", "Network reliability testing\n");
         ColorPrint("cyan", "4. ");
+        ColorPrint("white", "Settings \n");
+        ColorPrint("cyan", "5. ");
         ColorPrint("red", "Quit Manager \n");
         cin.sync();
         switch (readOption(4)) {
@@ -151,6 +152,9 @@ void Menu::run() {
                 settings();
                 break;
             case '4':
+                reliabilityTesting();
+                break;
+            case '5':
                 exit(0);
         }
     }
@@ -441,6 +445,23 @@ void Menu::getMaxFlowOp() {
             ColorPrint("white", to_string(waterSupply.computeCityFlow(code)) + "\n");
             ColorPrint("cyan", "Total: ");
             ColorPrint("white", to_string(waterSupply.computeMaxFlow()));
+            break;
+    }
+}
+
+void Menu::reliabilityTesting() {
+    ColorPrint("blue", "Select option:\n");
+    ColorPrint("cyan", "1. ");
+    ColorPrint("white", "Remove a reservoir\n");
+    ColorPrint("cyan", "2. ");
+    ColorPrint("white", "Remove a station\n");
+    ColorPrint("cyan", "3. ");
+    ColorPrint("white", "Remove a pipe \n");
+    ColorPrint("cyan", "4. ");
+    ColorPrint("red", "Cancel \n");
+    cin.sync();
+    switch(readOption(4)) {
+        case '1':
             break;
     }
 }
