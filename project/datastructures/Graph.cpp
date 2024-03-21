@@ -544,3 +544,11 @@ Graph::~Graph() {
     deleteMatrix(pathMatrix, vertexSet.size());
 }
 
+void Graph::resetFlow() {
+    for(const auto& v: vertexSet){
+        for(Edge* e: v.second->getAdj()){
+            e->setFlow(0);
+        }
+    }
+}
+

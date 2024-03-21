@@ -144,6 +144,7 @@ public:
     bool isDAG() const;
     bool dfsIsDAG(Vertex *v) const;
     std::vector<std::string> topsort() const;
+    void resetFlow();
 protected:
     std::unordered_map<std::string, Vertex *> vertexSet;    // vertex set
 

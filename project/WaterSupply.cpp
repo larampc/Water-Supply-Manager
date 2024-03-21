@@ -426,11 +426,7 @@ int WaterSupply::computeMaxFlow() {
 void WaterSupply::optimalResMaxFlow() {
     setSuperSource();
     setSuperSink();
-    for(auto v: network.getVertexSet()){
-        for(Edge* e: v.second->getAdj()){
-            e->setFlow(0);
-        }
-    }
+    network.resetFlow();
     tester.maxFlow("src", "sink", network);
     network.removeVertex("src");
     network.removeVertex("sink");
@@ -439,11 +435,7 @@ void WaterSupply::optimalResMaxFlow() {
 void WaterSupply::optimalExcessMaxFlow() {
     setSuperSource();
     setSuperSink();
-    for(auto v: network.getVertexSet()){
-        for(Edge* e: v.second->getAdj()){
-            e->setFlow(0);
-        }
-    }
+    network.resetFlow();
     tester.maxFlow("src", "sink", network);
     network.removeVertex("sink");
     setInfSuperSink();
@@ -459,11 +451,7 @@ void WaterSupply::optimalExcessCityMaxFlow(std::string target) {
     for (auto e: targ->getAdj()) {                          //only one edge but verify if it's sink
         if (e->getDest()->getInfo() == "sink") e->setWeight(INF);
     }
-    for(auto v: network.getVertexSet()){
-        for(Edge* e: v.second->getAdj()){
-            e->setFlow(0);
-        }
-    }
+    network.resetFlow();
     tester.maxFlow("src", "sink", network);
     network.removeVertex("src");
     network.removeVertex("sink");
@@ -471,11 +459,7 @@ void WaterSupply::optimalExcessCityMaxFlow(std::string target) {
 
 void WaterSupply::cityMaxFlow(std::string target) {
     setSuperSource();
-    for(auto v: network.getVertexSet()){
-        for(Edge* e: v.second->getAdj()){
-            e->setFlow(0);
-        }
-    }
+    network.resetFlow();
     tester.maxFlow("src", target, network);
     network.removeVertex("src");
 }
@@ -483,11 +467,7 @@ void WaterSupply::cityMaxFlow(std::string target) {
 void WaterSupply::optimalDelete(std::string reservoir) {
     setSuperWithout(reservoir);
     setSuperSink();
-    for(auto v: network.getVertexSet()){
-        for(Edge* e: v.second->getAdj()){
-            e->setFlow(0);
-        }
-    }
+    network.resetFlow();
     tester.maxFlow("src", "sink", network);
     network.removeVertex("src");
     network.removeVertex("sink");
@@ -502,11 +482,7 @@ void WaterSupply::OutputToFile(const string& fileName, const string& text){
 void WaterSupply::deleteReservoirMaxReverse(std::string reservoir) {
     setSuperSource();
     setSuperSink();
-    for(auto v: network.getVertexSet()){
-        for(Edge* e: v.second->getAdj()){
-            e->setFlow(0);
-        }
-    }
+    network.resetFlow();
     tester.maxFlow("src", "sink", network);
     tester.reverseMaxFlow(reservoir, "sink", network);
     network.findVertex(reservoir)->desactivate();
@@ -523,5 +499,8 @@ void WaterSupply::reliability() {
 
 void WaterSupply::activate(std::string p) {
     network.findVertex(p)->activate();
+}
+void WaterSupply::desactivate(std::string p) {
+    network.findVertex(p)->desactivate();
 }
 

@@ -69,6 +69,8 @@ public:
     static void OutputToFile(const std::string &fileName, const std::string &text);
 
     void deleteReservoirMaxReverse(std::string reservoir);
+
+    void desactivate(std::string p);
 };
 
 
