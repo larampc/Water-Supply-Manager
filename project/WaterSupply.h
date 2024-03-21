@@ -71,6 +71,7 @@ public:
     void deleteReservoirMaxReverse(std::string reservoir);
 
     void desactivate(std::string p);
+    void frblanraciursnacoo();
 };
 
 

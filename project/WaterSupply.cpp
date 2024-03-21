@@ -504,3 +504,42 @@ void WaterSupply::desactivate(std::string p) {
     network.findVertex(p)->desactivate();
 }
 
+void WaterSupply::frblanraciursnacoo() {
+    std::vector<std::string> res;
+    // Get the source vertex
+    auto s = network.findVertex("src");
+
+    // Set that no vertex has been visited yet
+    for (auto v : network.getVertexSet()) {
+        v.second->setVisited(false);
+        v.second->setDist(0);
+    }
+
+    // Perform the actual BFS using a queue
+    std::queue<Vertex *> q;
+    q.push(s);
+    s->setVisited(true);
+    while (!q.empty()) {
+        auto v = q.front();
+        q.pop();
+        res.push_back(v->getInfo());
+        for (auto & e : v->getAdj()) {
+            auto w = e->getDest();
+            if (e->getReverse()) {
+                int e_dist = 0;
+                if (w->getDist() < v->getDist()+(e->getWeight()-e->getFlow()) && e->getWeight()!=e->getFlow()) {
+                    w->setDist(v->getDist()+(e->getWeight()-e->getFlow()));
+                    w->setPath(e);
+                }
+
+                if (w->getDist() < v->getDist()+(e->getWeight()-e->getFlow())) {
+                    w->setDist(v->getDist()+(e->getWeight()-e->getFlow()));
+                    w->setPath(e);
+                }
+                q.push(w);
+                w->setVisited(true);
+            }
+        }
+    }
+}
+
