@@ -30,7 +30,7 @@ void augmentPath(Vertex* source, Vertex* target, double cf) {
 }
 
 void testAndVisit(queue<Vertex*>& q, Edge* e, Vertex* w, double residual) {
-    if (! w->isVisited() && residual > 0 && w->checkActive() && e->checkActive()) {
+    if (!w->isVisited() && residual > 0 && w->checkActive() && e->checkActive()) {
         w->setVisited(true);
         w->setPath(e);
         q.push(w);
@@ -177,18 +177,14 @@ void MaxFlow::resetPaths(std::unordered_set<int> pat) {
 void MaxFlow::deleteReservoir(std::string reservoir, Graph& network) {
     Vertex* v = network.findVertex(reservoir);
     resetPaths(v->getPaths());
-    for(auto r: network.findVertex("src")->getAdj()) {
-        if (r->getDest()->getInfo() == reservoir) r->setWeight(0);
-    }
+    v->desactivate();
     maxFlowWithList(network);
 }
 
 void MaxFlow::deleteStation(std::string station, Graph& network) {
     Vertex* v = network.findVertex(station);
     resetPaths(v->getPaths());
-    for(auto e: v->getAdj()) {
-        e->setWeight(0);
-    }
+    v->desactivate();
     maxFlowWithList(network);
 }
 
@@ -196,7 +192,7 @@ void MaxFlow::deletePipe(std::string source, std::string dest, Graph& network) {
     Vertex* v = network.findVertex(source);
     resetPaths(v->getPaths());
     for(auto e: v->getAdj()) {
-        if (e->getDest()->getInfo() == dest) e->setWeight(0);
+        if (e->getDest()->getInfo() == dest) e->desactivate();
     }
     maxFlowWithList(network);
 }

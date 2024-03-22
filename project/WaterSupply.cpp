@@ -207,6 +207,17 @@ bool WaterSupply::existsCityByCode(std::string code) {
     return cities.count(code);
 }
 
+bool WaterSupply::existsPipe(std::string source, std::string code) {
+    for (auto e: network.findVertex(source)->getAdj()) {
+        if (e->getDest()->getInfo() == code) return true;
+    }
+    return false;
+}
+
+bool WaterSupply::existsStationByCode(std::string code) {
+    return stations.count(code);
+}
+
 bool compareString(string s1, string s2) {
     int count = 0;
     for (int i = 0; i < s1.size(); i++) {
@@ -491,55 +502,141 @@ void WaterSupply::deleteReservoirMaxReverse(std::string reservoir) {
     network.removeVertex("sink");
 }
 
-void WaterSupply::reliability() {
+void WaterSupply::reliabilityPrep() {
     setSuperSource();
     setSuperSink();
     tester.reliabilityPrep(network);
 }
 
+void WaterSupply::reliabilityTearDown() {
+    tester.reliabilityTearDown(network);
+}
+
 void WaterSupply::activate(std::string p) {
     network.findVertex(p)->activate();
 }
-void WaterSupply::desactivate(std::string p) {
-    network.findVertex(p)->desactivate();
-}
-
-void WaterSupply::frblanraciursnacoo() {
-    std::vector<std::string> res;
-    // Get the source vertex
-    auto s = network.findVertex("src");
-
-    // Set that no vertex has been visited yet
-    for (auto v : network.getVertexSet()) {
-        v.second->setVisited(false);
-        v.second->setDist(0);
-    }
-
-    // Perform the actual BFS using a queue
-    std::queue<Vertex *> q;
-    q.push(s);
-    s->setVisited(true);
-    while (!q.empty()) {
-        auto v = q.front();
-        q.pop();
-        res.push_back(v->getInfo());
-        for (auto & e : v->getAdj()) {
-            auto w = e->getDest();
-            if (e->getReverse()) {
-                int e_dist = 0;
-                if (w->getDist() < v->getDist()+(e->getWeight()-e->getFlow()) && e->getWeight()!=e->getFlow()) {
-                    w->setDist(v->getDist()+(e->getWeight()-e->getFlow()));
-                    w->setPath(e);
-                }
-
-                if (w->getDist() < v->getDist()+(e->getWeight()-e->getFlow())) {
-                    w->setDist(v->getDist()+(e->getWeight()-e->getFlow()));
-                    w->setPath(e);
-                }
-                q.push(w);
-                w->setVisited(true);
-            }
-        }
+void WaterSupply::activatePipe(std::string source, std::string dest) {
+    for (auto e: network.findVertex(source)->getAdj()) {
+        if (e->getDest()->getInfo() == dest) e->activate();
     }
 }
 
+//bool WaterSupply::frblanraciursnacoo() {
+//
+//    std::vector<std::string> res;
+//    // Get the source vertex
+//    auto s = network.findVertex("src");
+//
+//    // Set that no vertex has been visited yet
+//    for (auto v : network.getVertexSet()) {
+//        v.second->setVisited(false);
+//        v.second->setDist(0);
+//    }
+//
+//    // Perform the actual BFS using a queue
+//    std::queue<Vertex *> q;
+//    q.push(s);
+//    bool notFound = true;
+//    while (!q.empty() && notFound) {
+//        auto v = q.front();
+//        q.pop();
+//        res.push_back(v->getInfo());
+//        for (auto & e : v->getAdj()) {
+//            auto w = e->getDest();
+//            if (e->getWeight() - e->getFlow() > 0) {
+//                if (e->getReverse() && e->checkActive() && e->getReverse()->checkActive()) {
+//                    if (w->getDist() < v->getDist()+(e->getWeight()-e->getFlow()) && e->getWeight()!=e->getFlow()) {
+//                        w->setDist(v->getDist()+(e->getWeight()-e->getFlow()));
+//                        w->setPath(e);
+//                    }
+//                    e->desactivate();
+//                    q.push(w);
+//                }
+//                else if (e->getReverse() == nullptr) {
+//                    if (w->getDist() < v->getDist()+(e->getWeight()-e->getFlow()) && e->getWeight()!=e->getFlow()) {
+//                        w->setDist(v->getDist()+(e->getWeight()-e->getFlow()));
+//                        w->setPath(e);
+//                        if (w->getInfo() == network.findVertex("sink")->getInfo()) notFound = false;
+//                    }
+//                    q.push(w);
+//                }
+//            }
+//        }
+//        for (auto & e : v->getIncoming()) {
+//            auto w = e->getOrig();
+//            if (e->getFlow() > 0) {
+//                if (e->getReverse() && e->checkActive() && e->getReverse()->checkActive()) {
+//                    if (w->getDist() < v->getDist()+(e->getWeight()-e->getFlow()) && e->getWeight()!=e->getFlow()) {
+//                        w->setDist(v->getDist()+(e->getWeight()-e->getFlow()));
+//                        w->setPath(e);
+//                    }
+//                    e->desactivate();
+//                    q.push(w);
+//                }
+//                else if (e->getReverse() == nullptr) {
+//                    if (w->getDist() < v->getDist()+(e->getWeight()-e->getFlow()) && e->getWeight()!=e->getFlow()) {
+//                        w->setDist(v->getDist()+(e->getWeight()-e->getFlow()));
+//                        w->setPath(e);
+//                        if (w->getInfo() == network.findVertex("sink")->getInfo()) notFound = false;
+//                    }
+//                    q.push(w);
+//                }
+//            }
+//        }
+//    }
+//    for (auto v : network.getVertexSet()) {
+//        cout << v.first << " " << v.second->getDist() << endl;
+//    }
+//    return !notFound;
+//}
+//
+//double residualC2(Edge* e, bool out){
+//    return out ? e->getWeight() - e->getFlow() : e->getFlow();
+//}
+//
+//double getCf2(Vertex* source, Vertex* target) {
+//    double minC = INF;
+//    Vertex *curr = target;
+//    while (curr != source) {
+//        bool outgoing = curr->getPath()->getDest() == curr;
+//        minC = std::min(minC, residualC2(curr->getPath(), outgoing));
+//        curr = outgoing ? curr->getPath()->getOrig() : curr->getPath()->getDest();
+//    }
+//    return minC;
+//}
+//
+//void augmentPath2(Vertex* source, Vertex* target, double cf) {
+//    Vertex* curr = target;
+//    while (curr != source){
+//        bool outgoing = curr->getPath()->getDest() == curr;
+//        curr->getPath()->setFlow(outgoing ? curr->getPath()->getFlow() + cf : curr->getPath()->getFlow() - cf);
+//        curr = outgoing ? curr->getPath()->getOrig() : curr->getPath()->getDest();
+//    }
+//}
+//
+//void WaterSupply::maxFlow() {
+//    setSuperSink();
+//    setSuperSource();
+//    Vertex* src = network.findVertex("src");
+//    Vertex* snk = network.findVertex("sink");
+//    while(frblanraciursnacoo()){
+//        double cf = getCf2(src, snk);
+//        augmentPath2(src, snk, cf);
+//    }
+//}
+
+void WaterSupply::deleteReservoir(std::string reservoir) {
+    tester.deleteReservoir(reservoir, network);
+}
+
+void WaterSupply::deleteStation(std::string station) {
+    tester.deleteStation(station, network);
+}
+
+bool WaterSupply::existsCode(std::string code) {
+    return (cities.count(code) || stations.count(code) || reservoirs.count(code));
+}
+
+void WaterSupply::deletePipe(std::string source, std::string dest) {
+    tester.deletePipe(source, dest, network);
+}

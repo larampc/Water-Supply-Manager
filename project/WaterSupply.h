@@ -62,16 +62,30 @@ public:
     void optimalExcessCityMaxFlow(std::string target);
     void cityMaxFlow(std::string target);
     /********************** MaxFlow Reverse ****************************/
-    void reliability();
+    void reliabilityPrep();
+    void reliabilityTearDown();
     void activate(std::string p);
     void optimalDelete(std::string reservoir);
+    void deleteReservoir(std::string reservoir);
+    void deleteStation(std::string station);
+    void deletePipe(std::string source, std::string dest);
+
 
     static void OutputToFile(const std::string &fileName, const std::string &text);
 
     void deleteReservoirMaxReverse(std::string reservoir);
 
-    void desactivate(std::string p);
-    void frblanraciursnacoo();
+    bool frblanraciursnacoo();
+
+    void maxFlow();
+
+    void activatePipe(std::string source, std::string dest);
+
+    bool existsStationByCode(std::string code);
+
+    bool existsPipe(std::string source, std::string code);
+    bool existsCode(std::string code);
+
 };
 
 

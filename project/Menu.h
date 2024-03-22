@@ -93,7 +93,13 @@ public:
     void getCityStatistics();
     void getReservoirStatistics();
     void getMaxFlowOp();
-    void reliabilityTesting();
+    void reliabilityTesting(std::vector<std::string>& resStat, std::vector<std::pair<std::string, std::string>>& pipes);
+
+    void auxReliability();
+
+    std::string readStationCode();
+
+    std::pair<std::string, std::string> readPipeCodes();
 };
 
 
