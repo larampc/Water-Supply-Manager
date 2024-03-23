@@ -10,6 +10,7 @@
 #include <codecvt>
 #include <iostream>
 #include <iomanip>
+#include <stack>
 
 using namespace std;
 
@@ -639,4 +640,69 @@ bool WaterSupply::existsCode(std::string code) {
 
 void WaterSupply::deletePipe(std::string source, std::string dest) {
     tester.deletePipe(source, dest, network);
+}
+
+bool dfsVisit(Vertex* v, stack<string>& aux){
+    v->setVisited(true);
+    v->setProcessing(true);
+    for(Edge* adj : v->getAdj()){
+        if(adj->getReverse() && adj->getDest()->isProcessing()) adj->getReverse()->desactivate();
+        if(!adj->getDest()->isVisited()) dfsVisit(adj->getDest(), aux);
+    }
+    v->setProcessing(false);
+    aux.push(v->getInfo());
+    return true;
+}
+
+vector<string> WaterSupply::topsort() {
+    vector<string> res;
+    stack<string> aux;
+    for(auto v : network.getVertexSet()){
+        v.second->setVisited(false);
+        v.second->setProcessing(false);
+    }
+    for(auto v : network.getVertexSet()){
+        if(!v.second->isVisited()){
+            if(!dfsVisit    (v.second, aux)) return res;
+        }
+    }
+    while (!aux.empty()) {
+        res.push_back(aux.top());
+        aux.pop();
+    }
+    return res;
+}
+
+void WaterSupply::getlongestPath(vector<string> path){
+    for(const auto& v: network.getVertexSet()) {
+        v.second->setDist(0);
+    }
+    for(auto s : path){
+        auto v = network.findVertex(s);
+        for(auto adj : v->getAdj()){
+            if(adj->getDest()->getDist() < v->getDist() + 1){
+                adj->getDest()->setDist(v->getDist() + 1);
+            }
+        }
+    }
+}
+
+void WaterSupply::longPathApproach(){
+    setSuperSink();
+    setSuperSource();
+    auto source = network.findVertex("src");
+    auto sink = network.findVertex("sink");
+    for(const auto& v: network.getVertexSet()){
+        v.second->setDist(0);
+        for(Edge* e: v.second->getAdj()){
+            e->setFlow(0);
+        }
+    }
+    auto p = topsort();
+    while(true){
+        getlongestPath(p);
+    }
+    network.removeVertex("src");
+    network.removeVertex("sink");
+    computeAverageAndVarianceOfPipes();
 }

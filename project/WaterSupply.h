@@ -86,6 +86,11 @@ public:
     bool existsPipe(std::string source, std::string code);
     bool existsCode(std::string code);
 
+    std::vector<string> topsort();
+
+    void longPathApproach();
+
+    void getlongestPath(std::vector<string> path);
 };
 
 

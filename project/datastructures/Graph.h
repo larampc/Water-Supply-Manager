@@ -31,7 +31,7 @@ public:
 
     void setInfo(std::string info);
     void setVisited(bool visited);
-    void setProcesssing(bool processing);
+    void setProcessing(bool processing);
     void setIndegree(unsigned int indegree);
     void setDist(int dist);
     void setPath(Edge *path);

@@ -99,7 +99,7 @@ void Vertex::setVisited(bool visited) {
     this->visited = visited;
 }
 
-void Vertex::setProcesssing(bool processing) {
+void Vertex::setProcessing(bool processing) {
     this->processing = processing;
 }
 
@@ -435,7 +435,7 @@ std::vector<std::string> Graph::bfs(const std::string
 bool Graph::isDAG() const {
     for (auto v : vertexSet) {
         v.second->setVisited(false);
-        v.second->setProcesssing(false);
+        v.second->setProcessing(false);
     }
     for (auto v : vertexSet) {
         if (! v.second->isVisited()) {
@@ -452,15 +452,16 @@ bool Graph::isDAG() const {
 
 bool Graph::dfsIsDAG(Vertex *v) const {
     v->setVisited(true);
-    v->setProcesssing(true);
+    v->setProcessing(true);
     for (auto e : v->getAdj()) {
+        if(!e->checkActive()) continue;
         auto w = e->getDest();
         if (w->isProcessing()) return false;
         if (! w->isVisited()) {
             if (! dfsIsDAG(w)) return false;
         }
     }
-    v->setProcesssing(false);
+    v->setProcessing(false);
     return true;
 }
 
