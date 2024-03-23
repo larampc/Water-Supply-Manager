@@ -11,6 +11,7 @@
 #include <iostream>
 #include <iomanip>
 #include <stack>
+#include <cmath>
 
 using namespace std;
 
@@ -370,9 +371,16 @@ void WaterSupply::computeAverageAndVarianceOfPipes() {
     double max = 0;
     for(auto v: network.getVertexSet()){
         for(Edge* e: v.second->getAdj()){
-            sum += (e->getWeight() - e->getFlow());
-            if (max < (e->getWeight() - e->getFlow())) max = (e->getWeight() - e->getFlow());
-            n_edges++;
+            if (e->checkActive()) {
+                int flow = e->getFlow();
+                if (e->getReverse()) {
+                    flow = abs(e->getFlow()-e->getReverse()->getFlow());
+                    e->getReverse()->desactivate();
+                }
+                sum += (e->getWeight() - flow);
+                if (max < (e->getWeight() - flow)) max = (e->getWeight() - flow);
+                n_edges++;
+            }
         }
     }
     double average = sum / ((double)n_edges);
@@ -383,13 +391,22 @@ void WaterSupply::computeAverageAndVarianceOfPipes() {
     double square_diff = 0;
     for(auto v: network.getVertexSet()){
         for(Edge* e: v.second->getAdj()){
-            square_diff += ((e->getWeight() - e->getFlow()) - average) * ((e->getWeight() - e->getFlow()) - average);
-            n_edges++;
+            if (e->checkActive()) {
+                int flow = e->getFlow();
+                if (e->getReverse()) {
+                    flow = abs(e->getFlow()-e->getReverse()->getFlow());
+                    e->getReverse()->desactivate();
+                }
+                square_diff += ((e->getWeight() - flow) - average) * ((e->getWeight() - flow) - average);
+                n_edges++;
+            }
         }
     }
     double variance = square_diff / n_edges;
 
     cout << "Variance (Capacity - Flow): " << variance << endl;
+
+    activateAll();
 }
 
 void WaterSupply::computeCitiesStatistics() {
@@ -642,12 +659,38 @@ void WaterSupply::deletePipe(std::string source, std::string dest) {
     tester.deletePipe(source, dest, network);
 }
 
+void WaterSupply::balanceProportions() {
+    network.resetFlow();
+    setSuperSource();
+    auto vec = topsort();
+    for (auto v: vec) {
+        auto vet = network.findVertex(v);
+        double inc = v == "src" ? vet->outWeight() : vet->getIncomingFlow();
+        double out = vet->outWeight();
+        if (out <= inc) {
+            for (auto ad: vet->getAdj()) {
+                if (ad->checkActive())
+                ad->setFlow(ad->getWeight());
+            }
+        } else {
+            for (auto ad: vet->getAdj()) {
+                if (ad->checkActive())
+                ad->setFlow((ad->getWeight() / out) * inc);
+            }
+        }
+    }
+    network.removeVertex("src");
+    computeAverageAndVarianceOfPipes();
+}
+
 bool dfsVisit(Vertex* v, stack<string>& aux){
     v->setVisited(true);
     v->setProcessing(true);
     for(Edge* adj : v->getAdj()){
-        if(adj->getReverse() && adj->getDest()->isProcessing()) adj->getReverse()->desactivate();
-        if(!adj->getDest()->isVisited()) dfsVisit(adj->getDest(), aux);
+        if (adj->checkActive()) {
+            if(adj->getReverse() && adj->getDest()->isProcessing()) adj->desactivate();
+            if(!adj->getDest()->isVisited()) dfsVisit(adj->getDest(), aux);
+        }
     }
     v->setProcessing(false);
     aux.push(v->getInfo());
@@ -706,3 +749,12 @@ void WaterSupply::longPathApproach(){
     network.removeVertex("sink");
     computeAverageAndVarianceOfPipes();
 }
+
+void WaterSupply::activateAll() {
+    for (auto v: network.getVertexSet()) {
+        for (auto e: v.second->getAdj()) {
+            e->activate();
+        }
+    }
+}
+
