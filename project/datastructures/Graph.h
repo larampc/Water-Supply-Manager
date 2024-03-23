@@ -45,6 +45,8 @@ public:
     void desactivate();
     void activate();
     bool checkActive();
+    double getIncomingFlow();
+    double outWeight();
 protected:
     std::string info;                // info node
     std::vector<Edge *> adj;  // outgoing edges
