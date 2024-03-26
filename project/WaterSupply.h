@@ -83,10 +83,6 @@ public:
     bool existsCode(std::string code);
     std::vector<std::string> topsort();
 
-    void longPathApproach();
-
-    void getlongestPath(std::vector<std::string> path);
-
     void activateAll();
 };
 

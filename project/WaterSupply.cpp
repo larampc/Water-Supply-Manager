@@ -592,37 +592,6 @@ vector<string> WaterSupply::topsort() {
     return res;
 }
 
-void WaterSupply::getlongestPath(vector<string> path){
-    for(const auto& v: network.getVertexSet()) {
-        v.second->setDist(0);
-    }
-    for(auto s : path){
-        auto v = network.findVertex(s);
-        for(auto adj : v->getAdj()){
-            if(adj->getDest()->getDist() < v->getDist() + 1){
-                adj->getDest()->setDist(v->getDist() + 1);
-            }
-        }
-    }
-}
-
-void WaterSupply::longPathApproach(){
-    setSuperSink();
-    setSuperSource();
-    auto source = network.findVertex("src");
-    auto sink = network.findVertex("sink");
-    for(const auto& v: network.getVertexSet()){
-        v.second->setDist(0);
-        for(Edge* e: v.second->getAdj()){
-            e->setFlow(0);
-        }
-    }
-    auto p = topsort();
-    while(true){
-        getlongestPath(p);
-    }
-}
-
 void WaterSupply::activateAll() {
     for (const auto& v: network.getVertexSet()) {
         for (auto e: v.second->getAdj()) {
