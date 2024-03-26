@@ -97,6 +97,10 @@ public:
 
     void exportToFile(bool flow);
     void activateAll();
+
+    void testing();
+
+    bool addFlow(std::vector<Edge *> vec, double& inc);
 };
 
 
