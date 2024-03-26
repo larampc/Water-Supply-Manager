@@ -179,7 +179,7 @@ void Menu::run() {
         ColorPrint("cyan", "5. ");
         ColorPrint("red", "Quit Manager \n");
         cin.sync();
-        switch (readOption(4)) {
+        switch (readOption(5)) {
             case '1':
                 getNetworkInfo();
                 break;
