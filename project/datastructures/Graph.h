@@ -13,6 +13,7 @@ class Edge;
 
 #define INF std::numeric_limits<double>::max()
 
+
 /************************* Vertex  **************************/
 
 class Vertex {

@@ -10,7 +10,7 @@ double residualC(Edge* e, bool out){
     return out ? e->getWeight() - e->getFlow() : e->getFlow();
 }
 
-double getCf(Vertex* source, Vertex* target) {
+double MaxFlow::getCf(Vertex* source, Vertex* target) {
     double minC = INF;
     Vertex *curr = target;
     while (curr != source) {
@@ -38,7 +38,7 @@ void testAndVisit(queue<Vertex*>& q, Edge* e, Vertex* w, double residual) {
     }
 }
 
-bool findAugPath(Graph* g, Vertex* src, Vertex* target){
+bool MaxFlow::findAugPath(Graph* g, Vertex* src, Vertex* target){
     for(auto v : g->getVertexSet())
         v.second->setVisited(false); //reset
     std::queue<Vertex*> aux;

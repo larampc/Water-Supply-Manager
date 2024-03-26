@@ -136,6 +136,11 @@ public:
      * \brief Handles auxiliary options for reliability testing.
      */
     void auxReliability();
+    void pressEnterToContinue();
+
+    std::string getPipeDestinations(std::string code);
+
+    void printPipeDestinations(const std::string& code);
 };
 
 

@@ -29,6 +29,10 @@ public:
     void balance(Graph &network);
 
     void balanceAdj(Vertex *v, Graph &network);
+
+    bool findAugPath(Graph *g, Vertex *src, Vertex *target);
+
+    double getCf(Vertex *source, Vertex *target);
 };
 
 

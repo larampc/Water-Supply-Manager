@@ -160,6 +160,12 @@ bool Vertex::checkActive() {
 
 double Vertex::getIncomingFlow() {
     double inc = 0;
+    if(info == "src")  {
+        for(auto e: adj){
+            inc += e->getWeight();
+        }
+        return inc;
+    }
     for (auto v: incoming) {
         inc += v->getFlow();
     }
