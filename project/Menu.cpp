@@ -276,6 +276,9 @@ void Menu::getCityInfo() {
         case '5':
             getCityStatistics();
             break;
+        case '6':
+            getNetworkInfo();
+            break;
     }
 }
 
@@ -334,6 +337,9 @@ void Menu::getReservoirInfo() {
         case '6':
             getReservoirStatistics();
             break;
+        case '7':
+            getNetworkInfo();
+            break;
     }
 }
 
@@ -358,27 +364,34 @@ void Menu::getCityStatistics() {
     switch (readOption(5)) {
         case '1':
             values = waterSupply.getCityMaxDemand();
+            ColorPrint("blue", "Code | City | Demand | Population\n");
             for (const auto& v: values) {
                 printCity(v);
             }
             break;
         case '2':
             values = waterSupply.getCityMinDemand();
+            ColorPrint("blue", "Code | City | Demand | Population\n");
             for (const auto& v: values) {
                 printCity(v);
             }
             break;
         case '3':
             values = waterSupply.getCityMaxPop();
+            ColorPrint("blue", "Code | City | Demand | Population\n");
             for (const auto& v: values) {
                 printCity(v);
             }
             break;
         case '4':
             values = waterSupply.getCityMinPop();
+            ColorPrint("blue", "Code | City | Demand | Population\n");
             for (const auto& v: values) {
                 printCity(v);
             }
+            break;
+        case '5':
+            getCityInfo();
             break;
     }
 }
@@ -396,15 +409,20 @@ void Menu::getReservoirStatistics() {
     switch (readOption(3)) {
         case '1':
             values = waterSupply.getReservoirMaxDel();
+            ColorPrint("blue", "Code | Reservoir | Municipality | Max Delivery \n");
             for (auto r: values) {
                 printReservoir(r);
             }
             break;
         case '2':
             values = waterSupply.getReservoirMinDel();
+            ColorPrint("blue", "Code | Reservoir | Municipality | Max Delivery \n");
             for (auto r: values) {
                 printReservoir(r);
             }
+            break;
+        case '3':
+            getReservoirInfo();
             break;
     }
 }
@@ -526,6 +544,13 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
             waterSupply.computeCitiesStatistics();
             ColorPrint("cyan", "Total: ");
             ColorPrint("white", to_string(waterSupply.computeMaxFlow()) + "\n");
+            ColorPrint("blue", "Do you want to perform another action?\n");
+            ColorPrint("cyan", "1. ");
+            ColorPrint("white", "Yes\n");
+            ColorPrint("cyan", "2. ");
+            ColorPrint("white", "No\n");
+            cin.sync();
+            if (readOption(2) == '1') reliabilityTesting(resStat, pipes);
             break;
         case '2':
             res = readStationCode();
@@ -534,6 +559,13 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
             waterSupply.computeCitiesStatistics();
             ColorPrint("cyan", "Total: ");
             ColorPrint("white", to_string(waterSupply.computeMaxFlow()) + "\n");
+            ColorPrint("blue", "Do you want to perform another action?\n");
+            ColorPrint("cyan", "1. ");
+            ColorPrint("white", "Yes\n");
+            ColorPrint("cyan", "2. ");
+            ColorPrint("white", "No\n");
+            cin.sync();
+            if (readOption(2) == '1') reliabilityTesting(resStat, pipes);
             break;
         case '3':
             pair<string, string> pipe =  readPipeCodes();
@@ -542,15 +574,15 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
             waterSupply.computeCitiesStatistics();
             ColorPrint("cyan", "Total: ");
             ColorPrint("white", to_string(waterSupply.computeMaxFlow()) + "\n");
+            ColorPrint("blue", "Do you want to perform another action?\n");
+            ColorPrint("cyan", "1. ");
+            ColorPrint("white", "Yes\n");
+            ColorPrint("cyan", "2. ");
+            ColorPrint("white", "No\n");
+            cin.sync();
+            if (readOption(2) == '1') reliabilityTesting(resStat, pipes);
             break;
     }
-    ColorPrint("blue", "Do you want to perform another action?\n");
-    ColorPrint("cyan", "1. ");
-    ColorPrint("white", "Yes\n");
-    ColorPrint("cyan", "2. ");
-    ColorPrint("white", "No\n");
-    cin.sync();
-    if (readOption(2) == '1') reliabilityTesting(resStat, pipes);
 }
 
 
