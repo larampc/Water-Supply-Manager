@@ -35,6 +35,14 @@ string Menu::readCityCode(){
     return code;
 }
 
+void Menu::printPipeDestinations(const string& code){
+    auto pipe = waterSupply.getNetwork().findVertex(code);
+    for(auto dest : pipe->getAdj()){
+        ColorPrint("yellow", " " + dest->getDest()->getInfo());
+        if(dest != *(pipe->getAdj().end()-1)) ColorPrint("blue",",");
+    }
+}
+
 pair<string, string> Menu::readPipeCodes(){
     string code, code2;
     do {
@@ -46,7 +54,10 @@ pair<string, string> Menu::readPipeCodes(){
         getline(cin, code);
         transform(code.begin(), code.end(), code.begin(), ::toupper);
     }
-    ColorPrint("cyan", "Pipe destination code: \n");
+    ColorPrint("cyan", "Pipe destination code: ");
+    ColorPrint("blue","[");
+    printPipeDestinations(code);
+    ColorPrint("blue"," ]\n");
     getline(cin, code2);
     transform(code2.begin(), code2.end(), code2.begin(), ::toupper);
     while(!waterSupply.existsCode(code2)) {
@@ -160,6 +171,14 @@ vector<Reservoir> Menu::readReservoirMunicipality(){
 
 
 void Menu::run() {
+//    ofstream log("../log");
+//    waterSupply.longPathApproach();
+//    waterSupply.optimalExcessMaxFlow();
+//    waterSupply.computeAverageAndVarianceOfPipes();
+    waterSupply.topsort();
+    waterSupply.optimalExcessMaxFlow();
+    waterSupply.computeAverageAndVarianceOfPipes();
+    cout << waterSupply.computeMaxFlow();
     while (true) {
         ColorPrint("blue", "\n-----------------------------------\n");
         ColorPrint("blue", "Water Supply Management System\n");

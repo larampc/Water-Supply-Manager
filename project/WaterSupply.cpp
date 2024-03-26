@@ -15,6 +15,10 @@
 
 using namespace std;
 
+bool floatEquality(double a, double b){
+    return fabs(a-b) < 1e-9;
+}
+
 unsigned readPopulation(string pop){
     string res;
     pop = pop.substr(1,pop.length() - 2);
@@ -417,7 +421,7 @@ void WaterSupply::computeCitiesStatistics() {
         for(Edge* e: network.findVertex(v.first)->getIncoming()) {
             flow += e->getFlow();
         }
-        oss << left << setw(4) << v.second.getCode() << " - " << setw(6) << v.second.getDemand();
+        oss << left << setw(4) << v.second.getCode() << " - " << setw(6) << flow;
         if ((v.second.getDemand()) < flow) oss << " (Overflow by " << flow - (v.second.getDemand()) << ")";
         else if ((v.second.getDemand()) > flow) oss << " (Underflow by " << (v.second.getDemand()) - flow << ")";
         oss << "\n";
@@ -578,7 +582,7 @@ vector<string> WaterSupply::topsort() {
     }
     for(auto v : network.getVertexSet()){
         if(!v.second->isVisited()){
-            if(!dfsVisit    (v.second, aux)) return res;
+            if(!dfsVisit(v.second, aux)) return res;
         }
     }
     while (!aux.empty()) {
@@ -617,13 +621,10 @@ void WaterSupply::longPathApproach(){
     while(true){
         getlongestPath(p);
     }
-    network.removeVertex("src");
-    network.removeVertex("sink");
-    computeAverageAndVarianceOfPipes();
 }
 
 void WaterSupply::activateAll() {
-    for (auto v: network.getVertexSet()) {
+    for (const auto& v: network.getVertexSet()) {
         for (auto e: v.second->getAdj()) {
             e->activate();
         }

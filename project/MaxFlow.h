@@ -11,7 +11,6 @@ private:
     std::vector<unsigned int> free;
 public:
     void maxFlow(std::string source, std::string sink, Graph& network);
-
     void reverseMaxFlow(std::string source, std::string sink, Graph& network);
     /********************** MaxFlow List ****************************/
 
@@ -23,6 +22,10 @@ public:
     void deletePipe(std::string source, std::string dest, Graph& network);
     void reliabilityPrep(Graph& network);
     void reliabilityTearDown(Graph& network);
+
+    bool findAugPath(Graph *g, Vertex *src, Vertex *target);
+
+    double getCf(Vertex *source, Vertex *target);
 };
 
 

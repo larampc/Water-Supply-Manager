@@ -12,6 +12,8 @@
 class Edge;
 
 #define INF std::numeric_limits<double>::max()
+#define NINF std::numeric_limits<double>::min()
+
 
 /************************* Vertex  **************************/
 
