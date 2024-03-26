@@ -26,15 +26,15 @@ unsigned readPopulation(string pop){
 
 /********************** Load  ****************************/
 
-void WaterSupply::load() {
-    loadCities();
-    loadReservoir();
-    loadStations();
-    loadPipes();
+void WaterSupply::load(std::string cities, std::string reservoirs, std::string pipes, std::string stations) {
+    loadCities(cities);
+    loadReservoir(reservoirs);
+    loadStations(stations);
+    loadPipes(pipes);
 }
 
-void WaterSupply::loadCities() {
-    string path = dataSet? "../dataSet/Cities.csv": "../dataSetSmall/Cities_Madeira.csv";
+void WaterSupply::loadCities(std::string path) {
+    path = "../"+path;
 #ifdef _WIN32
     setlocale (LC_ALL, "");
     wifstream  file(path);
@@ -62,8 +62,8 @@ void WaterSupply::loadCities() {
     file.close();
 }
 
-void WaterSupply::loadReservoir() {
-    string path = dataSet? "../dataSet/Reservoir.csv": "../dataSetSmall/Reservoirs_Madeira.csv";
+void WaterSupply::loadReservoir(std::string path) {
+    path = "../"+path;
 #ifdef _WIN32
     setlocale (LC_ALL, "");
     wifstream  reservoirsFile(path);
@@ -90,8 +90,8 @@ void WaterSupply::loadReservoir() {
     reservoirsFile.close();
 }
 
-void WaterSupply::loadStations() {
-    string path = dataSet ? "../dataSet/Stations.csv": "../dataSetSmall/Stations_Madeira.csv";
+void WaterSupply::loadStations(std::string path) {
+    path = "../"+path;
     ifstream  stationsFile(path);
     string line;
     getline(stationsFile, line);
@@ -108,8 +108,8 @@ void WaterSupply::loadStations() {
     stationsFile.close();
 }
 
-void WaterSupply::loadPipes() {
-    string path = dataSet? "../dataSet/Pipes.csv": "../dataSetSmall/Pipes_Madeira.csv";
+void WaterSupply::loadPipes(std::string path) {
+    path = "../"+path;
     ifstream  pipesFile(path);
     string line;
     getline(pipesFile, line);
@@ -157,14 +157,6 @@ std::unordered_map<std::string, Station> WaterSupply::getStations() {
 }
 
 /********************** Setters  ****************************/
-
-void WaterSupply::setDataSmall() {
-    dataSet = false;
-}
-
-void WaterSupply::setDataDefault() {
-    dataSet = true;
-}
 
 void WaterSupply::setSuperSource() {
     network.addVertex("src");
@@ -629,4 +621,47 @@ void WaterSupply::activateAll() {
         }
     }
 }
-
+//
+//void WaterSupply::prepBalance() {
+//    setSuperSource();
+//    setSuperSink();
+//    tester.maxFlow("src", "sink", network);
+//    tester.balance(network);
+//}
+//
+//
+//void WaterSupply::exportToFile(bool flow) {
+//    fstream file;
+//    file.open("../graph.csv", ios::out);
+//    setSuperSource();
+//    setSuperSink();
+//    unordered_map<string, int> ids;
+//    int id = 1;
+//    for(auto v: network.getVertexSet()){
+//        if(v.first == "src" || v.first == "sink") continue;
+//        ids.emplace(v.first,id++);
+//    }
+//    ids.emplace("src", 0);
+//    ids.emplace("sink", id);
+//    tester.maxFlow("src", "sink", network);
+//    for (auto v: network.getVertexSet()) {
+//        for (auto w: v.second->getAdj()) {
+//            file << w->getOrig()->getInfo() << ' ' << w->getDest()->getInfo() << ' ' << w->getWeight() ;
+//            if (flow) file << "/" << w->getFlow();
+//            file << '\n';
+//        }
+//    }
+//    file.close();
+//    ofstream file2("../graph2.csv");
+//    ifstream file1("../graph.csv");
+//    string line;
+//    while(getline(file1,line)){
+//        istringstream iss(line);
+//        unsigned long long src, dest, c;
+//        iss >> src >> dest >> c;
+//        file2 << "g.addEdge(" << src << "," << dest << "," << c <<");\n";
+//    }
+//    file2.close();
+//    network.removeVertex("src");
+//    network.removeVertex("sink");
+//}

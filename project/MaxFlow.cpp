@@ -1,5 +1,6 @@
 #include "MaxFlow.h"
 #include <queue>
+#include <stack>
 using namespace std;
 
 
@@ -206,3 +207,82 @@ void MaxFlow::reliabilityTearDown(Graph& network) {
     network.removeVertex("src");
     network.removeVertex("sink");
 }
+
+//void MaxFlow::balanceAdj(Vertex* v, Graph& network){
+//    auto adjs = v->getAdj();
+//    vector<Edge*> activeAdj;
+//    double totalCap = 0, totalFlow = 0, adjSize = 0;
+//    for(auto adj : adjs){
+//        if (adj->checkActive()) {
+//            totalCap += adj->getWeight();
+//            totalFlow += adj->getFlow();
+//            adjSize++;
+//            activeAdj.push_back(adj);
+//        }
+//    }
+//    double freeSpaceTarget = (totalCap - totalFlow)/adjSize;
+//    sort(activeAdj.begin(), activeAdj.end(), [](Edge* e1, Edge* e2){
+//        return e1->getWeight() - e1->getFlow() < e2->getWeight() - e2->getFlow();
+//    });
+//
+//    for (auto k: (*(activeAdj.end()-1))->getPaths()) {
+//        auto path = paths.at(k);
+//        for (auto e: path.second) {
+//            e.second->setFlow(e.second->getFlow()-path.first);
+//        }
+//
+//    }
+//    auto sink = network.findVertex("sink");
+//    int current = 0;
+//    while ( activeAdj.size() > 1) {
+//        auto currentAdj = adjs[current];
+//        if(findAugPath(&network,currentAdj->getDest(),network.findVertex("sink"))){
+//            double cF = getCf(currentAdj->getDest(),sink);
+//            double targetFlow = currentAdj->getWeight() - freeSpaceTarget;
+//            double delta = targetFlow - currentAdj->getFlow();
+//            if (cF > delta){
+//
+//            }
+//        }
+//    }
+//}
+//
+//void MaxFlow::balance(Graph& network){
+//    for(auto v: network.getVertexSet()){
+//        v.second->setVisited(false);
+//        v.second->setPath(nullptr);
+//    }
+//
+//    //assuming max flow is done
+//    transformBidirectionalEdges(network);
+//    if(!network.isDAG()) {
+//        cout << "NETWORK IS NOT DAG\n";
+//
+//    }
+//    //visit node in BFS order
+//    stack<Vertex*> q;
+//    q.push(network.findVertex("src"));
+//    while(!q.empty()){
+//        auto v = q.top();
+//        v->setVisited(true);
+//        q.pop();
+//        for(auto adj: v->getAdj()){
+//            if(!v->isVisited() && adj->checkActive()) q.push(adj->getDest());
+//        }
+//        balanceAdj(v, network);
+//    }
+//}
+//
+//void MaxFlow::transformBidirectionalEdges(Graph& network){
+//    for(const auto& v: network.getVertexSet()){
+//        for(auto e : v.second->getAdj()){
+//            auto reverse = e->getReverse();
+//            if(reverse){
+//                auto resultingFlow = abs(reverse->getFlow() - e->getFlow());
+//                reverse->setFlow(reverse->getFlow() - resultingFlow);
+//                e->setFlow(e->getFlow() - resultingFlow);
+//                e->getFlow() == 0 ? e->desactivate() : reverse->desactivate();
+//            }
+//        }
+//    }
+//}

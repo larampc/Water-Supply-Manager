@@ -14,17 +14,14 @@ private:
     std::unordered_map<std::string, Reservoir> reservoirs;
     std::unordered_map<std::string, Station> stations;
     MaxFlow tester;
-    void loadCities();
-    void loadReservoir();
-    void loadStations();
-    void loadPipes();
-    bool dataSet;
+    void loadCities(std::string path);
+    void loadReservoir(std::string path);
+    void loadStations(std::string path);
+    void loadPipes(std::string path);
 
 public:
-    void load();
+    void load(std::string cities, std::string reservoirs, std::string pipes, std::string stations);
     /********************** Setters  ****************************/
-    void setDataSmall();
-    void setDataDefault();
     void setSuperSource();
     void setSuperSink();
     void setInfSuperSink();
@@ -88,6 +85,10 @@ public:
     void getlongestPath(std::vector<std::string> path);
 
     void activateAll();
+    void prepBalance();
+
+    void exportToFile(bool flow);
+
 };
 
 

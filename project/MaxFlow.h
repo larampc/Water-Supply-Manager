@@ -23,6 +23,12 @@ public:
     void deletePipe(std::string source, std::string dest, Graph& network);
     void reliabilityPrep(Graph& network);
     void reliabilityTearDown(Graph& network);
+
+    void transformBidirectionalEdges(Graph &network);
+
+    void balance(Graph &network);
+
+    void balanceAdj(Vertex *v, Graph &network);
 };
 
 

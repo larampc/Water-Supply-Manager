@@ -415,16 +415,32 @@ void Menu::init() {
     ColorPrint("white", "Continental Portugal\n");
     ColorPrint("cyan", "2. ");
     ColorPrint("white", "Madeira\n");
+    ColorPrint("cyan", "3. ");
+    ColorPrint("white", "Other\n");
     cin.sync();
-    switch (readOption(2)) {
+    switch (readOption(3)) {
         case '1':
-            waterSupply.setDataDefault();
+            waterSupply.load("dataSet/Cities.csv", "dataSet/Reservoir.csv", "dataSet/Pipes.csv", "dataSet/Stations.csv");
             break;
         case '2':
-            waterSupply.setDataSmall();
+            waterSupply.load("dataSetSmall/Cities_Madeira.csv", "dataSetSmall/Reservoirs_Madeira.csv", "dataSetSmall/Pipes_Madeira.csv", "dataSetSmall/Stations_Madeira.csv");
             break;
+        case '3':
+            ColorPrint("cyan", "Cities file path: \n");
+            ColorPrint("white", "Format - City,Id,Code,Demand,Population\n");
+            string cities, pipes, reservoirs, stations;
+            getline(cin, cities);
+            ColorPrint("cyan", "Pipes file path: \n");
+            ColorPrint("white", "Format - Service_Point_A,Service_Point_B,Capacity,Direction\n");
+            getline(cin, pipes);
+            ColorPrint("cyan", "Reservoirs file path: \n");
+            ColorPrint("white", "Format - Reservoir,Municipality,Id,Code,Maximum Delivery (m3/sec)\n");
+            getline(cin, reservoirs);
+            ColorPrint("cyan", "Stations file path: \n");
+            ColorPrint("white", "Format - Id,Code\n");
+            getline(cin, stations);
+            waterSupply.load(cities, reservoirs, pipes, stations);
     }
-    waterSupply.load();
 }
 
 void Menu::getMaxFlowOp() {
