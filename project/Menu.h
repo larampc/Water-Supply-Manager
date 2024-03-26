@@ -141,6 +141,8 @@ public:
     std::string getPipeDestinations(std::string code);
 
     void printPipeDestinations(const std::string& code);
+
+    void getMaxFlowExcessOp();
 };
 
 

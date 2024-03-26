@@ -175,10 +175,10 @@ void Menu::run() {
 //    waterSupply.longPathApproach();
 //    waterSupply.optimalExcessMaxFlow();
 //    waterSupply.computeAverageAndVarianceOfPipes();
-    waterSupply.topsort();
-    waterSupply.optimalExcessMaxFlow();
-    waterSupply.computeAverageAndVarianceOfPipes();
-    cout << waterSupply.computeMaxFlow();
+//    waterSupply.topsort();
+//    waterSupply.optimalExcessMaxFlow();
+//    waterSupply.computeAverageAndVarianceOfPipes();
+//    cout << waterSupply.computeMaxFlow();
     while (true) {
         ColorPrint("blue", "\n-----------------------------------\n");
         ColorPrint("blue", "Water Supply Management System\n");
@@ -502,18 +502,13 @@ void Menu::getMaxFlowOp() {
     ColorPrint("cyan", "1. ");
     ColorPrint("white", "Get optimal max flow\n");
     ColorPrint("cyan", "2. ");
-    ColorPrint("white", "Get optimal max flow with excess\n");
+    ColorPrint("white", "Get cities with underflow in optimal case\n");
     ColorPrint("cyan", "3. ");
-    ColorPrint("white", "Get max flow to specific city\n");
+    ColorPrint("white", "Get max flow with excess\n");
     ColorPrint("cyan", "4. ");
-    ColorPrint("white", "Get max flow to each city\n");
-    ColorPrint("cyan", "5. ");
-    ColorPrint("white", "Get optimal max flow with excess to a specific city\n");
-    ColorPrint("cyan", "6. ");
     ColorPrint("red", "Cancel \n");
     cin.sync();
-    string code;
-    ostringstream oss;
+    double total = 0;
     switch (readOption(6)) {
         case '1':
             waterSupply.optimalResMaxFlow();
@@ -523,20 +518,54 @@ void Menu::getMaxFlowOp() {
             pressEnterToContinue();
             break;
         case '2':
+            waterSupply.optimalResMaxFlow();
+            for(const auto& v: waterSupply.getCities()) {
+                double flow = waterSupply.getNetwork().findVertex(v.first)->getIncomingFlow();
+                total += v.second.getDemand() - flow;
+                if ((v.second.getDemand()) > flow) {
+                    ColorPrint("cyan", v.first + " " + v.second.getName());
+                    ColorPrint("white", " - underflow by " + to_string((int)(v.second.getDemand() - flow)) + "\n");
+                }
+            }
+            ColorPrint("cyan", "Total underflow: ");
+            ColorPrint("white", to_string((int)total));
+            break;
+        case '3':
+            getMaxFlowExcessOp();
+            break;
+    }
+}
+
+void Menu::getMaxFlowExcessOp() {
+    ColorPrint("cyan", "1. ");
+    ColorPrint("white", "Get optimal max flow with excess\n");
+    ColorPrint("cyan", "2. ");
+    ColorPrint("white", "Get max flow to specific city\n");
+    ColorPrint("cyan", "3. ");
+    ColorPrint("white", "Get max flow to each city\n");
+    ColorPrint("cyan", "4. ");
+    ColorPrint("white", "Get optimal max flow with excess to a specific city\n");
+    ColorPrint("cyan", "5. ");
+    ColorPrint("red", "Cancel \n");
+    cin.sync();
+    string code;
+    ostringstream oss;
+    switch (readOption(5)) {
+        case '1':
             waterSupply.optimalExcessMaxFlow();
             waterSupply.computeCitiesStatistics();
             ColorPrint("cyan", "Total: ");
             ColorPrint("white", to_string(waterSupply.computeMaxFlow()));
             pressEnterToContinue();
             break;
-        case '3':
+        case '2':
             code = readCityCode();
             waterSupply.cityMaxFlow(code);
             ColorPrint("cyan", "Total: ");
             ColorPrint("white", to_string(waterSupply.computeCityFlow(code)));
             pressEnterToContinue();
             break;
-        case '4':
+        case '3':
             oss << "City - Flow\n";
             for(const auto& c : waterSupply.getCities()){
                 waterSupply.cityMaxFlow(c.first);
@@ -546,7 +575,7 @@ void Menu::getMaxFlowOp() {
             cout << oss.str();
             pressEnterToContinue();
             break;
-        case '5':
+        case '4':
             code = readCityCode();
             waterSupply.optimalExcessCityMaxFlow(code);
             waterSupply.computeCitiesStatistics();
