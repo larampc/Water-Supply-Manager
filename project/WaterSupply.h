@@ -75,32 +75,19 @@ public:
 
     void deleteReservoirMaxReverse(std::string reservoir);
 
-    bool frblanraciursnacoo();
-
-    void maxFlow();
-
     void activatePipe(std::string source, std::string dest);
 
     bool existsStationByCode(std::string code);
 
     bool existsPipe(std::string source, std::string code);
     bool existsCode(std::string code);
-
-    void balanceProportions();
-
-    void getS();
     std::vector<std::string> topsort();
 
     void longPathApproach();
 
     void getlongestPath(std::vector<std::string> path);
 
-    void exportToFile(bool flow);
     void activateAll();
-
-    void testing();
-
-    bool addFlow(std::vector<Edge *> vec, double& inc);
 };
 
 
