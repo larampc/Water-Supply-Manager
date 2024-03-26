@@ -79,27 +79,63 @@ public:
      * @return The given reservoir municipality.
      */
     std::vector<Reservoir> readReservoirMunicipality();
+    /**
+     * \brief Asks user for a valid Station code.
+     *
+     * @return The given Station code.
+     */
+    std::string readStationCode();
+    /**
+     * \brief Asks user for a valid pipe source and destination.
+     *
+     * @return A pair with the given pipe source and destination.
+     */
+    std::pair<std::string, std::string> readPipeCodes();
+    /**
+     * \brief Outputs the information of a city: code, name, demand and population.
+     */
+
     void printCity(City city);
-
-
+    /**
+    * \brief Outputs the information of a city: code, name, municipality and delivery.
+    */
+    void printReservoir(const Reservoir& reservoir);
     /**
      * \brief Outputs the settings menu and handles the respective inputs.
      */
     void settings();
+    /**
+     * \brief Outputs the network information menu and handles the respective inputs.
+     */
     void getNetworkInfo();
+    /**
+     * \brief Outputs the options for getting city information and handles the respective inputs.
+     */
     void getCityInfo();
+    /**
+     * \brief Outputs the options for getting reservoir information and handles the respective inputs.
+     */
     void getReservoirInfo();
-    void printReservoir(const Reservoir& reservoir);
+    /**
+     * \brief Outputs the options for getting city statistics and handles the respective inputs.
+     */
     void getCityStatistics();
+    /**
+     * \brief Outputs the options for getting reservoir statistics and handles the respective inputs.
+     */
     void getReservoirStatistics();
+    /**
+     * \brief Outputs the max flow options and handles the respective inputs.
+     */
     void getMaxFlowOp();
+    /**
+     * \brief Outputs the reliability testing options and handles the respective inputs.
+     */
     void reliabilityTesting(std::vector<std::string>& resStat, std::vector<std::pair<std::string, std::string>>& pipes);
-
+    /**
+     * \brief Handles auxiliary options for reliability testing.
+     */
     void auxReliability();
-
-    std::string readStationCode();
-
-    std::pair<std::string, std::string> readPipeCodes();
 };
 
 
