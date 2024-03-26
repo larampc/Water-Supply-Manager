@@ -136,6 +136,7 @@ public:
      * \brief Handles auxiliary options for reliability testing.
      */
     void auxReliability();
+    void pressEnterToContinue();
 };
 
 
