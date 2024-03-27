@@ -406,16 +406,20 @@ void WaterSupply::computeAverageAndVarianceOfPipes() {
 }
 
 void WaterSupply::computeCitiesStatistics() {
+    vector<City> orderedCities;
+    orderedCities.reserve(cities.size());
+    for(const auto& city : cities) orderedCities.push_back(city.second);
+    std::sort(orderedCities.begin(), orderedCities.end());
     ostringstream oss;
     oss << "City - Flow\n\n";
-    for(auto v: cities) {
+    for(auto v: orderedCities) {
         double flow = 0;
-        for(Edge* e: network.findVertex(v.first)->getIncoming()) {
+        for(Edge* e: network.findVertex(v.getCode())->getIncoming()) {
             flow += e->getFlow();
         }
-        oss << left << setw(4) << v.second.getCode() << " - " << setw(6) << flow;
-        if ((v.second.getDemand()) < flow) oss << " (Overflow by " << flow - (v.second.getDemand()) << ")";
-        else if ((v.second.getDemand()) > flow) oss << " (Underflow by " << (v.second.getDemand()) - flow << ")";
+        oss << left << setw(4) << v.getCode() << " - " << setw(6) << flow;
+        if ((v.getDemand()) < flow) oss << " (Overflow by " << flow - (v.getDemand()) << ")";
+        else if ((v.getDemand()) > flow) oss << " (Underflow by " << (v.getDemand()) - flow << ")";
         oss << "\n";
     }
     cout << oss.str() << "\n";

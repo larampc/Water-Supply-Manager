@@ -11,12 +11,13 @@ private:
     int demand;
     unsigned population;
 public:
-    City(int id, std::string code, std::string name, double demand, int population): id(id), code(std::move(code)), name(std::move(name)), demand(std::move(demand)), population(population) {};
+    City(int id, std::string code, std::string name, double demand, int population): id(id), code(std::move(code)), name(std::move(name)), demand(demand), population(population) {};
     [[nodiscard]] std::string getName() const;
     [[nodiscard]] int getDemand() const;
     [[nodiscard]] unsigned getPopulation() const;
-    int getID() const;
-    std::string getCode();
+    [[nodiscard]] int getID() const;
+    std::string getCode() const;
+    bool operator<(const City& c) const;
 };
 
 
