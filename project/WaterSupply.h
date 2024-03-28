@@ -85,6 +85,17 @@ public:
 
     void exportToFile(bool flow);
 
+    void transformBidirectionalEdges();
+
+    void balancingViaMinCost();
+
+    std::vector<Edge *> getMaxPathTo(Vertex *city);
+
+    std::vector<Edge*> findMinAugPath(Vertex *pVertex, Vertex *pVertex1);
+
+    std::vector<Edge *> findMinAugPath(Vertex *city);
+
+    bool checkPathFlow(std::vector<Edge *> vector1);
 };
 
 

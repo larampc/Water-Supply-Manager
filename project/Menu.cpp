@@ -212,6 +212,13 @@ vector<Reservoir> Menu::readReservoirMunicipality(){
 
 
 void Menu::run() {
+    waterSupply.optimalResMaxFlow();
+    waterSupply.computeAverageAndVarianceOfPipes();
+    cout << waterSupply.computeMaxFlow() << endl;
+
+    waterSupply.balancingViaMinCost();
+    waterSupply.computeAverageAndVarianceOfPipes();
+    cout << waterSupply.computeMaxFlow() << endl;
     while (true) {
         ColorPrint("blue", "\n-----------------------------------\n");
         ColorPrint("blue", "Water Supply Management System\n");

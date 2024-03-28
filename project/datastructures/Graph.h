@@ -26,7 +26,9 @@ public:
     bool isVisited() const;
     bool isProcessing() const;
     unsigned int getIndegree() const;
-    int getDist() const;
+    double getDist() const;
+    void setDist(double dist);
+
     Edge *getPath() const;
     std::vector<Edge *> getIncoming() const;
 
@@ -34,7 +36,6 @@ public:
     void setVisited(bool visited);
     void setProcessing(bool processing);
     void setIndegree(unsigned int indegree);
-    void setDist(int dist);
     void setPath(Edge *path);
     Edge * addEdge(Vertex *dest, double w);
     bool removeEdge(std::string in);
@@ -56,7 +57,7 @@ protected:
     bool visited = false; // used by DFS, BFS, Prim ...
     bool processing = false; // used by isDAG (in addition to the visited attribute)
     unsigned int indegree; // used by topsort
-    int dist = 0;
+    double dist = 0;
     Edge *path = nullptr;
 
     std::vector<Edge *> incoming; // incoming edges
@@ -66,6 +67,7 @@ protected:
     void deleteEdge(Edge *edge);
     std::unordered_set<int> paths;
     bool isActive = true;
+
 };
 
 /********************** Edge  ****************************/

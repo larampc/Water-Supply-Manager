@@ -595,47 +595,163 @@ void WaterSupply::activateAll() {
         }
     }
 }
-//
-//void WaterSupply::prepBalance() {
-//    setSuperSource();
-//    setSuperSink();
-//    tester.maxFlow("src", "sink", network);
-//    tester.balance(network);
-//}
-//
-//
-//void WaterSupply::exportToFile(bool flow) {
-//    fstream file;
-//    file.open("../graph.csv", ios::out);
-//    setSuperSource();
-//    setSuperSink();
-//    unordered_map<string, int> ids;
-//    int id = 1;
-//    for(auto v: network.getVertexSet()){
-//        if(v.first == "src" || v.first == "sink") continue;
-//        ids.emplace(v.first,id++);
-//    }
-//    ids.emplace("src", 0);
-//    ids.emplace("sink", id);
-//    tester.maxFlow("src", "sink", network);
-//    for (auto v: network.getVertexSet()) {
-//        for (auto w: v.second->getAdj()) {
-//            file << w->getOrig()->getInfo() << ' ' << w->getDest()->getInfo() << ' ' << w->getWeight() ;
-//            if (flow) file << "/" << w->getFlow();
-//            file << '\n';
-//        }
-//    }
-//    file.close();
-//    ofstream file2("../graph2.csv");
-//    ifstream file1("../graph.csv");
-//    string line;
-//    while(getline(file1,line)){
-//        istringstream iss(line);
-//        unsigned long long src, dest, c;
-//        iss >> src >> dest >> c;
-//        file2 << "g.addEdge(" << src << "," << dest << "," << c <<");\n";
-//    }
-//    file2.close();
-//    network.removeVertex("src");
-//    network.removeVertex("sink");
-//}
+
+void WaterSupply::transformBidirectionalEdges(){
+    for(const auto& v: network.getVertexSet()){
+        for(auto e : v.second->getAdj()){
+            auto reverse = e->getReverse();
+            if(reverse){
+                auto resultingFlow = abs(reverse->getFlow() - e->getFlow());
+                reverse->setFlow(reverse->getFlow() > e->getFlow() ? resultingFlow : 0);
+                e->setFlow(reverse->getFlow() == 0 ? resultingFlow : 0);
+                e->getFlow() == 0 ? e->desactivate() : reverse->desactivate();
+            }
+        }
+    }
+
+}
+
+vector<Edge*> WaterSupply::getMaxPathTo(Vertex* city){
+    vector<Edge*> res;
+    auto order = topsort();
+
+    for(auto v: network.getVertexSet()){
+        v.second->setDist(100000);
+        v.second->setPath(nullptr);
+    }
+    auto source = network.findVertex("src");
+    source->setDist(0);
+    for(const auto& code : order){
+        if(code == city->getInfo()) break;
+        auto v = network.findVertex(code);
+        for(auto adj : v->getAdj()){
+            if(!adj->checkActive()) continue;
+            if(adj->getDest()->getDist() > v->getDist() + (adj->getWeight() - adj->getFlow())){
+                adj->getDest()->setDist(v->getDist() + (adj->getWeight() - adj->getFlow()));
+                adj->getDest()->setPath(adj);
+            }
+        }
+    }
+    auto curr = city;
+    while(curr->getPath() != nullptr){
+        res.push_back(curr->getPath());
+        curr = curr->getPath()->getOrig();
+    }
+    return res;
+}
+
+vector<Edge*> WaterSupply::findMinAugPath(Vertex * city) {
+    vector<Edge*> res;
+    auto order = topsort();
+    for(auto v: network.getVertexSet()){
+        v.second->setDist(100000);
+        v.second->setPath(nullptr);
+    }
+    auto source = network.findVertex("src");
+    source->setDist(0);
+    for(const auto& code : order){
+        if(code == city->getInfo()) break;
+        auto v = network.findVertex(code);
+        for(auto adj : v->getAdj()){
+            if(!adj->checkActive()) continue;
+            if( adj->getFlow() < adj->getWeight()  && adj->getDest()->getDist() > v->getDist() + 1/(adj->getWeight() - adj->getFlow())){
+                adj->getDest()->setDist(v->getDist() + 1/(adj->getWeight() - adj->getFlow()));
+                adj->getDest()->setPath(adj);
+            }
+        }
+    }
+    auto curr = city;
+    while(curr->getPath() != nullptr){
+        res.push_back(curr->getPath());
+        curr = curr->getPath()->getOrig();
+
+    }
+    return res;
+}
+
+void WaterSupply::balancingViaMinCost(){
+    setSuperSource();
+    setSuperSink();
+    network.resetFlow();
+    tester.maxFlow("src", "sink", network);
+    network.removeVertex("sink");
+    for(auto v: network.getVertexSet()){
+        v.second->setVisited(false);
+        v.second->setPath(nullptr);
+    }
+    //assuming max flow is done
+    transformBidirectionalEdges();
+    if(!network.isDAG()) {
+        cout << "NETWORK IS NOT DAG\n";
+    }
+    for(int i = 1; i <= cities.size(); i++){
+        auto city = network.findVertex("C_"+ to_string(i));
+
+        auto path = getMaxPathTo(city);
+
+        if(!path.empty() && checkPathFlow(path)){
+            for(auto e : path){
+                e->setFlow(e->getFlow()-1);
+            }
+        }
+        else continue;
+        auto minPath = findMinAugPath(city);
+
+        bool equals = true;
+        for(int j = 0; j < minPath.size(); j++){
+            if(minPath[j] != path[j]) {
+                equals = false;
+                break;
+            }
+        }
+        if(equals) {
+            for(auto e : path){
+                e->setFlow(e->getFlow()+1);
+            }
+            continue;
+        }
+        else {
+            for(auto e : minPath){
+                e->setFlow(e->getFlow()+1);
+            }
+            i--;
+        }
+    }
+    network.removeVertex("src");
+}
+
+void WaterSupply::exportToFile(bool flow) {
+    fstream file;
+    file.open("../graph.csv", ios::out);
+    unordered_map<string, int> ids;
+    int id = 1;
+    for(auto v: network.getVertexSet()){
+        if(v.first == "src" || v.first == "sink") continue;
+        ids.emplace(v.first,id++);
+    }
+    ids.emplace("src", 0);
+    ids.emplace("sink", id);
+    tester.maxFlow("src", "sink", network);
+    for (auto v: network.getVertexSet()) {
+        for (auto w: v.second->getAdj()) {
+            file << w->getOrig()->getInfo() << ' ' << w->getDest()->getInfo() << ' ' << w->getWeight() ;
+            if (flow) file << "/" << w->getFlow();
+            file << '\n';
+        }
+    }
+    file.close();
+    ofstream file2("../graph2.csv");
+    ifstream file1("../graph.csv");
+    string line;
+    while(getline(file1,line)){
+        istringstream iss(line);
+        unsigned long long src, dest, c;
+        iss >> src >> dest >> c;
+        file2 << "g.addEdge(" << src << "," << dest << "," << c <<");\n";
+    }
+    file2.close();
+}
+
+bool WaterSupply::checkPathFlow(std::vector<Edge *> path) {
+    return std::all_of(path.begin(), path.end(), [](Edge* e) {return e->getFlow() >= 1;});
+}

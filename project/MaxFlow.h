@@ -33,6 +33,8 @@ public:
     bool findAugPath(Graph *g, Vertex *src, Vertex *target);
 
     double getCf(Vertex *source, Vertex *target);
+
+    static void augmentPath(Vertex *source, Vertex *target, double cf);
 };
 
 

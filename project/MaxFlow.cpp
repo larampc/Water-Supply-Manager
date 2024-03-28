@@ -21,7 +21,7 @@ double MaxFlow::getCf(Vertex* source, Vertex* target) {
     return minC;
 }
 
-void augmentPath(Vertex* source, Vertex* target, double cf) {
+void MaxFlow::augmentPath(Vertex* source, Vertex* target, double cf) {
     Vertex* curr = target;
     while (curr != source){
         bool outgoing = curr->getPath()->getDest() == curr;
