@@ -405,7 +405,8 @@ void WaterSupply::computeAverageAndVarianceOfPipes() {
     activateAll();
 }
 
-void WaterSupply::computeCitiesStatistics() {
+vector<vector<string>> WaterSupply::computeCitiesStatistics() {
+    vector<vector<string>> res;
     vector<City> orderedCities;
     orderedCities.reserve(cities.size());
     for(const auto& city : cities) orderedCities.push_back(city.second);
@@ -417,13 +418,35 @@ void WaterSupply::computeCitiesStatistics() {
         for(Edge* e: network.findVertex(v.getCode())->getIncoming()) {
             flow += e->getFlow();
         }
+        ostringstream ossres1;
+        ostringstream ossres2;
+        ostringstream ossres3;
+        ostringstream ossres4;
+        ossres1 << left << setw(4) << v.getCode();
+        ossres2 << left << setw(6) << flow;
+
         oss << left << setw(4) << v.getCode() << " - " << setw(6) << flow;
-        if ((v.getDemand()) < flow) oss << " (Overflow by " << flow - (v.getDemand()) << ")";
-        else if ((v.getDemand()) > flow) oss << " (Underflow by " << (v.getDemand()) - flow << ")";
+        if ((v.getDemand()) < flow) {
+            oss << " (Overflow by " << flow - (v.getDemand()) << ")";
+            ossres3 << left << " (Overflow by " << flow - (v.getDemand()) << ")";
+            ossres4 << "";
+        }
+        else if ((v.getDemand()) > flow) {
+            oss << " (Underflow by " << (v.getDemand()) - flow << ")";
+            ossres4 << left << " (Underflow by " << (v.getDemand()) - flow << ")";
+            ossres3 << "";
+        }
         oss << "\n";
+        vector<string> ossres;
+        ossres.push_back(ossres1.str());
+        ossres.push_back(ossres2.str());
+        ossres.push_back(ossres3.str());
+        ossres.push_back(ossres4.str());
+        res.push_back(ossres);
     }
-    cout << oss.str() << "\n";
+//    cout << oss.str() << "\n";
     OutputToFile("../output/MaxFlow", oss.str());
+    return res;
 }
 
 int WaterSupply::computeCityFlow(std::string city) {

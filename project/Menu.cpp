@@ -563,7 +563,7 @@ void Menu::getMaxFlowOp() {
     switch (readOption(6)) {
         case '1':
             waterSupply.optimalResMaxFlow();
-            waterSupply.computeCitiesStatistics();
+            printCitiesStatistics();
             ColorPrint("cyan", "Total: ");
             ColorPrint("white", to_string(waterSupply.computeMaxFlow()));
             pressEnterToContinue();
@@ -608,7 +608,7 @@ void Menu::getMaxFlowExcessOp() {
     switch (readOption(5)) {
         case '1':
             waterSupply.optimalExcessMaxFlow();
-            waterSupply.computeCitiesStatistics();
+            printCitiesStatistics();
             ColorPrint("cyan", "Total: ");
             ColorPrint("white", to_string(waterSupply.computeMaxFlow()));
             pressEnterToContinue();
@@ -639,7 +639,7 @@ void Menu::getMaxFlowExcessOp() {
             code = readCityCode();
             if (!code.empty()) {
                 waterSupply.optimalExcessCityMaxFlow(code);
-                waterSupply.computeCitiesStatistics();
+                printCitiesStatistics();
                 ColorPrint("cyan", "Total to " + waterSupply.getCity(code).getName() + ": ");
                 ColorPrint("white", to_string(waterSupply.computeCityFlow(code)) + "\n");
                 ColorPrint("cyan", "Total: ");
@@ -718,7 +718,7 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
             break;
     }
     if (end) {
-        waterSupply.computeCitiesStatistics();
+        printCitiesStatistics();
         ColorPrint("cyan", "Total: ");
         ColorPrint("white", to_string(waterSupply.computeMaxFlow()) + "\n");
         pressEnterToContinue();
@@ -729,6 +729,23 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
         ColorPrint("white", "No\n");
         cin.sync();
         if (readOption(2) == '1') reliabilityTesting(resStat, pipes);
+    }
+}
+
+void Menu::printCitiesStatistics() {
+    vector<vector<string>> res = waterSupply.computeCitiesStatistics();
+    ColorPrint("cyan", "\nCity - Flow\n");
+    for (vector<string> c: res) {
+        ColorPrint("white", c[0]);
+        ColorPrint("white", " - ");
+        ColorPrint("white", c[1]);
+        if (c[2].empty()) {
+            if (!c[3].empty()) {
+                ColorPrint("yellow", c[3]);
+            }
+        }
+        else ColorPrint("green", c[2]);
+        ColorPrint("white", "\n");
     }
 }
 

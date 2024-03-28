@@ -50,7 +50,7 @@ public:
     std::vector<Reservoir> getReservoirMaxDel();
     std::vector<Reservoir> getReservoirMinDel();
     void computeAverageAndVarianceOfPipes();
-    void computeCitiesStatistics();
+    std::vector<std::vector<std::string>> computeCitiesStatistics();
     int computeMaxFlow();
     int computeCityFlow(std::string city);
     /********************** MaxFlow  ****************************/

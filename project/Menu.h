@@ -158,6 +158,8 @@ public:
     void printPipeDestinations(const std::string& code);
 
     void getMaxFlowExcessOp();
+
+    void printCitiesStatistics();
 };
 
 
