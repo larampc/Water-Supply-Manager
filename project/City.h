@@ -5,9 +5,9 @@
 
 /**
  * \class City
- * \brief A custom class to represent a city.
+ * \brief A custom class to represent a City.
  *
- * This class stores all information of a city.
+ * This class stores all information of a City.
  */
 class City {
 private:

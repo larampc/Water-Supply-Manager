@@ -11,6 +11,6 @@ var searchData=
   ['readreservoirname_8',['readReservoirName',['../class_menu.html#ac57a806c4cf98a08532769dde5952ec9',1,'Menu']]],
   ['readstationcode_9',['readStationCode',['../class_menu.html#a643a61bbab790ea094c9527c8fc79985',1,'Menu']]],
   ['reliabilitytesting_10',['reliabilityTesting',['../class_menu.html#a483fcfc7c8bcd771ab7955f73dd50de7',1,'Menu']]],
-  ['reservoir_11',['Reservoir',['../class_reservoir.html',1,'']]],
+  ['reservoir_11',['reservoir',['../class_reservoir.html',1,'Reservoir'],['../class_reservoir.html#a4bc405f7ea908f2eea60678384877d08',1,'Reservoir::Reservoir()']]],
   ['run_12',['run',['../class_menu.html#a35656cd130e24d69383a5c9d0a73a38c',1,'Menu']]]
 ];
