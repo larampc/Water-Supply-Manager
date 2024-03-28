@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['dfsisdag_0',['dfsIsDAG',['../class_graph.html#a03ef8f6e2f6ecbecc6068a5a5dc1f7c7',1,'Graph']]]
+  ['colorprint_0',['ColorPrint',['../class_color_print.html#a06f53f37b4e72cb0f33a421b4099e9a9',1,'ColorPrint']]]
 ];

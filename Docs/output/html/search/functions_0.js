@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['colorprint_0',['ColorPrint',['../class_color_print.html#a06f53f37b4e72cb0f33a421b4099e9a9',1,'ColorPrint']]]
+  ['auxreliability_0',['auxReliability',['../class_menu.html#acec0330a4f5550cf0073aecef575b487',1,'Menu']]]
 ];

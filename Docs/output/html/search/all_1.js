@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['description_0',['Project description',['../index.html#description_sec',1,'']]],
-  ['dfsisdag_1',['dfsIsDAG',['../class_graph.html#a03ef8f6e2f6ecbecc6068a5a5dc1f7c7',1,'Graph']]],
-  ['do_2',['What can this project do?',['../index.html#utility_sec',1,'']]]
+  ['can_20this_20project_20do_0',['What can this project do?',['../index.html#utility_sec',1,'']]],
+  ['city_1',['City',['../class_city.html',1,'']]],
+  ['colorprint_2',['colorprint',['../class_color_print.html',1,'ColorPrint'],['../class_color_print.html#a06f53f37b4e72cb0f33a421b4099e9a9',1,'ColorPrint::ColorPrint()']]]
 ];

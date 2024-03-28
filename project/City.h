@@ -3,6 +3,12 @@
 
 #include <string>
 
+/**
+ * \class City
+ * \brief A custom class to represent a city.
+ *
+ * This class stores all information of a city.
+ */
 class City {
 private:
     int id;

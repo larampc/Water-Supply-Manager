@@ -28,55 +28,61 @@ class Menu {
 private:
     WaterSupply waterSupply;
 public:
+    /**
+     * \brief Outputs the dataset menu and handles the respective inputs.
+     */
     void init();
     /**
      * \brief Outputs the main menu and handles the respective inputs.
      */
     void run();
     /**
-     * \brief Reads an option from 1 to n from user input.
+     * \brief Reads an option from 1 to the given number from user input.
+     *
+     * @param n The given number.
+     * @return The option from user input.
      */
     static char readOption(int n);
     /**
-     * \brief Asks user for a valid city code.
+     * \brief Asks user for a valid City code.
      *
-     * @return The given city code.
+     * @return The given City code.
      */
     std::string readCityCode();
     /**
-     * \brief Asks user for a valid city id.
+     * \brief Asks user for a valid City id.
      *
-     * @return The given city id.
+     * @return The given City id.
      */
     std::string readCityId();
     /**
-     * \brief Asks user for a valid city name.
+     * \brief Asks user for a valid City name.
      *
-     * @return The given city name.
+     * @return The given City name.
      */
     std::string readCityName();
     /**
-     * \brief Asks user for a valid reservoir code.
+     * \brief Asks user for a valid Reservoir code.
      *
-     * @return The given reservoir code.
+     * @return The given Reservoir code.
      */
     std::string readReservoirCode();
     /**
-     * \brief Asks user for a valid reservoir id.
+     * \brief Asks user for a valid Reservoir id.
      *
-     * @return The given reservoir id.
+     * @return The given Reservoir id.
      */
     std::string readReservoirID();
     /**
-     * \brief Asks user for a valid reservoir name.
+     * \brief Asks user for a valid Reservoir name.
      *
-     * @return The given reservoir name.
+     * @return The given Reservoir name.
      */
     std::string readReservoirName();
     /**
-     * \brief Asks user for a valid reservoir municipality.
+     * \brief Asks user for a valid Reservoir municipality.
      *
-     * @return The given reservoir municipality.
+     * @return The given Reservoir municipality.
      */
     std::vector<Reservoir> readReservoirMunicipality();
     /**
@@ -92,13 +98,16 @@ public:
      */
     std::pair<std::string, std::string> readPipeCodes();
     /**
-     * \brief Outputs the information of a city: code, name, demand and population.
+     * \brief Outputs the information of the given City: code, name, demand and population.
+     *
+     * @param city The City to output the information.
      */
-
     void printCity(City city);
     /**
-    * \brief Outputs the information of a city: code, name, municipality and delivery.
-    */
+     * \brief Outputs the information of the given Reservoir: code, name, municipality and delivery.
+     *
+     * @param reservoir The Reservoir to output the information.
+     */
     void printReservoir(const Reservoir& reservoir);
     /**
      * \brief Outputs the settings menu and handles the respective inputs.
@@ -109,19 +118,19 @@ public:
      */
     void getNetworkInfo();
     /**
-     * \brief Outputs the options for getting city information and handles the respective inputs.
+     * \brief Outputs the options for getting City information and handles the respective inputs.
      */
     void getCityInfo();
     /**
-     * \brief Outputs the options for getting reservoir information and handles the respective inputs.
+     * \brief Outputs the options for getting Reservoir information and handles the respective inputs.
      */
     void getReservoirInfo();
     /**
-     * \brief Outputs the options for getting city statistics and handles the respective inputs.
+     * \brief Outputs the options for getting City statistics and handles the respective inputs.
      */
     void getCityStatistics();
     /**
-     * \brief Outputs the options for getting reservoir statistics and handles the respective inputs.
+     * \brief Outputs the options for getting Reservoir statistics and handles the respective inputs.
      */
     void getReservoirStatistics();
     /**
@@ -130,12 +139,18 @@ public:
     void getMaxFlowOp();
     /**
      * \brief Outputs the reliability testing options and handles the respective inputs.
+     *
+     * @param resStat Vector of all deleted Reservoir and Station.
+     * @param pipes Vector of all deleted pipes.
      */
     void reliabilityTesting(std::vector<std::string>& resStat, std::vector<std::pair<std::string, std::string>>& pipes);
     /**
      * \brief Handles auxiliary options for reliability testing.
      */
     void auxReliability();
+    /**
+     * \brief Pauses the output until user presses ENTER.
+     */
     void pressEnterToContinue();
 
     std::string getPipeDestinations(std::string code);
