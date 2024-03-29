@@ -9,6 +9,7 @@
 #include <stack>
 #include <cmath>
 #include <utility>
+#include <codecvt>
 
 using namespace std;
 
@@ -132,8 +133,8 @@ void WaterSupply::loadPipes(std::string path) {
 
 /********************** Getters  ****************************/
 
-Graph WaterSupply::getNetwork() {
-    return network;
+Graph* WaterSupply::getNetwork() {
+    return &network;
 }
 
 City WaterSupply::getCity(const std::string& code) {

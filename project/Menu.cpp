@@ -41,7 +41,7 @@ string Menu::readCityCode(){
 }
 
 void Menu::printPipeDestinations(const string& code){
-    auto pipe = waterSupply.getNetwork().findVertex(code);
+    auto pipe = waterSupply.getNetwork()->findVertex(code);
     for(auto dest : pipe->getAdj()){
         ColorPrint("yellow", " " + dest->getDest()->getInfo());
         if(dest != *(pipe->getAdj().end()-1)) ColorPrint("blue",",");
@@ -212,13 +212,6 @@ vector<Reservoir> Menu::readReservoirMunicipality(){
 
 
 void Menu::run() {
-    waterSupply.optimalResMaxFlow();
-    waterSupply.computeVarianceDiffCapacityFlow();
-    cout << waterSupply.computeMaxFlow() << endl;
-
-    waterSupply.balancingViaMinCost();
-    waterSupply.computeVarianceDiffCapacityFlow();
-    cout << waterSupply.computeMaxFlow() << endl;
     while (true) {
         ColorPrint("blue", "\n-----------------------------------\n");
         ColorPrint("blue", "Water Supply Management System\n");
@@ -548,7 +541,7 @@ void Menu::getMaxFlowOp() {
             waterSupply.optimalResMaxFlow();
             for (int i = 1; i <= waterSupply.getCities().size(); i++) {
                 auto city = waterSupply.getCity("C_" + to_string(i));
-                double flow = waterSupply.getNetwork().findVertex("C_" + to_string(i))->getIncomingFlow();
+                double flow = waterSupply.getNetwork()->findVertex("C_" + to_string(i))->getIncomingFlow();
                 total += city.getDemand() - flow;
                 if ((city.getDemand()) > flow) {
                     ColorPrint("cyan", city.getCode() + " " + city.getName());

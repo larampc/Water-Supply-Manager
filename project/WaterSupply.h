@@ -52,7 +52,12 @@ public:
      */
     void setSuperWithout(const std::string& reservoir);
     /********************** Getters  ****************************/
-    Graph getNetwork();
+    /**
+     * \brief Gets the Graph of the network.
+     *
+     * @return
+     */
+    Graph* getNetwork();
     City getCity(const std::string& code);
     Reservoir getReservoir(const std::string& code);
     Station getStation(const std::string& code);
