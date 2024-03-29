@@ -746,8 +746,8 @@ void Menu::printNetworkStatistics() {
     ColorPrint("white", out.str());
     out.str("");
     out.clear();
-    out << setprecision(2) << maxDiff << "\n";
-    ColorPrint("cyan","Max (Capacity - Flow): ");
+    out << setprecision(2) << variance << "\n";
+    ColorPrint("cyan","Variance (Capacity - Flow): ");
     ColorPrint("white", out.str());
 }
 
