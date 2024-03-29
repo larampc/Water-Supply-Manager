@@ -97,15 +97,73 @@ public:
     bool existsReservoirByCode(const std::string& code);
     std::vector<Reservoir> existsMunicipality(const std::string& municipality);
     /********************** Statistics  ****************************/
+    /**
+     * \brief Gets the cities with the highest demand.
+     *
+     * @return A vector of cities with the highest demand.
+     */
     std::vector<City> getCityMaxDemand();
+    /**
+     * \brief Gets the cities with the lowest demand.
+     *
+     * @return A vector of cities with the lowest demand.
+     */
     std::vector<City> getCityMinDemand();
+    /**
+     * \brief Gets the cities with the highest population.
+     *
+     * @return A vector of cities with the highest population.
+     */
     std::vector<City> getCityMaxPop();
+    /**
+     * \brief Gets the cities with the lowest population.
+     *
+     * @return A vector of cities with the lowest population.
+     */
     std::vector<City> getCityMinPop();
+    /**
+     * \brief Gets the reservoirs with the highest max delivery.
+     *
+     * @return A vector of reservoirs with the highest max delivery.
+     */
     std::vector<Reservoir> getReservoirMaxDel();
+    /**
+     * \brief Gets the reservoirs with the lowest max demand.
+     *
+     * @return A vector of reservoirs with the lowest max demand.
+     */
     std::vector<Reservoir> getReservoirMinDel();
+    /**
+    * \brief Computes the maximum difference (capacity - flow) of all pipes in the network.
+    *
+    * @return The maximum difference (capacity - flow) of all pipes in the network.
+    */
+    double computeMaxDiffCapacityFlow();
+    /**
+     * \brief Computes the network average of the differences (capacity - flow) of all pipes.
+     *
+     * @return Computes the network average of the differences (capacity - flow) of all pipes.
+     */
+    double computeAverageDiffCapacityFlow();
+    /**
+     * \brief Computes the network variance with respect to the difference (capacity - flow) of each pipe.
+     *
+     * @param average The global network (capacity - flow) average of all pipes.
+     * @return The global network variance with respect to the difference (capacity - flow).
+     */
     double computeVarianceDiffCapacityFlow(double average);
-    std::vector<std::vector<std::string>> computeCitiesStatistics();
-    int computeMaxFlow();
+    /**
+     * \brief Computes the network flow value.
+     *
+     * @return The network flow value.
+     */
+    int computeFlow();
+    /**
+     * \brief Computes a given city's incoming flow value.
+     *
+     * @param city The city whose incoming flow will be computed.
+     * @return The city's incoming flow value.
+     */
     int computeCityFlow(const std::string& city);
     /********************** MaxFlow  ****************************/
     void optimalResMaxFlow();
@@ -151,9 +209,7 @@ public:
 
     static bool PathHasFlow(std::vector<Edge*> path);
 
-    double computeMaxDiffCapacityFlow();
 
-    double computeAverageDiffCapacityFlow();
 };
 
 
