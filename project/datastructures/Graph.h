@@ -330,7 +330,7 @@ protected:
     Vertex *orig;
     Edge *reverse = nullptr;
 
-    double flow; // for flow-related problems
+    double flow = 0; // for flow-related problems
     std::unordered_set<int> paths;
     bool isActive = true;
 };
