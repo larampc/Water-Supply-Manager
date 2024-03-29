@@ -90,6 +90,14 @@ public:
      * O(NL + VE^2) where NL is the complexity of removing the used augmentation paths containing the given pipe and VE^2 is the complexity of updating the existing network flow.
      */
     void deletePipe(const std::string& source, const std::string& dest, Graph& network);
+    /**
+     * \brief Prepares the given network for reliability testing initializing its flow and used augmentation paths by calling maxFlowWithLists.
+     *
+     * @param network The network Graph that will be tested.
+     *
+     * \par Complexity
+     * O(VE^2) The complexity of maxFlowWithLists.
+     */
     void reliabilityPrep(Graph& network);
     void reliabilityTearDown(Graph& network);
 
@@ -100,9 +108,21 @@ public:
     void balanceAdj(Vertex *v, Graph &network);
 
     bool findAugPath(Graph *g, Vertex *src, Vertex *target);
-
+    /**
+     * \brief Finds the bottleneck of the path from source to target.
+     *
+     * @param source The source vertex.
+     * @param target The target vertex.
+     * @return The path's bottleneck.
+     */
     double getCf(Vertex *source, Vertex *target);
-
+    /**
+     * \brief Augments the path from source to target with a value.
+     *
+     * @param source The source vertex.
+     * @param target The target vertex.
+     * @param cf The value to augment the path with.
+     */
     static void augmentPath(Vertex *source, Vertex *target, double cf);
 };
 
