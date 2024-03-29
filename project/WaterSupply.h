@@ -55,14 +55,38 @@ public:
     /**
      * \brief Gets the Graph of the network.
      *
-     * @return
+     * @return The Graph of the network.
      */
     Graph* getNetwork();
+    /**
+     * \brief Gets the City with the specified code.
+     *
+     * @return The City with the specified code.
+     */
     City getCity(const std::string& code);
+    /**
+     * \brief Gets the Reservoir with the specified code.
+     *
+     * @return The Reservoir with the specified code.
+     */
     Reservoir getReservoir(const std::string& code);
-    Station getStation(const std::string& code);
+    /**
+     * \brief Gets the cities of the network.
+     *
+     * @return A mapping of codes to cities.
+     */
     std::unordered_map<std::string, City> getCities();
+    /**
+     * \brief Gets the reservoirs of the network.
+     *
+     * @return A mapping of codes to reservoirs.
+     */
     std::unordered_map<std::string, Reservoir> getReservoirs();
+    /**
+     * \brief Gets the stations of the network.
+     *
+     * @return A mapping of codes to stations.
+     */
     std::unordered_map<std::string, Station> getStations();
     /********************** Checkers  ****************************/
     std::string existsCityByID(int id);

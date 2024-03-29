@@ -138,15 +138,11 @@ Graph* WaterSupply::getNetwork() {
 }
 
 City WaterSupply::getCity(const std::string& code) {
-    if (cities.find(code)!=cities.end()) return cities.at(code);
+    return cities.at(code);
 }
 
 Reservoir WaterSupply::getReservoir(const std::string& code) {
-    if (reservoirs.find(code)!=reservoirs.end()) return reservoirs.at(code);
-}
-
-Station WaterSupply::getStation(const std::string& code) {
-    if (stations.find(code)!=stations.end()) return stations.at(code);
+    return reservoirs.at(code);
 }
 
 std::unordered_map<std::string, City> WaterSupply::getCities() {
