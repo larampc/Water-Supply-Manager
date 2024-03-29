@@ -702,7 +702,7 @@ void WaterSupply::exportToFile(bool flow) {
     file.open("../graph.csv", ios::out);
     unordered_map<string, int> ids;
     int id = 1;
-    for(auto v: network.getVertexSet()){
+    for(const auto& v: network.getVertexSet()){
         if(v.first == "src" || v.first == "sink") continue;
         ids.emplace(v.first,id++);
     }

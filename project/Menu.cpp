@@ -224,11 +224,13 @@ void Menu::run() {
         ColorPrint("cyan", "3. ");
         ColorPrint("white", "Network reliability\n");
         ColorPrint("cyan", "4. ");
-        ColorPrint("white", "Settings \n");
+        ColorPrint("white", "Balance Network load\n");
         ColorPrint("cyan", "5. ");
+        ColorPrint("white", "Settings \n");
+        ColorPrint("cyan", "6. ");
         ColorPrint("red", "Quit Manager \n");
         cin.sync();
-        switch (readOption(5)) {
+        switch (readOption(6)) {
             case '1':
                 getNetworkInfo();
                 break;
@@ -239,9 +241,13 @@ void Menu::run() {
                 auxReliability();
                 break;
             case '4':
-                settings();
+                waterSupply.balancingViaMinCost();
+                printNetworkStatistics();
                 break;
             case '5':
+                settings();
+                break;
+            case '6':
                 exit(0);
         }
     }
@@ -270,9 +276,11 @@ void Menu::getNetworkInfo() {
     ColorPrint("cyan", "3. ");
     ColorPrint("white", "Get Stations \n");
     ColorPrint("cyan", "4. ");
+    ColorPrint("white", "Get Network statistics \n");
+    ColorPrint("cyan", "5. ");
     ColorPrint("red", "Cancel \n");
     cin.sync();
-    switch (readOption(4)) {
+    switch (readOption(5)) {
         case '1':
             getCityInfo();
             break;
@@ -284,6 +292,10 @@ void Menu::getNetworkInfo() {
             for (const auto& s: waterSupply.getStations()) {
                 ColorPrint("white", s.first + "\n");
             }
+            pressEnterToContinue();
+            break;
+        case '4':
+            printNetworkStatistics();
             pressEnterToContinue();
             break;
     }
@@ -736,11 +748,11 @@ void Menu::printNetworkStatistics() {
     double variance = waterSupply.computeVarianceDiffCapacityFlow(average);
 
     ColorPrint("cyan","Average (Capacity - Flow): ");
-    ColorPrint("white", convertDouble(average));
+    ColorPrint("white", convertDouble(average) + "\n");
     ColorPrint("cyan","Max (Capacity - Flow): ");
-    ColorPrint("white", convertDouble(maxDiff));
+    ColorPrint("white", convertDouble(maxDiff) + "\n");
     ColorPrint("cyan","Variance (Capacity - Flow): ");
-    ColorPrint("white", convertDouble(variance));
+    ColorPrint("white", convertDouble(variance) + "\n");
 }
 
 
