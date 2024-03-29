@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['operator_3c_0',['operator&lt;',['../class_city.html#a0acfb5911198bcd00f9a96c4b9683a73',1,'City::operator&lt;()'],['../class_vertex.html#ad4ccd48170a1530ec1db5eb306357a74',1,'Vertex::operator&lt;()'],['../class_reservoir.html#a32a70eb7f375cfaea5c4710b008aab88',1,'Reservoir::operator&lt;()']]],
-  ['outweight_1',['outWeight',['../class_vertex.html#a21c1dfb563708b3dcec86a6bf8df9f1e',1,'Vertex']]]
+  ['management_20program_0',['Welcome to the Water Supply Management Program',['../index.html',1,'']]],
+  ['maxflow_1',['maxflow',['../class_max_flow.html',1,'MaxFlow'],['../class_max_flow.html#adf236345e8a490112c621b1a9c68ba76',1,'MaxFlow::maxFlow(std::string source, std::string sink, Graph &amp;network)']]],
+  ['maxflowwithlist_2',['maxFlowWithList',['../class_max_flow.html#a2c00a80d537f354f195cb0c64745141c',1,'MaxFlow']]],
+  ['menu_3',['Menu',['../class_menu.html',1,'']]],
+  ['mutablepriorityqueue_4',['MutablePriorityQueue',['../class_mutable_priority_queue.html',1,'']]]
 ];
