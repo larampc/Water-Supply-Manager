@@ -220,7 +220,7 @@ void Menu::run() {
         ColorPrint("cyan", "1. ");
         ColorPrint("white", "Network Information \n");
         ColorPrint("cyan", "2. ");
-        ColorPrint("white", "Get max flow \n");
+        ColorPrint("white", "Max flow options\n");
         ColorPrint("cyan", "3. ");
         ColorPrint("white", "Network reliability\n");
         ColorPrint("cyan", "4. ");
@@ -531,15 +531,17 @@ void Menu::init() {
 void Menu::getMaxFlowOp() {
     ColorPrint("blue", "Select option:\n");
     ColorPrint("cyan", "1. ");
-    ColorPrint("white", "Get optimal max flow\n");
+    ColorPrint("white", "Get max flow\n");
     ColorPrint("cyan", "2. ");
-    ColorPrint("white", "Get cities with underflow in optimal case\n");
+    ColorPrint("white", "Get max flow prioritizing specific city\n");
     ColorPrint("cyan", "3. ");
-    ColorPrint("white", "Get max flow with excess\n");
+    ColorPrint("white", "Max flow with excess options\n");
     ColorPrint("cyan", "4. ");
+    ColorPrint("white", "Change display mode\n");
+    ColorPrint("cyan", "5. ");
     ColorPrint("red", "Cancel \n");
     cin.sync();
-    switch (readOption(6)) {
+    switch (readOption(5)) {
         case '1':
             waterSupply.optimalResMaxFlow();
             printCitiesStatistics();
@@ -547,21 +549,15 @@ void Menu::getMaxFlowOp() {
             ColorPrint("white", to_string(waterSupply.computeFlow()));
             pressEnterToContinue();
             break;
-        case '2':
-        {
-            double total = 0;
-            waterSupply.optimalResMaxFlow();
-            for (int i = 1; i <= waterSupply.getCities().size(); i++) {
-                auto city = waterSupply.getCity("C_" + to_string(i));
-                double flow = waterSupply.getNetwork()->findVertex("C_" + to_string(i))->getIncomingFlow();
-                total += city.getDemand() - flow;
-                if ((city.getDemand()) > flow) {
-                    ColorPrint("cyan", city.getCode() + " " + city.getName());
-                    ColorPrint("white", " - underflow by " + to_string((int) (city.getDemand() - flow)) + "\n");
-                }
-            }
-            ColorPrint("cyan", "Total underflow: ");
-            ColorPrint("white", to_string((int) total));
+        case '2': {
+            string city = readCityCode();
+            if (!city.empty()) {
+                waterSupply.optimalCityMaxFlow(city);
+                printCitiesStatistics();
+                ColorPrint("cyan", "Total: ");
+                ColorPrint("white", to_string(waterSupply.computeFlow()));
+                pressEnterToContinue();
+            } else getMaxFlowOp();
         }
             break;
         case '3':
@@ -632,7 +628,6 @@ void Menu::auxReliability() {
     vector<pair<string, string>> pipes;
     waterSupply.reliabilityPrep();
     reliabilityTesting(ResStat, pipes);
-    waterSupply.reliabilityTearDown();
     ColorPrint("blue", "Do you wish to make your changes permanent?\n");
     ColorPrint("cyan", "1. ");
     ColorPrint("white", "Yes\n");

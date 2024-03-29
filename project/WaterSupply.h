@@ -35,12 +35,12 @@ public:
      * \brief Creates a superSource vertex connected to each reservoir by an Edge with capacity equal to their max Delivery.
      *
      */
-    void setSuperSource();
+    void addSuperSource();
     /**
      * \brief Creates a superSink vertex connected to each city by an Edge with capacity equal to the city's demand.
      *
      */
-    void setSuperSink();
+    void addSuperSink();
     /**
      * \brief Creates a superSink vertex connected to each city by an Edge with infinite capacity.
      *
@@ -168,7 +168,7 @@ public:
     /********************** MaxFlow  ****************************/
     void optimalResMaxFlow();
     void optimalExcessMaxFlow();
-    void optimalExcessCityMaxFlow(std::string target);
+    void optimalExcessCityMaxFlow(const std::string& target);
     void cityMaxFlow(std::string target);
     /********************** MaxFlow Reverse ****************************/
     void reliabilityPrep();
@@ -188,7 +188,7 @@ public:
 
     bool existsStationByCode(const std::string& code);
 
-    bool existsPipe(const std::string& source, const std::string& code);
+    bool existsPipe(const std::string& source, const std::string& dest);
     bool existsCode(std::string code);
     std::vector<std::string> topsort();
 
@@ -210,6 +210,11 @@ public:
     static bool PathHasFlow(std::vector<Edge*> path);
 
 
+    void setSuperSinkWithDemand();
+
+    void optimalCityMaxFlow(const std::string& target);
+
+    void setSuperSinkNull();
 };
 
 
