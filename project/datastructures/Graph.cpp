@@ -443,3 +443,8 @@ Edge *Graph::findEdge(const std::string &source, const std::string &dest) const 
     return nullptr;
 }
 
+Graph::~Graph() {
+    for (const auto& v: vertexSet) {
+        removeVertex(v.first);
+    }
+}

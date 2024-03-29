@@ -735,20 +735,12 @@ void Menu::printNetworkStatistics() {
     double maxDiff = waterSupply.computeMaxDiffCapacityFlow();
     double variance = waterSupply.computeVarianceDiffCapacityFlow(average);
 
-    ostringstream out;
-    out << setprecision(2) << average << "\n";
     ColorPrint("cyan","Average (Capacity - Flow): ");
-    ColorPrint("white", out.str());
-    out.str("");
-    out.clear();
-    out << setprecision(2) << maxDiff << "\n";
+    ColorPrint("white", convertDouble(average));
     ColorPrint("cyan","Max (Capacity - Flow): ");
-    ColorPrint("white", out.str());
-    out.str("");
-    out.clear();
-    out << setprecision(2) << variance << "\n";
+    ColorPrint("white", convertDouble(maxDiff));
     ColorPrint("cyan","Variance (Capacity - Flow): ");
-    ColorPrint("white", out.str());
+    ColorPrint("white", convertDouble(variance));
 }
 
 
