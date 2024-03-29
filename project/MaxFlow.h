@@ -5,6 +5,10 @@
 #include <vector>
 #include "datastructures/Graph.h"
 
+/**
+ * \class MaxFlow
+ * \brief A custom class containing all maxFlow related algorithms.
+ */
 class MaxFlow {
 private:
     std::unordered_map<unsigned int, std::pair<double, std::vector<std::pair<bool, Edge*>>>> paths;

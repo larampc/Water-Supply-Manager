@@ -12,8 +12,12 @@ var searchData=
   ['readstationcode_9',['readStationCode',['../class_menu.html#a643a61bbab790ea094c9527c8fc79985',1,'Menu']]],
   ['reliabilityprep_10',['reliabilityPrep',['../class_max_flow.html#aede46d09efc0bea53efbc1a6abd9b716',1,'MaxFlow']]],
   ['reliabilitytesting_11',['reliabilityTesting',['../class_menu.html#a483fcfc7c8bcd771ab7955f73dd50de7',1,'Menu']]],
-  ['reservoir_12',['reservoir',['../class_reservoir.html',1,'Reservoir'],['../class_reservoir.html#a4bc405f7ea908f2eea60678384877d08',1,'Reservoir::Reservoir()']]],
-  ['resetpaths_13',['resetPaths',['../class_max_flow.html#acdb890f4170935e8a6c1c20bdf573fa2',1,'MaxFlow']]],
-  ['reversemaxflow_14',['reverseMaxFlow',['../class_max_flow.html#a34dabec8a0e327c9dc1cebc732860fa2',1,'MaxFlow']]],
-  ['run_15',['run',['../class_menu.html#a35656cd130e24d69383a5c9d0a73a38c',1,'Menu']]]
+  ['removeedge_12',['removeEdge',['../class_vertex.html#a4d8890c92e810f8cdbc7777e45b16538',1,'Vertex']]],
+  ['removeoutgoingedges_13',['removeOutgoingEdges',['../class_vertex.html#afcde6d707aff7627df7adde8d8b74a89',1,'Vertex']]],
+  ['removepath_14',['removePath',['../class_vertex.html#af5e031006682d4f50986d15e2ca2a4ed',1,'Vertex']]],
+  ['reservoir_15',['reservoir',['../class_reservoir.html',1,'Reservoir'],['../class_reservoir.html#a4bc405f7ea908f2eea60678384877d08',1,'Reservoir::Reservoir()']]],
+  ['resetpath_16',['resetPath',['../class_vertex.html#ad740d9d158964cd5464437e790a127ff',1,'Vertex']]],
+  ['resetpaths_17',['resetPaths',['../class_max_flow.html#acdb890f4170935e8a6c1c20bdf573fa2',1,'MaxFlow']]],
+  ['reversemaxflow_18',['reverseMaxFlow',['../class_max_flow.html#a34dabec8a0e327c9dc1cebc732860fa2',1,'MaxFlow']]],
+  ['run_19',['run',['../class_menu.html#a35656cd130e24d69383a5c9d0a73a38c',1,'Menu']]]
 ];
