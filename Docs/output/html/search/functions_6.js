@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['pressentertocontinue_0',['pressEnterToContinue',['../class_menu.html#a80117d3e6e7adc501358545098f6fdba',1,'Menu']]],
-  ['printcity_1',['printCity',['../class_menu.html#a9730ee98f002e4a4d6e84bb74a767d50',1,'Menu']]],
-  ['printreservoir_2',['printReservoir',['../class_menu.html#ae6cbc1219632eaa2b75c9a91fa8cdcb8',1,'Menu']]]
+  ['maxflow_0',['maxFlow',['../class_max_flow.html#adf236345e8a490112c621b1a9c68ba76',1,'MaxFlow']]],
+  ['maxflowwithlist_1',['maxFlowWithList',['../class_max_flow.html#a2c00a80d537f354f195cb0c64745141c',1,'MaxFlow']]]
 ];

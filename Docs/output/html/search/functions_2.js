@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['dfsisdag_0',['dfsIsDAG',['../class_graph.html#a03ef8f6e2f6ecbecc6068a5a5dc1f7c7',1,'Graph']]]
+  ['deletepipe_0',['deletePipe',['../class_max_flow.html#a6c7b768627aa77a699e2daf988a543f1',1,'MaxFlow']]],
+  ['deletereservoir_1',['deleteReservoir',['../class_max_flow.html#ae30b31ebe560574be44efce0ededc9ff',1,'MaxFlow']]],
+  ['deletestation_2',['deleteStation',['../class_max_flow.html#ad42f9752ea899fa17524eb56872b6cf7',1,'MaxFlow']]],
+  ['dfsisdag_3',['dfsIsDAG',['../class_graph.html#a03ef8f6e2f6ecbecc6068a5a5dc1f7c7',1,'Graph']]]
 ];

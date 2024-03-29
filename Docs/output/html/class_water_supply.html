@@ -82,33 +82,37 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2271db2223d6fff39ac470bd7ac8664c" id="r_a2271db2223d6fff39ac470bd7ac8664c"><td class="memItemLeft" align="right" valign="top"><a id="a2271db2223d6fff39ac470bd7ac8664c" name="a2271db2223d6fff39ac470bd7ac8664c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>load</b> (std::string cities, std::string reservoirs, std::string pipes, std::string stations)</td></tr>
-<tr class="separator:a2271db2223d6fff39ac470bd7ac8664c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67fb5bb2f54e2e70eda5f74b2b4ee307" id="r_a67fb5bb2f54e2e70eda5f74b2b4ee307"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a67fb5bb2f54e2e70eda5f74b2b4ee307">load</a> (std::string citiesPath, std::string reservoirsPath, std::string pipesPath, std::string stationsPath)</td></tr>
+<tr class="memdesc:a67fb5bb2f54e2e70eda5f74b2b4ee307"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses the Cities, pipes, reservoirs and stations input files into appropriate data structures.  <br /></td></tr>
+<tr class="separator:a67fb5bb2f54e2e70eda5f74b2b4ee307"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb5f327e100590e8db352c94888f1fab" id="r_afb5f327e100590e8db352c94888f1fab"><td class="memItemLeft" align="right" valign="top"><a id="afb5f327e100590e8db352c94888f1fab" name="afb5f327e100590e8db352c94888f1fab"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setSuperSource</b> ()</td></tr>
+<tr class="memdesc:afb5f327e100590e8db352c94888f1fab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a superSource vertex connected to each reservoir by an <a class="el" href="class_edge.html">Edge</a> with capacity equal to their max Delivery. <br /></td></tr>
 <tr class="separator:afb5f327e100590e8db352c94888f1fab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3046c83e3092341c2ac33e0a3f61c256" id="r_a3046c83e3092341c2ac33e0a3f61c256"><td class="memItemLeft" align="right" valign="top"><a id="a3046c83e3092341c2ac33e0a3f61c256" name="a3046c83e3092341c2ac33e0a3f61c256"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setSuperSink</b> ()</td></tr>
+<tr class="memdesc:a3046c83e3092341c2ac33e0a3f61c256"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a superSink vertex connected to each city by an <a class="el" href="class_edge.html">Edge</a> with capacity equal to the city's demand. <br /></td></tr>
 <tr class="separator:a3046c83e3092341c2ac33e0a3f61c256"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab88cc585c3b598a74ebc38996d8f6d07" id="r_ab88cc585c3b598a74ebc38996d8f6d07"><td class="memItemLeft" align="right" valign="top"><a id="ab88cc585c3b598a74ebc38996d8f6d07" name="ab88cc585c3b598a74ebc38996d8f6d07"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setInfSuperSink</b> ()</td></tr>
+<tr class="memdesc:ab88cc585c3b598a74ebc38996d8f6d07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a superSink vertex connected to each city by an <a class="el" href="class_edge.html">Edge</a> with infinite capacity. <br /></td></tr>
 <tr class="separator:ab88cc585c3b598a74ebc38996d8f6d07"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97280c6c4383b313d01c174a8ea98c88" id="r_a97280c6c4383b313d01c174a8ea98c88"><td class="memItemLeft" align="right" valign="top"><a id="a97280c6c4383b313d01c174a8ea98c88" name="a97280c6c4383b313d01c174a8ea98c88"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setSuperWithout</b> (std::string reservoir)</td></tr>
-<tr class="separator:a97280c6c4383b313d01c174a8ea98c88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a246b0fa218e04cb1f951d10fc542267b" id="r_a246b0fa218e04cb1f951d10fc542267b"><td class="memItemLeft" align="right" valign="top"><a id="a246b0fa218e04cb1f951d10fc542267b" name="a246b0fa218e04cb1f951d10fc542267b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setSuperWithout</b> (const std::string &amp;reservoir)</td></tr>
+<tr class="memdesc:a246b0fa218e04cb1f951d10fc542267b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a superSource vertex connected to all reservoirs but the one provided, by an <a class="el" href="class_edge.html">Edge</a> with capacity equal to their max Delivery. <br /></td></tr>
+<tr class="separator:a246b0fa218e04cb1f951d10fc542267b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa0d6149dd7fe8423d6e37628de5bb13" id="r_aaa0d6149dd7fe8423d6e37628de5bb13"><td class="memItemLeft" align="right" valign="top"><a id="aaa0d6149dd7fe8423d6e37628de5bb13" name="aaa0d6149dd7fe8423d6e37628de5bb13"></a>
 <a class="el" href="class_graph.html">Graph</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getNetwork</b> ()</td></tr>
 <tr class="separator:aaa0d6149dd7fe8423d6e37628de5bb13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3f2beeb12bd9e6e14cb4fc4a065042d1" id="r_a3f2beeb12bd9e6e14cb4fc4a065042d1"><td class="memItemLeft" align="right" valign="top"><a id="a3f2beeb12bd9e6e14cb4fc4a065042d1" name="a3f2beeb12bd9e6e14cb4fc4a065042d1"></a>
-<a class="el" href="class_city.html">City</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getCity</b> (std::string code)</td></tr>
-<tr class="separator:a3f2beeb12bd9e6e14cb4fc4a065042d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f9f8419334072e90b43defdcf36ffca" id="r_a1f9f8419334072e90b43defdcf36ffca"><td class="memItemLeft" align="right" valign="top"><a id="a1f9f8419334072e90b43defdcf36ffca" name="a1f9f8419334072e90b43defdcf36ffca"></a>
-<a class="el" href="class_reservoir.html">Reservoir</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getReservoir</b> (std::string code)</td></tr>
-<tr class="separator:a1f9f8419334072e90b43defdcf36ffca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1506d15196b2846cb4f5fb51f74b6ab4" id="r_a1506d15196b2846cb4f5fb51f74b6ab4"><td class="memItemLeft" align="right" valign="top"><a id="a1506d15196b2846cb4f5fb51f74b6ab4" name="a1506d15196b2846cb4f5fb51f74b6ab4"></a>
-<a class="el" href="class_station.html">Station</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getStation</b> (std::string code)</td></tr>
-<tr class="separator:a1506d15196b2846cb4f5fb51f74b6ab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a180955f3c1abf32344ae0005a826fe06" id="r_a180955f3c1abf32344ae0005a826fe06"><td class="memItemLeft" align="right" valign="top"><a id="a180955f3c1abf32344ae0005a826fe06" name="a180955f3c1abf32344ae0005a826fe06"></a>
+<a class="el" href="class_city.html">City</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getCity</b> (const std::string &amp;code)</td></tr>
+<tr class="separator:a180955f3c1abf32344ae0005a826fe06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d836402ea79a64fe482e8553a7d71c9" id="r_a9d836402ea79a64fe482e8553a7d71c9"><td class="memItemLeft" align="right" valign="top"><a id="a9d836402ea79a64fe482e8553a7d71c9" name="a9d836402ea79a64fe482e8553a7d71c9"></a>
+<a class="el" href="class_reservoir.html">Reservoir</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getReservoir</b> (const std::string &amp;code)</td></tr>
+<tr class="separator:a9d836402ea79a64fe482e8553a7d71c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abaa17cec077bf73c43ed6ab267a11065" id="r_abaa17cec077bf73c43ed6ab267a11065"><td class="memItemLeft" align="right" valign="top"><a id="abaa17cec077bf73c43ed6ab267a11065" name="abaa17cec077bf73c43ed6ab267a11065"></a>
+<a class="el" href="class_station.html">Station</a>&#160;</td><td class="memItemRight" valign="bottom"><b>getStation</b> (const std::string &amp;code)</td></tr>
+<tr class="separator:abaa17cec077bf73c43ed6ab267a11065"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8eb1ff49968366cf6f75d750681a6994" id="r_a8eb1ff49968366cf6f75d750681a6994"><td class="memItemLeft" align="right" valign="top"><a id="a8eb1ff49968366cf6f75d750681a6994" name="a8eb1ff49968366cf6f75d750681a6994"></a>
 std::unordered_map&lt; std::string, <a class="el" href="class_city.html">City</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getCities</b> ()</td></tr>
 <tr class="separator:a8eb1ff49968366cf6f75d750681a6994"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -121,24 +125,24 @@ std::unordered_map&lt; std::string, <a class="el" href="class_station.html">Stat
 <tr class="memitem:a563501121e4ae54c53f22da840bc38f8" id="r_a563501121e4ae54c53f22da840bc38f8"><td class="memItemLeft" align="right" valign="top"><a id="a563501121e4ae54c53f22da840bc38f8" name="a563501121e4ae54c53f22da840bc38f8"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>existsCityByID</b> (int id)</td></tr>
 <tr class="separator:a563501121e4ae54c53f22da840bc38f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adbe75965fb45f23a1a5a287a451a1829" id="r_adbe75965fb45f23a1a5a287a451a1829"><td class="memItemLeft" align="right" valign="top"><a id="adbe75965fb45f23a1a5a287a451a1829" name="adbe75965fb45f23a1a5a287a451a1829"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>existsCityByCode</b> (std::string code)</td></tr>
-<tr class="separator:adbe75965fb45f23a1a5a287a451a1829"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3321534edac31460594d37a57467870" id="r_aa3321534edac31460594d37a57467870"><td class="memItemLeft" align="right" valign="top"><a id="aa3321534edac31460594d37a57467870" name="aa3321534edac31460594d37a57467870"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>existsCityByName</b> (std::string name)</td></tr>
-<tr class="separator:aa3321534edac31460594d37a57467870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae07338c33e9c5d284dc2fa1bea07360b" id="r_ae07338c33e9c5d284dc2fa1bea07360b"><td class="memItemLeft" align="right" valign="top"><a id="ae07338c33e9c5d284dc2fa1bea07360b" name="ae07338c33e9c5d284dc2fa1bea07360b"></a>
-std::string&#160;</td><td class="memItemRight" valign="bottom"><b>existsReservoirByName</b> (std::string name)</td></tr>
-<tr class="separator:ae07338c33e9c5d284dc2fa1bea07360b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad1f1759a1910e511521679733c4a1d14" id="r_ad1f1759a1910e511521679733c4a1d14"><td class="memItemLeft" align="right" valign="top"><a id="ad1f1759a1910e511521679733c4a1d14" name="ad1f1759a1910e511521679733c4a1d14"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>existsCityByCode</b> (const std::string &amp;code)</td></tr>
+<tr class="separator:ad1f1759a1910e511521679733c4a1d14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a011a74db15bac7410fb1f738019a7a75" id="r_a011a74db15bac7410fb1f738019a7a75"><td class="memItemLeft" align="right" valign="top"><a id="a011a74db15bac7410fb1f738019a7a75" name="a011a74db15bac7410fb1f738019a7a75"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>existsCityByName</b> (const std::string &amp;name)</td></tr>
+<tr class="separator:a011a74db15bac7410fb1f738019a7a75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e1df567741802e162e0c506cec5def2" id="r_a0e1df567741802e162e0c506cec5def2"><td class="memItemLeft" align="right" valign="top"><a id="a0e1df567741802e162e0c506cec5def2" name="a0e1df567741802e162e0c506cec5def2"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>existsReservoirByName</b> (const std::string &amp;name)</td></tr>
+<tr class="separator:a0e1df567741802e162e0c506cec5def2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82f2009f3daa9783844ac3ed49be84ad" id="r_a82f2009f3daa9783844ac3ed49be84ad"><td class="memItemLeft" align="right" valign="top"><a id="a82f2009f3daa9783844ac3ed49be84ad" name="a82f2009f3daa9783844ac3ed49be84ad"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>existsReservoirByID</b> (int id)</td></tr>
 <tr class="separator:a82f2009f3daa9783844ac3ed49be84ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaad18330b325a61af234c712bf16e34f" id="r_aaad18330b325a61af234c712bf16e34f"><td class="memItemLeft" align="right" valign="top"><a id="aaad18330b325a61af234c712bf16e34f" name="aaad18330b325a61af234c712bf16e34f"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>existsReservoirByCode</b> (std::string code)</td></tr>
-<tr class="separator:aaad18330b325a61af234c712bf16e34f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54ba91cdc62491a552441c05bc13106e" id="r_a54ba91cdc62491a552441c05bc13106e"><td class="memItemLeft" align="right" valign="top"><a id="a54ba91cdc62491a552441c05bc13106e" name="a54ba91cdc62491a552441c05bc13106e"></a>
-std::vector&lt; <a class="el" href="class_reservoir.html">Reservoir</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>existsMunicipality</b> (std::string municipality)</td></tr>
-<tr class="separator:a54ba91cdc62491a552441c05bc13106e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a797300ffd485e9bada68731bdf2499d1" id="r_a797300ffd485e9bada68731bdf2499d1"><td class="memItemLeft" align="right" valign="top"><a id="a797300ffd485e9bada68731bdf2499d1" name="a797300ffd485e9bada68731bdf2499d1"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>existsReservoirByCode</b> (const std::string &amp;code)</td></tr>
+<tr class="separator:a797300ffd485e9bada68731bdf2499d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e5348b11dd23372659d8b42d611a833" id="r_a3e5348b11dd23372659d8b42d611a833"><td class="memItemLeft" align="right" valign="top"><a id="a3e5348b11dd23372659d8b42d611a833" name="a3e5348b11dd23372659d8b42d611a833"></a>
+std::vector&lt; <a class="el" href="class_reservoir.html">Reservoir</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>existsMunicipality</b> (const std::string &amp;municipality)</td></tr>
+<tr class="separator:a3e5348b11dd23372659d8b42d611a833"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae8d1bc0cbbec316a4df85578e9a037c5" id="r_ae8d1bc0cbbec316a4df85578e9a037c5"><td class="memItemLeft" align="right" valign="top"><a id="ae8d1bc0cbbec316a4df85578e9a037c5" name="ae8d1bc0cbbec316a4df85578e9a037c5"></a>
 std::vector&lt; <a class="el" href="class_city.html">City</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getCityMaxDemand</b> ()</td></tr>
 <tr class="separator:ae8d1bc0cbbec316a4df85578e9a037c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -157,18 +161,18 @@ std::vector&lt; <a class="el" href="class_reservoir.html">Reservoir</a> &gt;&#16
 <tr class="memitem:a9f967d08bbc9fa7246c61ea9b7545467" id="r_a9f967d08bbc9fa7246c61ea9b7545467"><td class="memItemLeft" align="right" valign="top"><a id="a9f967d08bbc9fa7246c61ea9b7545467" name="a9f967d08bbc9fa7246c61ea9b7545467"></a>
 std::vector&lt; <a class="el" href="class_reservoir.html">Reservoir</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getReservoirMinDel</b> ()</td></tr>
 <tr class="separator:a9f967d08bbc9fa7246c61ea9b7545467"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afdb532c207d2bf56d34b5a0c4cc165ec" id="r_afdb532c207d2bf56d34b5a0c4cc165ec"><td class="memItemLeft" align="right" valign="top"><a id="afdb532c207d2bf56d34b5a0c4cc165ec" name="afdb532c207d2bf56d34b5a0c4cc165ec"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>computeVarianceDiffCapacityFlow</b> ()</td></tr>
-<tr class="separator:afdb532c207d2bf56d34b5a0c4cc165ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1938cda05c17df659e938b47408ef941" id="r_a1938cda05c17df659e938b47408ef941"><td class="memItemLeft" align="right" valign="top"><a id="a1938cda05c17df659e938b47408ef941" name="a1938cda05c17df659e938b47408ef941"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>computeCitiesStatistics</b> ()</td></tr>
-<tr class="separator:a1938cda05c17df659e938b47408ef941"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abadbf42d890ef1c556dd2233a8a1db6b" id="r_abadbf42d890ef1c556dd2233a8a1db6b"><td class="memItemLeft" align="right" valign="top"><a id="abadbf42d890ef1c556dd2233a8a1db6b" name="abadbf42d890ef1c556dd2233a8a1db6b"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>computeVarianceDiffCapacityFlow</b> (double average)</td></tr>
+<tr class="separator:abadbf42d890ef1c556dd2233a8a1db6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92f0dcdaee9164a05a54ec8b838e3c1b" id="r_a92f0dcdaee9164a05a54ec8b838e3c1b"><td class="memItemLeft" align="right" valign="top"><a id="a92f0dcdaee9164a05a54ec8b838e3c1b" name="a92f0dcdaee9164a05a54ec8b838e3c1b"></a>
+std::vector&lt; std::vector&lt; std::string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>computeCitiesStatistics</b> ()</td></tr>
+<tr class="separator:a92f0dcdaee9164a05a54ec8b838e3c1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6ba0c32da22e613f0d4df76f787277e" id="r_ae6ba0c32da22e613f0d4df76f787277e"><td class="memItemLeft" align="right" valign="top"><a id="ae6ba0c32da22e613f0d4df76f787277e" name="ae6ba0c32da22e613f0d4df76f787277e"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>computeMaxFlow</b> ()</td></tr>
 <tr class="separator:ae6ba0c32da22e613f0d4df76f787277e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb868798fe1ca6701df908fb6cc372d3" id="r_adb868798fe1ca6701df908fb6cc372d3"><td class="memItemLeft" align="right" valign="top"><a id="adb868798fe1ca6701df908fb6cc372d3" name="adb868798fe1ca6701df908fb6cc372d3"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>computeCityFlow</b> (std::string city)</td></tr>
-<tr class="separator:adb868798fe1ca6701df908fb6cc372d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48238c370acb23e874e70cd7004b89eb" id="r_a48238c370acb23e874e70cd7004b89eb"><td class="memItemLeft" align="right" valign="top"><a id="a48238c370acb23e874e70cd7004b89eb" name="a48238c370acb23e874e70cd7004b89eb"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>computeCityFlow</b> (const std::string &amp;city)</td></tr>
+<tr class="separator:a48238c370acb23e874e70cd7004b89eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa788705b26089ac985b9e360fc3b01e0" id="r_aa788705b26089ac985b9e360fc3b01e0"><td class="memItemLeft" align="right" valign="top"><a id="aa788705b26089ac985b9e360fc3b01e0" name="aa788705b26089ac985b9e360fc3b01e0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>optimalResMaxFlow</b> ()</td></tr>
 <tr class="separator:aa788705b26089ac985b9e360fc3b01e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -208,12 +212,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>deleteReservoirMaxRev
 <tr class="memitem:af985d74756782c5a732f5d0e64800734" id="r_af985d74756782c5a732f5d0e64800734"><td class="memItemLeft" align="right" valign="top"><a id="af985d74756782c5a732f5d0e64800734" name="af985d74756782c5a732f5d0e64800734"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>activatePipe</b> (std::string source, std::string dest)</td></tr>
 <tr class="separator:af985d74756782c5a732f5d0e64800734"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3cae875248ceb62c9212fe2b53e231dc" id="r_a3cae875248ceb62c9212fe2b53e231dc"><td class="memItemLeft" align="right" valign="top"><a id="a3cae875248ceb62c9212fe2b53e231dc" name="a3cae875248ceb62c9212fe2b53e231dc"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>existsStationByCode</b> (std::string code)</td></tr>
-<tr class="separator:a3cae875248ceb62c9212fe2b53e231dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50e2e02491ae9d09df946c1429d9d4ad" id="r_a50e2e02491ae9d09df946c1429d9d4ad"><td class="memItemLeft" align="right" valign="top"><a id="a50e2e02491ae9d09df946c1429d9d4ad" name="a50e2e02491ae9d09df946c1429d9d4ad"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>existsPipe</b> (std::string source, std::string code)</td></tr>
-<tr class="separator:a50e2e02491ae9d09df946c1429d9d4ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00d52ce7559b68b334dd469c30a9caed" id="r_a00d52ce7559b68b334dd469c30a9caed"><td class="memItemLeft" align="right" valign="top"><a id="a00d52ce7559b68b334dd469c30a9caed" name="a00d52ce7559b68b334dd469c30a9caed"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>existsStationByCode</b> (const std::string &amp;code)</td></tr>
+<tr class="separator:a00d52ce7559b68b334dd469c30a9caed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a76530afeb1d7ef252ad4c9a0bf8419" id="r_a9a76530afeb1d7ef252ad4c9a0bf8419"><td class="memItemLeft" align="right" valign="top"><a id="a9a76530afeb1d7ef252ad4c9a0bf8419" name="a9a76530afeb1d7ef252ad4c9a0bf8419"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>existsPipe</b> (const std::string &amp;source, const std::string &amp;code)</td></tr>
+<tr class="separator:a9a76530afeb1d7ef252ad4c9a0bf8419"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a673f59086c1b9eccc4c9f56aa003dbbb" id="r_a673f59086c1b9eccc4c9f56aa003dbbb"><td class="memItemLeft" align="right" valign="top"><a id="a673f59086c1b9eccc4c9f56aa003dbbb" name="a673f59086c1b9eccc4c9f56aa003dbbb"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>existsCode</b> (std::string code)</td></tr>
 <tr class="separator:a673f59086c1b9eccc4c9f56aa003dbbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -229,12 +233,36 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>prepBalance</b> ()</t
 <tr class="memitem:a42170f5db1727c600d3b4def1434cf74" id="r_a42170f5db1727c600d3b4def1434cf74"><td class="memItemLeft" align="right" valign="top"><a id="a42170f5db1727c600d3b4def1434cf74" name="a42170f5db1727c600d3b4def1434cf74"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>exportToFile</b> (bool flow)</td></tr>
 <tr class="separator:a42170f5db1727c600d3b4def1434cf74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab8894ea5a4019347d4ab0d320db9133e" id="r_ab8894ea5a4019347d4ab0d320db9133e"><td class="memItemLeft" align="right" valign="top"><a id="ab8894ea5a4019347d4ab0d320db9133e" name="ab8894ea5a4019347d4ab0d320db9133e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>transformBidirectionalEdges</b> ()</td></tr>
+<tr class="separator:ab8894ea5a4019347d4ab0d320db9133e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc552c50c3a2c275a65c47682a385b06" id="r_adc552c50c3a2c275a65c47682a385b06"><td class="memItemLeft" align="right" valign="top"><a id="adc552c50c3a2c275a65c47682a385b06" name="adc552c50c3a2c275a65c47682a385b06"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>balancingViaMinCost</b> ()</td></tr>
+<tr class="separator:adc552c50c3a2c275a65c47682a385b06"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af43612058c8338c51928b5ef2f2c35a7" id="r_af43612058c8338c51928b5ef2f2c35a7"><td class="memItemLeft" align="right" valign="top"><a id="af43612058c8338c51928b5ef2f2c35a7" name="af43612058c8338c51928b5ef2f2c35a7"></a>
+std::vector&lt; <a class="el" href="class_edge.html">Edge</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getMaxPathTo</b> (<a class="el" href="class_vertex.html">Vertex</a> *city)</td></tr>
+<tr class="separator:af43612058c8338c51928b5ef2f2c35a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ccf831d06299f8c1c2677ef1d16ed02" id="r_a1ccf831d06299f8c1c2677ef1d16ed02"><td class="memItemLeft" align="right" valign="top"><a id="a1ccf831d06299f8c1c2677ef1d16ed02" name="a1ccf831d06299f8c1c2677ef1d16ed02"></a>
+std::vector&lt; <a class="el" href="class_edge.html">Edge</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>findMinAugPath</b> (<a class="el" href="class_vertex.html">Vertex</a> *source, <a class="el" href="class_vertex.html">Vertex</a> *target)</td></tr>
+<tr class="separator:a1ccf831d06299f8c1c2677ef1d16ed02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e1d23f2ebc80ea18b97c6c0c86dcd2c" id="r_a6e1d23f2ebc80ea18b97c6c0c86dcd2c"><td class="memItemLeft" align="right" valign="top"><a id="a6e1d23f2ebc80ea18b97c6c0c86dcd2c" name="a6e1d23f2ebc80ea18b97c6c0c86dcd2c"></a>
+std::vector&lt; <a class="el" href="class_edge.html">Edge</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>findMinAugPath</b> (<a class="el" href="class_vertex.html">Vertex</a> *city)</td></tr>
+<tr class="separator:a6e1d23f2ebc80ea18b97c6c0c86dcd2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a24e27b60c6d9bb0f829e3d8c208dd3" id="r_a8a24e27b60c6d9bb0f829e3d8c208dd3"><td class="memItemLeft" align="right" valign="top"><a id="a8a24e27b60c6d9bb0f829e3d8c208dd3" name="a8a24e27b60c6d9bb0f829e3d8c208dd3"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>computeMaxDiffCapacityFlow</b> ()</td></tr>
+<tr class="separator:a8a24e27b60c6d9bb0f829e3d8c208dd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d9a0478af48bb3196d968b0d2fc62b1" id="r_a0d9a0478af48bb3196d968b0d2fc62b1"><td class="memItemLeft" align="right" valign="top"><a id="a0d9a0478af48bb3196d968b0d2fc62b1" name="a0d9a0478af48bb3196d968b0d2fc62b1"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>computeAverageDiffCapacityFlow</b> ()</td></tr>
+<tr class="separator:a0d9a0478af48bb3196d968b0d2fc62b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a75290403a45178184ee4f4e8a7b4c4d1" id="r_a75290403a45178184ee4f4e8a7b4c4d1"><td class="memItemLeft" align="right" valign="top"><a id="a75290403a45178184ee4f4e8a7b4c4d1" name="a75290403a45178184ee4f4e8a7b4c4d1"></a>
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>OutputToFile</b> (const std::string &amp;fileName, const std::string &amp;text)</td></tr>
 <tr class="separator:a75290403a45178184ee4f4e8a7b4c4d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a596f0bca412270f11fd223dfbd619b05" id="r_a596f0bca412270f11fd223dfbd619b05"><td class="memItemLeft" align="right" valign="top"><a id="a596f0bca412270f11fd223dfbd619b05" name="a596f0bca412270f11fd223dfbd619b05"></a>
+static bool&#160;</td><td class="memItemRight" valign="bottom"><b>PathHasFlow</b> (std::vector&lt; <a class="el" href="class_edge.html">Edge</a> * &gt; path)</td></tr>
+<tr class="separator:a596f0bca412270f11fd223dfbd619b05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -269,6 +297,58 @@ std::unordered_map&lt; std::string, <a class="el" href="class_station.html">Stat
 <a class="el" href="class_max_flow.html">MaxFlow</a>&#160;</td><td class="memItemRight" valign="bottom"><b>tester</b></td></tr>
 <tr class="separator:a34a092af866f149e37776592d0cf1273"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a67fb5bb2f54e2e70eda5f74b2b4ee307" name="a67fb5bb2f54e2e70eda5f74b2b4ee307"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67fb5bb2f54e2e70eda5f74b2b4ee307">&#9670;&#160;</a></span>load()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WaterSupply::load </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>citiesPath</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>reservoirsPath</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>pipesPath</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>stationsPath</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Parses the Cities, pipes, reservoirs and stations input files into appropriate data structures. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">citiesPath</td><td>The path of the cities information input file. </td></tr>
+    <tr><td class="paramname">reservoirsPath</td><td>The path of the reservoirs information input file. </td></tr>
+    <tr><td class="paramname">pipesPath</td><td>The path of the pipes information input file. </td></tr>
+    <tr><td class="paramname">stationsPath</td><td>The path of the stations information input file. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>C:/Users/Bruno/Desktop/FEUP/Aulas/DA/watersupplymanager/project/<a class="el" href="_water_supply_8h_source.html">WaterSupply.h</a></li>
 <li>C:/Users/Bruno/Desktop/FEUP/Aulas/DA/watersupplymanager/project/<b>WaterSupply.cpp</b></li>

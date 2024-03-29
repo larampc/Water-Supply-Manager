@@ -80,36 +80,33 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:adf236345e8a490112c621b1a9c68ba76" id="r_adf236345e8a490112c621b1a9c68ba76"><td class="memItemLeft" align="right" valign="top"><a id="adf236345e8a490112c621b1a9c68ba76" name="adf236345e8a490112c621b1a9c68ba76"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>maxFlow</b> (std::string source, std::string sink, <a class="el" href="class_graph.html">Graph</a> &amp;network)</td></tr>
+<tr class="memitem:adf236345e8a490112c621b1a9c68ba76" id="r_adf236345e8a490112c621b1a9c68ba76"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_max_flow.html#adf236345e8a490112c621b1a9c68ba76">maxFlow</a> (std::string source, std::string sink, <a class="el" href="class_graph.html">Graph</a> &amp;network)</td></tr>
+<tr class="memdesc:adf236345e8a490112c621b1a9c68ba76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs the maxFlow algorithm on the provided network <a class="el" href="class_graph.html">Graph</a> using the edmondsKarp algorithm.  <br /></td></tr>
 <tr class="separator:adf236345e8a490112c621b1a9c68ba76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34dabec8a0e327c9dc1cebc732860fa2" id="r_a34dabec8a0e327c9dc1cebc732860fa2"><td class="memItemLeft" align="right" valign="top"><a id="a34dabec8a0e327c9dc1cebc732860fa2" name="a34dabec8a0e327c9dc1cebc732860fa2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>reverseMaxFlow</b> (std::string source, std::string sink, <a class="el" href="class_graph.html">Graph</a> &amp;network)</td></tr>
+<tr class="memitem:a34dabec8a0e327c9dc1cebc732860fa2" id="r_a34dabec8a0e327c9dc1cebc732860fa2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_max_flow.html#a34dabec8a0e327c9dc1cebc732860fa2">reverseMaxFlow</a> (std::string source, std::string sink, <a class="el" href="class_graph.html">Graph</a> &amp;network)</td></tr>
+<tr class="memdesc:a34dabec8a0e327c9dc1cebc732860fa2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Iteratively finds augment paths from the given source and subtracts their bottleneck flow until the source's outgoing flow is zero.  <br /></td></tr>
 <tr class="separator:a34dabec8a0e327c9dc1cebc732860fa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c00a80d537f354f195cb0c64745141c" id="r_a2c00a80d537f354f195cb0c64745141c"><td class="memItemLeft" align="right" valign="top"><a id="a2c00a80d537f354f195cb0c64745141c" name="a2c00a80d537f354f195cb0c64745141c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>maxFlowWithList</b> (<a class="el" href="class_graph.html">Graph</a> &amp;network)</td></tr>
+<tr class="memitem:a2c00a80d537f354f195cb0c64745141c" id="r_a2c00a80d537f354f195cb0c64745141c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_max_flow.html#a2c00a80d537f354f195cb0c64745141c">maxFlowWithList</a> (<a class="el" href="class_graph.html">Graph</a> &amp;network)</td></tr>
+<tr class="memdesc:a2c00a80d537f354f195cb0c64745141c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs the maxFlow algorithm on the provided network <a class="el" href="class_graph.html">Graph</a> using the edmondsKarp algorithm and saves the augmentation paths that were used.  <br /></td></tr>
 <tr class="separator:a2c00a80d537f354f195cb0c64745141c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4cdf3fcf68aa2b9ed5cec378a5b498c" id="r_ab4cdf3fcf68aa2b9ed5cec378a5b498c"><td class="memItemLeft" align="right" valign="top"><a id="ab4cdf3fcf68aa2b9ed5cec378a5b498c" name="ab4cdf3fcf68aa2b9ed5cec378a5b498c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>augmentPathList</b> (<a class="el" href="class_vertex.html">Vertex</a> *source, <a class="el" href="class_vertex.html">Vertex</a> *target, double cf)</td></tr>
+<tr class="memitem:ab4cdf3fcf68aa2b9ed5cec378a5b498c" id="r_ab4cdf3fcf68aa2b9ed5cec378a5b498c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_max_flow.html#ab4cdf3fcf68aa2b9ed5cec378a5b498c">augmentPathList</a> (<a class="el" href="class_vertex.html">Vertex</a> *source, <a class="el" href="class_vertex.html">Vertex</a> *target, double cf)</td></tr>
+<tr class="memdesc:ab4cdf3fcf68aa2b9ed5cec378a5b498c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Auxiliary function used by maxFlowWithList to augment the path from source to target with a value, saving the path.  <br /></td></tr>
 <tr class="separator:ab4cdf3fcf68aa2b9ed5cec378a5b498c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9ada5e9a4552c2bd6d5ed81515cb782" id="r_ad9ada5e9a4552c2bd6d5ed81515cb782"><td class="memItemLeft" align="right" valign="top"><a id="ad9ada5e9a4552c2bd6d5ed81515cb782" name="ad9ada5e9a4552c2bd6d5ed81515cb782"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>resetPaths</b> (std::unordered_set&lt; int &gt; pat)</td></tr>
-<tr class="separator:ad9ada5e9a4552c2bd6d5ed81515cb782"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0aafe77a98d5261037ee45ea61cccd30" id="r_a0aafe77a98d5261037ee45ea61cccd30"><td class="memItemLeft" align="right" valign="top"><a id="a0aafe77a98d5261037ee45ea61cccd30" name="a0aafe77a98d5261037ee45ea61cccd30"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>deleteReservoir</b> (std::string reservoir, <a class="el" href="class_graph.html">Graph</a> &amp;network)</td></tr>
-<tr class="separator:a0aafe77a98d5261037ee45ea61cccd30"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a0bae951a9934c8eeddd3c4b3845e2a" id="r_a9a0bae951a9934c8eeddd3c4b3845e2a"><td class="memItemLeft" align="right" valign="top"><a id="a9a0bae951a9934c8eeddd3c4b3845e2a" name="a9a0bae951a9934c8eeddd3c4b3845e2a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>deleteStation</b> (std::string station, <a class="el" href="class_graph.html">Graph</a> &amp;network)</td></tr>
-<tr class="separator:a9a0bae951a9934c8eeddd3c4b3845e2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeaa1739ee56cbdd90dda7696d2748551" id="r_aeaa1739ee56cbdd90dda7696d2748551"><td class="memItemLeft" align="right" valign="top"><a id="aeaa1739ee56cbdd90dda7696d2748551" name="aeaa1739ee56cbdd90dda7696d2748551"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>deletePipe</b> (std::string source, std::string dest, <a class="el" href="class_graph.html">Graph</a> &amp;network)</td></tr>
-<tr class="separator:aeaa1739ee56cbdd90dda7696d2748551"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aede46d09efc0bea53efbc1a6abd9b716" id="r_aede46d09efc0bea53efbc1a6abd9b716"><td class="memItemLeft" align="right" valign="top"><a id="aede46d09efc0bea53efbc1a6abd9b716" name="aede46d09efc0bea53efbc1a6abd9b716"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>reliabilityPrep</b> (<a class="el" href="class_graph.html">Graph</a> &amp;network)</td></tr>
+<tr class="memitem:acdb890f4170935e8a6c1c20bdf573fa2" id="r_acdb890f4170935e8a6c1c20bdf573fa2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_max_flow.html#acdb890f4170935e8a6c1c20bdf573fa2">resetPaths</a> (const std::unordered_set&lt; int &gt; &amp;pathSet)</td></tr>
+<tr class="memdesc:acdb890f4170935e8a6c1c20bdf573fa2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the given paths from the currently used augmentation paths, updating the network.  <br /></td></tr>
+<tr class="separator:acdb890f4170935e8a6c1c20bdf573fa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae30b31ebe560574be44efce0ededc9ff" id="r_ae30b31ebe560574be44efce0ededc9ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_max_flow.html#ae30b31ebe560574be44efce0ededc9ff">deleteReservoir</a> (const std::string &amp;reservoir, <a class="el" href="class_graph.html">Graph</a> &amp;network)</td></tr>
+<tr class="memdesc:ae30b31ebe560574be44efce0ededc9ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the given reservoir from the given network <a class="el" href="class_graph.html">Graph</a>, updating the network's flow.  <br /></td></tr>
+<tr class="separator:ae30b31ebe560574be44efce0ededc9ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad42f9752ea899fa17524eb56872b6cf7" id="r_ad42f9752ea899fa17524eb56872b6cf7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_max_flow.html#ad42f9752ea899fa17524eb56872b6cf7">deleteStation</a> (const std::string &amp;station, <a class="el" href="class_graph.html">Graph</a> &amp;network)</td></tr>
+<tr class="memdesc:ad42f9752ea899fa17524eb56872b6cf7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the given station from the given network <a class="el" href="class_graph.html">Graph</a>, updating the network's flow.  <br /></td></tr>
+<tr class="separator:ad42f9752ea899fa17524eb56872b6cf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c7b768627aa77a699e2daf988a543f1" id="r_a6c7b768627aa77a699e2daf988a543f1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_max_flow.html#a6c7b768627aa77a699e2daf988a543f1">deletePipe</a> (const std::string &amp;source, const std::string &amp;dest, <a class="el" href="class_graph.html">Graph</a> &amp;network)</td></tr>
+<tr class="memdesc:a6c7b768627aa77a699e2daf988a543f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the given station from the given network <a class="el" href="class_graph.html">Graph</a>, updating the network's flow.  <br /></td></tr>
+<tr class="separator:a6c7b768627aa77a699e2daf988a543f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aede46d09efc0bea53efbc1a6abd9b716" id="r_aede46d09efc0bea53efbc1a6abd9b716"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_max_flow.html#aede46d09efc0bea53efbc1a6abd9b716">reliabilityPrep</a> (<a class="el" href="class_graph.html">Graph</a> &amp;network)</td></tr>
+<tr class="memdesc:aede46d09efc0bea53efbc1a6abd9b716"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares the given network for reliability testing initializing its flow and used augmentation paths by calling maxFlowWithLists.  <br /></td></tr>
 <tr class="separator:aede46d09efc0bea53efbc1a6abd9b716"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3a216d62c11e976d5d97f9a532dc041d" id="r_a3a216d62c11e976d5d97f9a532dc041d"><td class="memItemLeft" align="right" valign="top"><a id="a3a216d62c11e976d5d97f9a532dc041d" name="a3a216d62c11e976d5d97f9a532dc041d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>reliabilityTearDown</b> (<a class="el" href="class_graph.html">Graph</a> &amp;network)</td></tr>
-<tr class="separator:a3a216d62c11e976d5d97f9a532dc041d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc97ab8783681223b9d349db1f8e03a0" id="r_adc97ab8783681223b9d349db1f8e03a0"><td class="memItemLeft" align="right" valign="top"><a id="adc97ab8783681223b9d349db1f8e03a0" name="adc97ab8783681223b9d349db1f8e03a0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>transformBidirectionalEdges</b> (<a class="el" href="class_graph.html">Graph</a> &amp;network)</td></tr>
 <tr class="separator:adc97ab8783681223b9d349db1f8e03a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -119,12 +116,6 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>balance</b> (<a class
 <tr class="memitem:a7599260d228b1384300d693d0c827d22" id="r_a7599260d228b1384300d693d0c827d22"><td class="memItemLeft" align="right" valign="top"><a id="a7599260d228b1384300d693d0c827d22" name="a7599260d228b1384300d693d0c827d22"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>balanceAdj</b> (<a class="el" href="class_vertex.html">Vertex</a> *v, <a class="el" href="class_graph.html">Graph</a> &amp;network)</td></tr>
 <tr class="separator:a7599260d228b1384300d693d0c827d22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa46464c19ca1fd242576e4675eb59a9b" id="r_aa46464c19ca1fd242576e4675eb59a9b"><td class="memItemLeft" align="right" valign="top"><a id="aa46464c19ca1fd242576e4675eb59a9b" name="aa46464c19ca1fd242576e4675eb59a9b"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>findAugPath</b> (<a class="el" href="class_graph.html">Graph</a> *g, <a class="el" href="class_vertex.html">Vertex</a> *src, <a class="el" href="class_vertex.html">Vertex</a> *target)</td></tr>
-<tr class="separator:aa46464c19ca1fd242576e4675eb59a9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbd9b5580f7a2371598bdb15f4ea36da" id="r_afbd9b5580f7a2371598bdb15f4ea36da"><td class="memItemLeft" align="right" valign="top"><a id="afbd9b5580f7a2371598bdb15f4ea36da" name="afbd9b5580f7a2371598bdb15f4ea36da"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>getCf</b> (<a class="el" href="class_vertex.html">Vertex</a> *source, <a class="el" href="class_vertex.html">Vertex</a> *target)</td></tr>
-<tr class="separator:afbd9b5580f7a2371598bdb15f4ea36da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -135,6 +126,343 @@ std::unordered_map&lt; unsigned int, std::pair&lt; double, std::vector&lt; std::
 std::vector&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>free</b></td></tr>
 <tr class="separator:afe0ec15a41d5faf3ba16f615e83e0a3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab4cdf3fcf68aa2b9ed5cec378a5b498c" name="ab4cdf3fcf68aa2b9ed5cec378a5b498c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4cdf3fcf68aa2b9ed5cec378a5b498c">&#9670;&#160;</a></span>augmentPathList()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MaxFlow::augmentPathList </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_vertex.html">Vertex</a> *&#160;</td>
+          <td class="paramname"><em>source</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_vertex.html">Vertex</a> *&#160;</td>
+          <td class="paramname"><em>target</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>cf</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Auxiliary function used by maxFlowWithList to augment the path from source to target with a value, saving the path. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>The source vertex. </td></tr>
+    <tr><td class="paramname">target</td><td>The target vertex. </td></tr>
+    <tr><td class="paramname">cf</td><td>The value to augment the path with. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6c7b768627aa77a699e2daf988a543f1" name="a6c7b768627aa77a699e2daf988a543f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c7b768627aa77a699e2daf988a543f1">&#9670;&#160;</a></span>deletePipe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MaxFlow::deletePipe </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>source</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>dest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_graph.html">Graph</a> &amp;&#160;</td>
+          <td class="paramname"><em>network</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deletes the given station from the given network <a class="el" href="class_graph.html">Graph</a>, updating the network's flow. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>The source vertex of the pipe to delete. </td></tr>
+    <tr><td class="paramname">dest</td><td>The destination vertex of the pipe to delete. </td></tr>
+    <tr><td class="paramname">network</td><td>The network <a class="el" href="class_graph.html">Graph</a> to remove the pipe from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Complexity</dt><dd>O(NL + VE^2) where NL is the complexity of removing the used augmentation paths containing the given pipe and VE^2 is the complexity of updating the existing network flow. </dd></dl>
+
+</div>
+</div>
+<a id="ae30b31ebe560574be44efce0ededc9ff" name="ae30b31ebe560574be44efce0ededc9ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae30b31ebe560574be44efce0ededc9ff">&#9670;&#160;</a></span>deleteReservoir()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MaxFlow::deleteReservoir </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>reservoir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_graph.html">Graph</a> &amp;&#160;</td>
+          <td class="paramname"><em>network</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deletes the given reservoir from the given network <a class="el" href="class_graph.html">Graph</a>, updating the network's flow. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">reservoir</td><td>The reservoir to delete. </td></tr>
+    <tr><td class="paramname">network</td><td>The network <a class="el" href="class_graph.html">Graph</a> to remove the reservoir from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Complexity</dt><dd>O(NL + VE^2) where NL is the complexity of removing the used augmentation paths from the reservoir and VE^2 is the complexity of updating the existing network flow. </dd></dl>
+
+</div>
+</div>
+<a id="ad42f9752ea899fa17524eb56872b6cf7" name="ad42f9752ea899fa17524eb56872b6cf7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad42f9752ea899fa17524eb56872b6cf7">&#9670;&#160;</a></span>deleteStation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MaxFlow::deleteStation </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>station</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_graph.html">Graph</a> &amp;&#160;</td>
+          <td class="paramname"><em>network</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deletes the given station from the given network <a class="el" href="class_graph.html">Graph</a>, updating the network's flow. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">station</td><td>The station to delete. </td></tr>
+    <tr><td class="paramname">network</td><td>The network <a class="el" href="class_graph.html">Graph</a> to remove the reservoir from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Complexity</dt><dd>O(NL + VE^2) where NL is the complexity of removing the used augmentation paths containing the given station and VE^2 is the complexity of updating the existing network flow. </dd></dl>
+
+</div>
+</div>
+<a id="adf236345e8a490112c621b1a9c68ba76" name="adf236345e8a490112c621b1a9c68ba76"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf236345e8a490112c621b1a9c68ba76">&#9670;&#160;</a></span>maxFlow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MaxFlow::maxFlow </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>source</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>sink</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_graph.html">Graph</a> &amp;&#160;</td>
+          <td class="paramname"><em>network</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Performs the maxFlow algorithm on the provided network <a class="el" href="class_graph.html">Graph</a> using the edmondsKarp algorithm. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>The source vertex. </td></tr>
+    <tr><td class="paramname">sink</td><td>The sink vertex. </td></tr>
+    <tr><td class="paramname">network</td><td>The network <a class="el" href="class_graph.html">Graph</a> in which to perform the maxFlow.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Complexity</dt><dd>O(VE^2) in which V is the number of vertex and E the number of edges of the <a class="el" href="class_graph.html">Graph</a>. </dd></dl>
+
+</div>
+</div>
+<a id="a2c00a80d537f354f195cb0c64745141c" name="a2c00a80d537f354f195cb0c64745141c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c00a80d537f354f195cb0c64745141c">&#9670;&#160;</a></span>maxFlowWithList()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MaxFlow::maxFlowWithList </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_graph.html">Graph</a> &amp;&#160;</td>
+          <td class="paramname"><em>network</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Performs the maxFlow algorithm on the provided network <a class="el" href="class_graph.html">Graph</a> using the edmondsKarp algorithm and saves the augmentation paths that were used. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">network</td><td>The network <a class="el" href="class_graph.html">Graph</a> in which to perform the maxFlow.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Complexity</dt><dd>O(VE^2) in which V is the number of vertex and E the number of edges of the <a class="el" href="class_graph.html">Graph</a>. </dd></dl>
+
+</div>
+</div>
+<a id="aede46d09efc0bea53efbc1a6abd9b716" name="aede46d09efc0bea53efbc1a6abd9b716"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aede46d09efc0bea53efbc1a6abd9b716">&#9670;&#160;</a></span>reliabilityPrep()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MaxFlow::reliabilityPrep </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_graph.html">Graph</a> &amp;&#160;</td>
+          <td class="paramname"><em>network</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Prepares the given network for reliability testing initializing its flow and used augmentation paths by calling maxFlowWithLists. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">network</td><td>The network <a class="el" href="class_graph.html">Graph</a> that will be tested.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Complexity</dt><dd>O(VE^2) The complexity of maxFlowWithLists. </dd></dl>
+
+</div>
+</div>
+<a id="acdb890f4170935e8a6c1c20bdf573fa2" name="acdb890f4170935e8a6c1c20bdf573fa2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdb890f4170935e8a6c1c20bdf573fa2">&#9670;&#160;</a></span>resetPaths()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MaxFlow::resetPaths </td>
+          <td>(</td>
+          <td class="paramtype">const std::unordered_set&lt; int &gt; &amp;&#160;</td>
+          <td class="paramname"><em>pathSet</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes the given paths from the currently used augmentation paths, updating the network. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">pathSet</td><td>The set of indexes of the paths to remove.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Complexity</dt><dd>O(NL) in which N is the number of paths to delete and L is the length of the longest path to delete. </dd></dl>
+
+</div>
+</div>
+<a id="a34dabec8a0e327c9dc1cebc732860fa2" name="a34dabec8a0e327c9dc1cebc732860fa2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34dabec8a0e327c9dc1cebc732860fa2">&#9670;&#160;</a></span>reverseMaxFlow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MaxFlow::reverseMaxFlow </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>source</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>sink</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_graph.html">Graph</a> &amp;&#160;</td>
+          <td class="paramname"><em>network</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Iteratively finds augment paths from the given source and subtracts their bottleneck flow until the source's outgoing flow is zero. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>The source vertex. </td></tr>
+    <tr><td class="paramname">sink</td><td>The sink vertex. </td></tr>
+    <tr><td class="paramname">network</td><td>The network <a class="el" href="class_graph.html">Graph</a> in which to perform the maxFlow.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Complexity</dt><dd>O(VE^2) in which V is the number of vertex and E the number of edges of the <a class="el" href="class_graph.html">Graph</a>. </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>C:/Users/Bruno/Desktop/FEUP/Aulas/DA/watersupplymanager/project/<a class="el" href="_max_flow_8h_source.html">MaxFlow.h</a></li>
 <li>C:/Users/Bruno/Desktop/FEUP/Aulas/DA/watersupplymanager/project/<b>MaxFlow.cpp</b></li>

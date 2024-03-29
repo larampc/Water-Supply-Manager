@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['settings_0',['settings',['../class_menu.html#a6e524f61c2d1b76d806a7ebe4f852c30',1,'Menu']]],
-  ['station_1',['Station',['../class_station.html#aca5d1d7de6052a396c7a8fe9affd153c',1,'Station']]],
-  ['swapcolormode_2',['swapColorMode',['../class_color_print.html#a314025715cb8697f6f9fb87068d7284a',1,'ColorPrint']]]
+  ['pressentertocontinue_0',['pressEnterToContinue',['../class_menu.html#a80117d3e6e7adc501358545098f6fdba',1,'Menu']]],
+  ['printcity_1',['printCity',['../class_menu.html#a9730ee98f002e4a4d6e84bb74a767d50',1,'Menu']]],
+  ['printreservoir_2',['printReservoir',['../class_menu.html#ae6cbc1219632eaa2b75c9a91fa8cdcb8',1,'Menu']]]
 ];
