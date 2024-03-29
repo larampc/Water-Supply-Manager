@@ -270,6 +270,7 @@ void Menu::run() {
                 settings();
                 break;
             case '6':
+                ColorPrint("blue","Bye Bye :(\n");
                 exit(0);
         }
     }
@@ -370,7 +371,7 @@ void Menu::getCityInfo() {
     } else getCityInfo();
 }
 
-void Menu::printCity(City city) {
+void Menu::printCity(const City& city) {
     ostringstream oss;
     oss << setw(4) << left << city.getCode()
     << " | " << city.getName() + " | "
@@ -555,7 +556,7 @@ void Menu::getMaxFlowOp() {
     ColorPrint("cyan", "1. ");
     ColorPrint("white", "Get max flow\n");
     ColorPrint("cyan", "2. ");
-    ColorPrint("white", "Get max flow prioritizing cities\n");
+    ColorPrint("white", "Get max flow prioritizing specific cities\n");
     ColorPrint("cyan", "3. ");
     ColorPrint("white", "Max flow with excess options\n");
     ColorPrint("cyan", "4. ");
@@ -566,25 +567,62 @@ void Menu::getMaxFlowOp() {
     switch (readOption(5)) {
         case '1':
             waterSupply.optimalResMaxFlow();
-            printCitiesStatistics();
-            ColorPrint("cyan", "Total: ");
-            ColorPrint("white", to_string(waterSupply.computeFlow()));
+            printCitiesFlow();
             pressEnterToContinue();
             break;
-        case '2': {
-            vector<string> cities = readCityCodes();
-            if (!cities.empty()) {
-                waterSupply.optimalCityMaxFlow(cities);
-                printCitiesStatistics();
-                ColorPrint("cyan", "Total: ");
-                ColorPrint("white", to_string(waterSupply.computeFlow()));
-                pressEnterToContinue();
-            } else getMaxFlowOp();
-        }
+        case '2':
+            MaxFlowWithPrioritizedCities();
             break;
         case '3':
             getMaxFlowExcessOp();
             break;
+    }
+}
+
+void Menu::MaxFlowWithPrioritizedCities(){
+    ColorPrint("blue", "Select option:\n");
+    ColorPrint("cyan", "1. ");
+    ColorPrint("white", "Custom city priority list\n");
+    ColorPrint("cyan", "2. ");
+    ColorPrint("white", "Population-based priority\n");
+    ColorPrint("cyan", "3. ");
+    ColorPrint("red", "Cancel \n");
+    cin.sync();
+    switch (readOption(3)) {
+        case '1':
+        {
+            vector<string> cities = readCityCodes();
+            if (!cities.empty()) {
+                waterSupply.optimalCityMaxFlow(cities);
+                printCitiesFlow();
+                pressEnterToContinue();
+            } else getMaxFlowOp();
+        }
+        break;
+        case '2': {
+            vector<string> citiesByPopulation;
+            auto cities = waterSupply.getCities();
+            citiesByPopulation.reserve(cities.size());
+            for(const auto& c : cities) citiesByPopulation.push_back(c.first);
+
+            ColorPrint("blue", "Select option:\n");
+            ColorPrint("cyan", "1. ");
+            ColorPrint("white", "Ascending order (Benefits those with lowest population)\n");
+            ColorPrint("cyan", "2. ");
+            ColorPrint("white", "Descending order\n");
+            {
+                bool ascending = readOption(2) == '1';
+                ascending ? std::sort(citiesByPopulation.begin(), citiesByPopulation.end(),[cities](const string &s1, const string &s2) {
+                              return cities.at(s1).getPopulation() < cities.at(s2).getPopulation();
+                          })
+                          : std::sort(citiesByPopulation.rbegin(), citiesByPopulation.rend(),[cities](const string &s1, const string &s2) {
+                              return cities.at(s1).getPopulation() < cities.at(s2).getPopulation();
+                          });
+            }
+            waterSupply.optimalCityMaxFlow(citiesByPopulation);
+            printCitiesFlow();
+            pressEnterToContinue();
+        }
     }
 }
 
@@ -605,9 +643,7 @@ void Menu::getMaxFlowExcessOp() {
     switch (readOption(5)) {
         case '1':
             waterSupply.optimalExcessMaxFlow();
-            printCitiesStatistics();
-            ColorPrint("cyan", "Total: ");
-            ColorPrint("white", to_string(waterSupply.computeFlow()));
+            printCitiesFlow();
             pressEnterToContinue();
             break;
         case '2':
@@ -634,11 +670,9 @@ void Menu::getMaxFlowExcessOp() {
             code = readCityCode();
             if (!code.empty()) {
                 waterSupply.optimalExcessCityMaxFlow(code);
-                printCitiesStatistics();
+                printCitiesFlow();
                 ColorPrint("cyan", "Total to " + waterSupply.getCity(code).getName() + ": ");
                 ColorPrint("white", to_string(waterSupply.computeCityFlow(code)) + "\n");
-                ColorPrint("cyan", "Total: ");
-                ColorPrint("white", to_string(waterSupply.computeFlow()));
                 pressEnterToContinue();
             } else getMaxFlowExcessOp();
             break;
@@ -706,9 +740,7 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
             break;
     }
     if (end) {
-        printCitiesStatistics();
-        ColorPrint("cyan", "Total: ");
-        ColorPrint("white", to_string(waterSupply.computeFlow()) + "\n");
+        printCitiesFlow();
         pressEnterToContinue();
         ColorPrint("blue", "Do you want to perform another action?\n");
         ColorPrint("cyan", "1. ");
@@ -721,7 +753,7 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
     else reliabilityTesting(resStat, pipes);
 }
 
-void Menu::printCitiesStatistics() {
+void Menu::printCitiesFlow() {
     ostringstream file;
     ColorPrint("cyan", "\nCity - Flow\n");
     file << "City - Flow\n\n";
@@ -746,8 +778,11 @@ void Menu::printCitiesStatistics() {
         }
         ColorPrint("white", "\n");
         file << "\n";
-
     }
+    ColorPrint("cyan", "Total: ");
+    int flow = waterSupply.computeFlow();
+    ColorPrint("white", to_string(flow) + "\n");
+    file << "Total: " << flow << "\n";
     WaterSupply::OutputToFile("../output/MaxFlow", file.str());
 }
 

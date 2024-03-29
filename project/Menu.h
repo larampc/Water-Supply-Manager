@@ -102,7 +102,7 @@ public:
      *
      * @param city The City to output the information.
      */
-    void printCity(City city);
+    static void printCity(const City& city);
     /**
      * \brief Outputs the information of the given Reservoir: code, name, municipality and delivery.
      *
@@ -112,7 +112,7 @@ public:
     /**
      * \brief Outputs the settings menu and handles the respective inputs.
      */
-    void settings();
+    static void settings();
     /**
      * \brief Outputs the network information menu and handles the respective inputs.
      */
@@ -151,17 +151,19 @@ public:
     /**
      * \brief Pauses the output until user presses ENTER.
      */
-    void pressEnterToContinue();
+    static void pressEnterToContinue();
 
     void printPipeDestinations(const std::string& code);
 
     void getMaxFlowExcessOp();
 
-    void printCitiesStatistics();
+    void printCitiesFlow();
 
     void printNetworkStatistics();
 
     std::vector<std::string> readCityCodes();
+
+    void MaxFlowWithPrioritizedCities();
 };
 
 

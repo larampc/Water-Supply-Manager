@@ -9,7 +9,9 @@
 #include <stack>
 #include <cmath>
 #include <utility>
+#ifdef _WIN32
 #include <codecvt>
+#endif
 
 using namespace std;
 
@@ -296,7 +298,7 @@ vector<City> WaterSupply::getCityMinDemand() {
 }
 
 vector<City> WaterSupply::getCityMaxPop() {
-    int maxPop = 0;
+    unsigned maxPop = 0;
     vector<City> max;
     for (const auto& c: cities) {
         if (c.second.getPopulation() > maxPop) {
@@ -312,7 +314,7 @@ vector<City> WaterSupply::getCityMaxPop() {
 }
 
 vector<City> WaterSupply::getCityMinPop() {
-    int minPop = UINT_MAX;
+    unsigned minPop = std::numeric_limits<unsigned>::max();
     vector<City> max;
     for (const auto& c: cities) {
         if (c.second.getPopulation() < minPop) {
@@ -410,24 +412,24 @@ double WaterSupply::computeVarianceDiffCapacityFlow(double average) {
 
 int WaterSupply::computeCityFlow(const std::string& city) {
     Vertex* end = network.findVertex(city);
-    int count = 0;
+    double flow = 0;
     for (Edge* e: end->getIncoming()) {
-        count += e->getFlow();
+        flow += e->getFlow();
     }
-    return count;
+    return (int)round(flow);
 }
 
 int WaterSupply::computeFlow() {
-    int total = 0;
+    double flow = 0;
     for (const auto& v: cities) {
         Vertex* end = network.findVertex(v.first);
-        int count = 0;
+        double cityFlow = 0;
         for (Edge* e: end->getIncoming()) {
-            count += e->getFlow();
+            cityFlow += e->getFlow();
         }
-        total += count;
+        flow += cityFlow;
     }
-    return total;
+    return (int)round(flow);
 }
 
 
@@ -466,7 +468,7 @@ void WaterSupply::optimalCityMaxFlow(const vector<std::string>& cityList) {
     tester.maxFlow("src", "sink", network);
 }
 
-void WaterSupply::cityMaxFlow(std::string target) {
+void WaterSupply::cityMaxFlow(const std::string& target) {
     network.resetFlow();
     tester.maxFlow("src", target, network);
 }
@@ -477,7 +479,7 @@ void WaterSupply::OutputToFile(const string& fileName, const string& text){
     out.close();
 }
 
-void WaterSupply::deleteReservoirMaxReverse(std::string reservoir) {
+void WaterSupply::deleteReservoirMaxReverse(const std::string& reservoir) {
     optimalResMaxFlow();
     tester.reverseMaxFlow(reservoir, "sink", network);
     network.findVertex(reservoir)->desactivate();
@@ -488,27 +490,27 @@ void WaterSupply::reliabilityPrep() {
     tester.reliabilityPrep(network);
 }
 
-void WaterSupply::activate(std::string p) {
+void WaterSupply::activate(const std::string& p) {
     network.findVertex(p)->activate();
 }
 
-void WaterSupply::activatePipe(std::string source, std::string dest) {
+void WaterSupply::activatePipe(const std::string& source, const std::string& dest) {
     network.findEdge(source, dest)->activate();
 }
 
-void WaterSupply::deleteReservoir(std::string reservoir) {
+void WaterSupply::deleteReservoir(const std::string& reservoir) {
     tester.deleteReservoir(reservoir, network);
 }
 
-void WaterSupply::deleteStation(std::string station) {
+void WaterSupply::deleteStation(const std::string& station) {
     tester.deleteStation(station, network);
 }
 
-bool WaterSupply::existsCode(std::string code) {
+bool WaterSupply::existsCode(const std::string& code) {
     return (cities.count(code) || stations.count(code) || reservoirs.count(code));
 }
 
-void WaterSupply::deletePipe(std::string source, std::string dest) {
+void WaterSupply::deletePipe(const std::string& source, const std::string& dest) {
     tester.deletePipe(source, dest, network);
 }
 
@@ -532,7 +534,7 @@ vector<string> WaterSupply::topsort() {
         v.second->setVisited(false);
         v.second->setProcessing(false);
     }
-    for(auto v : network.getVertexSet()){
+    for(const auto& v : network.getVertexSet()){
         if(!v.second->isVisited()){
             dfsVisit(v.second, aux);
         }
@@ -626,8 +628,6 @@ vector<Edge*> WaterSupply::findMinAugPath(Vertex * city) {
 }
 
 void WaterSupply::balancingViaMinCost(){
-    network.resetFlow();
-    tester.maxFlow("src", "sink", network);
     for(auto v: network.getVertexSet()){
         v.second->setVisited(false);
         v.second->setPath(nullptr);
@@ -684,7 +684,7 @@ void WaterSupply::exportToFile(bool flow) {
     ids.emplace("src", 0);
     ids.emplace("sink", id);
     tester.maxFlow("src", "sink", network);
-    for (auto v: network.getVertexSet()) {
+    for (const auto& v: network.getVertexSet()) {
         for (auto w: v.second->getAdj()) {
             file << w->getOrig()->getInfo() << ' ' << w->getDest()->getInfo() << ' ' << w->getWeight() ;
             if (flow) file << "/" << w->getFlow();
