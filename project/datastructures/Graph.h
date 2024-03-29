@@ -123,6 +123,10 @@ public:
     */
     Vertex *findVertex(const std::string &in) const;
     /*
+    * Auxiliary function to find a vertex with a given the content.
+    */
+    Edge *findEdge(const std::string &source, const std::string &dest) const;
+    /*
      *  Adds a vertex with a given content or info (in) to a graph (this).
      *  Returns true if successful, and false if a vertex with that content already exists.
      */

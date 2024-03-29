@@ -50,10 +50,46 @@ public:
      * @param cf The value to augment the path with.
      */
     void augmentPathList(Vertex* source, Vertex* target, double cf);
-    void resetPaths(std::unordered_set<int> pathSet);
-    void deleteReservoir(std::string reservoir, Graph& network);
-    void deleteStation(std::string station, Graph& network);
-    void deletePipe(std::string source, std::string dest, Graph& network);
+    /**
+     * \brief Removes the given paths from the currently used augmentation paths, updating the network.
+     *
+     * @param pathSet The set of indexes of the paths to remove.
+     *
+     * \par Complexity
+     * O(NL) in which N is the number of paths to delete and L is the length of the longest path to delete.
+     */
+    void resetPaths(const std::unordered_set<int>& pathSet);
+    /**
+     * \brief Deletes the given reservoir from the given network Graph, updating the network's flow.
+     *
+     * @param reservoir The reservoir to delete.
+     * @param network The network Graph to remove the reservoir from.
+     *
+     * \par Complexity
+     * O(NL + VE^2) where NL is the complexity of removing the used augmentation paths from the reservoir and VE^2 is the complexity of updating the existing network flow.
+     */
+    void deleteReservoir(const std::string& reservoir, Graph& network);
+    /**
+     * \brief Deletes the given station from the given network Graph, updating the network's flow.
+     *
+     * @param station The station to delete.
+     * @param network The network Graph to remove the reservoir from.
+     *
+     * \par Complexity
+     * O(NL + VE^2) where NL is the complexity of removing the used augmentation paths containing the given station and VE^2 is the complexity of updating the existing network flow.
+     */
+    void deleteStation(const std::string& station, Graph& network);
+    /**
+     * \brief Deletes the given station from the given network Graph, updating the network's flow.
+     *
+     * @param source The source vertex of the pipe to delete.
+     * @param dest The destination vertex of the pipe to delete.
+     * @param network The network Graph to remove the pipe from.
+     *
+     * \par Complexity
+     * O(NL + VE^2) where NL is the complexity of removing the used augmentation paths containing the given pipe and VE^2 is the complexity of updating the existing network flow.
+     */
+    void deletePipe(const std::string& source, const std::string& dest, Graph& network);
     void reliabilityPrep(Graph& network);
     void reliabilityTearDown(Graph& network);
 

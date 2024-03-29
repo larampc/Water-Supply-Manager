@@ -575,3 +575,11 @@ void Graph::resetFlow() {
     }
 }
 
+Edge *Graph::findEdge(const std::string &source, const std::string &dest) const {
+    auto v = findVertex(source);
+    for(auto adj: v->getAdj()){
+        if(adj->getDest()->getInfo() == dest) return adj;
+    }
+    return nullptr;
+}
+

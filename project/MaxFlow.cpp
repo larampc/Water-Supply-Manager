@@ -133,9 +133,9 @@ void MaxFlow::augmentPathList(Vertex* source, Vertex* target, double cf) {
     }
     path.erase(path.end()-1);
     for (auto e: path) {
-        e.second->addPath(free.empty()? paths.size(): free.at(0));
-        e.second->getDest()->addPath(free.empty()? paths.size(): free.at(0));
-        e.second->getOrig()->addPath(free.empty()? paths.size(): free.at(0));
+        e.second->addPath(free.empty() ? paths.size() : free.at(0));
+        e.second->getDest()->addPath(free.empty() ? paths.size() : free.at(0));
+        e.second->getOrig()->addPath(free.empty() ? paths.size() : free.at(0));
     }
     paths.emplace(free.empty()? paths.size(): free.at(0), pair<double, vector<pair<bool, Edge*>>>{make_pair(cf, path)});
     if (!free.empty()) free.erase(free.begin());
@@ -157,7 +157,7 @@ void MaxFlow::maxFlowWithList(Graph& network) {
 }
 
 
-void MaxFlow::resetPaths(std::unordered_set<int> pathSet) {
+void MaxFlow::resetPaths(const std::unordered_set<int>& pathSet) {
     for (auto k: pathSet) {
         if (paths.count(k)) {
             for (auto e: paths.at(k).second) {
@@ -175,26 +175,24 @@ void MaxFlow::resetPaths(std::unordered_set<int> pathSet) {
     }
 }
 
-void MaxFlow::deleteReservoir(std::string reservoir, Graph& network) {
+void MaxFlow::deleteReservoir(const std::string& reservoir, Graph& network) {
     Vertex* v = network.findVertex(reservoir);
     resetPaths(v->getPaths());
     v->desactivate();
     maxFlowWithList(network);
 }
 
-void MaxFlow::deleteStation(std::string station, Graph& network) {
+void MaxFlow::deleteStation(const std::string& station, Graph& network) {
     Vertex* v = network.findVertex(station);
     resetPaths(v->getPaths());
     v->desactivate();
     maxFlowWithList(network);
 }
 
-void MaxFlow::deletePipe(std::string source, std::string dest, Graph& network) {
-    Vertex* v = network.findVertex(source);
-    resetPaths(v->getPaths());
-    for(auto e: v->getAdj()) {
-        if (e->getDest()->getInfo() == dest) e->desactivate();
-    }
+void MaxFlow::deletePipe(const std::string& source, const std::string& dest, Graph& network) {
+    auto edge = network.findEdge(source, dest);
+    resetPaths(edge->getPaths());
+    edge->desactivate();
     maxFlowWithList(network);
 }
 
