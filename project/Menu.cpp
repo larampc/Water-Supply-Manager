@@ -265,6 +265,7 @@ void Menu::run() {
             case '4':
                 waterSupply.balancingViaMinCost();
                 printNetworkStatistics();
+                pressEnterToContinue();
                 break;
             case '5':
                 settings();
@@ -795,11 +796,12 @@ void Menu::pressEnterToContinue() {
 }
 
 void Menu::printNetworkStatistics() {
+    printCitiesFlow();
     double average = waterSupply.computeAverageDiffCapacityFlow();
     double maxDiff = waterSupply.computeMaxDiffCapacityFlow();
     double variance = waterSupply.computeVarianceDiffCapacityFlow(average);
 
-    ColorPrint("cyan","Average (Capacity - Flow): ");
+    ColorPrint("cyan","\nAverage (Capacity - Flow): ");
     ColorPrint("white", convertDouble(average) + "\n");
     ColorPrint("cyan","Max (Capacity - Flow): ");
     ColorPrint("white", convertDouble(maxDiff) + "\n");
