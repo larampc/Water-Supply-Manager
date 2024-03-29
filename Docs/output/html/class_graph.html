@@ -104,9 +104,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a59bf2bfabb7e3885e1e9d3267f91f7cd" id="r_a59bf2bfabb7e3885e1e9d3267f91f7cd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a59bf2bfabb7e3885e1e9d3267f91f7cd">addEdge</a> (const std::string &amp;sourc, const std::string &amp;dest, double w)</td></tr>
 <tr class="memdesc:a59bf2bfabb7e3885e1e9d3267f91f7cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new <a class="el" href="class_edge.html" title="A custom class to represent a Graph&#39;s Edge.">Edge</a> with the given weight from the <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a> with the given origin info to the <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a> with the given destination info to this <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>.  <br /></td></tr>
 <tr class="separator:a59bf2bfabb7e3885e1e9d3267f91f7cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22e4dba58104715ffc8f704828868c3e" id="r_a22e4dba58104715ffc8f704828868c3e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a22e4dba58104715ffc8f704828868c3e">removeEdge</a> (const std::string &amp;source, const std::string &amp;dest)</td></tr>
-<tr class="memdesc:a22e4dba58104715ffc8f704828868c3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the <a class="el" href="class_edge.html" title="A custom class to represent a Graph&#39;s Edge.">Edge</a> that goes from the <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a> with the given origin info to the <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a> with the given destination info from this <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>.  <br /></td></tr>
-<tr class="separator:a22e4dba58104715ffc8f704828868c3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a505e21b2392f34f795f363bfe787c7da" id="r_a505e21b2392f34f795f363bfe787c7da"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_graph.html#a505e21b2392f34f795f363bfe787c7da">addBidirectionalEdge</a> (const std::string &amp;sourc, const std::string &amp;dest, double w)</td></tr>
 <tr class="memdesc:a505e21b2392f34f795f363bfe787c7da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds two new <a class="el" href="class_edge.html" title="A custom class to represent a Graph&#39;s Edge.">Edge</a> with the given weight from the <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a> with the given origin info to the <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a> with the given destination info and vice-versa to this <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>.  <br /></td></tr>
 <tr class="separator:a505e21b2392f34f795f363bfe787c7da"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -135,12 +132,6 @@ Protected Attributes</h2></td></tr>
 <tr class="memitem:a4899a7ab6e4971057d6bcf18fd4839ad" id="r_a4899a7ab6e4971057d6bcf18fd4839ad"><td class="memItemLeft" align="right" valign="top"><a id="a4899a7ab6e4971057d6bcf18fd4839ad" name="a4899a7ab6e4971057d6bcf18fd4839ad"></a>
 std::unordered_map&lt; std::string, <a class="el" href="class_vertex.html">Vertex</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>vertexSet</b></td></tr>
 <tr class="separator:a4899a7ab6e4971057d6bcf18fd4839ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e61864da69191c1896a25a708d1a02d" id="r_a9e61864da69191c1896a25a708d1a02d"><td class="memItemLeft" align="right" valign="top"><a id="a9e61864da69191c1896a25a708d1a02d" name="a9e61864da69191c1896a25a708d1a02d"></a>
-double **&#160;</td><td class="memItemRight" valign="bottom"><b>distMatrix</b> = nullptr</td></tr>
-<tr class="separator:a9e61864da69191c1896a25a708d1a02d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ae09699c3616af3ebfcb1eb045f2b62" id="r_a3ae09699c3616af3ebfcb1eb045f2b62"><td class="memItemLeft" align="right" valign="top"><a id="a3ae09699c3616af3ebfcb1eb045f2b62" name="a3ae09699c3616af3ebfcb1eb045f2b62"></a>
-int **&#160;</td><td class="memItemRight" valign="bottom"><b>pathMatrix</b> = nullptr</td></tr>
-<tr class="separator:a3ae09699c3616af3ebfcb1eb045f2b62"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A custom class to represent a <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>. </p>
@@ -413,44 +404,6 @@ int **&#160;</td><td class="memItemRight" valign="bottom"><b>pathMatrix</b> = nu
 
 <p>Checks if this <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a> is a DAG (Directed Acyclic <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>). </p>
 <dl class="section return"><dt>Returns</dt><dd>True if this <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a> is a DAG, false otherwise. </dd></dl>
-
-</div>
-</div>
-<a id="a22e4dba58104715ffc8f704828868c3e" name="a22e4dba58104715ffc8f704828868c3e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a22e4dba58104715ffc8f704828868c3e">&#9670;&#160;</a></span>removeEdge()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool Graph::removeEdge </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>source</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>dest</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Deletes the <a class="el" href="class_edge.html" title="A custom class to represent a Graph&#39;s Edge.">Edge</a> that goes from the <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a> with the given origin info to the <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a> with the given destination info from this <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">source</td><td>The info of the origin <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a> of the <a class="el" href="class_edge.html" title="A custom class to represent a Graph&#39;s Edge.">Edge</a> to delete. </td></tr>
-    <tr><td class="paramname">dest</td><td>The info of the destination <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a> of the <a class="el" href="class_edge.html" title="A custom class to represent a Graph&#39;s Edge.">Edge</a> to delete. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if <a class="el" href="class_edge.html" title="A custom class to represent a Graph&#39;s Edge.">Edge</a> was deleted, false otherwise. </dd></dl>
 
 </div>
 </div>

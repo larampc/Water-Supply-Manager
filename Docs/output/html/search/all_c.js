@@ -12,7 +12,7 @@ var searchData=
   ['readstationcode_9',['readStationCode',['../class_menu.html#a643a61bbab790ea094c9527c8fc79985',1,'Menu']]],
   ['reliabilityprep_10',['reliabilityPrep',['../class_max_flow.html#aede46d09efc0bea53efbc1a6abd9b716',1,'MaxFlow']]],
   ['reliabilitytesting_11',['reliabilityTesting',['../class_menu.html#a483fcfc7c8bcd771ab7955f73dd50de7',1,'Menu']]],
-  ['removeedge_12',['removeedge',['../class_vertex.html#a4d8890c92e810f8cdbc7777e45b16538',1,'Vertex::removeEdge()'],['../class_graph.html#a22e4dba58104715ffc8f704828868c3e',1,'Graph::removeEdge()']]],
+  ['removeedge_12',['removeEdge',['../class_vertex.html#a4d8890c92e810f8cdbc7777e45b16538',1,'Vertex']]],
   ['removeoutgoingedges_13',['removeOutgoingEdges',['../class_vertex.html#afcde6d707aff7627df7adde8d8b74a89',1,'Vertex']]],
   ['removepath_14',['removepath',['../class_vertex.html#af5e031006682d4f50986d15e2ca2a4ed',1,'Vertex::removePath()'],['../class_edge.html#a6097f99b54ab07b206a6985da52efc5e',1,'Edge::removePath()']]],
   ['removevertex_15',['removeVertex',['../class_graph.html#ad5b9140e6a07d71e6e057dd4fb6d841e',1,'Graph']]],
