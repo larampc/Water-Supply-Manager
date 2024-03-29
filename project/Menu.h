@@ -160,6 +160,8 @@ public:
     void printCitiesStatistics();
 
     void printNetworkStatistics();
+
+    std::vector<std::string> readCityCodes();
 };
 
 

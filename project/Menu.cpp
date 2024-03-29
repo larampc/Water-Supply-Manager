@@ -40,6 +40,28 @@ string Menu::readCityCode(){
     return code;
 }
 
+vector<string> Menu::readCityCodes(){
+    vector<string> codes;
+    ColorPrint("cyan", "City codes (");
+    ColorPrint("yellow", "empty to finish");
+    ColorPrint("cyan", "): \n");
+    while (true) {
+        string code;
+        getline(cin, code);
+        if (code.empty()) return codes;
+        transform(code.begin(), code.end(), code.begin(), ::toupper);
+        while(!waterSupply.existsCityByCode(code)) {
+            ColorPrint("red","Invalid city code, please try again\n");
+            getline(cin, code);
+            if (code.empty()) break;
+            transform(code.begin(), code.end(), code.begin(), ::toupper);
+        }
+        if (code.empty()) break;
+        codes.push_back(code);
+    }
+    return codes;
+}
+
 void Menu::printPipeDestinations(const string& code){
     auto pipe = waterSupply.getNetwork()->findVertex(code);
     for(auto dest : pipe->getAdj()){
@@ -533,7 +555,7 @@ void Menu::getMaxFlowOp() {
     ColorPrint("cyan", "1. ");
     ColorPrint("white", "Get max flow\n");
     ColorPrint("cyan", "2. ");
-    ColorPrint("white", "Get max flow prioritizing specific city\n");
+    ColorPrint("white", "Get max flow prioritizing cities\n");
     ColorPrint("cyan", "3. ");
     ColorPrint("white", "Max flow with excess options\n");
     ColorPrint("cyan", "4. ");
@@ -550,9 +572,9 @@ void Menu::getMaxFlowOp() {
             pressEnterToContinue();
             break;
         case '2': {
-            string city = readCityCode();
-            if (!city.empty()) {
-                waterSupply.optimalCityMaxFlow(city);
+            vector<string> cities = readCityCodes();
+            if (!cities.empty()) {
+                waterSupply.optimalCityMaxFlow(cities);
                 printCitiesStatistics();
                 ColorPrint("cyan", "Total: ");
                 ColorPrint("white", to_string(waterSupply.computeFlow()));

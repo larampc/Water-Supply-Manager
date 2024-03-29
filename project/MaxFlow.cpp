@@ -58,7 +58,6 @@ bool findAugPath(Graph* g, Vertex* src, Vertex* target){
 }
 
 void MaxFlow::maxFlow(const string& source, const string& sink, Graph& network) {
-    network.resetFlow();
     Vertex* src = network.findVertex(source);
     Vertex* snk = network.findVertex(sink);
     while(findAugPath(&network, src, snk)){
