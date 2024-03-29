@@ -244,12 +244,6 @@ public:
      */
     double getWeight() const;
     /**
-     * \brief Gets the Edge selected state.
-     *
-     * @return The Edge selected state.
-     */
-    bool isSelected() const;
-    /**
      * \brief Gets the Edge origin Vertex.
      *
      * @return The Edge origin Vertex.
@@ -267,13 +261,6 @@ public:
      * @return The Edge flow.
      */
     double getFlow() const;
-
-    /**
-     * \brief Sets the Edge selected state.
-     *
-     * @param selected The Edge selected state to set.
-     */
-    void setSelected(bool selected);
     /**
      * \brief Sets the reverse Edge of this Edge (the Edge that connects the same two Vertex but is in the opposite direction).
      *
@@ -339,9 +326,6 @@ protected:
     Vertex * dest; // destination vertex
     double weight; // edge weight, can also be used for capacity
 
-    // auxiliary fields
-    bool selected = false;
-
     // used for bidirectional edges
     Vertex *orig;
     Edge *reverse = nullptr;
@@ -405,14 +389,6 @@ public:
      */
     bool addEdge(const std::string &sourc, const std::string &dest, double w);
     /**
-     * \brief Deletes the Edge that goes from the Vertex with the given origin info to the Vertex with the given destination info from this Graph.
-     *
-     * @param source The info of the origin Vertex of the Edge to delete.
-     * @param dest The info of the destination Vertex of the Edge to delete.
-     * @return True if Edge was deleted, false otherwise.
-     */
-    bool removeEdge(const std::string &source, const std::string &dest);
-    /**
      * \brief Adds two new Edge with the given weight from the Vertex with the given origin info to the Vertex with the given destination info and vice-versa to this Graph.
      *
      * @param sourc The info of the origin Vertex of one Edge and destination Vertex of the other Edge to add.
@@ -460,13 +436,7 @@ public:
     void resetFlow();
 protected:
     std::unordered_map<std::string, Vertex *> vertexSet;    // vertex set
-
-    double ** distMatrix = nullptr;   // dist matrix for Floyd-Warshall
-    int **pathMatrix = nullptr;   // path matrix for Floyd-Warshall
 };
-
-void deleteMatrix(int **m, int n);
-void deleteMatrix(double **m, int n);
 
 
 

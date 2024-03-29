@@ -201,16 +201,8 @@ Edge *Edge::getReverse() const {
     return this->reverse;
 }
 
-bool Edge::isSelected() const {
-    return this->selected;
-}
-
 double Edge::getFlow() const {
     return flow;
-}
-
-void Edge::setSelected(bool selected) {
-    this->selected = selected;
 }
 
 void Edge::setReverse(Edge *reverse) {
@@ -324,20 +316,6 @@ bool Graph::addEdge(const std::string &sourc, const std::string& dest, double w)
     return true;
 }
 
-/*
- * Removes an edge from a graph (this).
- * std::string
- * he edge is identified by the source (sourc) and destination (dest) contents.
- * Returns true if successful, and false if such edge does not exist.
- */
-bool Graph::removeEdge(const std::string& sourc, const std::string& dest) {
-    Vertex * srcVertex = findVertex(sourc);
-    if (srcVertex == nullptr) {
-        return false;
-    }
-    return srcVertex->removeEdge(dest);
-}
-
 bool Graph::addBidirectionalEdge(const std::string& sourc, const std::string& dest, double w) {
     auto v1 = findVertex(sourc);
     auto v2 = findVertex(dest);
@@ -447,29 +425,6 @@ std::vector<std::string> Graph::topsort() const {
     }
 
     return res;
-}
-
-inline void deleteMatrix(int **m, int n) {
-    if (m != nullptr) {
-        for (int i = 0; i < n; i++)
-            if (m[i] != nullptr)
-                delete [] m[i];
-        delete [] m;
-    }
-}
-
-inline void deleteMatrix(double **m, int n) {
-    if (m != nullptr) {
-        for (int i = 0; i < n; i++)
-            if (m[i] != nullptr)
-                delete [] m[i];
-        delete [] m;
-    }
-}
-
-Graph::~Graph() {
-    deleteMatrix(distMatrix, vertexSet.size());
-    deleteMatrix(pathMatrix, vertexSet.size());
 }
 
 void Graph::resetFlow() {
