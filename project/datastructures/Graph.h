@@ -353,56 +353,116 @@ protected:
 
 /********************** Graph  ****************************/
 
-
+/**
+ * \class Graph
+ * \brief A custom class to represent a Graph.
+ *
+ * This class stores all information and functions of a Graph.
+ */
 class Graph {
 public:
+    /**
+     * \brief Graph constructor.
+     */
     ~Graph();
-    /*
-    * Auxiliary function to find a vertex with a given the content.
-    */
+    /**
+     * \brief Auxiliary function to find a Vertex with the given info.
+     *
+     * @param in The info of the Vertex to find.
+     * @return The Vertex with the given info.
+     */
     Vertex *findVertex(const std::string &in) const;
-    /*
-    * Auxiliary function to find a vertex with a given the content.
-    */
+    /**
+     * \brief Auxiliary function to find an Edge with the given origin and destination Vertex.
+     *
+     * @param source The Edge's origin Vertex.
+     * @param dest The Edge's destination Vertex.
+     * @return The Edge with the given origin and destination Vertex.
+     */
     Edge *findEdge(const std::string &source, const std::string &dest) const;
-    /*
-     *  Adds a vertex with a given content or info (in) to a graph (this).
-     *  Returns true if successful, and false if a vertex with that content already exists.
+    /**
+     * \brief Adds a new Vertex with the given info to this Graph.
+     *
+     * @param in The info of the Vertex to add.
+     * @return True if Vertex was added, false otherwise.
      */
     bool addVertex(const std::string &in);
+    /**
+     * \brief Deletes the Vertex with the given info from this Graph.
+     *
+     * @param in The info of the Vertex to delete.
+     * @return True if Vertex was deleted, false otherwise.
+     */
     bool removeVertex(const std::string &in);
 
-    /*
-     * Adds an edge to a graph (this), given the contents of the source and
-     * destination vertices and the edge weight (w).
-     * Returns true if successful, and false if the source or destination vertex does not exist.
+    /**
+     * \brief Adds a new Edge with the given weight from the Vertex with the given origin info to the Vertex with the given destination info to this Graph.
+     *
+     * @param sourc The info of the origin Vertex of the Edge to add.
+     * @param dest The info of the destination Vertex of the Edge to add.
+     * @param w The weight of the Edge to add.
+     * @return True if Edge was added, false otherwise.
      */
     bool addEdge(const std::string &sourc, const std::string &dest, double w);
+    /**
+     * \brief Deletes the Edge that goes from the Vertex with the given origin info to the Vertex with the given destination info from this Graph.
+     *
+     * @param source The info of the origin Vertex of the Edge to delete.
+     * @param dest The info of the destination Vertex of the Edge to delete.
+     * @return True if Edge was deleted, false otherwise.
+     */
     bool removeEdge(const std::string &source, const std::string &dest);
+    /**
+     * \brief Adds two new Edge with the given weight from the Vertex with the given origin info to the Vertex with the given destination info and vice-versa to this Graph.
+     *
+     * @param sourc The info of the origin Vertex of one Edge and destination Vertex of the other Edge to add.
+     * @param dest The info of the destination Vertex of one Edge and origin Vertex of the other Edge to add.
+     * @param w The weight of the two Edge to add.
+     * @return True if both Edge were added, false otherwise.
+     */
     bool addBidirectionalEdge(const std::string &sourc, const std::string &dest, double w);
 
+    /**
+     * \brief Gets the number of Vertex in this Graph.
+     *
+     * @return The number of Vertex in this Graph.
+     */
     int getNumVertex() const;
+    /**
+     * \brief Gets the VertexSet of this Graph.
+     *
+     * @return The VertexSet of this Graph.
+     */
     std::unordered_map<std::string, Vertex*> getVertexSet() const;
 
-    std::vector<std::string> dfs() const;
-    std::vector<std::string> dfs(const std::string & source) const;
-    void dfsVisit(Vertex *v,  std::vector<std::string> & res) const;
-    std::vector<std::string> bfs(const std::string & source) const;
-
+    /**
+     * \brief Checks if this Graph is a DAG (Directed Acyclic Graph).
+     *
+     * @return True if this Graph is a DAG, false otherwise.
+     */
     bool isDAG() const;
+    /**
+     * \brief Auxiliary dfs function to check if this Graph is a DAG (Directed Acyclic Graph) from the given starting Vertex.
+     *
+     * @param v The starting Vertex.
+     * @return True if this Graph is a DAG, false otherwise.
+     */
     bool dfsIsDAG(Vertex *v) const;
+    /**
+     * \brief Sorts all Vertex in this Graph in topological order.
+     *
+     * @return All Vertex in this Graph in topological order.
+     */
     std::vector<std::string> topsort() const;
+    /**
+     * \brief Resets all Edge's flow of this Graph to 0.
+     */
     void resetFlow();
 protected:
     std::unordered_map<std::string, Vertex *> vertexSet;    // vertex set
 
     double ** distMatrix = nullptr;   // dist matrix for Floyd-Warshall
     int **pathMatrix = nullptr;   // path matrix for Floyd-Warshall
-
-    /*
-     * Finds the index of the vertex with a given content.
-     */
-    int findVertexIdx(const std::string& in) const;
 };
 
 void deleteMatrix(int **m, int n);
