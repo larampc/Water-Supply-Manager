@@ -99,31 +99,12 @@ public:
      * O(VE^2) The complexity of maxFlowWithLists.
      */
     void reliabilityPrep(Graph& network);
-    void reliabilityTearDown(Graph& network);
 
     void transformBidirectionalEdges(Graph &network);
 
     void balance(Graph &network);
 
     void balanceAdj(Vertex *v, Graph &network);
-
-    bool findAugPath(Graph *g, Vertex *src, Vertex *target);
-    /**
-     * \brief Finds the bottleneck of the path from source to target.
-     *
-     * @param source The source vertex.
-     * @param target The target vertex.
-     * @return The path's bottleneck.
-     */
-    double getCf(Vertex *source, Vertex *target);
-    /**
-     * \brief Augments the path from source to target with a value.
-     *
-     * @param source The source vertex.
-     * @param target The target vertex.
-     * @param cf The value to augment the path with.
-     */
-    static void augmentPath(Vertex *source, Vertex *target, double cf);
 };
 
 

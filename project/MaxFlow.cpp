@@ -10,7 +10,7 @@ double residualC(Edge* e, bool out){
     return out ? e->getWeight() - e->getFlow() : e->getFlow();
 }
 
-double MaxFlow::getCf(Vertex* source, Vertex* target) {
+double getCf(Vertex* source, Vertex* target) {
     double minC = INF;
     Vertex *curr = target;
     while (curr != source) {
@@ -21,7 +21,7 @@ double MaxFlow::getCf(Vertex* source, Vertex* target) {
     return minC;
 }
 
-void MaxFlow::augmentPath(Vertex* source, Vertex* target, double cf) {
+void augmentPath(Vertex* source, Vertex* target, double cf) {
     Vertex* curr = target;
     while (curr != source){
         bool outgoing = curr->getPath()->getDest() == curr;
@@ -38,7 +38,7 @@ void testAndVisit(queue<Vertex*>& q, Edge* e, Vertex* w, double residual) {
     }
 }
 
-bool MaxFlow::findAugPath(Graph* g, Vertex* src, Vertex* target){
+bool findAugPath(Graph* g, Vertex* src, Vertex* target){
     for(auto v : g->getVertexSet())
         v.second->setVisited(false); //reset
     std::queue<Vertex*> aux;
@@ -199,11 +199,6 @@ void MaxFlow::deletePipe(const std::string& source, const std::string& dest, Gra
 void MaxFlow::reliabilityPrep(Graph& network) {
     paths.clear();
     maxFlowWithList(network);
-}
-
-void MaxFlow::reliabilityTearDown(Graph& network) {
-    network.removeVertex("src");
-    network.removeVertex("sink");
 }
 
 //void MaxFlow::balanceAdj(Vertex* v, Graph& network){

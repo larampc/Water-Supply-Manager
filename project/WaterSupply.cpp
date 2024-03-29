@@ -547,7 +547,8 @@ void WaterSupply::reliabilityPrep() {
 }
 
 void WaterSupply::reliabilityTearDown() {
-    tester.reliabilityTearDown(network);
+    network.removeVertex("src");
+    network.removeVertex("sink");
 }
 
 void WaterSupply::activate(std::string p) {
@@ -699,7 +700,7 @@ void WaterSupply::balancingViaMinCost(){
         v.second->setVisited(false);
         v.second->setPath(nullptr);
     }
-    //assuming max flow is done
+
     transformBidirectionalEdges();
     if(!network.isDAG()) {
         cout << "NETWORK IS NOT DAG\n";
@@ -709,7 +710,7 @@ void WaterSupply::balancingViaMinCost(){
 
         auto path = getMaxPathTo(city);
 
-        if(!path.empty() && checkPathFlow(path)){
+        if(!path.empty() && PathHasFlow(path)){
             for(auto e : path){
                 e->setFlow(e->getFlow()-1);
             }
@@ -772,6 +773,6 @@ void WaterSupply::exportToFile(bool flow) {
     file2.close();
 }
 
-bool WaterSupply::checkPathFlow(std::vector<Edge *> path) {
+bool WaterSupply::PathHasFlow(std::vector<Edge *> path) {
     return std::all_of(path.begin(), path.end(), [](Edge* e) {return e->getFlow() >= 1;});
 }

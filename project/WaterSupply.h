@@ -20,11 +20,36 @@ private:
     void loadPipes(std::string path);
 
 public:
-    void load(std::string cities, std::string reservoirs, std::string pipes, std::string stations);
+    /**
+     * \brief Parses the Cities, pipes, reservoirs and stations input files into appropriate data structures.
+     *
+     * @param citiesPath The path of the cities information input file.
+     * @param reservoirsPath The path of the reservoirs information input file.
+     * @param pipesPath The path of the pipes information input file.
+     * @param stationsPath The path of the stations information input file.
+     *
+     */
+    void load(std::string citiesPath, std::string reservoirsPath, std::string pipesPath, std::string stationsPath);
     /********************** Setters  ****************************/
+    /**
+     * \brief Creates a superSource vertex connected to each reservoir by an Edge with capacity equal to their max Delivery.
+     *
+     */
     void setSuperSource();
+    /**
+     * \brief Creates a superSink vertex connected to each city by an Edge with capacity equal to the city's demand.
+     *
+     */
     void setSuperSink();
+    /**
+     * \brief Creates a superSink vertex connected to each city by an Edge with infinite capacity.
+     *
+     */
     void setInfSuperSink();
+    /**
+     * \brief Creates a superSource vertex connected to all reservoirs but the one provided, by an Edge with capacity equal to their max Delivery.
+     *
+     */
     void setSuperWithout(const std::string& reservoir);
     /********************** Getters  ****************************/
     Graph getNetwork();
@@ -89,13 +114,13 @@ public:
 
     void balancingViaMinCost();
 
-    std::vector<Edge *> getMaxPathTo(Vertex *city);
+    std::vector<Edge *> getMaxPathTo(Vertex* city);
 
-    std::vector<Edge*> findMinAugPath(Vertex *pVertex, Vertex *pVertex1);
+    std::vector<Edge*> findMinAugPath(Vertex* source, Vertex* target);
 
-    std::vector<Edge *> findMinAugPath(Vertex *city);
+    std::vector<Edge *> findMinAugPath(Vertex* city);
 
-    bool checkPathFlow(std::vector<Edge *> vector1);
+    static bool PathHasFlow(std::vector<Edge*> path);
 };
 
 
