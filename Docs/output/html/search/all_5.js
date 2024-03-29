@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['init_0',['init',['../class_menu.html#a342d2a526a850dbf2d1aecd830b91287',1,'Menu']]],
-  ['isprocessing_1',['isProcessing',['../class_vertex.html#a126e306f0534b99cd97aa864fdb243d4',1,'Vertex']]],
-  ['isvisited_2',['isVisited',['../class_vertex.html#aa4bd82105b85ee53a917391f4811cd8a',1,'Vertex']]]
+  ['haspath_0',['hasPath',['../class_edge.html#aa7b442b8f955ea6745883f14a951a505',1,'Edge']]]
 ];

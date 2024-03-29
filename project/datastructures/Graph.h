@@ -214,29 +214,126 @@ protected:
 
 /********************** Edge  ****************************/
 
-
+/**
+ * \class Edge
+ * \brief A custom class to represent a Graph's Edge.
+ *
+ * This class stores all information and functions of a Graph's Edge.
+ */
 class Edge {
 public:
+    /**
+     * \brief Edge constructor.
+     *
+     * @param orig The Edge origin Vertex.
+     * @param dest The Edge destination Vertex.
+     * @param w The Edge weight.
+     */
     Edge(Vertex *orig, Vertex *dest, double w);
 
+    /**
+     * \brief Gets the Edge destination Vertex.
+     *
+     * @return The Edge destination Vertex.
+     */
     Vertex * getDest() const;
+    /**
+     * \brief Gets the Edge weight.
+     *
+     * @return The Edge weight.
+     */
     double getWeight() const;
+    /**
+     * \brief Gets the Edge selected state.
+     *
+     * @return The Edge selected state.
+     */
     bool isSelected() const;
+    /**
+     * \brief Gets the Edge origin Vertex.
+     *
+     * @return The Edge origin Vertex.
+     */
     Vertex * getOrig() const;
+    /**
+     * \brief Gets the reverse Edge of this Edge (the Edge that connects the same two Vertex but is in the opposite direction).
+     *
+     * @return The the reverse Edge of this Edge.
+     */
     Edge *getReverse() const;
+    /**
+     * \brief Gets the Edge flow.
+     *
+     * @return The Edge flow.
+     */
     double getFlow() const;
 
+    /**
+     * \brief Sets the Edge selected state.
+     *
+     * @param selected The Edge selected state to set.
+     */
     void setSelected(bool selected);
+    /**
+     * \brief Sets the reverse Edge of this Edge (the Edge that connects the same two Vertex but is in the opposite direction).
+     *
+     * @param reverse The the reverse Edge of this Edge to set.
+     */
     void setReverse(Edge *reverse);
+    /**
+     * \brief Sets the Edge flow.
+     *
+     * @param flow The Edge flow to set.
+     */
     void setFlow(double flow);
+    /**
+     * \brief Sets the Edge weight.
+     *
+     * @param weight The Edge weight to set.
+     */
     void setWeight(double weight);
+    /**
+     * \brief Gets the Edge paths.
+     *
+     * @return The Edge paths.
+     */
     std::unordered_set<int> getPaths();
+    /**
+     * \brief Adds a new path to paths.
+     *
+     * @param p The new path to add.
+     */
     void addPath(int p);
+    /**
+     * \brief Removes the given path from paths.
+     *
+     * @param p The path to remove.
+     */
     void removePath(int p);
+    /**
+     * \brief Removes all path from paths.
+     */
     void resetPath();
+    /**
+     * \brief Checks if the given path is in paths.
+     *
+     * @param p The path to check.
+     * @return True if the given path is in paths, false otherwise.
+     */
     bool hasPath(int p);
+    /**
+     * \brief Sets the Edge active state to false.
+     */
     void desactivate();
+    /**
+     * \brief Sets the Edge active state to true.
+     */
     void activate();
+    /**
+     * \brief Gets the Edge active state.
+     *
+     * @return The Edge active state.
+     */
     bool checkActive();
 protected:
     Vertex * dest; // destination vertex
