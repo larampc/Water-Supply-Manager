@@ -108,7 +108,7 @@ public:
      *
      * @param reservoir The Reservoir to output the information.
      */
-    void printReservoir(const Reservoir& reservoir);
+    static void printReservoir(const Reservoir& reservoir);
     /**
      * \brief Outputs the settings menu and handles the respective inputs.
      */
@@ -160,6 +160,8 @@ public:
     void getMaxFlowExcessOp();
 
     void printCitiesStatistics();
+
+    void printNetworkStatistics();
 };
 
 

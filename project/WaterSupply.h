@@ -74,7 +74,7 @@ public:
     std::vector<City> getCityMinPop();
     std::vector<Reservoir> getReservoirMaxDel();
     std::vector<Reservoir> getReservoirMinDel();
-    void computeAverageAndVarianceOfPipes();
+    double computeVarianceDiffCapacityFlow(double average);
     std::vector<std::vector<std::string>> computeCitiesStatistics();
     int computeMaxFlow();
     int computeCityFlow(const std::string& city);
@@ -121,6 +121,10 @@ public:
     std::vector<Edge *> findMinAugPath(Vertex* city);
 
     static bool PathHasFlow(std::vector<Edge*> path);
+
+    double computeMaxDiffCapacityFlow();
+
+    double computeAverageDiffCapacityFlow();
 };
 
 

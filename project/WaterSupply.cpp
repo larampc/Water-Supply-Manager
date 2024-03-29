@@ -3,11 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include <float.h>
 #include <climits>
-
-#include <locale>
-#include <codecvt>
 #include <iostream>
 #include <iomanip>
 #include <stack>
@@ -361,89 +357,53 @@ std::vector<Reservoir> WaterSupply::getReservoirMinDel() {
     return max;
 }
 
-void WaterSupply::computeAverageAndVarianceOfPipes() {
-    int n_edges = 0;
-    double sum = 0;
-    double max = 0;
-    for(auto v: network.getVertexSet()){
+double WaterSupply::computeMaxDiffCapacityFlow() {
+    double maxDiff = 0;
+    for(const auto& v: network.getVertexSet()){
         for(Edge* e: v.second->getAdj()){
             if (e->checkActive()) {
-                int flow = e->getFlow();
-                if (e->getReverse()) {
+                double flow = e->getFlow();
+                if (maxDiff < (e->getWeight() - flow)) maxDiff = (e->getWeight() - flow);
+            }
+        }
+    }
+    return maxDiff;
+}
+
+double WaterSupply::computeAverageDiffCapacityFlow() {
+    int n_edges = 0;
+    double sum = 0;
+    for(const auto& v: network.getVertexSet()){
+        for(Edge* e: v.second->getAdj()){
+            if (e->checkActive()) {
+                double flow = e->getFlow();
+                if (e->getReverse() && e->getFlow() > e->getReverse()->getFlow()) {
                     flow = abs(e->getFlow()-e->getReverse()->getFlow());
-                    e->getReverse()->desactivate();
                 }
                 sum += (e->getWeight() - flow);
-                if (max < (e->getWeight() - flow)) max = (e->getWeight() - flow);
                 n_edges++;
             }
         }
     }
-    double average = sum / ((double)n_edges);
+    return sum / ((double)n_edges);
+}
 
-    cout << "Average (Capacity - Flow): " << average << endl;
-    cout << "Max (Capacity - Flow): " << max << endl;
-
+double WaterSupply::computeVarianceDiffCapacityFlow(double average) {
+    int n_edges = 0;
     double square_diff = 0;
-    for(auto v: network.getVertexSet()){
+    for(const auto& v: network.getVertexSet()){
         for(Edge* e: v.second->getAdj()){
             if (e->checkActive()) {
-                int flow = e->getFlow();
-                if (e->getReverse()) {
+                double flow = e->getFlow();
+                if (e->getReverse() && e->getFlow() > e->getReverse()->getFlow()) {
                     flow = abs(e->getFlow()-e->getReverse()->getFlow());
-                    e->getReverse()->desactivate();
                 }
                 square_diff += ((e->getWeight() - flow) - average) * ((e->getWeight() - flow) - average);
                 n_edges++;
             }
         }
     }
-    double variance = square_diff / n_edges;
-
-    cout << "Variance (Capacity - Flow): " << variance << endl;
-
-    activateAll();
-}
-
-vector<vector<string>> WaterSupply::computeCitiesStatistics() {
-    vector<vector<string>> res;
-    ostringstream oss;
-    oss << "City - Flow\n\n";
-    for(int i = 1; i < cities.size(); i++) {
-        auto city = cities.at("C_" + to_string(i));
-        double flow = 0;
-        for(Edge* e: network.findVertex(city.getCode())->getIncoming()) {
-            flow += e->getFlow();
-        }
-        ostringstream ossres1;
-        ostringstream ossres2;
-        ostringstream ossres3;
-        ostringstream ossres4;
-        ossres1 << left << setw(4) << city.getCode();
-        ossres2 << left << setw(6) << flow;
-
-        oss << left << setw(4) << city.getCode() << " - " << setw(6) << flow;
-        if ((city.getDemand()) < flow) {
-            oss << " (Overflow by " << flow - (city.getDemand()) << ")";
-            ossres3 << left << " (Overflow by " << flow - (city.getDemand()) << ")";
-            ossres4 << "";
-        }
-        else if ((city.getDemand()) > flow) {
-            oss << " (Underflow by " << (city.getDemand()) - flow << ")";
-            ossres4 << left << " (Underflow by " << (city.getDemand()) - flow << ")";
-            ossres3 << "";
-        }
-        oss << "\n";
-        vector<string> ossres;
-        ossres.push_back(ossres1.str());
-        ossres.push_back(ossres2.str());
-        ossres.push_back(ossres3.str());
-        ossres.push_back(ossres4.str());
-        res.push_back(ossres);
-    }
-//    cout << oss.str() << "\n";
-    OutputToFile("../output/MaxFlow", oss.str());
-    return res;
+    return square_diff / n_edges;
 }
 
 int WaterSupply::computeCityFlow(const std::string& city) {
@@ -576,7 +536,7 @@ void WaterSupply::deletePipe(std::string source, std::string dest) {
     tester.deletePipe(source, dest, network);
 }
 
-bool dfsVisit(Vertex* v, stack<string>& aux){
+void dfsVisit(Vertex* v, stack<string>& aux){
     v->setVisited(true);
     v->setProcessing(true);
     for(Edge* adj : v->getAdj()){
@@ -587,7 +547,6 @@ bool dfsVisit(Vertex* v, stack<string>& aux){
     }
     v->setProcessing(false);
     aux.push(v->getInfo());
-    return true;
 }
 
 vector<string> WaterSupply::topsort() {
@@ -599,7 +558,7 @@ vector<string> WaterSupply::topsort() {
     }
     for(auto v : network.getVertexSet()){
         if(!v.second->isVisited()){
-            if(!dfsVisit(v.second, aux)) return res;
+            dfsVisit(v.second, aux);
         }
     }
     while (!aux.empty()) {

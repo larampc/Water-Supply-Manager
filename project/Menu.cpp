@@ -213,11 +213,11 @@ vector<Reservoir> Menu::readReservoirMunicipality(){
 
 void Menu::run() {
     waterSupply.optimalResMaxFlow();
-    waterSupply.computeAverageAndVarianceOfPipes();
+    waterSupply.computeVarianceDiffCapacityFlow();
     cout << waterSupply.computeMaxFlow() << endl;
 
     waterSupply.balancingViaMinCost();
-    waterSupply.computeAverageAndVarianceOfPipes();
+    waterSupply.computeVarianceDiffCapacityFlow();
     cout << waterSupply.computeMaxFlow() << endl;
     while (true) {
         ColorPrint("blue", "\n-----------------------------------\n");
@@ -315,27 +315,12 @@ void Menu::getCityInfo() {
     switch (readOption(6)) {
         case '1':
             code = readCityCode();
-            if (!code.empty()) {
-                ColorPrint("blue", "Code | City | Demand | Population\n");
-                printCity(waterSupply.getCity(code));
-                pressEnterToContinue();
-            } else getCityInfo();
             break;
         case '2':
             code = readCityName();
-            if (!code.empty()) {
-                ColorPrint("blue", "Code | City | Demand | Population\n");
-                printCity(waterSupply.getCity(code));
-                pressEnterToContinue();
-            } else getCityInfo();
             break;
         case '3':
             code = readCityId();
-            if (!code.empty()) {
-                ColorPrint("blue", "Code | City | Demand | Population\n");
-                printCity(waterSupply.getCity(code));
-                pressEnterToContinue();
-            } else getCityInfo();
             break;
         case '4':
             ColorPrint("blue", "Code | City | Demand | Population\n");
@@ -343,14 +328,19 @@ void Menu::getCityInfo() {
                 printCity(waterSupply.getCity("C_" + to_string(i)));
             }
             pressEnterToContinue();
-            break;
+            return;
         case '5':
             getCityStatistics();
-            break;
+            return;
         case '6':
             getNetworkInfo();
-            break;
+            return;
     }
+    if (!code.empty()) {
+        ColorPrint("blue", "Code | City | Demand | Population\n");
+        printCity(waterSupply.getCity(code));
+        pressEnterToContinue();
+    } else getCityInfo();
 }
 
 void Menu::printCity(City city) {
@@ -379,56 +369,48 @@ void Menu::getReservoirInfo() {
     ColorPrint("red", "Cancel \n");
     cin.sync();
     string code;
-    vector<Reservoir> mun;
     switch (readOption(7)) {
         case '1':
             code = readReservoirCode();
-            if (!code.empty()) {
-                ColorPrint("blue", "Code | Reservoir | Municipality | Max Delivery \n");
-                printReservoir(waterSupply.getReservoir(code));
-                pressEnterToContinue();
-            } else getReservoirInfo();
             break;
         case '2':
             code = readReservoirName();
-            if (!code.empty()) {
-                ColorPrint("blue", "Code | Reservoir | Municipality | Max Delivery \n");
-                printReservoir(waterSupply.getReservoir(code));
-                pressEnterToContinue();
-            } else getReservoirInfo();
             break;
         case '3':
             code = readReservoirID();
-            if (!code.empty()) {
-                ColorPrint("blue", "Code | Reservoir | Municipality | Max Delivery \n");
-                printReservoir(waterSupply.getReservoir(code));
-                pressEnterToContinue();
-            } else getReservoirInfo();
             break;
         case '4':
+        {
+            vector<Reservoir> mun;
             mun = readReservoirMunicipality();
             if (!mun.empty()) {
                 ColorPrint("blue", "Code | Reservoir | Municipality | Max Delivery \n");
-                for (const auto& r: mun) {
+                for (const auto &r: mun) {
                     printReservoir(r);
                 }
                 pressEnterToContinue();
             } else getReservoirInfo();
-            break;
+        }
+            return;
         case '5':
             ColorPrint("blue", "Code | Reservoir | Municipality | Max Delivery \n");
             for (const auto& r: waterSupply.getReservoirs()) {
                 printReservoir(r.second);
             }
             pressEnterToContinue();
-            break;
+            return;
         case '6':
             getReservoirStatistics();
-            break;
+            return;
         case '7':
             getNetworkInfo();
-            break;
+            return;
     }
+    if (!code.empty()) {
+        ColorPrint("blue", "Code | Reservoir | Municipality | Max Delivery \n");
+        printReservoir(waterSupply.getReservoir(code));
+        pressEnterToContinue();
+    } else getReservoirInfo();
 }
 
 void Menu::printReservoir(const Reservoir& reservoir) {
@@ -491,26 +473,20 @@ void Menu::getReservoirStatistics() {
     switch (readOption(3)) {
         case '1':
             values = waterSupply.getReservoirMaxDel();
-            std::sort(values.begin(), values.end());
-            ColorPrint("blue", "Code | Reservoir | Municipality | Max Delivery \n");
-            for (const auto& r: values) {
-                printReservoir(r);
-            }
-            pressEnterToContinue();
             break;
         case '2':
             values = waterSupply.getReservoirMinDel();
-            std::sort(values.begin(), values.end());
-            ColorPrint("blue", "Code | Reservoir | Municipality | Max Delivery \n");
-            for (const auto& r: values) {
-                printReservoir(r);
-            }
-            pressEnterToContinue();
             break;
         case '3':
             getReservoirInfo();
-            break;
+            return;
     }
+    std::sort(values.begin(), values.end());
+    ColorPrint("blue", "Code | Reservoir | Municipality | Max Delivery \n");
+    for (const auto& r: values) {
+        printReservoir(r);
+    }
+    pressEnterToContinue();
 }
 
 void Menu::init() {
@@ -558,9 +534,6 @@ void Menu::getMaxFlowOp() {
     ColorPrint("cyan", "4. ");
     ColorPrint("red", "Cancel \n");
     cin.sync();
-    double total = 0;
-    string code;
-    ostringstream oss;
     switch (readOption(6)) {
         case '1':
             waterSupply.optimalResMaxFlow();
@@ -570,18 +543,21 @@ void Menu::getMaxFlowOp() {
             pressEnterToContinue();
             break;
         case '2':
+        {
+            double total = 0;
             waterSupply.optimalResMaxFlow();
-            for(int i = 1; i <= waterSupply.getCities().size(); i++) {
+            for (int i = 1; i <= waterSupply.getCities().size(); i++) {
                 auto city = waterSupply.getCity("C_" + to_string(i));
                 double flow = waterSupply.getNetwork().findVertex("C_" + to_string(i))->getIncomingFlow();
                 total += city.getDemand() - flow;
                 if ((city.getDemand()) > flow) {
                     ColorPrint("cyan", city.getCode() + " " + city.getName());
-                    ColorPrint("white", " - underflow by " + to_string((int)(city.getDemand() - flow)) + "\n");
+                    ColorPrint("white", " - underflow by " + to_string((int) (city.getDemand() - flow)) + "\n");
                 }
             }
             ColorPrint("cyan", "Total underflow: ");
-            ColorPrint("white", to_string((int)total));
+            ColorPrint("white", to_string((int) total));
+        }
             break;
         case '3':
             getMaxFlowExcessOp();
@@ -687,30 +663,24 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
             if (!res.empty()) {
                 waterSupply.deleteReservoir(res);
                 resStat.push_back(res);
-            } else {
-                end = false;
-                reliabilityTesting(resStat, pipes);
             }
+            else end = false;
             break;
         case '2':
             res = readStationCode();
             if (!res.empty()) {
                 waterSupply.deleteStation(res);
                 resStat.push_back(res);
-            } else {
-                end = false;
-                reliabilityTesting(resStat, pipes);
             }
+            else end = false;
             break;
         case '3':
             pair<string, string> pipe =  readPipeCodes();
             if (!pipe.first.empty() && !pipe.second.empty()) {
                 pipes.push_back(pipe);
                 waterSupply.deletePipe(pipe.first, pipe.second);
-            } else {
-                end = false;
-                reliabilityTesting(resStat, pipes);
             }
+            else end = false;
             break;
     }
     if (end) {
@@ -726,23 +696,37 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
         cin.sync();
         if (readOption(2) == '1') reliabilityTesting(resStat, pipes);
     }
+    else reliabilityTesting(resStat, pipes);
 }
 
 void Menu::printCitiesStatistics() {
-    vector<vector<string>> res = waterSupply.computeCitiesStatistics();
+    ostringstream file;
     ColorPrint("cyan", "\nCity - Flow\n");
-    for (vector<string> c: res) {
-        ColorPrint("white", c[0]);
-        ColorPrint("white", " - ");
-        ColorPrint("white", c[1]);
-        if (c[2].empty()) {
-            if (!c[3].empty()) {
-                ColorPrint("yellow", c[3]);
-            }
+    file << "City - Flow\n\n";
+    for(int i = 1; i < waterSupply.getCities().size(); i++) {
+        auto city = waterSupply.getCity("C_" + to_string(i));
+        double flow = waterSupply.computeCityFlow(city.getCode());
+        ostringstream line;
+        line << left << setw(4) << city.getCode() << " - " << setw(6) << flow;
+        ColorPrint("white", line.str());
+        file << line.str();
+        line.str("");
+        line.clear();
+        if ((city.getDemand()) < flow) {
+            line << " (Overflow by " << flow - (city.getDemand()) << ")";
+            ColorPrint("green", line.str());
+            file << line.str();
         }
-        else ColorPrint("green", c[2]);
+        else if ((city.getDemand()) > flow) {
+            line << " (Underflow by " << (city.getDemand()) - flow << ")";
+            ColorPrint("yellow", line.str());
+            file << line.str();
+        }
         ColorPrint("white", "\n");
+        file << "\n";
+
     }
+    WaterSupply::OutputToFile("../output/MaxFlow", file.str());
 }
 
 void Menu::pressEnterToContinue() {
@@ -751,6 +735,27 @@ void Menu::pressEnterToContinue() {
     ColorPrint("cyan", " to continue\n");
     cin.sync();
     cin.ignore();
+}
+
+void Menu::printNetworkStatistics() {
+    double average = waterSupply.computeAverageDiffCapacityFlow();
+    double maxDiff = waterSupply.computeMaxDiffCapacityFlow();
+    double variance = waterSupply.computeVarianceDiffCapacityFlow(average);
+
+    ostringstream out;
+    out << setprecision(2) << average << "\n";
+    ColorPrint("cyan","Average (Capacity - Flow): ");
+    ColorPrint("white", out.str());
+    out.str("");
+    out.clear();
+    out << setprecision(2) << maxDiff << "\n";
+    ColorPrint("cyan","Max (Capacity - Flow): ");
+    ColorPrint("white", out.str());
+    out.str("");
+    out.clear();
+    out << setprecision(2) << maxDiff << "\n";
+    ColorPrint("cyan","Max (Capacity - Flow): ");
+    ColorPrint("white", out.str());
 }
 
 
