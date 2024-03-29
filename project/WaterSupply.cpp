@@ -412,7 +412,7 @@ int WaterSupply::computeCityFlow(const std::string& city) {
     return count;
 }
 
-int WaterSupply::computeMaxFlow() {
+int WaterSupply::computeFlow() {
     int total = 0;
     for (const auto& v: cities) {
         Vertex* end = network.findVertex(v.first);

@@ -532,7 +532,7 @@ void Menu::getMaxFlowOp() {
             waterSupply.optimalResMaxFlow();
             printCitiesStatistics();
             ColorPrint("cyan", "Total: ");
-            ColorPrint("white", to_string(waterSupply.computeMaxFlow()));
+            ColorPrint("white", to_string(waterSupply.computeFlow()));
             pressEnterToContinue();
             break;
         case '2':
@@ -577,7 +577,7 @@ void Menu::getMaxFlowExcessOp() {
             waterSupply.optimalExcessMaxFlow();
             printCitiesStatistics();
             ColorPrint("cyan", "Total: ");
-            ColorPrint("white", to_string(waterSupply.computeMaxFlow()));
+            ColorPrint("white", to_string(waterSupply.computeFlow()));
             pressEnterToContinue();
             break;
         case '2':
@@ -608,7 +608,7 @@ void Menu::getMaxFlowExcessOp() {
                 ColorPrint("cyan", "Total to " + waterSupply.getCity(code).getName() + ": ");
                 ColorPrint("white", to_string(waterSupply.computeCityFlow(code)) + "\n");
                 ColorPrint("cyan", "Total: ");
-                ColorPrint("white", to_string(waterSupply.computeMaxFlow()));
+                ColorPrint("white", to_string(waterSupply.computeFlow()));
                 pressEnterToContinue();
             } else getMaxFlowExcessOp();
             break;
@@ -679,7 +679,7 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
     if (end) {
         printCitiesStatistics();
         ColorPrint("cyan", "Total: ");
-        ColorPrint("white", to_string(waterSupply.computeMaxFlow()) + "\n");
+        ColorPrint("white", to_string(waterSupply.computeFlow()) + "\n");
         pressEnterToContinue();
         ColorPrint("blue", "Do you want to perform another action?\n");
         ColorPrint("cyan", "1. ");
