@@ -455,11 +455,13 @@ void WaterSupply::optimalExcessCityMaxFlow(const std::string& target) {
     tester.maxFlow("src", "sink", network);
 }
 
-void WaterSupply::optimalCityMaxFlow(const std::string& target) {
+void WaterSupply::optimalCityMaxFlow(const vector<std::string>& cityList) {
     setSuperSinkNull();
-    network.findEdge(target, "sink")->setWeight(cities.find(target)->second.getDemand());
     network.resetFlow();
-    tester.maxFlow("src", "sink", network);
+    for(const auto& city : cityList){
+        network.findEdge(city, "sink")->setWeight(cities.find(city)->second.getDemand());
+        tester.maxFlow("src", "sink", network);
+    }
     setSuperSinkWithDemand();
     tester.maxFlow("src", "sink", network);
 }

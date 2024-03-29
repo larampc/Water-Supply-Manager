@@ -24,7 +24,7 @@ public:
      *\par Complexity
      * O(VE^2) in which V is the number of vertex and E the number of edges of the Graph.
      */
-    void maxFlow(std::string source, std::string sink, Graph& network);
+    void maxFlow(const std::string& source, const std::string& sink, Graph& network);
     /**
      * \brief Iteratively finds augment paths from the given source and subtracts their bottleneck flow until the source's outgoing flow is zero.
      *

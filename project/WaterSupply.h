@@ -212,7 +212,7 @@ public:
 
     void setSuperSinkWithDemand();
 
-    void optimalCityMaxFlow(const std::string& target);
+    void optimalCityMaxFlow(const std::vector<std::string> &cityList);
 
     void setSuperSinkNull();
 };
