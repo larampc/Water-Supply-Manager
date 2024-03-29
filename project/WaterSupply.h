@@ -25,23 +25,23 @@ public:
     void setSuperSource();
     void setSuperSink();
     void setInfSuperSink();
-    void setSuperWithout(std::string reservoir);
+    void setSuperWithout(const std::string& reservoir);
     /********************** Getters  ****************************/
     Graph getNetwork();
-    City getCity(std::string code);
-    Reservoir getReservoir(std::string code);
-    Station getStation(std::string code);
+    City getCity(const std::string& code);
+    Reservoir getReservoir(const std::string& code);
+    Station getStation(const std::string& code);
     std::unordered_map<std::string, City> getCities();
     std::unordered_map<std::string, Reservoir> getReservoirs();
     std::unordered_map<std::string, Station> getStations();
     /********************** Checkers  ****************************/
     std::string existsCityByID(int id);
-    bool existsCityByCode(std::string code);
-    std::string existsCityByName(std::string name);
-    std::string existsReservoirByName(std::string name);
+    bool existsCityByCode(const std::string& code);
+    std::string existsCityByName(const std::string& name);
+    std::string existsReservoirByName(const std::string& name);
     std::string existsReservoirByID(int id);
-    bool existsReservoirByCode(std::string code);
-    std::vector<Reservoir> existsMunicipality(std::string municipality);
+    bool existsReservoirByCode(const std::string& code);
+    std::vector<Reservoir> existsMunicipality(const std::string& municipality);
     /********************** Statistics  ****************************/
     std::vector<City> getCityMaxDemand();
     std::vector<City> getCityMinDemand();
@@ -52,7 +52,7 @@ public:
     void computeAverageAndVarianceOfPipes();
     std::vector<std::vector<std::string>> computeCitiesStatistics();
     int computeMaxFlow();
-    int computeCityFlow(std::string city);
+    int computeCityFlow(const std::string& city);
     /********************** MaxFlow  ****************************/
     void optimalResMaxFlow();
     void optimalExcessMaxFlow();
@@ -74,9 +74,9 @@ public:
 
     void activatePipe(std::string source, std::string dest);
 
-    bool existsStationByCode(std::string code);
+    bool existsStationByCode(const std::string& code);
 
-    bool existsPipe(std::string source, std::string code);
+    bool existsPipe(const std::string& source, const std::string& code);
     bool existsCode(std::string code);
     std::vector<std::string> topsort();
 

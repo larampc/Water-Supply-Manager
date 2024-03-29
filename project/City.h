@@ -14,7 +14,7 @@ private:
     int id;
     std::string code;
     std::string name;
-    int demand;
+    double demand;
     unsigned population;
 public:
     /**
@@ -26,7 +26,7 @@ public:
      * @param demand The City demand.
      * @param population The City population.
      */
-    City(int id, std::string code, std::string name, double demand, int population): id(id), code(std::move(code)), name(std::move(name)), demand(demand), population(population) {};
+    City(int id, std::string code, std::string name, double demand, unsigned population): id(id), code(std::move(code)), name(std::move(name)), demand(demand), population(population) {};
     /**
      * \brief Gets the City name.
      *
@@ -56,7 +56,7 @@ public:
      *
      * @return The City code.
      */
-    std::string getCode() const;
+    [[nodiscard]] std::string getCode() const;
     /**
      * \brief Less than operator to compare City IDs.
      *

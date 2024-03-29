@@ -12,6 +12,7 @@
 #include <iomanip>
 #include <stack>
 #include <cmath>
+#include <utility>
 
 using namespace std;
 
@@ -20,6 +21,9 @@ bool floatEquality(double a, double b){
 }
 
 unsigned readPopulation(string pop){
+    if(pop[0] != '"') {
+        return stoi(pop);
+    }
     string res;
     pop = pop.substr(1,pop.length() - 2);
     for(char c: pop){
@@ -30,15 +34,15 @@ unsigned readPopulation(string pop){
 
 /********************** Load  ****************************/
 
-void WaterSupply::load(std::string cities, std::string reservoirs, std::string pipes, std::string stations) {
-    loadCities(cities);
-    loadReservoir(reservoirs);
-    loadStations(stations);
-    loadPipes(pipes);
+void WaterSupply::load(std::string citiesPath, std::string reservoirsPath, std::string pipesPath, std::string stationsPath) {
+    loadCities(std::move(citiesPath));
+    loadReservoir(std::move(reservoirsPath));
+    loadStations(std::move(stationsPath));
+    loadPipes(std::move(pipesPath));
 }
 
 void WaterSupply::loadCities(std::string path) {
-    path = "../"+path;
+    path = "../" + path;
 #ifdef _WIN32
     setlocale (LC_ALL, "");
     wifstream  file(path);
@@ -67,7 +71,7 @@ void WaterSupply::loadCities(std::string path) {
 }
 
 void WaterSupply::loadReservoir(std::string path) {
-    path = "../"+path;
+    path = "../" + path;
 #ifdef _WIN32
     setlocale (LC_ALL, "");
     wifstream  reservoirsFile(path);
@@ -136,15 +140,15 @@ Graph WaterSupply::getNetwork() {
     return network;
 }
 
-City WaterSupply::getCity(std::string code) {
+City WaterSupply::getCity(const std::string& code) {
     if (cities.find(code)!=cities.end()) return cities.at(code);
 }
 
-Reservoir WaterSupply::getReservoir(std::string code) {
+Reservoir WaterSupply::getReservoir(const std::string& code) {
     if (reservoirs.find(code)!=reservoirs.end()) return reservoirs.at(code);
 }
 
-Station WaterSupply::getStation(std::string code) {
+Station WaterSupply::getStation(const std::string& code) {
     if (stations.find(code)!=stations.end()) return stations.at(code);
 }
 
@@ -164,14 +168,14 @@ std::unordered_map<std::string, Station> WaterSupply::getStations() {
 
 void WaterSupply::setSuperSource() {
     network.addVertex("src");
-    for(auto v: reservoirs) {
+    for(const auto& v: reservoirs) {
         network.addEdge("src", v.first, v.second.getDelivery());
     }
 }
 
 void WaterSupply::setSuperSink() {
     network.addVertex("sink");
-    for(auto v: cities) {
+    for(const auto& v: cities) {
         network.addEdge( v.first, "sink", v.second.getDemand());
     }
 }
@@ -179,14 +183,14 @@ void WaterSupply::setSuperSink() {
 
 void WaterSupply::setInfSuperSink() {
     network.addVertex("sink");
-    for(auto v: cities) {
+    for(const auto& v: cities) {
         network.addEdge( v.first, "sink", INF);
     }
 }
 
-void WaterSupply::setSuperWithout(std::string reservoir) {
+void WaterSupply::setSuperWithout(const std::string& reservoir) {
     network.addVertex("src");
-    for(auto v: reservoirs) {
+    for(const auto& v: reservoirs) {
         if (v.first == reservoir) network.addEdge("src", v.first, 0);
         else network.addEdge("src", v.first, v.second.getDelivery());
     }
@@ -201,18 +205,17 @@ string WaterSupply::existsCityByID(int id) {
     return "";
 }
 
-bool WaterSupply::existsCityByCode(std::string code) {
+bool WaterSupply::existsCityByCode(const std::string& code) {
     return cities.count(code);
 }
 
-bool WaterSupply::existsPipe(std::string source, std::string code) {
-    for (auto e: network.findVertex(source)->getAdj()) {
-        if (e->getDest()->getInfo() == code) return true;
-    }
-    return false;
+bool WaterSupply::existsPipe(const std::string& source, const std::string& code) {
+    auto adjs = network.findVertex(source)->getAdj();
+    return std::any_of(adjs.begin(), adjs.end(),
+                       [code](Edge* e) { return e->getDest()->getInfo() == code;});
 }
 
-bool WaterSupply::existsStationByCode(std::string code) {
+bool WaterSupply::existsStationByCode(const std::string& code) {
     return stations.count(code);
 }
 
@@ -224,7 +227,7 @@ bool compareString(string s1, string s2) {
     return (count <= 2);
 }
 
-string WaterSupply::existsCityByName(std::string name) {
+string WaterSupply::existsCityByName(const std::string& name) {
     for (const auto& c: cities) {
         string nameC = c.second.getName();
         transform(nameC.begin(), nameC.end(), nameC.begin(), ::toupper);
@@ -233,7 +236,7 @@ string WaterSupply::existsCityByName(std::string name) {
     return "";
 }
 
-string WaterSupply::existsReservoirByName(std::string name) {
+string WaterSupply::existsReservoirByName(const std::string& name) {
     for (const auto& r: reservoirs) {
         string nameR = r.second.getName();
         transform(nameR.begin(), nameR.end(), nameR.begin(), ::toupper);
@@ -249,11 +252,11 @@ std::string WaterSupply::existsReservoirByID(int id) {
     return "";
 }
 
-bool WaterSupply::existsReservoirByCode(std::string code) {
+bool WaterSupply::existsReservoirByCode(const std::string& code) {
     return reservoirs.count(code);
 }
 
-vector<Reservoir> WaterSupply::existsMunicipality(std::string municipality) {
+vector<Reservoir> WaterSupply::existsMunicipality(const std::string& municipality) {
     vector<Reservoir> res;
     for (const auto& r: reservoirs) {
         string mun = r.second.getMunicipality();
@@ -282,15 +285,12 @@ vector<City> WaterSupply::getCityMaxDemand() {
 }
 
 vector<City> WaterSupply::getCityMinDemand() {
-    int minDemand = DBL_MAX;
+    double maxDemand = max_element(cities.begin(), cities.end(),
+                                   [](const pair<std::string, City>& p1, const pair<std::string, City>& p2)
+    {return p1.second.getDemand() < p2.second.getDemand();})->second.getDemand();
     vector<City> max;
     for (const auto &c: cities) {
-        if (c.second.getDemand() < minDemand) {
-            max.clear();
-            max.push_back(c.second);
-            minDemand = c.second.getDemand();
-        }
-        else if (c.second.getDemand() == minDemand) {
+        if (c.second.getDemand() == maxDemand) {
             max.push_back(c.second);
         }
     }
@@ -407,33 +407,30 @@ void WaterSupply::computeAverageAndVarianceOfPipes() {
 
 vector<vector<string>> WaterSupply::computeCitiesStatistics() {
     vector<vector<string>> res;
-    vector<City> orderedCities;
-    orderedCities.reserve(cities.size());
-    for(const auto& city : cities) orderedCities.push_back(city.second);
-    std::sort(orderedCities.begin(), orderedCities.end());
     ostringstream oss;
     oss << "City - Flow\n\n";
-    for(auto v: orderedCities) {
+    for(int i = 1; i < cities.size(); i++) {
+        auto city = cities.at("C_" + to_string(i));
         double flow = 0;
-        for(Edge* e: network.findVertex(v.getCode())->getIncoming()) {
+        for(Edge* e: network.findVertex(city.getCode())->getIncoming()) {
             flow += e->getFlow();
         }
         ostringstream ossres1;
         ostringstream ossres2;
         ostringstream ossres3;
         ostringstream ossres4;
-        ossres1 << left << setw(4) << v.getCode();
+        ossres1 << left << setw(4) << city.getCode();
         ossres2 << left << setw(6) << flow;
 
-        oss << left << setw(4) << v.getCode() << " - " << setw(6) << flow;
-        if ((v.getDemand()) < flow) {
-            oss << " (Overflow by " << flow - (v.getDemand()) << ")";
-            ossres3 << left << " (Overflow by " << flow - (v.getDemand()) << ")";
+        oss << left << setw(4) << city.getCode() << " - " << setw(6) << flow;
+        if ((city.getDemand()) < flow) {
+            oss << " (Overflow by " << flow - (city.getDemand()) << ")";
+            ossres3 << left << " (Overflow by " << flow - (city.getDemand()) << ")";
             ossres4 << "";
         }
-        else if ((v.getDemand()) > flow) {
-            oss << " (Underflow by " << (v.getDemand()) - flow << ")";
-            ossres4 << left << " (Underflow by " << (v.getDemand()) - flow << ")";
+        else if ((city.getDemand()) > flow) {
+            oss << " (Underflow by " << (city.getDemand()) - flow << ")";
+            ossres4 << left << " (Underflow by " << (city.getDemand()) - flow << ")";
             ossres3 << "";
         }
         oss << "\n";
@@ -449,7 +446,7 @@ vector<vector<string>> WaterSupply::computeCitiesStatistics() {
     return res;
 }
 
-int WaterSupply::computeCityFlow(std::string city) {
+int WaterSupply::computeCityFlow(const std::string& city) {
     Vertex* end = network.findVertex(city);
     int count = 0;
     for (Edge* e: end->getIncoming()) {
@@ -460,7 +457,7 @@ int WaterSupply::computeCityFlow(std::string city) {
 
 int WaterSupply::computeMaxFlow() {
     int total = 0;
-    for (auto v: cities) {
+    for (const auto& v: cities) {
         Vertex* end = network.findVertex(v.first);
         int count = 0;
         for (Edge* e: end->getIncoming()) {
@@ -639,7 +636,7 @@ vector<Edge*> WaterSupply::getMaxPathTo(Vertex* city){
     auto order = topsort();
 
     for(auto v: network.getVertexSet()){
-        v.second->setDist(100000);
+        v.second->setDist(INF);
         v.second->setPath(nullptr);
     }
     auto source = network.findVertex("src");
@@ -667,7 +664,7 @@ vector<Edge*> WaterSupply::findMinAugPath(Vertex * city) {
     vector<Edge*> res;
     auto order = topsort();
     for(auto v: network.getVertexSet()){
-        v.second->setDist(100000);
+        v.second->setDist(INF);
         v.second->setPath(nullptr);
     }
     auto source = network.findVertex("src");

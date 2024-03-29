@@ -157,8 +157,8 @@ void MaxFlow::maxFlowWithList(Graph& network) {
 }
 
 
-void MaxFlow::resetPaths(std::unordered_set<int> pat) {
-    for (auto k: pat) {
+void MaxFlow::resetPaths(std::unordered_set<int> pathSet) {
+    for (auto k: pathSet) {
         if (paths.count(k)) {
             for (auto e: paths.at(k).second) {
                 if (e.second->hasPath(k)) {

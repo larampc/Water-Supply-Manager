@@ -56,7 +56,14 @@ public:
      *
      * @return The Reservoir code.
      */
-    std::string getCode() const;
+    [[nodiscard]] std::string getCode() const;
+    /**
+     * \brief Less than operator to compare Reservoir IDs.
+     *
+     * @param reservoir The Reservoir to compare.
+     * @return True if this Reservoir ID id lower than the ID of the given Reservoir.
+     */
+    bool operator<(const Reservoir& reservoir) const;
 };
 
 
