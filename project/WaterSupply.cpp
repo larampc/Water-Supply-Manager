@@ -271,25 +271,9 @@ vector<Reservoir> WaterSupply::existsMunicipality(const std::string& municipalit
 /********************** Statistics  ****************************/
 
 vector<City> WaterSupply::getCityMaxDemand() {
-    int maxDemand = 0;
-    vector<City> max;
-    for (const auto& c: cities) {
-        if (c.second.getDemand() > maxDemand) {
-            max.clear();
-            max.push_back(c.second);
-            maxDemand = c.second.getDemand();
-        }
-        else if (c.second.getDemand() == maxDemand) {
-            max.push_back(c.second);
-        }
-    }
-    return max;
-}
-
-vector<City> WaterSupply::getCityMinDemand() {
     double maxDemand = max_element(cities.begin(), cities.end(),
                                    [](const pair<std::string, City>& p1, const pair<std::string, City>& p2)
-    {return p1.second.getDemand() < p2.second.getDemand();})->second.getDemand();
+                                   {return p1.second.getDemand() < p2.second.getDemand();})->second.getDemand();
     vector<City> max;
     for (const auto &c: cities) {
         if (c.second.getDemand() == maxDemand) {
@@ -297,6 +281,19 @@ vector<City> WaterSupply::getCityMinDemand() {
         }
     }
     return max;
+}
+
+vector<City> WaterSupply::getCityMinDemand() {
+    double minDemand = min_element(cities.begin(), cities.end(),
+                                   [](const pair<std::string, City>& p1, const pair<std::string, City>& p2)
+    {return p1.second.getDemand() < p2.second.getDemand();})->second.getDemand();
+    vector<City> min;
+    for (const auto &c: cities) {
+        if (c.second.getDemand() == minDemand) {
+            min.push_back(c.second);
+        }
+    }
+    return min;
 }
 
 vector<City> WaterSupply::getCityMaxPop() {
