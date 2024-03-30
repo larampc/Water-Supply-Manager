@@ -169,27 +169,27 @@ public:
     void optimalResMaxFlow();
     void optimalExcessMaxFlow();
     void optimalExcessCityMaxFlow(const std::string& target);
-    void cityMaxFlow(std::string target);
+    void cityMaxFlow(const std::string& target);
     /********************** MaxFlow Reverse ****************************/
     void reliabilityPrep();
     void reliabilityTearDown();
-    void activate(std::string p);
+    void activate(const std::string& p);
     void optimalDelete(std::string reservoir);
-    void deleteReservoir(std::string reservoir);
-    void deleteStation(std::string station);
-    void deletePipe(std::string source, std::string dest);
+    void deleteReservoir(const std::string& reservoir);
+    void deleteStation(const std::string& station);
+    void deletePipe(const std::string& source, const std::string& dest);
 
 
     static void OutputToFile(const std::string &fileName, const std::string &text);
 
-    void deleteReservoirMaxReverse(std::string reservoir);
+    void deleteReservoirMaxReverse(const std::string& reservoir);
 
-    void activatePipe(std::string source, std::string dest);
+    void activatePipe(const std::string& source, const std::string& dest);
 
     bool existsStationByCode(const std::string& code);
 
     bool existsPipe(const std::string& source, const std::string& dest);
-    bool existsCode(std::string code);
+    bool existsCode(const std::string& code);
     std::vector<std::string> topsort();
 
     void activateAll();

@@ -85,14 +85,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a67fb5bb2f54e2e70eda5f74b2b4ee307" id="r_a67fb5bb2f54e2e70eda5f74b2b4ee307"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a67fb5bb2f54e2e70eda5f74b2b4ee307">load</a> (std::string citiesPath, std::string reservoirsPath, std::string pipesPath, std::string stationsPath)</td></tr>
 <tr class="memdesc:a67fb5bb2f54e2e70eda5f74b2b4ee307"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parses the Cities, pipes, reservoirs and stations input files into appropriate data structures.  <br /></td></tr>
 <tr class="separator:a67fb5bb2f54e2e70eda5f74b2b4ee307"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb5f327e100590e8db352c94888f1fab" id="r_afb5f327e100590e8db352c94888f1fab"><td class="memItemLeft" align="right" valign="top"><a id="afb5f327e100590e8db352c94888f1fab" name="afb5f327e100590e8db352c94888f1fab"></a>
+<tr class="memitem:a3a4fbf2f35e4dec95164f503cb8b6b17" id="r_a3a4fbf2f35e4dec95164f503cb8b6b17"><td class="memItemLeft" align="right" valign="top"><a id="a3a4fbf2f35e4dec95164f503cb8b6b17" name="a3a4fbf2f35e4dec95164f503cb8b6b17"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>addSuperSource</b> ()</td></tr>
-<tr class="memdesc:afb5f327e100590e8db352c94888f1fab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a superSource vertex connected to each reservoir by an <a class="el" href="class_edge.html" title="A custom class to represent a Graph&#39;s Edge.">Edge</a> with capacity equal to their max Delivery. <br /></td></tr>
-<tr class="separator:afb5f327e100590e8db352c94888f1fab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3046c83e3092341c2ac33e0a3f61c256" id="r_a3046c83e3092341c2ac33e0a3f61c256"><td class="memItemLeft" align="right" valign="top"><a id="a3046c83e3092341c2ac33e0a3f61c256" name="a3046c83e3092341c2ac33e0a3f61c256"></a>
+<tr class="memdesc:a3a4fbf2f35e4dec95164f503cb8b6b17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a superSource vertex connected to each reservoir by an <a class="el" href="class_edge.html" title="A custom class to represent a Graph&#39;s Edge.">Edge</a> with capacity equal to their max Delivery. <br /></td></tr>
+<tr class="separator:a3a4fbf2f35e4dec95164f503cb8b6b17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a954f364bb1631829eaf3b7a270fb6f41" id="r_a954f364bb1631829eaf3b7a270fb6f41"><td class="memItemLeft" align="right" valign="top"><a id="a954f364bb1631829eaf3b7a270fb6f41" name="a954f364bb1631829eaf3b7a270fb6f41"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>addSuperSink</b> ()</td></tr>
-<tr class="memdesc:a3046c83e3092341c2ac33e0a3f61c256"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a superSink vertex connected to each city by an <a class="el" href="class_edge.html" title="A custom class to represent a Graph&#39;s Edge.">Edge</a> with capacity equal to the city's demand. <br /></td></tr>
-<tr class="separator:a3046c83e3092341c2ac33e0a3f61c256"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memdesc:a954f364bb1631829eaf3b7a270fb6f41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a superSink vertex connected to each city by an <a class="el" href="class_edge.html" title="A custom class to represent a Graph&#39;s Edge.">Edge</a> with capacity equal to the city's demand. <br /></td></tr>
+<tr class="separator:a954f364bb1631829eaf3b7a270fb6f41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab88cc585c3b598a74ebc38996d8f6d07" id="r_ab88cc585c3b598a74ebc38996d8f6d07"><td class="memItemLeft" align="right" valign="top"><a id="ab88cc585c3b598a74ebc38996d8f6d07" name="ab88cc585c3b598a74ebc38996d8f6d07"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setInfSuperSink</b> ()</td></tr>
 <tr class="memdesc:ab88cc585c3b598a74ebc38996d8f6d07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a superSink vertex connected to each city by an <a class="el" href="class_edge.html" title="A custom class to represent a Graph&#39;s Edge.">Edge</a> with infinite capacity. <br /></td></tr>
@@ -140,35 +140,38 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>existsReservoirByCode
 <tr class="memitem:a3e5348b11dd23372659d8b42d611a833" id="r_a3e5348b11dd23372659d8b42d611a833"><td class="memItemLeft" align="right" valign="top"><a id="a3e5348b11dd23372659d8b42d611a833" name="a3e5348b11dd23372659d8b42d611a833"></a>
 std::vector&lt; <a class="el" href="class_reservoir.html">Reservoir</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>existsMunicipality</b> (const std::string &amp;municipality)</td></tr>
 <tr class="separator:a3e5348b11dd23372659d8b42d611a833"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae8d1bc0cbbec316a4df85578e9a037c5" id="r_ae8d1bc0cbbec316a4df85578e9a037c5"><td class="memItemLeft" align="right" valign="top"><a id="ae8d1bc0cbbec316a4df85578e9a037c5" name="ae8d1bc0cbbec316a4df85578e9a037c5"></a>
-std::vector&lt; <a class="el" href="class_city.html">City</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getCityMaxDemand</b> ()</td></tr>
+<tr class="memitem:ae8d1bc0cbbec316a4df85578e9a037c5" id="r_ae8d1bc0cbbec316a4df85578e9a037c5"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_city.html">City</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#ae8d1bc0cbbec316a4df85578e9a037c5">getCityMaxDemand</a> ()</td></tr>
+<tr class="memdesc:ae8d1bc0cbbec316a4df85578e9a037c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the cities with the highest demand.  <br /></td></tr>
 <tr class="separator:ae8d1bc0cbbec316a4df85578e9a037c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2ae313f51c1d6d6a5ac1fde2a79790a" id="r_ad2ae313f51c1d6d6a5ac1fde2a79790a"><td class="memItemLeft" align="right" valign="top"><a id="ad2ae313f51c1d6d6a5ac1fde2a79790a" name="ad2ae313f51c1d6d6a5ac1fde2a79790a"></a>
-std::vector&lt; <a class="el" href="class_city.html">City</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getCityMinDemand</b> ()</td></tr>
+<tr class="memitem:ad2ae313f51c1d6d6a5ac1fde2a79790a" id="r_ad2ae313f51c1d6d6a5ac1fde2a79790a"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_city.html">City</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#ad2ae313f51c1d6d6a5ac1fde2a79790a">getCityMinDemand</a> ()</td></tr>
+<tr class="memdesc:ad2ae313f51c1d6d6a5ac1fde2a79790a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the cities with the lowest demand.  <br /></td></tr>
 <tr class="separator:ad2ae313f51c1d6d6a5ac1fde2a79790a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23888690960fdce89285462ab360fbb6" id="r_a23888690960fdce89285462ab360fbb6"><td class="memItemLeft" align="right" valign="top"><a id="a23888690960fdce89285462ab360fbb6" name="a23888690960fdce89285462ab360fbb6"></a>
-std::vector&lt; <a class="el" href="class_city.html">City</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getCityMaxPop</b> ()</td></tr>
+<tr class="memitem:a23888690960fdce89285462ab360fbb6" id="r_a23888690960fdce89285462ab360fbb6"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_city.html">City</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a23888690960fdce89285462ab360fbb6">getCityMaxPop</a> ()</td></tr>
+<tr class="memdesc:a23888690960fdce89285462ab360fbb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the cities with the highest population.  <br /></td></tr>
 <tr class="separator:a23888690960fdce89285462ab360fbb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2fd4ba5c5384da7867b2496d18cfae09" id="r_a2fd4ba5c5384da7867b2496d18cfae09"><td class="memItemLeft" align="right" valign="top"><a id="a2fd4ba5c5384da7867b2496d18cfae09" name="a2fd4ba5c5384da7867b2496d18cfae09"></a>
-std::vector&lt; <a class="el" href="class_city.html">City</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getCityMinPop</b> ()</td></tr>
+<tr class="memitem:a2fd4ba5c5384da7867b2496d18cfae09" id="r_a2fd4ba5c5384da7867b2496d18cfae09"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_city.html">City</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a2fd4ba5c5384da7867b2496d18cfae09">getCityMinPop</a> ()</td></tr>
+<tr class="memdesc:a2fd4ba5c5384da7867b2496d18cfae09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the cities with the lowest population.  <br /></td></tr>
 <tr class="separator:a2fd4ba5c5384da7867b2496d18cfae09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac3781594fb6de5c27511b6e64d9f8c7" id="r_aac3781594fb6de5c27511b6e64d9f8c7"><td class="memItemLeft" align="right" valign="top"><a id="aac3781594fb6de5c27511b6e64d9f8c7" name="aac3781594fb6de5c27511b6e64d9f8c7"></a>
-std::vector&lt; <a class="el" href="class_reservoir.html">Reservoir</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getReservoirMaxDel</b> ()</td></tr>
+<tr class="memitem:aac3781594fb6de5c27511b6e64d9f8c7" id="r_aac3781594fb6de5c27511b6e64d9f8c7"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_reservoir.html">Reservoir</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#aac3781594fb6de5c27511b6e64d9f8c7">getReservoirMaxDel</a> ()</td></tr>
+<tr class="memdesc:aac3781594fb6de5c27511b6e64d9f8c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the reservoirs with the highest max delivery.  <br /></td></tr>
 <tr class="separator:aac3781594fb6de5c27511b6e64d9f8c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f967d08bbc9fa7246c61ea9b7545467" id="r_a9f967d08bbc9fa7246c61ea9b7545467"><td class="memItemLeft" align="right" valign="top"><a id="a9f967d08bbc9fa7246c61ea9b7545467" name="a9f967d08bbc9fa7246c61ea9b7545467"></a>
-std::vector&lt; <a class="el" href="class_reservoir.html">Reservoir</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getReservoirMinDel</b> ()</td></tr>
+<tr class="memitem:a9f967d08bbc9fa7246c61ea9b7545467" id="r_a9f967d08bbc9fa7246c61ea9b7545467"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_reservoir.html">Reservoir</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a9f967d08bbc9fa7246c61ea9b7545467">getReservoirMinDel</a> ()</td></tr>
+<tr class="memdesc:a9f967d08bbc9fa7246c61ea9b7545467"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the reservoirs with the lowest max demand.  <br /></td></tr>
 <tr class="separator:a9f967d08bbc9fa7246c61ea9b7545467"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abadbf42d890ef1c556dd2233a8a1db6b" id="r_abadbf42d890ef1c556dd2233a8a1db6b"><td class="memItemLeft" align="right" valign="top"><a id="abadbf42d890ef1c556dd2233a8a1db6b" name="abadbf42d890ef1c556dd2233a8a1db6b"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>computeVarianceDiffCapacityFlow</b> (double average)</td></tr>
+<tr class="memitem:a8a24e27b60c6d9bb0f829e3d8c208dd3" id="r_a8a24e27b60c6d9bb0f829e3d8c208dd3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a8a24e27b60c6d9bb0f829e3d8c208dd3">computeMaxDiffCapacityFlow</a> ()</td></tr>
+<tr class="memdesc:a8a24e27b60c6d9bb0f829e3d8c208dd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the maximum difference (capacity - flow) of all pipes in the network.  <br /></td></tr>
+<tr class="separator:a8a24e27b60c6d9bb0f829e3d8c208dd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d9a0478af48bb3196d968b0d2fc62b1" id="r_a0d9a0478af48bb3196d968b0d2fc62b1"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a0d9a0478af48bb3196d968b0d2fc62b1">computeAverageDiffCapacityFlow</a> ()</td></tr>
+<tr class="memdesc:a0d9a0478af48bb3196d968b0d2fc62b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the network average of the differences (capacity - flow) of all pipes.  <br /></td></tr>
+<tr class="separator:a0d9a0478af48bb3196d968b0d2fc62b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abadbf42d890ef1c556dd2233a8a1db6b" id="r_abadbf42d890ef1c556dd2233a8a1db6b"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#abadbf42d890ef1c556dd2233a8a1db6b">computeVarianceDiffCapacityFlow</a> (double average)</td></tr>
+<tr class="memdesc:abadbf42d890ef1c556dd2233a8a1db6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the network variance with respect to the difference (capacity - flow) of each pipe.  <br /></td></tr>
 <tr class="separator:abadbf42d890ef1c556dd2233a8a1db6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92f0dcdaee9164a05a54ec8b838e3c1b" id="r_a92f0dcdaee9164a05a54ec8b838e3c1b"><td class="memItemLeft" align="right" valign="top"><a id="a92f0dcdaee9164a05a54ec8b838e3c1b" name="a92f0dcdaee9164a05a54ec8b838e3c1b"></a>
-std::vector&lt; std::vector&lt; std::string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>computeCitiesStatistics</b> ()</td></tr>
-<tr class="separator:a92f0dcdaee9164a05a54ec8b838e3c1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae6ba0c32da22e613f0d4df76f787277e" id="r_ae6ba0c32da22e613f0d4df76f787277e"><td class="memItemLeft" align="right" valign="top"><a id="ae6ba0c32da22e613f0d4df76f787277e" name="ae6ba0c32da22e613f0d4df76f787277e"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>computeFlow</b> ()</td></tr>
-<tr class="separator:ae6ba0c32da22e613f0d4df76f787277e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a48238c370acb23e874e70cd7004b89eb" id="r_a48238c370acb23e874e70cd7004b89eb"><td class="memItemLeft" align="right" valign="top"><a id="a48238c370acb23e874e70cd7004b89eb" name="a48238c370acb23e874e70cd7004b89eb"></a>
-int&#160;</td><td class="memItemRight" valign="bottom"><b>computeCityFlow</b> (const std::string &amp;city)</td></tr>
+<tr class="memitem:a315c748811328853d995e4cf623e5399" id="r_a315c748811328853d995e4cf623e5399"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a315c748811328853d995e4cf623e5399">computeFlow</a> ()</td></tr>
+<tr class="memdesc:a315c748811328853d995e4cf623e5399"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the network flow value.  <br /></td></tr>
+<tr class="separator:a315c748811328853d995e4cf623e5399"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48238c370acb23e874e70cd7004b89eb" id="r_a48238c370acb23e874e70cd7004b89eb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a48238c370acb23e874e70cd7004b89eb">computeCityFlow</a> (const std::string &amp;city)</td></tr>
+<tr class="memdesc:a48238c370acb23e874e70cd7004b89eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes a given city's incoming flow value.  <br /></td></tr>
 <tr class="separator:a48238c370acb23e874e70cd7004b89eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa788705b26089ac985b9e360fc3b01e0" id="r_aa788705b26089ac985b9e360fc3b01e0"><td class="memItemLeft" align="right" valign="top"><a id="aa788705b26089ac985b9e360fc3b01e0" name="aa788705b26089ac985b9e360fc3b01e0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>optimalResMaxFlow</b> ()</td></tr>
@@ -176,48 +179,48 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>optimalResMaxFlow</b>
 <tr class="memitem:a65704f7c682952d27e9650148d4bc122" id="r_a65704f7c682952d27e9650148d4bc122"><td class="memItemLeft" align="right" valign="top"><a id="a65704f7c682952d27e9650148d4bc122" name="a65704f7c682952d27e9650148d4bc122"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>optimalExcessMaxFlow</b> ()</td></tr>
 <tr class="separator:a65704f7c682952d27e9650148d4bc122"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3bb17c70df0ac6c2ecec411c9c0e775e" id="r_a3bb17c70df0ac6c2ecec411c9c0e775e"><td class="memItemLeft" align="right" valign="top"><a id="a3bb17c70df0ac6c2ecec411c9c0e775e" name="a3bb17c70df0ac6c2ecec411c9c0e775e"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>optimalExcessCityMaxFlow</b> (std::string target)</td></tr>
-<tr class="separator:a3bb17c70df0ac6c2ecec411c9c0e775e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c87437ce3bc4190df8aa3375643ccc4" id="r_a2c87437ce3bc4190df8aa3375643ccc4"><td class="memItemLeft" align="right" valign="top"><a id="a2c87437ce3bc4190df8aa3375643ccc4" name="a2c87437ce3bc4190df8aa3375643ccc4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>cityMaxFlow</b> (std::string target)</td></tr>
-<tr class="separator:a2c87437ce3bc4190df8aa3375643ccc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6a236c934d775811c077be0ac3960b9" id="r_ab6a236c934d775811c077be0ac3960b9"><td class="memItemLeft" align="right" valign="top"><a id="ab6a236c934d775811c077be0ac3960b9" name="ab6a236c934d775811c077be0ac3960b9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>optimalExcessCityMaxFlow</b> (const std::string &amp;target)</td></tr>
+<tr class="separator:ab6a236c934d775811c077be0ac3960b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7665d98217416c2c213c2a4f5ff5d8d3" id="r_a7665d98217416c2c213c2a4f5ff5d8d3"><td class="memItemLeft" align="right" valign="top"><a id="a7665d98217416c2c213c2a4f5ff5d8d3" name="a7665d98217416c2c213c2a4f5ff5d8d3"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>cityMaxFlow</b> (const std::string &amp;target)</td></tr>
+<tr class="separator:a7665d98217416c2c213c2a4f5ff5d8d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b007b598066869b4b81f5fa87090f8e" id="r_a1b007b598066869b4b81f5fa87090f8e"><td class="memItemLeft" align="right" valign="top"><a id="a1b007b598066869b4b81f5fa87090f8e" name="a1b007b598066869b4b81f5fa87090f8e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>reliabilityPrep</b> ()</td></tr>
 <tr class="separator:a1b007b598066869b4b81f5fa87090f8e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af85823b7f53909883e2abf40db809d89" id="r_af85823b7f53909883e2abf40db809d89"><td class="memItemLeft" align="right" valign="top"><a id="af85823b7f53909883e2abf40db809d89" name="af85823b7f53909883e2abf40db809d89"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>reliabilityTearDown</b> ()</td></tr>
 <tr class="separator:af85823b7f53909883e2abf40db809d89"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a448cf3d0580a748b02ae431e34c8f164" id="r_a448cf3d0580a748b02ae431e34c8f164"><td class="memItemLeft" align="right" valign="top"><a id="a448cf3d0580a748b02ae431e34c8f164" name="a448cf3d0580a748b02ae431e34c8f164"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>activate</b> (std::string p)</td></tr>
-<tr class="separator:a448cf3d0580a748b02ae431e34c8f164"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87d818bff883c29607ea5d93d7945064" id="r_a87d818bff883c29607ea5d93d7945064"><td class="memItemLeft" align="right" valign="top"><a id="a87d818bff883c29607ea5d93d7945064" name="a87d818bff883c29607ea5d93d7945064"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>activate</b> (const std::string &amp;p)</td></tr>
+<tr class="separator:a87d818bff883c29607ea5d93d7945064"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a76652a6e1e5e81cffa55fe4fd4918b" id="r_a4a76652a6e1e5e81cffa55fe4fd4918b"><td class="memItemLeft" align="right" valign="top"><a id="a4a76652a6e1e5e81cffa55fe4fd4918b" name="a4a76652a6e1e5e81cffa55fe4fd4918b"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>optimalDelete</b> (std::string reservoir)</td></tr>
 <tr class="separator:a4a76652a6e1e5e81cffa55fe4fd4918b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af43560abe18532bc9f6c66dafbcaf48a" id="r_af43560abe18532bc9f6c66dafbcaf48a"><td class="memItemLeft" align="right" valign="top"><a id="af43560abe18532bc9f6c66dafbcaf48a" name="af43560abe18532bc9f6c66dafbcaf48a"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>deleteReservoir</b> (std::string reservoir)</td></tr>
-<tr class="separator:af43560abe18532bc9f6c66dafbcaf48a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ad99d33a4f97c804b307b572ab10e3f" id="r_a2ad99d33a4f97c804b307b572ab10e3f"><td class="memItemLeft" align="right" valign="top"><a id="a2ad99d33a4f97c804b307b572ab10e3f" name="a2ad99d33a4f97c804b307b572ab10e3f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>deleteStation</b> (std::string station)</td></tr>
-<tr class="separator:a2ad99d33a4f97c804b307b572ab10e3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7759c1fb6c624d1243ae4124bc6c07f0" id="r_a7759c1fb6c624d1243ae4124bc6c07f0"><td class="memItemLeft" align="right" valign="top"><a id="a7759c1fb6c624d1243ae4124bc6c07f0" name="a7759c1fb6c624d1243ae4124bc6c07f0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>deletePipe</b> (std::string source, std::string dest)</td></tr>
-<tr class="separator:a7759c1fb6c624d1243ae4124bc6c07f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e6aceed415cc3642c2beb64edf83634" id="r_a3e6aceed415cc3642c2beb64edf83634"><td class="memItemLeft" align="right" valign="top"><a id="a3e6aceed415cc3642c2beb64edf83634" name="a3e6aceed415cc3642c2beb64edf83634"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>deleteReservoirMaxReverse</b> (std::string reservoir)</td></tr>
-<tr class="separator:a3e6aceed415cc3642c2beb64edf83634"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af985d74756782c5a732f5d0e64800734" id="r_af985d74756782c5a732f5d0e64800734"><td class="memItemLeft" align="right" valign="top"><a id="af985d74756782c5a732f5d0e64800734" name="af985d74756782c5a732f5d0e64800734"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>activatePipe</b> (std::string source, std::string dest)</td></tr>
-<tr class="separator:af985d74756782c5a732f5d0e64800734"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b72c98ff2d41b36a9faf8d93ea964fb" id="r_a2b72c98ff2d41b36a9faf8d93ea964fb"><td class="memItemLeft" align="right" valign="top"><a id="a2b72c98ff2d41b36a9faf8d93ea964fb" name="a2b72c98ff2d41b36a9faf8d93ea964fb"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>deleteReservoir</b> (const std::string &amp;reservoir)</td></tr>
+<tr class="separator:a2b72c98ff2d41b36a9faf8d93ea964fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fba83bf9cf43cc206133053c428a232" id="r_a6fba83bf9cf43cc206133053c428a232"><td class="memItemLeft" align="right" valign="top"><a id="a6fba83bf9cf43cc206133053c428a232" name="a6fba83bf9cf43cc206133053c428a232"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>deleteStation</b> (const std::string &amp;station)</td></tr>
+<tr class="separator:a6fba83bf9cf43cc206133053c428a232"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a555765bff06f2976c55a5c3c65be3c80" id="r_a555765bff06f2976c55a5c3c65be3c80"><td class="memItemLeft" align="right" valign="top"><a id="a555765bff06f2976c55a5c3c65be3c80" name="a555765bff06f2976c55a5c3c65be3c80"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>deletePipe</b> (const std::string &amp;source, const std::string &amp;dest)</td></tr>
+<tr class="separator:a555765bff06f2976c55a5c3c65be3c80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af41a6beb0b015dd489028c9d650f7431" id="r_af41a6beb0b015dd489028c9d650f7431"><td class="memItemLeft" align="right" valign="top"><a id="af41a6beb0b015dd489028c9d650f7431" name="af41a6beb0b015dd489028c9d650f7431"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>deleteReservoirMaxReverse</b> (const std::string &amp;reservoir)</td></tr>
+<tr class="separator:af41a6beb0b015dd489028c9d650f7431"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42700381fee7dc8637d7bd9bf354e73a" id="r_a42700381fee7dc8637d7bd9bf354e73a"><td class="memItemLeft" align="right" valign="top"><a id="a42700381fee7dc8637d7bd9bf354e73a" name="a42700381fee7dc8637d7bd9bf354e73a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>activatePipe</b> (const std::string &amp;source, const std::string &amp;dest)</td></tr>
+<tr class="separator:a42700381fee7dc8637d7bd9bf354e73a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a00d52ce7559b68b334dd469c30a9caed" id="r_a00d52ce7559b68b334dd469c30a9caed"><td class="memItemLeft" align="right" valign="top"><a id="a00d52ce7559b68b334dd469c30a9caed" name="a00d52ce7559b68b334dd469c30a9caed"></a>
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>existsStationByCode</b> (const std::string &amp;code)</td></tr>
 <tr class="separator:a00d52ce7559b68b334dd469c30a9caed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a76530afeb1d7ef252ad4c9a0bf8419" id="r_a9a76530afeb1d7ef252ad4c9a0bf8419"><td class="memItemLeft" align="right" valign="top"><a id="a9a76530afeb1d7ef252ad4c9a0bf8419" name="a9a76530afeb1d7ef252ad4c9a0bf8419"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>existsPipe</b> (const std::string &amp;source, const std::string &amp;code)</td></tr>
-<tr class="separator:a9a76530afeb1d7ef252ad4c9a0bf8419"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a673f59086c1b9eccc4c9f56aa003dbbb" id="r_a673f59086c1b9eccc4c9f56aa003dbbb"><td class="memItemLeft" align="right" valign="top"><a id="a673f59086c1b9eccc4c9f56aa003dbbb" name="a673f59086c1b9eccc4c9f56aa003dbbb"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>existsCode</b> (std::string code)</td></tr>
-<tr class="separator:a673f59086c1b9eccc4c9f56aa003dbbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3e8a2067c2fa3bc0f08483c5fcb486a" id="r_aa3e8a2067c2fa3bc0f08483c5fcb486a"><td class="memItemLeft" align="right" valign="top"><a id="aa3e8a2067c2fa3bc0f08483c5fcb486a" name="aa3e8a2067c2fa3bc0f08483c5fcb486a"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>existsPipe</b> (const std::string &amp;source, const std::string &amp;dest)</td></tr>
+<tr class="separator:aa3e8a2067c2fa3bc0f08483c5fcb486a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8747d556f712221a82cd91fa72e96bdc" id="r_a8747d556f712221a82cd91fa72e96bdc"><td class="memItemLeft" align="right" valign="top"><a id="a8747d556f712221a82cd91fa72e96bdc" name="a8747d556f712221a82cd91fa72e96bdc"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>existsCode</b> (const std::string &amp;code)</td></tr>
+<tr class="separator:a8747d556f712221a82cd91fa72e96bdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5132267ea63a4809f019626454fee561" id="r_a5132267ea63a4809f019626454fee561"><td class="memItemLeft" align="right" valign="top"><a id="a5132267ea63a4809f019626454fee561" name="a5132267ea63a4809f019626454fee561"></a>
 std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>topsort</b> ()</td></tr>
 <tr class="separator:a5132267ea63a4809f019626454fee561"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -245,12 +248,15 @@ std::vector&lt; <a class="el" href="class_edge.html">Edge</a> * &gt;&#160;</td><
 <tr class="memitem:a6e1d23f2ebc80ea18b97c6c0c86dcd2c" id="r_a6e1d23f2ebc80ea18b97c6c0c86dcd2c"><td class="memItemLeft" align="right" valign="top"><a id="a6e1d23f2ebc80ea18b97c6c0c86dcd2c" name="a6e1d23f2ebc80ea18b97c6c0c86dcd2c"></a>
 std::vector&lt; <a class="el" href="class_edge.html">Edge</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>findMinAugPath</b> (<a class="el" href="class_vertex.html">Vertex</a> *city)</td></tr>
 <tr class="separator:a6e1d23f2ebc80ea18b97c6c0c86dcd2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a24e27b60c6d9bb0f829e3d8c208dd3" id="r_a8a24e27b60c6d9bb0f829e3d8c208dd3"><td class="memItemLeft" align="right" valign="top"><a id="a8a24e27b60c6d9bb0f829e3d8c208dd3" name="a8a24e27b60c6d9bb0f829e3d8c208dd3"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>computeMaxDiffCapacityFlow</b> ()</td></tr>
-<tr class="separator:a8a24e27b60c6d9bb0f829e3d8c208dd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d9a0478af48bb3196d968b0d2fc62b1" id="r_a0d9a0478af48bb3196d968b0d2fc62b1"><td class="memItemLeft" align="right" valign="top"><a id="a0d9a0478af48bb3196d968b0d2fc62b1" name="a0d9a0478af48bb3196d968b0d2fc62b1"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>computeAverageDiffCapacityFlow</b> ()</td></tr>
-<tr class="separator:a0d9a0478af48bb3196d968b0d2fc62b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab3d29e5c80b532191f1c32a1f8eed165" id="r_ab3d29e5c80b532191f1c32a1f8eed165"><td class="memItemLeft" align="right" valign="top"><a id="ab3d29e5c80b532191f1c32a1f8eed165" name="ab3d29e5c80b532191f1c32a1f8eed165"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setSuperSinkWithDemand</b> ()</td></tr>
+<tr class="separator:ab3d29e5c80b532191f1c32a1f8eed165"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d101f417e5f152e2371f531a85136fb" id="r_a0d101f417e5f152e2371f531a85136fb"><td class="memItemLeft" align="right" valign="top"><a id="a0d101f417e5f152e2371f531a85136fb" name="a0d101f417e5f152e2371f531a85136fb"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>optimalCityMaxFlow</b> (const std::vector&lt; std::string &gt; &amp;cityList)</td></tr>
+<tr class="separator:a0d101f417e5f152e2371f531a85136fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad697ae4253ef4a459b8f771ce1761fd0" id="r_ad697ae4253ef4a459b8f771ce1761fd0"><td class="memItemLeft" align="right" valign="top"><a id="ad697ae4253ef4a459b8f771ce1761fd0" name="ad697ae4253ef4a459b8f771ce1761fd0"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>setSuperSinkNull</b> ()</td></tr>
+<tr class="separator:ad697ae4253ef4a459b8f771ce1761fd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -295,6 +301,120 @@ std::unordered_map&lt; std::string, <a class="el" href="class_station.html">Stat
 <tr class="separator:a34a092af866f149e37776592d0cf1273"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0d9a0478af48bb3196d968b0d2fc62b1" name="a0d9a0478af48bb3196d968b0d2fc62b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d9a0478af48bb3196d968b0d2fc62b1">&#9670;&#160;</a></span>computeAverageDiffCapacityFlow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double WaterSupply::computeAverageDiffCapacityFlow </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes the network average of the differences (capacity - flow) of all pipes. </p>
+<dl class="section return"><dt>Returns</dt><dd>Computes the network average of the differences (capacity - flow) of all pipes. </dd></dl>
+
+</div>
+</div>
+<a id="a48238c370acb23e874e70cd7004b89eb" name="a48238c370acb23e874e70cd7004b89eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48238c370acb23e874e70cd7004b89eb">&#9670;&#160;</a></span>computeCityFlow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int WaterSupply::computeCityFlow </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>city</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes a given city's incoming flow value. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">city</td><td>The city whose incoming flow will be computed. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The city's incoming flow value. </dd></dl>
+
+</div>
+</div>
+<a id="a315c748811328853d995e4cf623e5399" name="a315c748811328853d995e4cf623e5399"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a315c748811328853d995e4cf623e5399">&#9670;&#160;</a></span>computeFlow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int WaterSupply::computeFlow </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes the network flow value. </p>
+<dl class="section return"><dt>Returns</dt><dd>The network flow value. </dd></dl>
+
+</div>
+</div>
+<a id="a8a24e27b60c6d9bb0f829e3d8c208dd3" name="a8a24e27b60c6d9bb0f829e3d8c208dd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a24e27b60c6d9bb0f829e3d8c208dd3">&#9670;&#160;</a></span>computeMaxDiffCapacityFlow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double WaterSupply::computeMaxDiffCapacityFlow </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes the maximum difference (capacity - flow) of all pipes in the network. </p>
+<dl class="section return"><dt>Returns</dt><dd>The maximum difference (capacity - flow) of all pipes in the network. </dd></dl>
+
+</div>
+</div>
+<a id="abadbf42d890ef1c556dd2233a8a1db6b" name="abadbf42d890ef1c556dd2233a8a1db6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abadbf42d890ef1c556dd2233a8a1db6b">&#9670;&#160;</a></span>computeVarianceDiffCapacityFlow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double WaterSupply::computeVarianceDiffCapacityFlow </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>average</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Computes the network variance with respect to the difference (capacity - flow) of each pipe. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">average</td><td>The global network (capacity - flow) average of all pipes. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The global network variance with respect to the difference (capacity - flow). </dd></dl>
+
+</div>
+</div>
 <a id="a8eb1ff49968366cf6f75d750681a6994" name="a8eb1ff49968366cf6f75d750681a6994"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8eb1ff49968366cf6f75d750681a6994">&#9670;&#160;</a></span>getCities()</h2>
 
@@ -336,6 +456,86 @@ std::unordered_map&lt; std::string, <a class="el" href="class_station.html">Stat
 
 </div>
 </div>
+<a id="ae8d1bc0cbbec316a4df85578e9a037c5" name="ae8d1bc0cbbec316a4df85578e9a037c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8d1bc0cbbec316a4df85578e9a037c5">&#9670;&#160;</a></span>getCityMaxDemand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; <a class="el" href="class_city.html">City</a> &gt; WaterSupply::getCityMaxDemand </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the cities with the highest demand. </p>
+<dl class="section return"><dt>Returns</dt><dd>A vector of cities with the highest demand. </dd></dl>
+
+</div>
+</div>
+<a id="a23888690960fdce89285462ab360fbb6" name="a23888690960fdce89285462ab360fbb6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23888690960fdce89285462ab360fbb6">&#9670;&#160;</a></span>getCityMaxPop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; <a class="el" href="class_city.html">City</a> &gt; WaterSupply::getCityMaxPop </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the cities with the highest population. </p>
+<dl class="section return"><dt>Returns</dt><dd>A vector of cities with the highest population. </dd></dl>
+
+</div>
+</div>
+<a id="ad2ae313f51c1d6d6a5ac1fde2a79790a" name="ad2ae313f51c1d6d6a5ac1fde2a79790a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2ae313f51c1d6d6a5ac1fde2a79790a">&#9670;&#160;</a></span>getCityMinDemand()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; <a class="el" href="class_city.html">City</a> &gt; WaterSupply::getCityMinDemand </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the cities with the lowest demand. </p>
+<dl class="section return"><dt>Returns</dt><dd>A vector of cities with the lowest demand. </dd></dl>
+
+</div>
+</div>
+<a id="a2fd4ba5c5384da7867b2496d18cfae09" name="a2fd4ba5c5384da7867b2496d18cfae09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fd4ba5c5384da7867b2496d18cfae09">&#9670;&#160;</a></span>getCityMinPop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; <a class="el" href="class_city.html">City</a> &gt; WaterSupply::getCityMinPop </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the cities with the lowest population. </p>
+<dl class="section return"><dt>Returns</dt><dd>A vector of cities with the lowest population. </dd></dl>
+
+</div>
+</div>
 <a id="aa14d772c93375370d073c12f7f74945d" name="aa14d772c93375370d073c12f7f74945d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa14d772c93375370d073c12f7f74945d">&#9670;&#160;</a></span>getNetwork()</h2>
 
@@ -374,6 +574,46 @@ std::unordered_map&lt; std::string, <a class="el" href="class_station.html">Stat
 
 <p>Gets the <a class="el" href="class_reservoir.html" title="A custom class to represent a Reservoir.">Reservoir</a> with the specified code. </p>
 <dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="class_reservoir.html" title="A custom class to represent a Reservoir.">Reservoir</a> with the specified code. </dd></dl>
+
+</div>
+</div>
+<a id="aac3781594fb6de5c27511b6e64d9f8c7" name="aac3781594fb6de5c27511b6e64d9f8c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac3781594fb6de5c27511b6e64d9f8c7">&#9670;&#160;</a></span>getReservoirMaxDel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="class_reservoir.html">Reservoir</a> &gt; WaterSupply::getReservoirMaxDel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the reservoirs with the highest max delivery. </p>
+<dl class="section return"><dt>Returns</dt><dd>A vector of reservoirs with the highest max delivery. </dd></dl>
+
+</div>
+</div>
+<a id="a9f967d08bbc9fa7246c61ea9b7545467" name="a9f967d08bbc9fa7246c61ea9b7545467"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9f967d08bbc9fa7246c61ea9b7545467">&#9670;&#160;</a></span>getReservoirMinDel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="class_reservoir.html">Reservoir</a> &gt; WaterSupply::getReservoirMinDel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the reservoirs with the lowest max demand. </p>
+<dl class="section return"><dt>Returns</dt><dd>A vector of reservoirs with the lowest max demand. </dd></dl>
 
 </div>
 </div>
