@@ -630,7 +630,7 @@ void Menu::MaxFlowWithPrioritizedCities(){
                 waterSupply.optimalCityMaxFlow(cities);
                 printCitiesFlow();
                 pressEnterToContinue();
-            } else getMaxFlowOp();
+            } else MaxFlowWithPrioritizedCities();
         }
         break;
         case '2': {
