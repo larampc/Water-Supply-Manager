@@ -137,9 +137,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a6c38817196656fcc394aae867ee62773" id="r_a6c38817196656fcc394aae867ee62773"><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_edge.html">Edge</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a6c38817196656fcc394aae867ee62773">addEdge</a> (<a class="el" href="class_vertex.html">Vertex</a> *dest, double w)</td></tr>
 <tr class="memdesc:a6c38817196656fcc394aae867ee62773"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="class_edge.html" title="A custom class to represent a Graph&#39;s Edge.">Edge</a> from this <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a> to the given <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a> with the given weight.  <br /></td></tr>
 <tr class="separator:a6c38817196656fcc394aae867ee62773"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d8890c92e810f8cdbc7777e45b16538" id="r_a4d8890c92e810f8cdbc7777e45b16538"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a4d8890c92e810f8cdbc7777e45b16538">removeEdge</a> (std::string in)</td></tr>
-<tr class="memdesc:a4d8890c92e810f8cdbc7777e45b16538"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes all <a class="el" href="class_edge.html" title="A custom class to represent a Graph&#39;s Edge.">Edge</a> from this <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a> to the <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a> with the given info.  <br /></td></tr>
-<tr class="separator:a4d8890c92e810f8cdbc7777e45b16538"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adf33fa542974b2d2751cbcedca80831f" id="r_adf33fa542974b2d2751cbcedca80831f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#adf33fa542974b2d2751cbcedca80831f">removeEdge</a> (const std::string &amp;in)</td></tr>
+<tr class="memdesc:adf33fa542974b2d2751cbcedca80831f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes all <a class="el" href="class_edge.html" title="A custom class to represent a Graph&#39;s Edge.">Edge</a> from this <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a> to the <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a> with the given info.  <br /></td></tr>
+<tr class="separator:adf33fa542974b2d2751cbcedca80831f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afcde6d707aff7627df7adde8d8b74a89" id="r_afcde6d707aff7627df7adde8d8b74a89"><td class="memItemLeft" align="right" valign="top"><a id="afcde6d707aff7627df7adde8d8b74a89" name="afcde6d707aff7627df7adde8d8b74a89"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>removeOutgoingEdges</b> ()</td></tr>
 <tr class="memdesc:afcde6d707aff7627df7adde8d8b74a89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes all <a class="el" href="class_edge.html" title="A custom class to represent a Graph&#39;s Edge.">Edge</a> that are outgoing from this <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a>. <br /></td></tr>
@@ -162,7 +162,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>desactivate</b> ()</t
 <tr class="memdesc:a6cc0d08ee11e7f93e642db33c78da6c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a> active state to false. <br /></td></tr>
 <tr class="separator:a6cc0d08ee11e7f93e642db33c78da6c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4e28779c2a7c934d1574b791f21bd97" id="r_ab4e28779c2a7c934d1574b791f21bd97"><td class="memItemLeft" align="right" valign="top"><a id="ab4e28779c2a7c934d1574b791f21bd97" name="ab4e28779c2a7c934d1574b791f21bd97"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>activateVertex</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>activate</b> ()</td></tr>
 <tr class="memdesc:ab4e28779c2a7c934d1574b791f21bd97"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a> active state to true. <br /></td></tr>
 <tr class="separator:ab4e28779c2a7c934d1574b791f21bd97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a544a45435e5dddf5c825cce67a2449c4" id="r_a544a45435e5dddf5c825cce67a2449c4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_vertex.html#a544a45435e5dddf5c825cce67a2449c4">checkActive</a> ()</td></tr>
@@ -196,7 +196,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>visited</b> = false</
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>processing</b> = false</td></tr>
 <tr class="separator:a305dc8fcad6e4c7ef2491409ca7ddaa4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a94ae99aae9b1a426feda5ecda70c598b" id="r_a94ae99aae9b1a426feda5ecda70c598b"><td class="memItemLeft" align="right" valign="top"><a id="a94ae99aae9b1a426feda5ecda70c598b" name="a94ae99aae9b1a426feda5ecda70c598b"></a>
-unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>indegree</b></td></tr>
+unsigned int&#160;</td><td class="memItemRight" valign="bottom"><b>indegree</b> = 0</td></tr>
 <tr class="separator:a94ae99aae9b1a426feda5ecda70c598b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11d98611f5101fe7f46785d8b9c53f44" id="r_a11d98611f5101fe7f46785d8b9c53f44"><td class="memItemLeft" align="right" valign="top"><a id="a11d98611f5101fe7f46785d8b9c53f44" name="a11d98611f5101fe7f46785d8b9c53f44"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>dist</b> = 0</td></tr>
@@ -226,6 +226,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>isActive</b> = true</
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">Vertex::Vertex </td>
@@ -235,6 +238,11 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>isActive</b> = true</
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p><a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a> constructor. </p>
@@ -579,8 +587,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>isActive</b> = true</
 
 </div>
 </div>
-<a id="a4d8890c92e810f8cdbc7777e45b16538" name="a4d8890c92e810f8cdbc7777e45b16538"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d8890c92e810f8cdbc7777e45b16538">&#9670;&#160;</a></span>removeEdge()</h2>
+<a id="adf33fa542974b2d2751cbcedca80831f" name="adf33fa542974b2d2751cbcedca80831f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf33fa542974b2d2751cbcedca80831f">&#9670;&#160;</a></span>removeEdge()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -588,7 +596,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>isActive</b> = true</
         <tr>
           <td class="memname">bool Vertex::removeEdge </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>in</em></td><td>)</td>
           <td></td>
         </tr>
