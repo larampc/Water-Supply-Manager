@@ -79,6 +79,11 @@ $(function() {
   <div class="headertitle"><div class="title">WaterSupply Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>This class stores all the data and performs different functions on it.  
+ <a href="class_water_supply.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_water_supply_8h_source.html">WaterSupply.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -107,13 +112,13 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setInfSuperSink</b> (
 <tr class="memdesc:a9d836402ea79a64fe482e8553a7d71c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the <a class="el" href="class_reservoir.html" title="A custom class to represent a Reservoir.">Reservoir</a> with the specified code.  <br /></td></tr>
 <tr class="separator:a9d836402ea79a64fe482e8553a7d71c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8eb1ff49968366cf6f75d750681a6994" id="r_a8eb1ff49968366cf6f75d750681a6994"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::string, <a class="el" href="class_city.html">City</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a8eb1ff49968366cf6f75d750681a6994">getCities</a> ()</td></tr>
-<tr class="memdesc:a8eb1ff49968366cf6f75d750681a6994"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the cities of the network.  <br /></td></tr>
+<tr class="memdesc:a8eb1ff49968366cf6f75d750681a6994"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all the <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> of the network.  <br /></td></tr>
 <tr class="separator:a8eb1ff49968366cf6f75d750681a6994"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9fa1818045adcf8d0b40cdd251f68237" id="r_a9fa1818045adcf8d0b40cdd251f68237"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::string, <a class="el" href="class_reservoir.html">Reservoir</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a9fa1818045adcf8d0b40cdd251f68237">getReservoirs</a> ()</td></tr>
-<tr class="memdesc:a9fa1818045adcf8d0b40cdd251f68237"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the reservoirs of the network.  <br /></td></tr>
+<tr class="memdesc:a9fa1818045adcf8d0b40cdd251f68237"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all the <a class="el" href="class_reservoir.html" title="A custom class to represent a Reservoir.">Reservoir</a> of the network.  <br /></td></tr>
 <tr class="separator:a9fa1818045adcf8d0b40cdd251f68237"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a477a82ded685ba1e37273e18f72ee052" id="r_a477a82ded685ba1e37273e18f72ee052"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; std::string, <a class="el" href="class_station.html">Station</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a477a82ded685ba1e37273e18f72ee052">getStations</a> ()</td></tr>
-<tr class="memdesc:a477a82ded685ba1e37273e18f72ee052"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the stations of the network.  <br /></td></tr>
+<tr class="memdesc:a477a82ded685ba1e37273e18f72ee052"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all the <a class="el" href="class_station.html" title="A custom class to represent a Station.">Station</a> of the network.  <br /></td></tr>
 <tr class="separator:a477a82ded685ba1e37273e18f72ee052"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a563501121e4ae54c53f22da840bc38f8" id="r_a563501121e4ae54c53f22da840bc38f8"><td class="memItemLeft" align="right" valign="top"><a id="a563501121e4ae54c53f22da840bc38f8" name="a563501121e4ae54c53f22da840bc38f8"></a>
 std::string&#160;</td><td class="memItemRight" valign="bottom"><b>existsCityByID</b> (int id)</td></tr>
@@ -137,22 +142,22 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>existsReservoirByCode
 std::vector&lt; <a class="el" href="class_reservoir.html">Reservoir</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>existsMunicipality</b> (const std::string &amp;municipality)</td></tr>
 <tr class="separator:a3e5348b11dd23372659d8b42d611a833"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae8d1bc0cbbec316a4df85578e9a037c5" id="r_ae8d1bc0cbbec316a4df85578e9a037c5"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_city.html">City</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#ae8d1bc0cbbec316a4df85578e9a037c5">getCityMaxDemand</a> ()</td></tr>
-<tr class="memdesc:ae8d1bc0cbbec316a4df85578e9a037c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the cities with the highest demand.  <br /></td></tr>
+<tr class="memdesc:ae8d1bc0cbbec316a4df85578e9a037c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> with the highest demand.  <br /></td></tr>
 <tr class="separator:ae8d1bc0cbbec316a4df85578e9a037c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2ae313f51c1d6d6a5ac1fde2a79790a" id="r_ad2ae313f51c1d6d6a5ac1fde2a79790a"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_city.html">City</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#ad2ae313f51c1d6d6a5ac1fde2a79790a">getCityMinDemand</a> ()</td></tr>
-<tr class="memdesc:ad2ae313f51c1d6d6a5ac1fde2a79790a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the cities with the lowest demand.  <br /></td></tr>
+<tr class="memdesc:ad2ae313f51c1d6d6a5ac1fde2a79790a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> with the lowest demand.  <br /></td></tr>
 <tr class="separator:ad2ae313f51c1d6d6a5ac1fde2a79790a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a23888690960fdce89285462ab360fbb6" id="r_a23888690960fdce89285462ab360fbb6"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_city.html">City</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a23888690960fdce89285462ab360fbb6">getCityMaxPop</a> ()</td></tr>
-<tr class="memdesc:a23888690960fdce89285462ab360fbb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the cities with the highest population.  <br /></td></tr>
+<tr class="memdesc:a23888690960fdce89285462ab360fbb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> with the highest population.  <br /></td></tr>
 <tr class="separator:a23888690960fdce89285462ab360fbb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2fd4ba5c5384da7867b2496d18cfae09" id="r_a2fd4ba5c5384da7867b2496d18cfae09"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_city.html">City</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a2fd4ba5c5384da7867b2496d18cfae09">getCityMinPop</a> ()</td></tr>
-<tr class="memdesc:a2fd4ba5c5384da7867b2496d18cfae09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the cities with the lowest population.  <br /></td></tr>
+<tr class="memdesc:a2fd4ba5c5384da7867b2496d18cfae09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> with the lowest population.  <br /></td></tr>
 <tr class="separator:a2fd4ba5c5384da7867b2496d18cfae09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac3781594fb6de5c27511b6e64d9f8c7" id="r_aac3781594fb6de5c27511b6e64d9f8c7"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_reservoir.html">Reservoir</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#aac3781594fb6de5c27511b6e64d9f8c7">getReservoirMaxDel</a> ()</td></tr>
-<tr class="memdesc:aac3781594fb6de5c27511b6e64d9f8c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the reservoirs with the highest max delivery.  <br /></td></tr>
+<tr class="memdesc:aac3781594fb6de5c27511b6e64d9f8c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all <a class="el" href="class_reservoir.html" title="A custom class to represent a Reservoir.">Reservoir</a> with the highest max delivery.  <br /></td></tr>
 <tr class="separator:aac3781594fb6de5c27511b6e64d9f8c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f967d08bbc9fa7246c61ea9b7545467" id="r_a9f967d08bbc9fa7246c61ea9b7545467"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_reservoir.html">Reservoir</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a9f967d08bbc9fa7246c61ea9b7545467">getReservoirMinDel</a> ()</td></tr>
-<tr class="memdesc:a9f967d08bbc9fa7246c61ea9b7545467"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the reservoirs with the lowest max demand.  <br /></td></tr>
+<tr class="memdesc:a9f967d08bbc9fa7246c61ea9b7545467"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all <a class="el" href="class_reservoir.html" title="A custom class to represent a Reservoir.">Reservoir</a> with the lowest max demand.  <br /></td></tr>
 <tr class="separator:a9f967d08bbc9fa7246c61ea9b7545467"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8a24e27b60c6d9bb0f829e3d8c208dd3" id="r_a8a24e27b60c6d9bb0f829e3d8c208dd3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a8a24e27b60c6d9bb0f829e3d8c208dd3">computeMaxDiffCapacityFlow</a> ()</td></tr>
 <tr class="memdesc:a8a24e27b60c6d9bb0f829e3d8c208dd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the maximum difference (capacity - flow) of all pipes in the network.  <br /></td></tr>
@@ -167,19 +172,21 @@ std::vector&lt; <a class="el" href="class_reservoir.html">Reservoir</a> &gt;&#16
 <tr class="memdesc:a315c748811328853d995e4cf623e5399"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the network flow value.  <br /></td></tr>
 <tr class="separator:a315c748811328853d995e4cf623e5399"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48238c370acb23e874e70cd7004b89eb" id="r_a48238c370acb23e874e70cd7004b89eb"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a48238c370acb23e874e70cd7004b89eb">computeCityFlow</a> (const std::string &amp;city)</td></tr>
-<tr class="memdesc:a48238c370acb23e874e70cd7004b89eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes a given city's incoming flow value.  <br /></td></tr>
+<tr class="memdesc:a48238c370acb23e874e70cd7004b89eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes a given <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a>'s incoming flow value.  <br /></td></tr>
 <tr class="separator:a48238c370acb23e874e70cd7004b89eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a154e7e608dc04e2ad2d4cb46b4d5fc44" id="r_a154e7e608dc04e2ad2d4cb46b4d5fc44"><td class="memItemLeft" align="right" valign="top"><a id="a154e7e608dc04e2ad2d4cb46b4d5fc44" name="a154e7e608dc04e2ad2d4cb46b4d5fc44"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>maxFlow</b> ()</td></tr>
+<tr class="memdesc:a154e7e608dc04e2ad2d4cb46b4d5fc44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up and calls the maxflow function of <a class="el" href="class_max_flow.html" title="A custom class containing all maxFlow related algorithms.">MaxFlow</a>. <br /></td></tr>
 <tr class="separator:a154e7e608dc04e2ad2d4cb46b4d5fc44"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5dac87062c140e5bd103c6f4aa4d07a" id="r_ac5dac87062c140e5bd103c6f4aa4d07a"><td class="memItemLeft" align="right" valign="top"><a id="ac5dac87062c140e5bd103c6f4aa4d07a" name="ac5dac87062c140e5bd103c6f4aa4d07a"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>maxFlowWithExcess</b> ()</td></tr>
+<tr class="memdesc:ac5dac87062c140e5bd103c6f4aa4d07a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the sink and source <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a> and calls the maxflow function of <a class="el" href="class_max_flow.html" title="A custom class containing all maxFlow related algorithms.">MaxFlow</a> to perform a maxflow with excess. <br /></td></tr>
 <tr class="separator:ac5dac87062c140e5bd103c6f4aa4d07a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa030dacc340ddc93faf175351a6d7062" id="r_aa030dacc340ddc93faf175351a6d7062"><td class="memItemLeft" align="right" valign="top"><a id="aa030dacc340ddc93faf175351a6d7062" name="aa030dacc340ddc93faf175351a6d7062"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>maxFlowWithExcessToCities</b> (const std::vector&lt; std::string &gt; &amp;target)</td></tr>
+<tr class="memitem:aa030dacc340ddc93faf175351a6d7062" id="r_aa030dacc340ddc93faf175351a6d7062"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#aa030dacc340ddc93faf175351a6d7062">maxFlowWithExcessToCities</a> (const std::vector&lt; std::string &gt; &amp;target)</td></tr>
+<tr class="memdesc:aa030dacc340ddc93faf175351a6d7062"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the sink and source <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a> and calls the maxflow function of <a class="el" href="class_max_flow.html" title="A custom class containing all maxFlow related algorithms.">MaxFlow</a> to perform a maxflow with excess to all the given <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> only.  <br /></td></tr>
 <tr class="separator:aa030dacc340ddc93faf175351a6d7062"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acd0d8cb1edd1f51596aa37f4408a0a91" id="r_acd0d8cb1edd1f51596aa37f4408a0a91"><td class="memItemLeft" align="right" valign="top"><a id="acd0d8cb1edd1f51596aa37f4408a0a91" name="acd0d8cb1edd1f51596aa37f4408a0a91"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>maxFlowToCity</b> (const std::string &amp;target)</td></tr>
+<tr class="memitem:acd0d8cb1edd1f51596aa37f4408a0a91" id="r_acd0d8cb1edd1f51596aa37f4408a0a91"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#acd0d8cb1edd1f51596aa37f4408a0a91">maxFlowToCity</a> (const std::string &amp;target)</td></tr>
+<tr class="memdesc:acd0d8cb1edd1f51596aa37f4408a0a91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the maxflow function of <a class="el" href="class_max_flow.html" title="A custom class containing all maxFlow related algorithms.">MaxFlow</a> to perform a maxflow with sink of only the <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> with the given code.  <br /></td></tr>
 <tr class="separator:acd0d8cb1edd1f51596aa37f4408a0a91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af41a6beb0b015dd489028c9d650f7431" id="r_af41a6beb0b015dd489028c9d650f7431"><td class="memItemLeft" align="right" valign="top"><a id="af41a6beb0b015dd489028c9d650f7431" name="af41a6beb0b015dd489028c9d650f7431"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>deleteReservoirMaxReverse</b> (const std::string &amp;reservoir)</td></tr>
@@ -232,17 +239,17 @@ static bool&#160;</td><td class="memItemRight" valign="bottom"><b>PathHasFlow</b
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a93e142eb0ed46ec38b4c1473e45a03a6" id="r_a93e142eb0ed46ec38b4c1473e45a03a6"><td class="memItemLeft" align="right" valign="top"><a id="a93e142eb0ed46ec38b4c1473e45a03a6" name="a93e142eb0ed46ec38b4c1473e45a03a6"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>loadCities</b> (std::string path)</td></tr>
+<tr class="memitem:a93e142eb0ed46ec38b4c1473e45a03a6" id="r_a93e142eb0ed46ec38b4c1473e45a03a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a93e142eb0ed46ec38b4c1473e45a03a6">loadCities</a> (std::string path)</td></tr>
+<tr class="memdesc:a93e142eb0ed46ec38b4c1473e45a03a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads all the <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> data from the file in the given file path.  <br /></td></tr>
 <tr class="separator:a93e142eb0ed46ec38b4c1473e45a03a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a857e8b31424f910d5412d3936a0aef9c" id="r_a857e8b31424f910d5412d3936a0aef9c"><td class="memItemLeft" align="right" valign="top"><a id="a857e8b31424f910d5412d3936a0aef9c" name="a857e8b31424f910d5412d3936a0aef9c"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>loadReservoir</b> (std::string path)</td></tr>
+<tr class="memitem:a857e8b31424f910d5412d3936a0aef9c" id="r_a857e8b31424f910d5412d3936a0aef9c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a857e8b31424f910d5412d3936a0aef9c">loadReservoir</a> (std::string path)</td></tr>
+<tr class="memdesc:a857e8b31424f910d5412d3936a0aef9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads all the <a class="el" href="class_reservoir.html" title="A custom class to represent a Reservoir.">Reservoir</a> data from the file in the given file path.  <br /></td></tr>
 <tr class="separator:a857e8b31424f910d5412d3936a0aef9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a83abeb5f22dc3a4e2a4abfdce26231f7" id="r_a83abeb5f22dc3a4e2a4abfdce26231f7"><td class="memItemLeft" align="right" valign="top"><a id="a83abeb5f22dc3a4e2a4abfdce26231f7" name="a83abeb5f22dc3a4e2a4abfdce26231f7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>loadStations</b> (std::string path)</td></tr>
+<tr class="memitem:a83abeb5f22dc3a4e2a4abfdce26231f7" id="r_a83abeb5f22dc3a4e2a4abfdce26231f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a83abeb5f22dc3a4e2a4abfdce26231f7">loadStations</a> (std::string path)</td></tr>
+<tr class="memdesc:a83abeb5f22dc3a4e2a4abfdce26231f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads all the <a class="el" href="class_station.html" title="A custom class to represent a Station.">Station</a> data from the file in the given file path.  <br /></td></tr>
 <tr class="separator:a83abeb5f22dc3a4e2a4abfdce26231f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3492616dcee0744c9340b98c253cfdaa" id="r_a3492616dcee0744c9340b98c253cfdaa"><td class="memItemLeft" align="right" valign="top"><a id="a3492616dcee0744c9340b98c253cfdaa" name="a3492616dcee0744c9340b98c253cfdaa"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>loadPipes</b> (std::string path)</td></tr>
+<tr class="memitem:a3492616dcee0744c9340b98c253cfdaa" id="r_a3492616dcee0744c9340b98c253cfdaa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a3492616dcee0744c9340b98c253cfdaa">loadPipes</a> (std::string path)</td></tr>
+<tr class="memdesc:a3492616dcee0744c9340b98c253cfdaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads all the Pipe data from the file in the given file path.  <br /></td></tr>
 <tr class="separator:a3492616dcee0744c9340b98c253cfdaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
@@ -260,7 +267,10 @@ std::unordered_map&lt; std::string, <a class="el" href="class_reservoir.html">Re
 std::unordered_map&lt; std::string, <a class="el" href="class_station.html">Station</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>stations</b></td></tr>
 <tr class="separator:ad3d09bc25b69cc1ef4418d53514a596a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This class stores all the data and performs different functions on it. </p>
+<p>This class initializes, stores and modifies the <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>, all the <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> data, all the <a class="el" href="class_reservoir.html" title="A custom class to represent a Reservoir.">Reservoir</a> data and all the <a class="el" href="class_station.html" title="A custom class to represent a Station.">Station</a> data. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a0d9a0478af48bb3196d968b0d2fc62b1" name="a0d9a0478af48bb3196d968b0d2fc62b1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0d9a0478af48bb3196d968b0d2fc62b1">&#9670;&#160;</a></span>computeAverageDiffCapacityFlow()</h2>
 
@@ -297,14 +307,14 @@ std::unordered_map&lt; std::string, <a class="el" href="class_station.html">Stat
       </table>
 </div><div class="memdoc">
 
-<p>Computes a given city's incoming flow value. </p>
+<p>Computes a given <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a>'s incoming flow value. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">city</td><td>The city whose incoming flow will be computed. </td></tr>
+    <tr><td class="paramname">city</td><td>The <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> whose incoming flow will be computed. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>The city's incoming flow value. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a>'s incoming flow value. </dd></dl>
 
 </div>
 </div>
@@ -390,8 +400,8 @@ std::unordered_map&lt; std::string, <a class="el" href="class_station.html">Stat
       </table>
 </div><div class="memdoc">
 
-<p>Gets the cities of the network. </p>
-<dl class="section return"><dt>Returns</dt><dd>A mapping of codes to cities. </dd></dl>
+<p>Gets all the <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> of the network. </p>
+<dl class="section return"><dt>Returns</dt><dd>A mapping of code to <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> of all <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> in the network. </dd></dl>
 
 </div>
 </div>
@@ -412,6 +422,12 @@ std::unordered_map&lt; std::string, <a class="el" href="class_station.html">Stat
 </div><div class="memdoc">
 
 <p>Gets the <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> with the specified code. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">code</td><td>The code of the <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> to get. </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> with the specified code. </dd></dl>
 
 </div>
@@ -431,8 +447,8 @@ std::unordered_map&lt; std::string, <a class="el" href="class_station.html">Stat
       </table>
 </div><div class="memdoc">
 
-<p>Gets the cities with the highest demand. </p>
-<dl class="section return"><dt>Returns</dt><dd>A vector of cities with the highest demand. </dd></dl>
+<p>Gets all <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> with the highest demand. </p>
+<dl class="section return"><dt>Returns</dt><dd>A vector of all <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> with the highest demand. </dd></dl>
 
 </div>
 </div>
@@ -451,8 +467,8 @@ std::unordered_map&lt; std::string, <a class="el" href="class_station.html">Stat
       </table>
 </div><div class="memdoc">
 
-<p>Gets the cities with the highest population. </p>
-<dl class="section return"><dt>Returns</dt><dd>A vector of cities with the highest population. </dd></dl>
+<p>Gets all <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> with the highest population. </p>
+<dl class="section return"><dt>Returns</dt><dd>A vector of all <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> with the highest population. </dd></dl>
 
 </div>
 </div>
@@ -471,8 +487,8 @@ std::unordered_map&lt; std::string, <a class="el" href="class_station.html">Stat
       </table>
 </div><div class="memdoc">
 
-<p>Gets the cities with the lowest demand. </p>
-<dl class="section return"><dt>Returns</dt><dd>A vector of cities with the lowest demand. </dd></dl>
+<p>Gets all <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> with the lowest demand. </p>
+<dl class="section return"><dt>Returns</dt><dd>A vector of all <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> with the lowest demand. </dd></dl>
 
 </div>
 </div>
@@ -491,8 +507,8 @@ std::unordered_map&lt; std::string, <a class="el" href="class_station.html">Stat
       </table>
 </div><div class="memdoc">
 
-<p>Gets the cities with the lowest population. </p>
-<dl class="section return"><dt>Returns</dt><dd>A vector of cities with the lowest population. </dd></dl>
+<p>Gets all <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> with the lowest population. </p>
+<dl class="section return"><dt>Returns</dt><dd>A vector of all <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> with the lowest population. </dd></dl>
 
 </div>
 </div>
@@ -533,6 +549,12 @@ std::unordered_map&lt; std::string, <a class="el" href="class_station.html">Stat
 </div><div class="memdoc">
 
 <p>Gets the <a class="el" href="class_reservoir.html" title="A custom class to represent a Reservoir.">Reservoir</a> with the specified code. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">code</td><td>The code of the <a class="el" href="class_reservoir.html" title="A custom class to represent a Reservoir.">Reservoir</a> to get. </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="class_reservoir.html" title="A custom class to represent a Reservoir.">Reservoir</a> with the specified code. </dd></dl>
 
 </div>
@@ -552,8 +574,8 @@ std::unordered_map&lt; std::string, <a class="el" href="class_station.html">Stat
       </table>
 </div><div class="memdoc">
 
-<p>Gets the reservoirs with the highest max delivery. </p>
-<dl class="section return"><dt>Returns</dt><dd>A vector of reservoirs with the highest max delivery. </dd></dl>
+<p>Gets all <a class="el" href="class_reservoir.html" title="A custom class to represent a Reservoir.">Reservoir</a> with the highest max delivery. </p>
+<dl class="section return"><dt>Returns</dt><dd>A vector of all <a class="el" href="class_reservoir.html" title="A custom class to represent a Reservoir.">Reservoir</a> with the highest max delivery. </dd></dl>
 
 </div>
 </div>
@@ -572,8 +594,8 @@ std::unordered_map&lt; std::string, <a class="el" href="class_station.html">Stat
       </table>
 </div><div class="memdoc">
 
-<p>Gets the reservoirs with the lowest max demand. </p>
-<dl class="section return"><dt>Returns</dt><dd>A vector of reservoirs with the lowest max demand. </dd></dl>
+<p>Gets all <a class="el" href="class_reservoir.html" title="A custom class to represent a Reservoir.">Reservoir</a> with the lowest max demand. </p>
+<dl class="section return"><dt>Returns</dt><dd>A vector of all <a class="el" href="class_reservoir.html" title="A custom class to represent a Reservoir.">Reservoir</a> with the lowest max demand. </dd></dl>
 
 </div>
 </div>
@@ -592,8 +614,8 @@ std::unordered_map&lt; std::string, <a class="el" href="class_station.html">Stat
       </table>
 </div><div class="memdoc">
 
-<p>Gets the reservoirs of the network. </p>
-<dl class="section return"><dt>Returns</dt><dd>A mapping of codes to reservoirs. </dd></dl>
+<p>Gets all the <a class="el" href="class_reservoir.html" title="A custom class to represent a Reservoir.">Reservoir</a> of the network. </p>
+<dl class="section return"><dt>Returns</dt><dd>A mapping of code to <a class="el" href="class_reservoir.html" title="A custom class to represent a Reservoir.">Reservoir</a> of all <a class="el" href="class_reservoir.html" title="A custom class to represent a Reservoir.">Reservoir</a> in the network. </dd></dl>
 
 </div>
 </div>
@@ -612,8 +634,8 @@ std::unordered_map&lt; std::string, <a class="el" href="class_station.html">Stat
       </table>
 </div><div class="memdoc">
 
-<p>Gets the stations of the network. </p>
-<dl class="section return"><dt>Returns</dt><dd>A mapping of codes to stations. </dd></dl>
+<p>Gets all the <a class="el" href="class_station.html" title="A custom class to represent a Station.">Station</a> of the network. </p>
+<dl class="section return"><dt>Returns</dt><dd>A mapping of codes to <a class="el" href="class_station.html" title="A custom class to represent a Station.">Station</a> of all <a class="el" href="class_station.html" title="A custom class to represent a Station.">Station</a> in the network. </dd></dl>
 
 </div>
 </div>
@@ -662,6 +684,194 @@ std::unordered_map&lt; std::string, <a class="el" href="class_station.html">Stat
     <tr><td class="paramname">reservoirsPath</td><td>The path of the reservoirs information input file. </td></tr>
     <tr><td class="paramname">pipesPath</td><td>The path of the pipes information input file. </td></tr>
     <tr><td class="paramname">stationsPath</td><td>The path of the stations information input file. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a93e142eb0ed46ec38b4c1473e45a03a6" name="a93e142eb0ed46ec38b4c1473e45a03a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93e142eb0ed46ec38b4c1473e45a03a6">&#9670;&#160;</a></span>loadCities()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WaterSupply::loadCities </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Loads all the <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> data from the file in the given file path. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>The file path of the file to load the <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> data from. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3492616dcee0744c9340b98c253cfdaa" name="a3492616dcee0744c9340b98c253cfdaa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3492616dcee0744c9340b98c253cfdaa">&#9670;&#160;</a></span>loadPipes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WaterSupply::loadPipes </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Loads all the Pipe data from the file in the given file path. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>The file path of the file to load the Pipe data from. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a857e8b31424f910d5412d3936a0aef9c" name="a857e8b31424f910d5412d3936a0aef9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a857e8b31424f910d5412d3936a0aef9c">&#9670;&#160;</a></span>loadReservoir()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WaterSupply::loadReservoir </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Loads all the <a class="el" href="class_reservoir.html" title="A custom class to represent a Reservoir.">Reservoir</a> data from the file in the given file path. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>The file path of the file to load the <a class="el" href="class_reservoir.html" title="A custom class to represent a Reservoir.">Reservoir</a> data from. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a83abeb5f22dc3a4e2a4abfdce26231f7" name="a83abeb5f22dc3a4e2a4abfdce26231f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83abeb5f22dc3a4e2a4abfdce26231f7">&#9670;&#160;</a></span>loadStations()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WaterSupply::loadStations </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Loads all the <a class="el" href="class_station.html" title="A custom class to represent a Station.">Station</a> data from the file in the given file path. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>The file path of the file to load the <a class="el" href="class_station.html" title="A custom class to represent a Station.">Station</a> data from. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="acd0d8cb1edd1f51596aa37f4408a0a91" name="acd0d8cb1edd1f51596aa37f4408a0a91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd0d8cb1edd1f51596aa37f4408a0a91">&#9670;&#160;</a></span>maxFlowToCity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WaterSupply::maxFlowToCity </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>target</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calls the maxflow function of <a class="el" href="class_max_flow.html" title="A custom class containing all maxFlow related algorithms.">MaxFlow</a> to perform a maxflow with sink of only the <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> with the given code. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">target</td><td>The code of the <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> sink. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa030dacc340ddc93faf175351a6d7062" name="aa030dacc340ddc93faf175351a6d7062"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa030dacc340ddc93faf175351a6d7062">&#9670;&#160;</a></span>maxFlowWithExcessToCities()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WaterSupply::maxFlowWithExcessToCities </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>target</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets up the sink and source <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a> and calls the maxflow function of <a class="el" href="class_max_flow.html" title="A custom class containing all maxFlow related algorithms.">MaxFlow</a> to perform a maxflow with excess to all the given <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> only. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">target</td><td>Vector of the <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> to add excess flow. </td></tr>
   </table>
   </dd>
 </dl>
