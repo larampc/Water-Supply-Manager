@@ -168,7 +168,7 @@ public:
     /********************** MaxFlow  ****************************/
     void optimalResMaxFlow();
     void optimalExcessMaxFlow();
-    void optimalExcessCityMaxFlow(const std::string& target);
+    void optimalExcessCityMaxFlow(const std::vector<std::string>& target);
     void cityMaxFlow(const std::string& target);
     /********************** MaxFlow Reverse ****************************/
     void reliabilityPrep();
