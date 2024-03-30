@@ -630,10 +630,11 @@ void Menu::MaxFlowWithPrioritizedCities(){
                 waterSupply.optimalCityMaxFlow(cities);
                 printCitiesFlow();
                 pressEnterToContinue();
-            } else getMaxFlowOp();
+            } else MaxFlowWithPrioritizedCities();
         }
         break;
-        case '2': {
+        case '2':
+        {
             vector<string> citiesByPopulation;
             auto cities = waterSupply.getCities();
             citiesByPopulation.reserve(cities.size());
@@ -644,22 +645,28 @@ void Menu::MaxFlowWithPrioritizedCities(){
             ColorPrint("white", "Ascending order (Benefits those with lowest population)\n");
             ColorPrint("cyan", "2. ");
             ColorPrint("white", "Descending order\n");
-            {
-                bool ascending = readOption(2) == '1';
-                ascending ? std::sort(citiesByPopulation.begin(), citiesByPopulation.end(),[cities](const string &s1, const string &s2) {
-                              return cities.at(s1).getPopulation() < cities.at(s2).getPopulation();
-                          })
-                          : std::sort(citiesByPopulation.rbegin(), citiesByPopulation.rend(),[cities](const string &s1, const string &s2) {
-                              return cities.at(s1).getPopulation() < cities.at(s2).getPopulation();
-                          });
-            }
-            waterSupply.optimalCityMaxFlow(citiesByPopulation);
-            printCitiesFlow();
-            pressEnterToContinue();
+            ColorPrint("cyan", "3. ");
+            ColorPrint("red", "Cancel\n");
+            char option = readOption(3);
+            if (option != '3') {
+                bool ascending = option == '1';
+                ascending ? std::sort(citiesByPopulation.begin(), citiesByPopulation.end(),
+                                      [cities](const string &s1, const string &s2) {
+                                          return cities.at(s1).getPopulation() < cities.at(s2).getPopulation();
+                                      })
+                          : std::sort(citiesByPopulation.rbegin(), citiesByPopulation.rend(),
+                                      [cities](const string &s1, const string &s2) {
+                                          return cities.at(s1).getPopulation() < cities.at(s2).getPopulation();
+                                      });
+
+                waterSupply.optimalCityMaxFlow(citiesByPopulation);
+                printCitiesFlow();
+                pressEnterToContinue();
+            } else MaxFlowWithPrioritizedCities();
         }
             break;
         case '3':
-            getMaxFlowExcessOp();
+            getMaxFlowOp();
             break;
         case '4':
             changeDisplayMode();
@@ -704,6 +711,9 @@ void Menu::getMaxFlowExcessOp() {
             } else getMaxFlowExcessOp();
         }
             break;
+        case '5':
+            getMaxFlowOp();
+            break;
     }
 }
 
@@ -740,7 +750,9 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
     ColorPrint("red", "Cancel \n");
     cin.sync();
     string res;
+    pair<string, string> pipe;
     bool end = true;
+    bool cancel = false;
     switch(readOption(4)) {
         case '1':
             res = readReservoirCode();
@@ -759,26 +771,30 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
             else end = false;
             break;
         case '3':
-            pair<string, string> pipe =  readPipeCodes();
+            pipe =  readPipeCodes();
             if (!pipe.first.empty() && !pipe.second.empty()) {
                 pipes.push_back(pipe);
                 waterSupply.deletePipe(pipe.first, pipe.second);
             }
             else end = false;
             break;
+        case '4':
+            cancel = true;
+            break;
     }
-    if (end) {
-        printCitiesFlow();
-        pressEnterToContinue();
-        ColorPrint("blue", "Do you want to perform another action?\n");
-        ColorPrint("cyan", "1. ");
-        ColorPrint("white", "Yes\n");
-        ColorPrint("cyan", "2. ");
-        ColorPrint("white", "No\n");
-        cin.sync();
-        if (readOption(2) == '1') reliabilityTesting(resStat, pipes);
+    if (!cancel) {
+        if (end) {
+            printCitiesFlow();
+            pressEnterToContinue();
+            ColorPrint("blue", "Do you want to perform another action?\n");
+            ColorPrint("cyan", "1. ");
+            ColorPrint("white", "Yes\n");
+            ColorPrint("cyan", "2. ");
+            ColorPrint("white", "No\n");
+            cin.sync();
+            if (readOption(2) == '1') reliabilityTesting(resStat, pipes);
+        } else reliabilityTesting(resStat, pipes);
     }
-    else reliabilityTesting(resStat, pipes);
 }
 
 void Menu::printCitiesFlow() {
