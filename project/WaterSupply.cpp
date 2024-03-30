@@ -297,15 +297,12 @@ vector<City> WaterSupply::getCityMinDemand() {
 }
 
 vector<City> WaterSupply::getCityMaxPop() {
-    unsigned maxPop = 0;
+    unsigned maxPop = max_element(cities.begin(), cities.end(),
+                                  [](const pair<std::string, City>& p1, const pair<std::string, City>& p2)
+                                  {return p1.second.getPopulation() < p2.second.getPopulation();})->second.getPopulation();
     vector<City> max;
     for (const auto& c: cities) {
-        if (c.second.getPopulation() > maxPop) {
-            max.clear();
-            max.push_back(c.second);
-            maxPop = c.second.getPopulation();
-        }
-        else if (c.second.getPopulation() == maxPop) {
+        if (c.second.getPopulation() == maxPop) {
             max.push_back(c.second);
         }
     }
@@ -313,31 +310,25 @@ vector<City> WaterSupply::getCityMaxPop() {
 }
 
 vector<City> WaterSupply::getCityMinPop() {
-    unsigned minPop = std::numeric_limits<unsigned>::max();
-    vector<City> max;
+    unsigned minPop = min_element(cities.begin(), cities.end(),
+                                   [](const pair<std::string, City>& p1, const pair<std::string, City>& p2)
+                                   {return p1.second.getPopulation() < p2.second.getPopulation();})->second.getPopulation();
+    vector<City> min;
     for (const auto& c: cities) {
-        if (c.second.getPopulation() < minPop) {
-            max.clear();
-            max.push_back(c.second);
-            minPop = c.second.getPopulation();
-        }
-        else if (c.second.getPopulation() == minPop) {
-            max.push_back(c.second);
+        if (c.second.getPopulation() == minPop) {
+            min.push_back(c.second);
         }
     }
-    return max;
+    return min;
 }
 
 std::vector<Reservoir> WaterSupply::getReservoirMaxDel() {
-    int maxDel = 0;
+    int maxDel = max_element(reservoirs.begin(), reservoirs.end(),
+                                  [](const pair<std::string, Reservoir>& p1, const pair<std::string, Reservoir>& p2)
+                                  {return p1.second.getDelivery() < p2.second.getDelivery();})->second.getDelivery();
     vector<Reservoir> max;
     for (const auto& c: reservoirs) {
-        if (c.second.getDelivery() > maxDel) {
-            max.clear();
-            max.push_back(c.second);
-            maxDel = c.second.getDelivery();
-        }
-        else if (c.second.getDelivery() == maxDel) {
+        if (c.second.getDelivery() == maxDel) {
             max.push_back(c.second);
         }
     }
@@ -345,19 +336,16 @@ std::vector<Reservoir> WaterSupply::getReservoirMaxDel() {
 }
 
 std::vector<Reservoir> WaterSupply::getReservoirMinDel() {
-    int maxDel = UINT_MAX;
-    vector<Reservoir> max;
+    int minDel = min_element(reservoirs.begin(), reservoirs.end(),
+                             [](const pair<std::string, Reservoir>& p1, const pair<std::string, Reservoir>& p2)
+                             {return p1.second.getDelivery() < p2.second.getDelivery();})->second.getDelivery();
+    vector<Reservoir> min;
     for (const auto& c: reservoirs) {
-        if (c.second.getDelivery() < maxDel) {
-            max.clear();
-            max.push_back(c.second);
-            maxDel = c.second.getDelivery();
-        }
-        else if (c.second.getDelivery() == maxDel) {
-            max.push_back(c.second);
+        if (c.second.getDelivery() == minDel) {
+            min.push_back(c.second);
         }
     }
-    return max;
+    return min;
 }
 
 double WaterSupply::computeMaxDiffCapacityFlow() {
