@@ -713,8 +713,6 @@ void Menu::getMaxFlowExcessOp() {
             if (!code.empty()) {
                 waterSupply.optimalExcessCityMaxFlow(code);
                 printCitiesFlow();
-                ColorPrint("cyan", "Total to " + waterSupply.getCity(code).getName() + ": ");
-                ColorPrint("white", to_string(waterSupply.computeCityFlow(code)) + "\n");
                 pressEnterToContinue();
             } else getMaxFlowExcessOp();
             break;
@@ -822,8 +820,11 @@ void Menu::printCitiesFlow() {
             ColorPrint("white", "\n");
             file << "\n";
         }
-
     }
+    ColorPrint("cyan", "Total: " );
+    int flow = waterSupply.computeFlow();
+    ColorPrint("white", to_string(flow) + "\n");
+    file << "Total: " << flow;
     WaterSupply::OutputToFile("../output/MaxFlow", file.str());
 }
 
