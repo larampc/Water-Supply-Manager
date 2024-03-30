@@ -183,12 +183,11 @@ string Menu::readCityId(){
     ColorPrint("cyan", "): \n");
     getline(cin, id);
     if (id.empty()) return id;
-    string code = waterSupply.existsCityByID(stoi(id));
-    while(code.empty()) {
+    string code;
+    while( (std::any_of(id.begin(), id.end(), [](char c) {return !isdigit(c);})) || id.empty() || (code = waterSupply.existsCityByID(stoi(id))).empty()) {
         ColorPrint("red","Invalid city ID, please try again\n");
         getline(cin, id);
         if (id.empty()) return id;
-        code = waterSupply.existsCityByID(stoi(id));
     }
     return code;
 }
@@ -200,12 +199,11 @@ string Menu::readReservoirID(){
     ColorPrint("cyan", "): \n");
     getline(cin, id);
     if (id.empty()) return id;
-    string code = waterSupply.existsReservoirByID(stoi(id));
-    while(code.empty()) {
+    string code;
+    while( (std::any_of(id.begin(), id.end(), [](char c) {return !isdigit(c);})) || id.empty() || (code = waterSupply.existsReservoirByID(stoi(id))).empty()) {
         ColorPrint("red","Invalid reservoir ID, please try again\n");
         getline(cin, id);
         if (id.empty()) return id;
-        code = waterSupply.existsReservoirByID(stoi(id));
     }
     return code;
 }
