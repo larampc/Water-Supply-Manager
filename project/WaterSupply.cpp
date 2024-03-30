@@ -526,7 +526,6 @@ void dfsVisit(Vertex* v, stack<string>& aux){
     v->setProcessing(true);
     for(Edge* adj : v->getAdj()){
         if (adj->checkActive()) {
-            if(adj->getReverse() && adj->getDest()->isProcessing()) adj->desactivate();
             if(!adj->getDest()->isVisited()) dfsVisit(adj->getDest(), aux);
         }
     }
@@ -561,19 +560,29 @@ void WaterSupply::activateAll() {
     }
 }
 
-void WaterSupply::transformBidirectionalEdges(){
+vector<Edge*> WaterSupply::transformBidirectionalEdges(){
+    vector<Edge*> deactivated;
     for(const auto& v: network.getVertexSet()){
         for(auto e : v.second->getAdj()){
-            auto reverse = e->getReverse();
-            if(reverse){
-                auto resultingFlow = abs(reverse->getFlow() - e->getFlow());
-                reverse->setFlow(reverse->getFlow() > e->getFlow() ? resultingFlow : 0);
-                e->setFlow(reverse->getFlow() == 0 ? resultingFlow : 0);
-                e->getFlow() == 0 ? e->desactivate() : reverse->desactivate();
+            if (e->checkActive()) {
+                auto reverse = e->getReverse();
+                if(reverse && reverse->checkActive()){
+                    auto resultingFlow = abs(reverse->getFlow() - e->getFlow());
+                    reverse->setFlow(reverse->getFlow() > e->getFlow() ? resultingFlow : 0);
+                    e->setFlow(reverse->getFlow() == 0 ? resultingFlow : 0);
+                    if (e->getFlow() == 0) {
+                        e->desactivate();
+                        deactivated.push_back(e);
+                    }
+                    else {
+                        reverse->desactivate();
+                        deactivated.push_back(reverse);
+                    }
+                }
             }
         }
     }
-
+    return deactivated;
 }
 
 vector<Edge*> WaterSupply::getMaxPathTo(Vertex* city){
@@ -640,42 +649,50 @@ void WaterSupply::balancingViaMinCost(){
         v.second->setPath(nullptr);
     }
 
-    transformBidirectionalEdges();
+    vector<Edge*> deactivated = transformBidirectionalEdges();
     if(!network.isDAG()) {
         cout << "NETWORK IS NOT DAG\n";
     }
-    for(int i = 1; i <= cities.size(); i++){
-        auto city = network.findVertex("C_"+ to_string(i));
+    bool diff = true;
+    while (diff) {
+        diff = false;
+        for(int i = 1; i <= cities.size(); i++){
+            auto city = network.findVertex("C_"+ to_string(i));
 
-        auto path = getMaxPathTo(city);
+            auto path = getMaxPathTo(city);
 
-        if(!path.empty() && PathHasFlow(path)){
-            for(auto e : path){
-                e->setFlow(e->getFlow()-1);
+            if(!path.empty() && PathHasFlow(path)){
+                for(auto e : path){
+                    e->setFlow(e->getFlow()-1);
+                }
             }
-        }
-        else continue;
-        auto minPath = findMinAugPath(city);
+            else continue;
+            auto minPath = findMinAugPath(city);
 
-        bool equals = true;
-        for(int j = 0; j < minPath.size(); j++){
-            if(minPath[j] != path[j]) {
-                equals = false;
-                break;
+            bool equals = true;
+            for(int j = 0; j < minPath.size(); j++){
+                if(minPath[j] != path[j]) {
+                    equals = false;
+                    break;
+                }
+            }
+            if(equals) {
+                for(auto e : path){
+                    e->setFlow(e->getFlow()+1);
+                }
+                continue;
+            }
+            else {
+                for(auto e : minPath){
+                    e->setFlow(e->getFlow()+1);
+                }
+                i--;
+                diff = true;
             }
         }
-        if(equals) {
-            for(auto e : path){
-                e->setFlow(e->getFlow()+1);
-            }
-            continue;
-        }
-        else {
-            for(auto e : minPath){
-                e->setFlow(e->getFlow()+1);
-            }
-            i--;
-        }
+    }
+    for (auto e: deactivated) {
+        e->activate();
     }
 }
 

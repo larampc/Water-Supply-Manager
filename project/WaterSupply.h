@@ -197,7 +197,7 @@ public:
 
     void exportToFile(bool flow);
 
-    void transformBidirectionalEdges();
+    std::vector<Edge*> transformBidirectionalEdges();
 
     void balancingViaMinCost();
 
