@@ -40,6 +40,7 @@ void WaterSupply::load(std::string citiesPath, std::string reservoirsPath, std::
     loadPipes(std::move(pipesPath));
     addSuperSource();
     addSuperSink();
+    network.resetFlow();
 }
 
 void WaterSupply::loadCities(std::string path) {
@@ -364,10 +365,12 @@ std::vector<Reservoir> WaterSupply::getReservoirMinDel() {
 double WaterSupply::computeMaxDiffCapacityFlow() {
     double maxDiff = 0;
     for(const auto& v: network.getVertexSet()){
-        for(Edge* e: v.second->getAdj()){
-            if (e->checkActive()) {
-                double flow = e->getFlow();
-                if (maxDiff < (e->getWeight() - flow)) maxDiff = (e->getWeight() - flow);
+        if (v.second->getInfo() != "src" && v.second->getInfo().substr(0, 1) != "C") {
+            for (Edge *e: v.second->getAdj()) {
+                if (e->checkActive()) {
+                    double flow = e->getFlow();
+                    if (maxDiff < (e->getWeight() - flow)) maxDiff = (e->getWeight() - flow);
+                }
             }
         }
     }
@@ -378,14 +381,16 @@ double WaterSupply::computeAverageDiffCapacityFlow() {
     int n_edges = 0;
     double sum = 0;
     for(const auto& v: network.getVertexSet()){
-        for(Edge* e: v.second->getAdj()){
-            if (e->checkActive()) {
-                double flow = e->getFlow();
-                if (e->getReverse() && e->getFlow() > e->getReverse()->getFlow()) {
-                    flow = abs(e->getFlow()-e->getReverse()->getFlow());
+        if (v.second->getInfo() != "src" && v.second->getInfo().substr(0, 1) != "C") {
+            for(Edge* e: v.second->getAdj()){
+                if (e->checkActive()) {
+                    double flow = e->getFlow();
+                    if (e->getReverse() && e->getFlow() > e->getReverse()->getFlow()) {
+                        flow = abs(e->getFlow()-e->getReverse()->getFlow());
+                    }
+                    sum += (e->getWeight() - flow);
+                    n_edges++;
                 }
-                sum += (e->getWeight() - flow);
-                n_edges++;
             }
         }
     }
@@ -396,14 +401,16 @@ double WaterSupply::computeVarianceDiffCapacityFlow(double average) {
     int n_edges = 0;
     double square_diff = 0;
     for(const auto& v: network.getVertexSet()){
-        for(Edge* e: v.second->getAdj()){
-            if (e->checkActive()) {
-                double flow = e->getFlow();
-                if (e->getReverse() && e->getFlow() > e->getReverse()->getFlow()) {
-                    flow = abs(e->getFlow()-e->getReverse()->getFlow());
+        if (v.second->getInfo() != "src" && v.second->getInfo().substr(0, 1) != "C") {
+            for (Edge *e: v.second->getAdj()) {
+                if (e->checkActive()) {
+                    double flow = e->getFlow();
+                    if (e->getReverse() && e->getFlow() > e->getReverse()->getFlow()) {
+                        flow = abs(e->getFlow() - e->getReverse()->getFlow());
+                    }
+                    square_diff += ((e->getWeight() - flow) - average) * ((e->getWeight() - flow) - average);
+                    n_edges++;
                 }
-                square_diff += ((e->getWeight() - flow) - average) * ((e->getWeight() - flow) - average);
-                n_edges++;
             }
         }
     }
@@ -683,7 +690,6 @@ void WaterSupply::exportToFile(bool flow) {
     }
     ids.emplace("src", 0);
     ids.emplace("sink", id);
-    tester.maxFlow("src", "sink", network);
     for (const auto& v: network.getVertexSet()) {
         for (auto w: v.second->getAdj()) {
             file << w->getOrig()->getInfo() << ' ' << w->getDest()->getInfo() << ' ' << w->getWeight() ;

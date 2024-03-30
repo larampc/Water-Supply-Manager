@@ -300,6 +300,7 @@ void Menu::run() {
             case '4':
                 waterSupply.balancingViaMinCost();
                 printNetworkStatistics();
+                pressEnterToContinue();
                 break;
             case '5':
                 settings();
