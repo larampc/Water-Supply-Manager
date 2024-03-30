@@ -100,8 +100,10 @@ vector<string> Menu::readCityCodes(){
 void Menu::printPipeDestinations(const string& code){
     auto pipe = waterSupply.getNetwork()->findVertex(code);
     for(auto dest : pipe->getAdj()){
-        ColorPrint("yellow", " " + dest->getDest()->getInfo());
-        if(dest != *(pipe->getAdj().end()-1)) ColorPrint("blue",",");
+        if (dest->getDest()->getInfo() != "sink") {
+            ColorPrint("yellow", " " + dest->getDest()->getInfo());
+            if(dest != *(pipe->getAdj().end()-1)) ColorPrint("blue",",");
+        }
     }
 }
 
@@ -675,20 +677,19 @@ void Menu::MaxFlowWithPrioritizedCities(){
 }
 
 void Menu::getMaxFlowExcessOp() {
+    ColorPrint("blue", "Select option:\n");
     ColorPrint("cyan", "1. ");
-    ColorPrint("white", "Get optimal max flow with excess\n");
+    ColorPrint("white", "Get max flow\n");
     ColorPrint("cyan", "2. ");
-    ColorPrint("white", "Get max flow to specific city\n");
+    ColorPrint("white", "Get max possible flow to specific city\n");
     ColorPrint("cyan", "3. ");
-    ColorPrint("white", "Get max flow to each city\n");
+    ColorPrint("white", "Get max flow with possible overflowing to specific cities\n");
     ColorPrint("cyan", "4. ");
-    ColorPrint("white", "Get optimal max flow with excess to a specific city\n");
-    ColorPrint("cyan", "5. ");
     ColorPrint("red", "Cancel \n");
     cin.sync();
     string code;
     ostringstream oss;
-    switch (readOption(5)) {
+    switch (readOption(4)) {
         case '1':
             waterSupply.optimalExcessMaxFlow();
             printCitiesFlow();
@@ -703,24 +704,14 @@ void Menu::getMaxFlowExcessOp() {
                 pressEnterToContinue();
             } else getMaxFlowExcessOp();
             break;
-        case '3':
-            oss << "City - Flow\n";
-            for(int i = 1; i <= waterSupply.getCities().size(); i++) {
-                code = "C_" + to_string(i);
-                waterSupply.cityMaxFlow(code);
-                oss << left << setw(4) << code << " - " + to_string(waterSupply.computeCityFlow(code)) + "\n";
-            }
-            WaterSupply::OutputToFile("../output/CitiesMaxFlow", oss.str());
-            cout << oss.str();
-            pressEnterToContinue();
-            break;
-        case '4':
-            code = readCityCode();
-            if (!code.empty()) {
-                waterSupply.optimalExcessCityMaxFlow(code);
+        case '3': {
+            vector<string> codes = readCityCodes();
+            if (!codes.empty()) {
+                waterSupply.optimalExcessCityMaxFlow(codes);
                 printCitiesFlow();
                 pressEnterToContinue();
             } else getMaxFlowExcessOp();
+        }
             break;
         case '5':
             getMaxFlowOp();
@@ -812,7 +803,7 @@ void Menu::printCitiesFlow() {
     ostringstream file;
     ColorPrint("cyan", "\nCity - Flow\n");
     file << "City - Flow\n\n";
-    for(int i = 1; i < waterSupply.getCities().size(); i++) {
+    for(int i = 1; i <= waterSupply.getCities().size(); i++) {
         auto city = waterSupply.getCity("C_" + to_string(i));
         double flow = waterSupply.computeCityFlow(city.getCode());
         ostringstream line;
