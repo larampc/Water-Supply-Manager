@@ -3,7 +3,6 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include <climits>
 #include <iostream>
 #include <iomanip>
 #include <stack>
@@ -14,10 +13,6 @@
 #endif
 
 using namespace std;
-
-bool floatEquality(double a, double b){
-    return fabs(a-b) < 1e-9;
-}
 
 unsigned readPopulation(string pop){
     if(pop[0] != '"') {
@@ -438,25 +433,25 @@ int WaterSupply::computeFlow() {
 void WaterSupply::optimalResMaxFlow() {
     setSuperSinkWithDemand();
     network.resetFlow();
-    tester.maxFlow("src", "sink", network);
+    MaxFlow::maxFlow("src", "sink", network);
 }
 
 void WaterSupply::optimalExcessMaxFlow() {
     setSuperSinkWithDemand();
     network.resetFlow();
-    tester.maxFlow("src", "sink", network);
+    MaxFlow::maxFlow("src", "sink", network);
     setInfSuperSink();
-    tester.maxFlow("src", "sink", network);
+    MaxFlow::maxFlow("src", "sink", network);
 }
 
 void WaterSupply::optimalExcessCityMaxFlow(const vector<string>& target) {
     setSuperSinkWithDemand();
     network.resetFlow();
-    tester.maxFlow("src", "sink", network);
+    MaxFlow::maxFlow("src", "sink", network);
     for (const auto& e: target) {
         network.findEdge(e, "sink")->setWeight(INF);
     }
-    tester.maxFlow("src", "sink", network);
+    MaxFlow::maxFlow("src", "sink", network);
 }
 
 void WaterSupply::optimalCityMaxFlow(const vector<std::string>& cityList) {
@@ -464,15 +459,15 @@ void WaterSupply::optimalCityMaxFlow(const vector<std::string>& cityList) {
     network.resetFlow();
     for(const auto& city : cityList){
         network.findEdge(city, "sink")->setWeight(cities.find(city)->second.getDemand());
-        tester.maxFlow("src", "sink", network);
+        MaxFlow::maxFlow("src", "sink", network);
     }
     setSuperSinkWithDemand();
-    tester.maxFlow("src", "sink", network);
+    MaxFlow::maxFlow("src", "sink", network);
 }
 
 void WaterSupply::cityMaxFlow(const std::string& target) {
     network.resetFlow();
-    tester.maxFlow("src", target, network);
+    MaxFlow::maxFlow("src", target, network);
 }
 
 void WaterSupply::OutputToFile(const string& fileName, const string& text){
@@ -483,9 +478,9 @@ void WaterSupply::OutputToFile(const string& fileName, const string& text){
 
 void WaterSupply::deleteReservoirMaxReverse(const std::string& reservoir) {
     optimalResMaxFlow();
-    tester.reverseMaxFlow(reservoir, "sink", network);
+    MaxFlow::reverseMaxFlow(reservoir, "sink", network);
     network.findVertex(reservoir)->desactivate();
-    tester.maxFlow("src", "sink", network);
+    MaxFlow::maxFlow("src", "sink", network);
 }
 
 void WaterSupply::reliabilityPrep() {

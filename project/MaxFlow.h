@@ -24,7 +24,7 @@ public:
      *\par Complexity
      * O(VE^2) in which V is the number of vertex and E the number of edges of the Graph.
      */
-    void maxFlow(const std::string& source, const std::string& sink, Graph& network);
+    static void maxFlow(const std::string& source, const std::string& sink, Graph& network);
     /**
      * \brief Iteratively finds augment paths from the given source and subtracts their bottleneck flow until the source's outgoing flow is zero.
      *
@@ -35,7 +35,7 @@ public:
      *\par Complexity
      * O(VE^2) in which V is the number of vertex and E the number of edges of the Graph.
      */
-    void reverseMaxFlow(std::string source, std::string sink, Graph& network);
+    static void reverseMaxFlow(const std::string& source, const std::string& sink, Graph& network);
     /********************** MaxFlow List ****************************/
     /**
      * \brief Performs the maxFlow algorithm on the provided network Graph using the edmondsKarp algorithm and saves the augmentation paths that were used.
@@ -103,12 +103,6 @@ public:
      * O(VE^2) The complexity of maxFlowWithLists.
      */
     void reliabilityPrep(Graph& network);
-
-    void transformBidirectionalEdges(Graph &network);
-
-    void balance(Graph &network);
-
-    void balanceAdj(Vertex *v, Graph &network);
 };
 
 
