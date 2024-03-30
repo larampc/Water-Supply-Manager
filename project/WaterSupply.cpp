@@ -222,6 +222,7 @@ bool WaterSupply::existsStationByCode(const std::string& code) {
 
 bool compareString(string s1, string s2) {
     int count = 0;
+    if (s1.size()!=s2.size()) return false;
     for (int i = 0; i < s1.size(); i++) {
         if (s1[i] != s2[i]) count++;
     }
