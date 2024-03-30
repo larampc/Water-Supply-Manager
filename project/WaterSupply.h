@@ -46,11 +46,6 @@ public:
      *
      */
     void setInfSuperSink();
-    /**
-     * \brief Creates a superSource vertex connected to all reservoirs but the one provided, by an Edge with capacity equal to their max Delivery.
-     *
-     */
-    void setSuperWithout(const std::string& reservoir);
     /********************** Getters  ****************************/
     /**
      * \brief Gets the Graph of the network.
@@ -172,9 +167,7 @@ public:
     void cityMaxFlow(const std::string& target);
     /********************** MaxFlow Reverse ****************************/
     void reliabilityPrep();
-    void reliabilityTearDown();
     void activate(const std::string& p);
-    void optimalDelete(std::string reservoir);
     void deleteReservoir(const std::string& reservoir);
     void deleteStation(const std::string& station);
     void deletePipe(const std::string& source, const std::string& dest);
@@ -193,7 +186,6 @@ public:
     std::vector<std::string> topsort();
 
     void activateAll();
-    void prepBalance();
 
     void exportToFile(bool flow);
 
@@ -202,8 +194,6 @@ public:
     void balancingViaMinCost();
 
     std::vector<Edge *> getMaxPathTo(Vertex* city);
-
-    std::vector<Edge*> findMinAugPath(Vertex* source, Vertex* target);
 
     std::vector<Edge *> findMinAugPath(Vertex* city);
 
