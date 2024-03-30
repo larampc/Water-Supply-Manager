@@ -659,7 +659,7 @@ void Menu::MaxFlowWithPrioritizedCities(){
         }
             break;
         case '3':
-            getMaxFlowExcessOp();
+            getMaxFlowOp();
             break;
         case '4':
             changeDisplayMode();
