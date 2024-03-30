@@ -633,7 +633,8 @@ void Menu::MaxFlowWithPrioritizedCities(){
             } else MaxFlowWithPrioritizedCities();
         }
         break;
-        case '2': {
+        case '2':
+        {
             vector<string> citiesByPopulation;
             auto cities = waterSupply.getCities();
             citiesByPopulation.reserve(cities.size());
@@ -644,18 +645,24 @@ void Menu::MaxFlowWithPrioritizedCities(){
             ColorPrint("white", "Ascending order (Benefits those with lowest population)\n");
             ColorPrint("cyan", "2. ");
             ColorPrint("white", "Descending order\n");
-            {
-                bool ascending = readOption(2) == '1';
-                ascending ? std::sort(citiesByPopulation.begin(), citiesByPopulation.end(),[cities](const string &s1, const string &s2) {
-                              return cities.at(s1).getPopulation() < cities.at(s2).getPopulation();
-                          })
-                          : std::sort(citiesByPopulation.rbegin(), citiesByPopulation.rend(),[cities](const string &s1, const string &s2) {
-                              return cities.at(s1).getPopulation() < cities.at(s2).getPopulation();
-                          });
-            }
-            waterSupply.optimalCityMaxFlow(citiesByPopulation);
-            printCitiesFlow();
-            pressEnterToContinue();
+            ColorPrint("cyan", "3. ");
+            ColorPrint("red", "Cancel\n");
+            char option = readOption(3);
+            if (option != '3') {
+                bool ascending = option == '1';
+                ascending ? std::sort(citiesByPopulation.begin(), citiesByPopulation.end(),
+                                      [cities](const string &s1, const string &s2) {
+                                          return cities.at(s1).getPopulation() < cities.at(s2).getPopulation();
+                                      })
+                          : std::sort(citiesByPopulation.rbegin(), citiesByPopulation.rend(),
+                                      [cities](const string &s1, const string &s2) {
+                                          return cities.at(s1).getPopulation() < cities.at(s2).getPopulation();
+                                      });
+
+                waterSupply.optimalCityMaxFlow(citiesByPopulation);
+                printCitiesFlow();
+                pressEnterToContinue();
+            } else MaxFlowWithPrioritizedCities();
         }
             break;
         case '3':
