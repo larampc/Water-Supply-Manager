@@ -444,6 +444,7 @@ void Menu::getReservoirInfo() {
         {
             vector<Reservoir> mun;
             mun = readReservoirMunicipality();
+            std::sort(mun.begin(), mun.end());
             if (!mun.empty()) {
                 ColorPrint("blue", "Code | Reservoir | Municipality | Max Delivery \n");
                 for (const auto &r: mun) {
@@ -455,8 +456,8 @@ void Menu::getReservoirInfo() {
             return;
         case '5':
             ColorPrint("blue", "Code | Reservoir | Municipality | Max Delivery \n");
-            for (const auto& r: waterSupply.getReservoirs()) {
-                printReservoir(r.second);
+            for (int i = 1; i <= waterSupply.getReservoirs().size(); i++) {
+                printReservoir(waterSupply.getReservoir("R_" + to_string(i)));
             }
             pressEnterToContinue();
             return;
