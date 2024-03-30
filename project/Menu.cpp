@@ -13,6 +13,41 @@ std::string convertDouble(double d) {
     return os.str();
 }
 
+void Menu::changeDisplayMode() {
+    string option;
+    ColorPrint("blue", "Select option:\n");
+    ColorPrint("cyan", "1. ");
+    ColorPrint("yellow", displayOnDemand ? "Hide" : "Show");
+    ColorPrint("white", " on demand\n");
+    ColorPrint("cyan", "2. ");
+    ColorPrint("yellow", displayOverflow ? "Hide" : "Show");
+    ColorPrint("white", " overflow\n");
+    ColorPrint("cyan", "3. ");
+    ColorPrint("yellow", displayUnderflow ? "Hide" : "Show");
+    ColorPrint("white", " underflow\n");
+    ColorPrint("cyan", "4. ");
+    ColorPrint("red", "Cancel\n");
+    cin.sync();
+    switch (readOption(4)) {
+        case '1':
+            swapDisplayOnDemand();
+            ColorPrint("cyan", displayOnDemand ? "Displaying on demand\n" : "Hiding on demand\n");
+            break;
+        case '2':
+            swapDisplayOverflow();
+            ColorPrint("cyan", displayOverflow ? "Displaying overflow\n" : "Hiding overflow\n");
+            break;
+        case '3':
+            swapDisplayUnderflow();
+            ColorPrint("cyan", displayUnderflow ? "Displaying underflow\n" : "Hiding underflow\n");
+            break;
+        case '4':
+            getMaxFlowOp();
+            return;
+    }
+    changeDisplayMode();
+}
+
 char Menu::readOption(int n){
     string option;
     getline(cin, option);
@@ -585,6 +620,9 @@ void Menu::getMaxFlowOp() {
         case '3':
             getMaxFlowExcessOp();
             break;
+        case '4':
+            changeDisplayMode();
+            break;
     }
 }
 
@@ -729,24 +767,25 @@ void Menu::printCitiesStatistics() {
         auto city = waterSupply.getCity("C_" + to_string(i));
         double flow = waterSupply.computeCityFlow(city.getCode());
         ostringstream line;
-        line << left << setw(4) << city.getCode() << " - " << setw(6) << flow;
-        ColorPrint("white", line.str());
-        file << line.str();
-        line.str("");
-        line.clear();
-        if ((city.getDemand()) < flow) {
-            line << " (Overflow by " << flow - (city.getDemand()) << ")";
-            ColorPrint("green", line.str());
+        if (city.getDemand() < flow && displayOverflow || city.getDemand() > flow && displayOverflow || city.getDemand() == flow && displayOnDemand) {
+            line << left << setw(4) << city.getCode() << " - " << setw(6) << flow;
+            ColorPrint("white", line.str());
             file << line.str();
+            line.str("");
+            line.clear();
+            if ((city.getDemand()) < flow) {
+                line << " (Overflow by " << flow - (city.getDemand()) << ")";
+                ColorPrint("green", line.str());
+                file << line.str();
+            }
+            else if ((city.getDemand()) > flow) {
+                line << " (Underflow by " << (city.getDemand()) - flow << ")";
+                ColorPrint("yellow", line.str());
+                file << line.str();
+            }
+            ColorPrint("white", "\n");
+            file << "\n";
         }
-        else if ((city.getDemand()) > flow) {
-            line << " (Underflow by " << (city.getDemand()) - flow << ")";
-            ColorPrint("yellow", line.str());
-            file << line.str();
-        }
-        ColorPrint("white", "\n");
-        file << "\n";
-
     }
     WaterSupply::OutputToFile("../output/MaxFlow", file.str());
 }
@@ -770,6 +809,18 @@ void Menu::printNetworkStatistics() {
     ColorPrint("white", convertDouble(maxDiff) + "\n");
     ColorPrint("cyan","Variance (Capacity - Flow): ");
     ColorPrint("white", convertDouble(variance) + "\n");
+}
+
+void Menu::swapDisplayOnDemand() {
+    displayOnDemand? displayOnDemand = false : displayOnDemand = true;
+}
+
+void Menu::swapDisplayUnderflow() {
+    displayUnderflow? displayUnderflow = false : displayUnderflow = true;
+}
+
+void Menu::swapDisplayOverflow() {
+    displayOverflow? displayOverflow = false : displayOverflow = true;
 }
 
 

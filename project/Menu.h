@@ -27,7 +27,11 @@
 class Menu {
 private:
     WaterSupply waterSupply;
+    bool displayOnDemand = true, displayUnderflow = true, displayOverflow = true;
 public:
+    void swapDisplayOnDemand();
+    void swapDisplayUnderflow();
+    void swapDisplayOverflow();
     /**
      * \brief Outputs the dataset menu and handles the respective inputs.
      */
@@ -162,6 +166,8 @@ public:
     void printNetworkStatistics();
 
     std::vector<std::string> readCityCodes();
+
+    void changeDisplayMode();
 };
 
 
