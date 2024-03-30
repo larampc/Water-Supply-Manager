@@ -612,6 +612,9 @@ void Menu::getMaxFlowOp() {
         case '3':
             getMaxFlowExcessOp();
             break;
+        case '4':
+            changeDisplayMode();
+            break;
     }
 }
 
@@ -669,9 +672,6 @@ void Menu::MaxFlowWithPrioritizedCities(){
             break;
         case '3':
             getMaxFlowOp();
-            break;
-        case '4':
-            changeDisplayMode();
             break;
     }
 }
