@@ -100,8 +100,10 @@ vector<string> Menu::readCityCodes(){
 void Menu::printPipeDestinations(const string& code){
     auto pipe = waterSupply.getNetwork()->findVertex(code);
     for(auto dest : pipe->getAdj()){
-        ColorPrint("yellow", " " + dest->getDest()->getInfo());
-        if(dest != *(pipe->getAdj().end()-1)) ColorPrint("blue",",");
+        if (dest->getDest()->getInfo() != "sink") {
+            ColorPrint("yellow", " " + dest->getDest()->getInfo());
+            if(dest != *(pipe->getAdj().end()-1)) ColorPrint("blue",",");
+        }
     }
 }
 
