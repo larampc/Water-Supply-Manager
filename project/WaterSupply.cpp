@@ -369,6 +369,10 @@ double WaterSupply::computeMaxDiffCapacityFlow() {
             for (Edge *e: v.second->getAdj()) {
                 if (e->checkActive()) {
                     double flow = e->getFlow();
+                    if (e->getReverse() && e->getFlow() > e->getReverse()->getFlow()) {
+                        flow = abs(e->getFlow()-e->getReverse()->getFlow());
+                    }
+                    else if (e->getReverse()) continue;
                     if (maxDiff < (e->getWeight() - flow)) maxDiff = (e->getWeight() - flow);
                 }
             }
@@ -388,6 +392,7 @@ double WaterSupply::computeAverageDiffCapacityFlow() {
                     if (e->getReverse() && e->getFlow() > e->getReverse()->getFlow()) {
                         flow = abs(e->getFlow()-e->getReverse()->getFlow());
                     }
+                    else if (e->getReverse()) continue;
                     sum += (e->getWeight() - flow);
                     n_edges++;
                 }
@@ -408,6 +413,7 @@ double WaterSupply::computeVarianceDiffCapacityFlow(double average) {
                     if (e->getReverse() && e->getFlow() > e->getReverse()->getFlow()) {
                         flow = abs(e->getFlow() - e->getReverse()->getFlow());
                     }
+                    else if (e->getReverse()) continue;
                     square_diff += ((e->getWeight() - flow) - average) * ((e->getWeight() - flow) - average);
                     n_edges++;
                 }
