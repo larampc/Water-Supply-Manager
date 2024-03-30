@@ -754,7 +754,9 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
     ColorPrint("red", "Cancel \n");
     cin.sync();
     string res;
+    pair<string, string> pipe;
     bool end = true;
+    bool cancel = false;
     switch(readOption(4)) {
         case '1':
             res = readReservoirCode();
@@ -773,26 +775,30 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
             else end = false;
             break;
         case '3':
-            pair<string, string> pipe =  readPipeCodes();
+            pipe =  readPipeCodes();
             if (!pipe.first.empty() && !pipe.second.empty()) {
                 pipes.push_back(pipe);
                 waterSupply.deletePipe(pipe.first, pipe.second);
             }
             else end = false;
             break;
+        case '4':
+            cancel = true;
+            break;
     }
-    if (end) {
-        printCitiesFlow();
-        pressEnterToContinue();
-        ColorPrint("blue", "Do you want to perform another action?\n");
-        ColorPrint("cyan", "1. ");
-        ColorPrint("white", "Yes\n");
-        ColorPrint("cyan", "2. ");
-        ColorPrint("white", "No\n");
-        cin.sync();
-        if (readOption(2) == '1') reliabilityTesting(resStat, pipes);
+    if (!cancel) {
+        if (end) {
+            printCitiesFlow();
+            pressEnterToContinue();
+            ColorPrint("blue", "Do you want to perform another action?\n");
+            ColorPrint("cyan", "1. ");
+            ColorPrint("white", "Yes\n");
+            ColorPrint("cyan", "2. ");
+            ColorPrint("white", "No\n");
+            cin.sync();
+            if (readOption(2) == '1') reliabilityTesting(resStat, pipes);
+        } else reliabilityTesting(resStat, pipes);
     }
-    else reliabilityTesting(resStat, pipes);
 }
 
 void Menu::printCitiesFlow() {
