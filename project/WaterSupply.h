@@ -13,7 +13,6 @@ private:
     std::unordered_map<std::string, City> cities;
     std::unordered_map<std::string, Reservoir> reservoirs;
     std::unordered_map<std::string, Station> stations;
-    MaxFlow tester;
     void loadCities(std::string path);
     void loadReservoir(std::string path);
     void loadStations(std::string path);
@@ -161,29 +160,19 @@ public:
      */
     int computeCityFlow(const std::string& city);
     /********************** MaxFlow  ****************************/
-    void optimalResMaxFlow();
-    void optimalExcessMaxFlow();
-    void optimalExcessCityMaxFlow(const std::vector<std::string>& target);
-    void cityMaxFlow(const std::string& target);
+    void maxFlow();
+    void maxFlowWithExcess();
+    void maxFlowWithExcessToCities(const std::vector<std::string> &target);
+    void maxFlowToCity(const std::string& target);
     /********************** MaxFlow Reverse ****************************/
-    void reliabilityPrep();
-    void activate(const std::string& p);
-    void deleteReservoir(const std::string& reservoir);
-    void deleteStation(const std::string& station);
-    void deletePipe(const std::string& source, const std::string& dest);
-
-
-    static void OutputToFile(const std::string &fileName, const std::string &text);
-
     void deleteReservoirMaxReverse(const std::string& reservoir);
 
-    void activatePipe(const std::string& source, const std::string& dest);
+    static void OutputToFile(const std::string &fileName, const std::string &text);
 
     bool existsStationByCode(const std::string& code);
 
     bool existsPipe(const std::string& source, const std::string& dest);
     bool existsCode(const std::string& code);
-    std::vector<std::string> topsort();
 
     void activateAll();
 

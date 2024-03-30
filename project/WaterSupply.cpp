@@ -430,28 +430,28 @@ int WaterSupply::computeFlow() {
 
 /********************** MaxFlow Options  ****************************/
 
-void WaterSupply::optimalResMaxFlow() {
+void WaterSupply::maxFlow() {
     setSuperSinkWithDemand();
     network.resetFlow();
-    MaxFlow::maxFlow("src", "sink", network);
+    MaxFlow::maxFlow("src", "sink", &network);
 }
 
-void WaterSupply::optimalExcessMaxFlow() {
+void WaterSupply::maxFlowWithExcess() {
     setSuperSinkWithDemand();
     network.resetFlow();
-    MaxFlow::maxFlow("src", "sink", network);
+    MaxFlow::maxFlow("src", "sink", &network);
     setInfSuperSink();
-    MaxFlow::maxFlow("src", "sink", network);
+    MaxFlow::maxFlow("src", "sink", &network);
 }
 
-void WaterSupply::optimalExcessCityMaxFlow(const vector<string>& target) {
+void WaterSupply::maxFlowWithExcessToCities(const std::vector<std::string> &target) {
     setSuperSinkWithDemand();
     network.resetFlow();
-    MaxFlow::maxFlow("src", "sink", network);
+    MaxFlow::maxFlow("src", "sink", &network);
     for (const auto& e: target) {
         network.findEdge(e, "sink")->setWeight(INF);
     }
-    MaxFlow::maxFlow("src", "sink", network);
+    MaxFlow::maxFlow("src", "sink", &network);
 }
 
 void WaterSupply::optimalCityMaxFlow(const vector<std::string>& cityList) {
@@ -459,15 +459,15 @@ void WaterSupply::optimalCityMaxFlow(const vector<std::string>& cityList) {
     network.resetFlow();
     for(const auto& city : cityList){
         network.findEdge(city, "sink")->setWeight(cities.find(city)->second.getDemand());
-        MaxFlow::maxFlow("src", "sink", network);
+        MaxFlow::maxFlow("src", "sink", &network);
     }
     setSuperSinkWithDemand();
-    MaxFlow::maxFlow("src", "sink", network);
+    MaxFlow::maxFlow("src", "sink", &network);
 }
 
-void WaterSupply::cityMaxFlow(const std::string& target) {
+void WaterSupply::maxFlowToCity(const std::string& target) {
     network.resetFlow();
-    MaxFlow::maxFlow("src", target, network);
+    MaxFlow::maxFlow("src", target, &network);
 }
 
 void WaterSupply::OutputToFile(const string& fileName, const string& text){
@@ -477,69 +477,14 @@ void WaterSupply::OutputToFile(const string& fileName, const string& text){
 }
 
 void WaterSupply::deleteReservoirMaxReverse(const std::string& reservoir) {
-    optimalResMaxFlow();
-    MaxFlow::reverseMaxFlow(reservoir, "sink", network);
+    maxFlow();
+    MaxFlow::reverseMaxFlow(reservoir, "sink", &network);
     network.findVertex(reservoir)->desactivate();
-    MaxFlow::maxFlow("src", "sink", network);
-}
-
-void WaterSupply::reliabilityPrep() {
-    tester.reliabilityPrep(network);
-}
-
-void WaterSupply::activate(const std::string& p) {
-    network.findVertex(p)->activate();
-}
-
-void WaterSupply::activatePipe(const std::string& source, const std::string& dest) {
-    network.findEdge(source, dest)->activate();
-}
-
-void WaterSupply::deleteReservoir(const std::string& reservoir) {
-    tester.deleteReservoir(reservoir, network);
-}
-
-void WaterSupply::deleteStation(const std::string& station) {
-    tester.deleteStation(station, network);
+    MaxFlow::maxFlow("src", "sink", &network);
 }
 
 bool WaterSupply::existsCode(const std::string& code) {
     return (cities.count(code) || stations.count(code) || reservoirs.count(code));
-}
-
-void WaterSupply::deletePipe(const std::string& source, const std::string& dest) {
-    tester.deletePipe(source, dest, network);
-}
-
-void dfsVisit(Vertex* v, stack<string>& aux){
-    v->setVisited(true);
-    v->setProcessing(true);
-    for(Edge* adj : v->getAdj()){
-        if (adj->checkActive()) {
-            if(!adj->getDest()->isVisited()) dfsVisit(adj->getDest(), aux);
-        }
-    }
-    v->setProcessing(false);
-    aux.push(v->getInfo());
-}
-
-vector<string> WaterSupply::topsort() {
-    vector<string> res;
-    stack<string> aux;
-    for(auto v : network.getVertexSet()){
-        v.second->setVisited(false);
-        v.second->setProcessing(false);
-    }
-    for(const auto& v : network.getVertexSet()){
-        if(!v.second->isVisited()){
-            dfsVisit(v.second, aux);
-        }
-    }
-    while (!aux.empty()) {
-        res.push_back(aux.top());
-        aux.pop();
-    }
-    return res;
 }
 
 void WaterSupply::activateAll() {
@@ -547,6 +492,7 @@ void WaterSupply::activateAll() {
         for (auto e: v.second->getAdj()) {
             e->activate();
         }
+        v.second->activate();
     }
 }
 
@@ -577,7 +523,7 @@ vector<Edge*> WaterSupply::transformBidirectionalEdges(){
 
 vector<Edge*> WaterSupply::getMaxPathTo(Vertex* city){
     vector<Edge*> res;
-    auto order = topsort();
+    auto order = network.topSort();
 
     for(auto v: network.getVertexSet()){
         v.second->setDist(INF);
@@ -606,7 +552,7 @@ vector<Edge*> WaterSupply::getMaxPathTo(Vertex* city){
 
 vector<Edge*> WaterSupply::findMinAugPath(Vertex * city) {
     vector<Edge*> res;
-    auto order = topsort();
+    auto order = network.topSort();
     for(auto v: network.getVertexSet()){
         v.second->setDist(INF);
         v.second->setPath(nullptr);

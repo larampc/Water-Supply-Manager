@@ -29,7 +29,7 @@ public:
      *
      * @param in The Vertex info.
      */
-    Vertex(std::string in);
+    explicit Vertex(std::string in);
     /**
      * \brief Less than operator to compare Vertex dists.
      *
@@ -138,7 +138,7 @@ public:
      * @param in The info of the destination Vertex of the Edge to delete.
      * @return True if deleted any Edge, false otherwise.
      */
-    bool removeEdge(std::string in);
+    bool removeEdge(const std::string& in);
     /**
      * \brief Deletes all Edge that are outgoing from this Vertex.
      */
@@ -198,7 +198,7 @@ protected:
     // auxiliary fields
     bool visited = false; // used by DFS, BFS, Prim ...
     bool processing = false; // used by isDAG (in addition to the visited attribute)
-    unsigned int indegree; // used by topsort
+    unsigned int indegree = 0; // used by topsort
     double dist = 0;
     Edge *path = nullptr;
 
@@ -321,7 +321,7 @@ public:
      *
      * @return The Edge active state.
      */
-    bool checkActive();
+    bool checkActive() const;
 protected:
     Vertex * dest; // destination vertex
     double weight; // edge weight, can also be used for capacity
@@ -387,7 +387,7 @@ public:
      * @param w The weight of the Edge to add.
      * @return True if Edge was added, false otherwise.
      */
-    bool addEdge(const std::string &sourc, const std::string &dest, double w);
+    bool addEdge(const std::string &sourc, const std::string &dest, double w) const;
     /**
      * \brief Adds two new Edge with the given weight from the Vertex with the given origin info to the Vertex with the given destination info and vice-versa to this Graph.
      *
@@ -396,7 +396,7 @@ public:
      * @param w The weight of the two Edge to add.
      * @return True if both Edge were added, false otherwise.
      */
-    bool addBidirectionalEdge(const std::string &sourc, const std::string &dest, double w);
+    bool addBidirectionalEdge(const std::string &sourc, const std::string &dest, double w) const;
 
     /**
      * \brief Gets the number of Vertex in this Graph.
@@ -429,7 +429,7 @@ public:
      *
      * @return All Vertex in this Graph in topological order.
      */
-    std::vector<std::string> topsort() const;
+    std::vector<std::string> topSort() const;
     /**
      * \brief Resets all Edge's flow of this Graph to 0.
      */

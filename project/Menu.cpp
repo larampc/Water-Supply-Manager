@@ -602,7 +602,7 @@ void Menu::getMaxFlowOp() {
     cin.sync();
     switch (readOption(5)) {
         case '1':
-            waterSupply.optimalResMaxFlow();
+            waterSupply.maxFlow();
             printCitiesFlow();
             pressEnterToContinue();
             break;
@@ -691,14 +691,14 @@ void Menu::getMaxFlowExcessOp() {
     ostringstream oss;
     switch (readOption(4)) {
         case '1':
-            waterSupply.optimalExcessMaxFlow();
+            waterSupply.maxFlowWithExcess();
             printCitiesFlow();
             pressEnterToContinue();
             break;
         case '2':
             code = readCityCode();
             if (!code.empty()) {
-                waterSupply.cityMaxFlow(code);
+                waterSupply.maxFlowToCity(code);
                 ColorPrint("cyan", "Total: ");
                 ColorPrint("white", to_string(waterSupply.computeCityFlow(code)));
                 pressEnterToContinue();
@@ -707,7 +707,7 @@ void Menu::getMaxFlowExcessOp() {
         case '3': {
             vector<string> codes = readCityCodes();
             if (!codes.empty()) {
-                waterSupply.optimalExcessCityMaxFlow(codes);
+                waterSupply.maxFlowWithExcessToCities(codes);
                 printCitiesFlow();
                 pressEnterToContinue();
             } else getMaxFlowExcessOp();
@@ -722,7 +722,7 @@ void Menu::getMaxFlowExcessOp() {
 void Menu::auxReliability() {
     vector<std::string> ResStat;
     vector<pair<string, string>> pipes;
-    waterSupply.reliabilityPrep();
+    maxFlow.reliabilityPrep(waterSupply.getNetwork());
     reliabilityTesting(ResStat, pipes);
     ColorPrint("blue", "Do you wish to make your changes permanent?\n");
     ColorPrint("cyan", "1. ");
@@ -732,10 +732,10 @@ void Menu::auxReliability() {
     cin.sync();
     if (readOption(2) == '2') {
         for (const auto& s: ResStat) {
-            waterSupply.activate(s);
+            waterSupply.getNetwork()->findVertex(s)->activate();
         }
         for (const auto& s: pipes) {
-            waterSupply.activatePipe(s.first, s.second);
+            waterSupply.getNetwork()->findEdge(s.first,s.second)->activate();
         }
     }
 }
@@ -759,7 +759,7 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
         case '1':
             res = readReservoirCode();
             if (!res.empty()) {
-                waterSupply.deleteReservoir(res);
+                maxFlow.deleteReservoir(res, waterSupply.getNetwork());
                 resStat.push_back(res);
             }
             else end = false;
@@ -767,7 +767,7 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
         case '2':
             res = readStationCode();
             if (!res.empty()) {
-                waterSupply.deleteStation(res);
+                maxFlow.deleteStation(res, waterSupply.getNetwork());
                 resStat.push_back(res);
             }
             else end = false;
@@ -776,7 +776,7 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
             pipe =  readPipeCodes();
             if (!pipe.first.empty() && !pipe.second.empty()) {
                 pipes.push_back(pipe);
-                waterSupply.deletePipe(pipe.first, pipe.second);
+                maxFlow.deletePipe(pipe.first, pipe.second, waterSupply.getNetwork());
             }
             else end = false;
             break;

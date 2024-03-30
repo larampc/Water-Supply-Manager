@@ -57,10 +57,10 @@ bool findAugPath(Graph* g, Vertex* src, Vertex* target){
     return target->isVisited();
 }
 
-void MaxFlow::maxFlow(const string& source, const string& sink, Graph& network) {
-    Vertex* src = network.findVertex(source);
-    Vertex* snk = network.findVertex(sink);
-    while(findAugPath(&network, src, snk)){
+void MaxFlow::maxFlow(const string& source, const string& sink, Graph* network) {
+    Vertex* src = network->findVertex(source);
+    Vertex* snk = network->findVertex(sink);
+    while(findAugPath(network, src, snk)){
         double cf = getCf(src, snk);
         augmentPath(src, snk, cf);
     }
@@ -109,10 +109,10 @@ double reverseGetCf(Vertex* source, Vertex* target) {
     return minC;
 }
 
-void MaxFlow::reverseMaxFlow(const string& source, const string& sink, Graph& network) {
-    Vertex* src = network.findVertex(source);
-    Vertex* snk = network.findVertex(sink);
-    while(reverseFindAugPath(&network, src, snk)){
+void MaxFlow::reverseMaxFlow(const string& source, const string& sink, Graph* network) {
+    Vertex* src = network->findVertex(source);
+    Vertex* snk = network->findVertex(sink);
+    while(reverseFindAugPath(network, src, snk)){
         double cf = reverseGetCf(src, snk);
         reverseAugmentPath(src, snk, cf);
     }
@@ -141,16 +141,16 @@ void MaxFlow::augmentPathList(Vertex* source, Vertex* target, double cf) {
     if (!free.empty()) free.erase(free.begin());
 }
 
-void MaxFlow::maxFlowWithList(Graph& network) {
-    Vertex* src = network.findVertex("src");
-    Vertex* snk = network.findVertex("sink");
-    for(const auto& v: network.getVertexSet()) {
+void MaxFlow::maxFlowWithList(Graph* network) {
+    Vertex* src = network->findVertex("src");
+    Vertex* snk = network->findVertex("sink");
+    for(const auto& v: network->getVertexSet()) {
         for (Edge *e: v.second->getAdj()) {
             e->setFlow(0);
             e->resetPath();
         }
     }
-    while(findAugPath(&network, src, snk)){
+    while(findAugPath(network, src, snk)){
         double cf = getCf(src, snk);
         augmentPathList(src, snk, cf);
     }
@@ -175,28 +175,28 @@ void MaxFlow::resetPaths(const std::unordered_set<int>& pathSet) {
     }
 }
 
-void MaxFlow::deleteReservoir(const std::string& reservoir, Graph& network) {
-    Vertex* v = network.findVertex(reservoir);
+void MaxFlow::deleteReservoir(const std::string& reservoir, Graph* network) {
+    Vertex* v = network->findVertex(reservoir);
     resetPaths(v->getPaths());
     v->desactivate();
     maxFlowWithList(network);
 }
 
-void MaxFlow::deleteStation(const std::string& station, Graph& network) {
-    Vertex* v = network.findVertex(station);
+void MaxFlow::deleteStation(const std::string& station, Graph* network) {
+    Vertex* v = network->findVertex(station);
     resetPaths(v->getPaths());
     v->desactivate();
     maxFlowWithList(network);
 }
 
-void MaxFlow::deletePipe(const std::string& source, const std::string& dest, Graph& network) {
-    auto edge = network.findEdge(source, dest);
+void MaxFlow::deletePipe(const std::string& source, const std::string& dest, Graph* network) {
+    auto edge = network->findEdge(source, dest);
     resetPaths(edge->getPaths());
     edge->desactivate();
     maxFlowWithList(network);
 }
 
-void MaxFlow::reliabilityPrep(Graph& network) {
+void MaxFlow::reliabilityPrep(Graph* network) {
     paths.clear();
     maxFlowWithList(network);
 }

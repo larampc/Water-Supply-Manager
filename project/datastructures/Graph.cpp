@@ -1,9 +1,12 @@
 #include "Graph.h"
 
+#include <utility>
+#include <stack>
+
 /************************* Vertex  **************************/
 
 
-Vertex::Vertex(std::string in): info(in) {}
+Vertex::Vertex(std::string in): info(std::move(in)) {}
 /*
  * Auxiliary function to add an outgoing edge to a vertex (this),
  * with a given destination vertex (d) and edge weight (w).
@@ -22,7 +25,7 @@ Edge * Vertex::addEdge(Vertex *d, double w) {
  * Returns true if successful, and false if such edge does not exist.
  */
 
-bool Vertex::removeEdge(std::string in) {
+bool Vertex::removeEdge(const std::string& in) {
     bool removedEdge = false;
     auto it = adj.begin();
     while (it != adj.end()) {
@@ -92,7 +95,7 @@ std::vector<Edge *> Vertex::getIncoming() const {
 }
 
 void Vertex::setInfo(std::string in) {
-    this->info = in;
+    this->info = std::move(in);
 }
 
 void Vertex::setVisited(bool visited) {
@@ -246,7 +249,7 @@ void Edge::activate() {
     isActive = true;
 }
 
-bool Edge::checkActive() {
+bool Edge::checkActive() const {
     return isActive;
 }
 
@@ -307,7 +310,7 @@ bool Graph::removeVertex(const std::string& in) {
  * Returns true if successful, and false if the source or destination vertex does not exist.
  */
 
-bool Graph::addEdge(const std::string &sourc, const std::string& dest, double w) {
+bool Graph::addEdge(const std::string &sourc, const std::string& dest, double w) const {
     auto v1 = findVertex(sourc);
     auto v2 = findVertex(dest);
     if (v1 == nullptr || v2 == nullptr)
@@ -316,7 +319,7 @@ bool Graph::addEdge(const std::string &sourc, const std::string& dest, double w)
     return true;
 }
 
-bool Graph::addBidirectionalEdge(const std::string& sourc, const std::string& dest, double w) {
+bool Graph::addBidirectionalEdge(const std::string& sourc, const std::string& dest, double w) const {
     auto v1 = findVertex(sourc);
     auto v2 = findVertex(dest);
     if (v1 == nullptr || v2 == nullptr)
@@ -384,46 +387,34 @@ bool Graph::dfsIsDAG(Vertex *v) const {
  * Follows the algorithm described in theoretical classes.
  */
 
+void dfsVisit(Vertex* v, std::stack<std::string>& aux){
+    v->setVisited(true);
+    v->setProcessing(true);
+    for(Edge* adj : v->getAdj()){
+        if (adj->checkActive()) {
+            if(!adj->getDest()->isVisited()) dfsVisit(adj->getDest(), aux);
+        }
+    }
+    v->setProcessing(false);
+    aux.push(v->getInfo());
+}
 
-std::vector<std::string> Graph::topsort() const {
+std::vector<std::string> Graph::topSort() const {
     std::vector<std::string> res;
-
-    for (auto v : vertexSet) {
-        v.second->setIndegree(0);
+    std::stack<std::string> aux;
+    for(auto v : vertexSet){
+        v.second->setVisited(false);
+        v.second->setProcessing(false);
     }
-    for (auto v : vertexSet) {
-        for (auto e : v.second->getAdj()) {
-            unsigned int indegree = e->getDest()->getIndegree();
-            e->getDest()->setIndegree(indegree + 1);
+    for(const auto& v : vertexSet){
+        if(!v.second->isVisited()){
+            dfsVisit(v.second, aux);
         }
     }
-
-    std::queue<Vertex *> q;
-    for (auto v : vertexSet) {
-        if (v.second->getIndegree() == 0) {
-            q.push(v.second);
-        }
+    while (!aux.empty()) {
+        res.push_back(aux.top());
+        aux.pop();
     }
-
-    while( !q.empty() ) {
-        Vertex * v = q.front();
-        q.pop();
-        res.push_back(v->getInfo());
-        for(auto e : v->getAdj()) {
-            auto w = e->getDest();
-            w->setIndegree(w->getIndegree() - 1);
-            if(w->getIndegree() == 0) {
-                q.push(w);
-            }
-        }
-    }
-
-    if ( res.size() != vertexSet.size() ) {
-        //std::cout << "Impossible topological ordering!" << std::endl;
-        res.clear();
-        return res;
-    }
-
     return res;
 }
 

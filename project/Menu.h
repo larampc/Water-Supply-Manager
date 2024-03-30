@@ -27,6 +27,7 @@
 class Menu {
 private:
     WaterSupply waterSupply;
+    MaxFlow maxFlow;
     bool displayOnDemand = true, displayUnderflow = true, displayOverflow = true;
 public:
     void swapDisplayOnDemand();

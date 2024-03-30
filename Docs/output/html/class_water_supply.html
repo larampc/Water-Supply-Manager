@@ -174,16 +174,16 @@ std::vector&lt; <a class="el" href="class_reservoir.html">Reservoir</a> &gt;&#16
 <tr class="memdesc:a48238c370acb23e874e70cd7004b89eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes a given city's incoming flow value.  <br /></td></tr>
 <tr class="separator:a48238c370acb23e874e70cd7004b89eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa788705b26089ac985b9e360fc3b01e0" id="r_aa788705b26089ac985b9e360fc3b01e0"><td class="memItemLeft" align="right" valign="top"><a id="aa788705b26089ac985b9e360fc3b01e0" name="aa788705b26089ac985b9e360fc3b01e0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>optimalResMaxFlow</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>maxFlow</b> ()</td></tr>
 <tr class="separator:aa788705b26089ac985b9e360fc3b01e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65704f7c682952d27e9650148d4bc122" id="r_a65704f7c682952d27e9650148d4bc122"><td class="memItemLeft" align="right" valign="top"><a id="a65704f7c682952d27e9650148d4bc122" name="a65704f7c682952d27e9650148d4bc122"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>optimalExcessMaxFlow</b> ()</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>maxFlowWithExcess</b> ()</td></tr>
 <tr class="separator:a65704f7c682952d27e9650148d4bc122"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6a236c934d775811c077be0ac3960b9" id="r_ab6a236c934d775811c077be0ac3960b9"><td class="memItemLeft" align="right" valign="top"><a id="ab6a236c934d775811c077be0ac3960b9" name="ab6a236c934d775811c077be0ac3960b9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>optimalExcessCityMaxFlow</b> (const std::string &amp;target)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>maxFlowWithExcessToCities</b> (const std::string &amp;target)</td></tr>
 <tr class="separator:ab6a236c934d775811c077be0ac3960b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7665d98217416c2c213c2a4f5ff5d8d3" id="r_a7665d98217416c2c213c2a4f5ff5d8d3"><td class="memItemLeft" align="right" valign="top"><a id="a7665d98217416c2c213c2a4f5ff5d8d3" name="a7665d98217416c2c213c2a4f5ff5d8d3"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>cityMaxFlow</b> (const std::string &amp;target)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>maxFlowToCity</b> (const std::string &amp;target)</td></tr>
 <tr class="separator:a7665d98217416c2c213c2a4f5ff5d8d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b007b598066869b4b81f5fa87090f8e" id="r_a1b007b598066869b4b81f5fa87090f8e"><td class="memItemLeft" align="right" valign="top"><a id="a1b007b598066869b4b81f5fa87090f8e" name="a1b007b598066869b4b81f5fa87090f8e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>reliabilityPrep</b> ()</td></tr>
@@ -192,7 +192,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>reliabilityPrep</b> (
 void&#160;</td><td class="memItemRight" valign="bottom"><b>reliabilityTearDown</b> ()</td></tr>
 <tr class="separator:af85823b7f53909883e2abf40db809d89"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87d818bff883c29607ea5d93d7945064" id="r_a87d818bff883c29607ea5d93d7945064"><td class="memItemLeft" align="right" valign="top"><a id="a87d818bff883c29607ea5d93d7945064" name="a87d818bff883c29607ea5d93d7945064"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>activate</b> (const std::string &amp;p)</td></tr>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>activateVertex</b> (const std::string &amp;p)</td></tr>
 <tr class="separator:a87d818bff883c29607ea5d93d7945064"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a76652a6e1e5e81cffa55fe4fd4918b" id="r_a4a76652a6e1e5e81cffa55fe4fd4918b"><td class="memItemLeft" align="right" valign="top"><a id="a4a76652a6e1e5e81cffa55fe4fd4918b" name="a4a76652a6e1e5e81cffa55fe4fd4918b"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>optimalDelete</b> (std::string reservoir)</td></tr>
@@ -222,7 +222,7 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>existsPipe</b> (const
 bool&#160;</td><td class="memItemRight" valign="bottom"><b>existsCode</b> (const std::string &amp;code)</td></tr>
 <tr class="separator:a8747d556f712221a82cd91fa72e96bdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5132267ea63a4809f019626454fee561" id="r_a5132267ea63a4809f019626454fee561"><td class="memItemLeft" align="right" valign="top"><a id="a5132267ea63a4809f019626454fee561" name="a5132267ea63a4809f019626454fee561"></a>
-std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>topsort</b> ()</td></tr>
+std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>topSort</b> ()</td></tr>
 <tr class="separator:a5132267ea63a4809f019626454fee561"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a849203d1db10c2553612f68a2537f888" id="r_a849203d1db10c2553612f68a2537f888"><td class="memItemLeft" align="right" valign="top"><a id="a849203d1db10c2553612f68a2537f888" name="a849203d1db10c2553612f68a2537f888"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>activateAll</b> ()</td></tr>
