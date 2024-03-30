@@ -715,6 +715,9 @@ void Menu::getMaxFlowExcessOp() {
                 pressEnterToContinue();
             } else getMaxFlowExcessOp();
             break;
+        case '5':
+            getMaxFlowOp();
+            break;
     }
 }
 
