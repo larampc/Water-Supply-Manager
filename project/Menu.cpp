@@ -32,14 +32,17 @@ void Menu::changeDisplayMode() {
         case '1':
             swapDisplayOnDemand();
             ColorPrint("cyan", displayOnDemand ? "Displaying on demand\n" : "Hiding on demand\n");
+            pressEnterToContinue();
             break;
         case '2':
             swapDisplayOverflow();
             ColorPrint("cyan", displayOverflow ? "Displaying overflow\n" : "Hiding overflow\n");
+            pressEnterToContinue();
             break;
         case '3':
             swapDisplayUnderflow();
             ColorPrint("cyan", displayUnderflow ? "Displaying underflow\n" : "Hiding underflow\n");
+            pressEnterToContinue();
             break;
         case '4':
             settings();
@@ -714,7 +717,7 @@ void Menu::getMaxFlowExcessOp() {
             } else getMaxFlowExcessOp();
         }
             break;
-        case '5':
+        case '4':
             getMaxFlowOp();
             break;
     }
@@ -732,7 +735,8 @@ void Menu::checkDeactivatedReservoirs(){
         ColorPrint("white", reservoir + "\n");
     }
     if(reservoirs.empty()){
-        ColorPrint("blue", "There are no deactivated reservoirs\n\n");
+        ColorPrint("blue", "There are no deactivated reservoirs\n");
+        pressEnterToContinue();
         checkDeactivatedComponents();
         return;
     }
@@ -757,7 +761,8 @@ void Menu::checkDeactivatedStations(){
         ColorPrint("white", station + "\n");
     }
     if(stations.empty()){
-        ColorPrint("blue", "There are no deactivated stations\n\n");
+        ColorPrint("blue", "There are no deactivated stations\n");
+        pressEnterToContinue();
         checkDeactivatedComponents();
         return;
     }
@@ -784,7 +789,8 @@ void Menu::checkDeactivatedPipes(){
         ColorPrint("white", pipe.first + " -> " + pipe.second + "\n");
     }
     if(pipes.empty()){
-        ColorPrint("blue", "There are no deactivated pipes\n\n");
+        ColorPrint("blue", "There are no deactivated pipes\n");
+        pressEnterToContinue();
         checkDeactivatedComponents();
         return;
     }
@@ -848,7 +854,7 @@ void Menu::auxReliability() {
     vector<std::string> ResStat;
     vector<pair<string, string>> pipes;
     maxFlow.reliabilityPrep(waterSupply.getNetwork());
-    reliabilityTesting(ResStat, pipes);
+    bool cancel = reliabilityTesting(ResStat, pipes);
     ColorPrint("blue", "Do you wish to make your changes permanent?\n");
     ColorPrint("cyan", "1. ");
     ColorPrint("white", "Yes\n");
@@ -863,9 +869,10 @@ void Menu::auxReliability() {
             waterSupply.getNetwork()->findEdge(s.first,s.second)->activate();
         }
     }
+    if (cancel) reliabiltyMenu();
 }
 
-void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, string>>& pipes) {
+bool Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, string>>& pipes) {
     ColorPrint("blue", "Select option:\n");
     ColorPrint("cyan", "1. ");
     ColorPrint("white", "Remove a reservoir\n");
@@ -919,9 +926,11 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
             ColorPrint("cyan", "2. ");
             ColorPrint("white", "No\n");
             cin.sync();
-            if (readOption(2) == '1') reliabilityTesting(resStat, pipes);
-        } else reliabilityTesting(resStat, pipes);
+            if (readOption(2) == '1') return reliabilityTesting(resStat, pipes);
+            else return false;
+        } else return reliabilityTesting(resStat, pipes);
     }
+    return true;
 }
 
 void Menu::printCitiesFlow() {
