@@ -140,7 +140,7 @@ public:
     /**
      * \brief Outputs the settings menu and handles the respective inputs.
      */
-    static void settings();
+    void settings();
     /**
      * \brief Outputs the network information menu and handles the respective inputs.
      */
@@ -189,11 +189,21 @@ public:
 
     void printNetworkStatistics();
 
-    std::vector<std::string> readCityCodes();
+    std::vector<std::string> readCitiesCodes();
 
     void MaxFlowWithPrioritizedCities();
 
     void changeDisplayMode();
+
+    void reliabiltyMenu();
+
+    void checkDeactivatedComponents();
+
+    void checkDeactivatedReservoirs();
+    void checkDeactivatedStations();
+    void checkDeactivatedPipes();
+
+
 };
 
 

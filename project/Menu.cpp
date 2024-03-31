@@ -75,7 +75,7 @@ string Menu::readCityCode(){
     return code;
 }
 
-vector<string> Menu::readCityCodes(){
+vector<string> Menu::readCitiesCodes(){
     vector<string> codes;
     ColorPrint("cyan", "City codes (");
     ColorPrint("yellow", "empty to finish");
@@ -295,7 +295,7 @@ void Menu::run() {
                 getMaxFlowOp();
                 break;
             case '3':
-                auxReliability();
+                reliabiltyMenu();
                 break;
             case '4':
                 waterSupply.balancingViaMinCost();
@@ -318,10 +318,17 @@ void Menu::settings() {
     ColorPrint("yellow", ColorPrint::colorMode ? "Disable" : "Enable");
     ColorPrint("white", " Color Mode\n");
     ColorPrint("cyan", "2. ");
+    ColorPrint("white", "Change display mode\n");
+    ColorPrint("cyan", "3. ");
     ColorPrint("red", "Cancel\n");
-    if (readOption(2) == '1') {
-        ColorPrint::swapColorMode();
-        ColorPrint("cyan", ColorPrint::colorMode ? "Color mode enabled\n" : "Color mode disabled\n");
+    switch (readOption(3)) {
+        case '1':
+            ColorPrint::swapColorMode();
+            ColorPrint("cyan", ColorPrint::colorMode ? "Color mode enabled\n" : "Color mode disabled\n");
+            break;
+        case '2':
+            changeDisplayMode();
+            break;
     }
 }
 
@@ -596,11 +603,9 @@ void Menu::getMaxFlowOp() {
     ColorPrint("cyan", "3. ");
     ColorPrint("white", "Max flow with excess options\n");
     ColorPrint("cyan", "4. ");
-    ColorPrint("white", "Change display mode\n");
-    ColorPrint("cyan", "5. ");
     ColorPrint("red", "Cancel \n");
     cin.sync();
-    switch (readOption(5)) {
+    switch (readOption(4)) {
         case '1':
             waterSupply.maxFlow();
             printCitiesFlow();
@@ -611,9 +616,6 @@ void Menu::getMaxFlowOp() {
             break;
         case '3':
             getMaxFlowExcessOp();
-            break;
-        case '4':
-            changeDisplayMode();
             break;
     }
 }
@@ -630,7 +632,7 @@ void Menu::MaxFlowWithPrioritizedCities(){
     switch (readOption(3)) {
         case '1':
         {
-            vector<string> cities = readCityCodes();
+            vector<string> cities = readCitiesCodes();
             if (!cities.empty()) {
                 waterSupply.optimalCityMaxFlow(cities);
                 printCitiesFlow();
@@ -705,7 +707,7 @@ void Menu::getMaxFlowExcessOp() {
             } else getMaxFlowExcessOp();
             break;
         case '3': {
-            vector<string> codes = readCityCodes();
+            vector<string> codes = readCitiesCodes();
             if (!codes.empty()) {
                 waterSupply.maxFlowWithExcessToCities(codes);
                 printCitiesFlow();
@@ -715,6 +717,127 @@ void Menu::getMaxFlowExcessOp() {
             break;
         case '5':
             getMaxFlowOp();
+            break;
+    }
+}
+
+void Menu::checkDeactivatedReservoirs(){
+    ColorPrint("blue", "Deactivated Reservoirs:\n");
+    vector<string> reservoirs;
+    for(const auto& reservoir : waterSupply.getReservoirs()){
+        auto v = waterSupply.getNetwork()->findVertex(reservoir.first);
+        if(!v->checkActive()) reservoirs.push_back(reservoir.first);
+    }
+    std::sort(reservoirs.begin(), reservoirs.end());
+    for(const auto& reservoir : reservoirs){
+        ColorPrint("white", reservoir + "\n");
+    }
+    if(reservoirs.empty()){
+        ColorPrint("blue", "There are no deactivated reservoirs\n\n");
+        checkDeactivatedComponents();
+        return;
+    }
+    ColorPrint("blue", "Specify the reservoir you wish to activate \n");
+    string code = readReservoirCode();
+    if (!code.empty()) {
+        waterSupply.getNetwork()->findVertex(code)->activate();
+        checkDeactivatedReservoirs();
+    }
+    else checkDeactivatedComponents();
+}
+
+void Menu::checkDeactivatedStations(){
+    ColorPrint("blue", "Deactivated Stations:\n");
+    vector<string> stations;
+    for(const auto& station : waterSupply.getStations()){
+        auto v = waterSupply.getNetwork()->findVertex(station.first);
+        if(!v->checkActive()) stations.push_back(station.first);
+    }
+    std::sort(stations.begin(), stations.end());
+    for(const auto& station : stations){
+        ColorPrint("white", station + "\n");
+    }
+    if(stations.empty()){
+        ColorPrint("blue", "There are no deactivated stations\n\n");
+        checkDeactivatedComponents();
+        return;
+    }
+    ColorPrint("blue", "Specify the station you wish to activate \n");
+    string code = readStationCode();
+    if (!code.empty()) {
+        waterSupply.getNetwork()->findVertex(code)->activate();
+        checkDeactivatedStations();
+    }
+    else checkDeactivatedComponents();
+}
+
+
+void Menu::checkDeactivatedPipes(){
+    ColorPrint("blue", "Deactivated Pipes:\n");
+    vector<pair<string,string>> pipes;
+    for(const auto& v : waterSupply.getNetwork()->getVertexSet()){
+        for(auto adj : v.second->getAdj()){
+            if(!adj->checkActive()) pipes.emplace_back(adj->getOrig()->getInfo(), adj->getDest()->getInfo());
+        }
+    }
+    std::sort(pipes.begin(), pipes.end());
+    for(const auto& pipe : pipes){
+        ColorPrint("white", pipe.first + " -> " + pipe.second + "\n");
+    }
+    if(pipes.empty()){
+        ColorPrint("blue", "There are no deactivated pipes\n\n");
+        checkDeactivatedComponents();
+        return;
+    }
+    ColorPrint("blue", "Specify the pipe you wish to activate \n");
+    pair<string,string> code = readPipeCodes();
+    if (!code.first.empty()) {
+        waterSupply.getNetwork()->findEdge(code.first, code.second)->activate();
+        checkDeactivatedPipes();
+    }
+    else checkDeactivatedComponents();
+}
+
+void Menu::checkDeactivatedComponents(){
+    ColorPrint("blue", "Select option:\n");
+    ColorPrint("cyan", "1. ");
+    ColorPrint("white", "Check reservoirs\n");
+    ColorPrint("cyan", "2. ");
+    ColorPrint("white", "Check stations\n");
+    ColorPrint("cyan", "3. ");
+    ColorPrint("white", "Check pipes\n");
+    ColorPrint("cyan", "4. ");
+    ColorPrint("red", "Cancel \n");
+    cin.sync();
+    switch(readOption(4)) {
+        case '1':
+            checkDeactivatedReservoirs();
+            break;
+        case '2':
+            checkDeactivatedStations();
+            break;
+        case '3':
+            checkDeactivatedPipes();
+            break;
+    }
+}
+
+
+void Menu::reliabiltyMenu() {
+    ColorPrint("blue", "Select option:\n");
+    ColorPrint("cyan", "1. ");
+    ColorPrint("white", "Deactivate components\n");
+    ColorPrint("cyan", "2. ");
+    ColorPrint("white", "Check deactivated components\n");
+    ColorPrint("cyan", "3. ");
+    ColorPrint("red", "Cancel \n");
+    cin.sync();
+    switch (readOption(3)) {
+        case '1':
+            auxReliability();
+            break;
+        case '2':
+            checkDeactivatedComponents();
             break;
     }
 }
