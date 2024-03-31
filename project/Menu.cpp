@@ -734,7 +734,7 @@ void Menu::checkDeactivatedReservoirs(){
         }
     }
     if(empty){
-        ColorPrint("blue", "There are no deactivated reservoirs\n\n");
+        ColorPrint("blue", "There are no deactivated reservoirs\n");
         pressEnterToContinue();
         checkDeactivatedComponents();
         return;
@@ -759,7 +759,7 @@ void Menu::checkDeactivatedStations(){
         }
     }
     if(empty){
-        ColorPrint("blue", "There are no deactivated stations\n\n");
+        ColorPrint("blue", "There are no deactivated stations\n");
         pressEnterToContinue();
         checkDeactivatedComponents();
         return;
