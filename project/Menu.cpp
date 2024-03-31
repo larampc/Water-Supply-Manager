@@ -910,7 +910,6 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
             else end = false;
             break;
         case '4':
-            reliabiltyMenu();
             return;
     }
     if (end) {
