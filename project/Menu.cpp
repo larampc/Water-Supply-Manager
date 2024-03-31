@@ -42,10 +42,9 @@ void Menu::changeDisplayMode() {
             ColorPrint("cyan", displayUnderflow ? "Displaying underflow\n" : "Hiding underflow\n");
             break;
         case '4':
-            getMaxFlowOp();
-            return;
+            settings();
+            break;
     }
-    changeDisplayMode();
 }
 
 char Menu::readOption(int n){
@@ -818,6 +817,9 @@ void Menu::checkDeactivatedComponents(){
             break;
         case '3':
             checkDeactivatedPipes();
+            break;
+        case '4':
+            reliabiltyMenu();
             break;
     }
 }
