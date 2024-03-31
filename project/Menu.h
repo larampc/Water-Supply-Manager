@@ -171,7 +171,7 @@ public:
      * @param resStat Vector of all deleted Reservoir and Station.
      * @param pipes Vector of all deleted pipes.
      */
-    bool reliabilityTesting(std::vector<std::string>& resStat, std::vector<std::pair<std::string, std::string>>& pipes);
+    void reliabilityTesting(std::vector<std::string>& resStat, std::vector<std::pair<std::string, std::string>>& pipes);
     /**
      * \brief Handles auxiliary options for reliability testing.
      */

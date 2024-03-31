@@ -725,17 +725,16 @@ void Menu::getMaxFlowExcessOp() {
 
 void Menu::checkDeactivatedReservoirs(){
     ColorPrint("blue", "Deactivated Reservoirs:\n");
-    vector<string> reservoirs;
-    for(const auto& reservoir : waterSupply.getReservoirs()){
-        auto v = waterSupply.getNetwork()->findVertex(reservoir.first);
-        if(!v->checkActive()) reservoirs.push_back(reservoir.first);
+    bool empty = true;
+    for(int i = 1; i <= waterSupply.getReservoirs().size(); i++) {
+        auto code = "R_" + to_string(i);
+        if(!waterSupply.getNetwork()->findVertex(code)->checkActive()){
+            ColorPrint("white", code + "\n");
+            empty = false;
+        }
     }
-    std::sort(reservoirs.begin(), reservoirs.end());
-    for(const auto& reservoir : reservoirs){
-        ColorPrint("white", reservoir + "\n");
-    }
-    if(reservoirs.empty()){
-        ColorPrint("blue", "There are no deactivated reservoirs\n");
+    if(empty){
+        ColorPrint("blue", "There are no deactivated reservoirs\n\n");
         pressEnterToContinue();
         checkDeactivatedComponents();
         return;
@@ -751,17 +750,16 @@ void Menu::checkDeactivatedReservoirs(){
 
 void Menu::checkDeactivatedStations(){
     ColorPrint("blue", "Deactivated Stations:\n");
-    vector<string> stations;
-    for(const auto& station : waterSupply.getStations()){
-        auto v = waterSupply.getNetwork()->findVertex(station.first);
-        if(!v->checkActive()) stations.push_back(station.first);
+    bool empty = true;
+    for(int i = 1; i <= waterSupply.getStations().size(); i++) {
+        auto code = "PS_" + to_string(i);
+        if(!waterSupply.getNetwork()->findVertex(code)->checkActive()){
+            ColorPrint("white", code + "\n");
+            empty = false;
+        }
     }
-    std::sort(stations.begin(), stations.end());
-    for(const auto& station : stations){
-        ColorPrint("white", station + "\n");
-    }
-    if(stations.empty()){
-        ColorPrint("blue", "There are no deactivated stations\n");
+    if(empty){
+        ColorPrint("blue", "There are no deactivated stations\n\n");
         pressEnterToContinue();
         checkDeactivatedComponents();
         return;
@@ -854,7 +852,8 @@ void Menu::auxReliability() {
     vector<std::string> ResStat;
     vector<pair<string, string>> pipes;
     maxFlow.reliabilityPrep(waterSupply.getNetwork());
-    bool cancel = reliabilityTesting(ResStat, pipes);
+    reliabilityTesting(ResStat, pipes);
+    if (ResStat.empty() && pipes.empty()) return;
     ColorPrint("blue", "Do you wish to make your changes permanent?\n");
     ColorPrint("cyan", "1. ");
     ColorPrint("white", "Yes\n");
@@ -869,10 +868,9 @@ void Menu::auxReliability() {
             waterSupply.getNetwork()->findEdge(s.first,s.second)->activate();
         }
     }
-    if (cancel) reliabiltyMenu();
 }
 
-bool Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, string>>& pipes) {
+void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, string>>& pipes) {
     ColorPrint("blue", "Select option:\n");
     ColorPrint("cyan", "1. ");
     ColorPrint("white", "Remove a reservoir\n");
@@ -886,7 +884,6 @@ bool Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
     string res;
     pair<string, string> pipe;
     bool end = true;
-    bool cancel = false;
     switch(readOption(4)) {
         case '1':
             res = readReservoirCode();
@@ -913,24 +910,20 @@ bool Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
             else end = false;
             break;
         case '4':
-            cancel = true;
-            break;
+            reliabiltyMenu();
+            return;
     }
-    if (!cancel) {
-        if (end) {
-            printCitiesFlow();
-            pressEnterToContinue();
-            ColorPrint("blue", "Do you want to perform another action?\n");
-            ColorPrint("cyan", "1. ");
-            ColorPrint("white", "Yes\n");
-            ColorPrint("cyan", "2. ");
-            ColorPrint("white", "No\n");
-            cin.sync();
-            if (readOption(2) == '1') return reliabilityTesting(resStat, pipes);
-            else return false;
-        } else return reliabilityTesting(resStat, pipes);
-    }
-    return true;
+    if (end) {
+        printCitiesFlow();
+        pressEnterToContinue();
+        ColorPrint("blue", "Do you want to perform another action?\n");
+        ColorPrint("cyan", "1. ");
+        ColorPrint("white", "Yes\n");
+        ColorPrint("cyan", "2. ");
+        ColorPrint("white", "No\n");
+        cin.sync();
+        if (readOption(2) == '1') reliabilityTesting(resStat, pipes);
+    } else reliabilityTesting(resStat, pipes);
 }
 
 void Menu::printCitiesFlow() {
@@ -941,7 +934,7 @@ void Menu::printCitiesFlow() {
         auto city = waterSupply.getCity("C_" + to_string(i));
         double flow = waterSupply.computeCityFlow(city.getCode());
         ostringstream line;
-        if (city.getDemand() < flow && displayOverflow || city.getDemand() > flow && displayOverflow || city.getDemand() == flow && displayOnDemand) {
+        if ((city.getDemand() < flow && displayOverflow) || (city.getDemand() > flow && displayUnderflow) || (city.getDemand() == flow && displayOnDemand)) {
             line << left << setw(4) << city.getCode() << " - " << setw(6) << flow;
             ColorPrint("white", line.str());
             file << line.str();
