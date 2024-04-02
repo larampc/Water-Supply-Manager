@@ -308,6 +308,7 @@ void Menu::run() {
                 settings();
                 break;
             case '6':
+                ColorPrint("blue", "Bye Bye :(\n");
                 exit(0);
         }
     }

@@ -37,7 +37,7 @@ ColorPrint::ColorPrint(const std::string& color, const std::string& line) {
 
 #else
 
-ColorPrint::ColorPrint(std::string color, std::string line) {
+ColorPrint::ColorPrint(const std::string& color, const std::string& line) {
     if (colorMode)
     {
         std::string col = "\033[0";
