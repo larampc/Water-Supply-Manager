@@ -26,9 +26,12 @@ void Menu::changeDisplayMode() {
     ColorPrint("yellow", displayUnderflow ? "Hide" : "Show");
     ColorPrint("white", " underflow\n");
     ColorPrint("cyan", "4. ");
+    ColorPrint("yellow", displayDemand ? "Hide" : "Show");
+    ColorPrint("white", " demand of cities\n");
+    ColorPrint("cyan", "5. ");
     ColorPrint("red", "Cancel\n");
     cin.sync();
-    switch (readOption(4)) {
+    switch (readOption(5)) {
         case '1':
             swapDisplayOnDemand();
             ColorPrint("cyan", displayOnDemand ? "Displaying on demand\n" : "Hiding on demand\n");
@@ -45,6 +48,11 @@ void Menu::changeDisplayMode() {
             pressEnterToContinue();
             break;
         case '4':
+            swapDisplayDemand();
+            ColorPrint("cyan", displayDemand ? "Displaying demand of cities\n" : "Hiding demand of cities\n");
+            pressEnterToContinue();
+            break;
+        case '5':
             settings();
             break;
     }
@@ -949,16 +957,24 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
 
 void Menu::printCitiesFlow(vector<double> citiesPrevFlow) {
     ostringstream file;
-    ColorPrint("cyan", "\nCity - Flow / Demand\n");
-    file << "City - Flow / Demand\n\n";
+    if (displayDemand) {
+        ColorPrint("cyan", "\nCity - Flow / Demand\n");
+        file << "City - Flow / Demand\n\n";
+    }
+    else {
+        ColorPrint("cyan", "\nCity - Flow\n");
+        file << "City - Flow\n\n";
+    }
     for(int i = 1; i <= waterSupply.getCities().size(); i++) {
         auto city = waterSupply.getCity("C_" + to_string(i));
         double flow = waterSupply.computeCityFlow(city.getCode());
         ostringstream line;
         ostringstream flowDemand;
         if ((city.getDemand() < flow && displayOverflow) || (city.getDemand() > flow && displayUnderflow) || (city.getDemand() == flow && displayOnDemand)) {
-            flowDemand << flow << " / " << city.getDemand();
-            line << left << setw(4) << city.getCode() << " - " << setw(13) << flowDemand.str();
+            if (displayDemand) {
+                flowDemand << flow << " / " << city.getDemand();
+                line << left << setw(4) << city.getCode() << " - " << setw(13) << flowDemand.str();
+            } else line << left << setw(4) << city.getCode() << " - " << setw(6) << flow;
             ColorPrint("white", line.str());
             file << line.str();
             line.str("");
@@ -1025,6 +1041,10 @@ void Menu::swapDisplayUnderflow() {
 
 void Menu::swapDisplayOverflow() {
     displayOverflow? displayOverflow = false : displayOverflow = true;
+}
+
+void Menu::swapDisplayDemand() {
+    displayDemand? displayDemand = false : displayDemand = true;
 }
 
 
