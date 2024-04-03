@@ -885,10 +885,15 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
     string res;
     pair<string, string> pipe;
     bool end = true;
+    vector<double> citiesPrevFlow;
     switch(readOption(4)) {
         case '1':
             res = readReservoirCode();
             if (!res.empty()) {
+                for(int i = 1; i <= waterSupply.getCities().size(); i++) {
+                    auto city = waterSupply.getCity("C_" + to_string(i));
+                    citiesPrevFlow.push_back(waterSupply.computeCityFlow(city.getCode()));
+                }
                 maxFlow.deleteReservoir(res, waterSupply.getNetwork());
                 resStat.push_back(res);
             }
@@ -897,6 +902,10 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
         case '2':
             res = readStationCode();
             if (!res.empty()) {
+                for(int i = 1; i <= waterSupply.getCities().size(); i++) {
+                    auto city = waterSupply.getCity("C_" + to_string(i));
+                    citiesPrevFlow.push_back(waterSupply.computeCityFlow(city.getCode()));
+                }
                 maxFlow.deleteStation(res, waterSupply.getNetwork());
                 resStat.push_back(res);
             }
@@ -905,6 +914,10 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
         case '3':
             pipe =  readPipeCodes();
             if (!pipe.first.empty() && !pipe.second.empty()) {
+                for(int i = 1; i <= waterSupply.getCities().size(); i++) {
+                    auto city = waterSupply.getCity("C_" + to_string(i));
+                    citiesPrevFlow.push_back(waterSupply.computeCityFlow(city.getCode()));
+                }
                 pipes.push_back(pipe);
                 maxFlow.deletePipe(pipe.first, pipe.second, waterSupply.getNetwork());
             }
@@ -915,7 +928,7 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
             return;
     }
     if (end) {
-        printCitiesFlow();
+        printCitiesFlow(citiesPrevFlow);
         pressEnterToContinue();
         ColorPrint("blue", "Do you want to perform another action?\n");
         ColorPrint("cyan", "1. ");
@@ -927,16 +940,18 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
     } else reliabilityTesting(resStat, pipes);
 }
 
-void Menu::printCitiesFlow() {
+void Menu::printCitiesFlow(vector<double> citiesPrevFlow) {
     ostringstream file;
-    ColorPrint("cyan", "\nCity - Flow\n");
-    file << "City - Flow\n\n";
+    ColorPrint("cyan", "\nCity - Flow / Demand\n");
+    file << "City - Flow / Demand\n\n";
     for(int i = 1; i <= waterSupply.getCities().size(); i++) {
         auto city = waterSupply.getCity("C_" + to_string(i));
         double flow = waterSupply.computeCityFlow(city.getCode());
         ostringstream line;
+        ostringstream flowDemand;
         if ((city.getDemand() < flow && displayOverflow) || (city.getDemand() > flow && displayUnderflow) || (city.getDemand() == flow && displayOnDemand)) {
-            line << left << setw(4) << city.getCode() << " - " << setw(6) << flow;
+            flowDemand << flow << " / " << city.getDemand();
+            line << left << setw(4) << city.getCode() << " - " << setw(13) << flowDemand.str();
             ColorPrint("white", line.str());
             file << line.str();
             line.str("");
@@ -950,6 +965,15 @@ void Menu::printCitiesFlow() {
                 line << " (Underflow by " << (city.getDemand()) - flow << ")";
                 ColorPrint("yellow", line.str());
                 file << line.str();
+            }
+            line.str("");
+            line.clear();
+            if (!citiesPrevFlow.empty()) {
+                if(citiesPrevFlow[i-1] != flow) {
+                    line << " (Previous flow : " << citiesPrevFlow[i-1] << ")";
+                    ColorPrint("pink", line.str());
+                    file << line.str();
+                }
             }
             ColorPrint("white", "\n");
             file << "\n";

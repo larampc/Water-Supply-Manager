@@ -185,7 +185,7 @@ public:
 
     void getMaxFlowExcessOp();
 
-    void printCitiesFlow();
+    void printCitiesFlow(std::vector<double> citiesPrevFlow = {});
 
     void printNetworkStatistics();
 
