@@ -811,9 +811,11 @@ void Menu::checkDeactivatedComponents(){
     ColorPrint("cyan", "3. ");
     ColorPrint("white", "Check pipes\n");
     ColorPrint("cyan", "4. ");
+    ColorPrint("white", "Activate all components\n");
+    ColorPrint("cyan", "5. ");
     ColorPrint("red", "Cancel \n");
     cin.sync();
-    switch(readOption(4)) {
+    switch(readOption(5)) {
         case '1':
             checkDeactivatedReservoirs();
             break;
@@ -824,6 +826,11 @@ void Menu::checkDeactivatedComponents(){
             checkDeactivatedPipes();
             break;
         case '4':
+            waterSupply.activateAll();
+            ColorPrint("blue", "Activated all components \n");
+            pressEnterToContinue();
+            break;
+        case '5':
             reliabiltyMenu();
             break;
     }
