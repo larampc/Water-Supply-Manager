@@ -180,17 +180,11 @@ public:
      */
     bool checkActive();
     /**
-     * \brief Gets the sum of the flow of all incoming Edge to this Vertex.
+     * \brief Removes incoming Edge from the Vertex.
      *
-     * @return The sum of the flow of all incoming Edge to this Vertex.
+     * @param edge The Edge to remove.
      */
-    double getIncomingFlow();
-    /**
-     * \brief Gets the sum of the weight of all outgoing Edge from this Vertex.
-     *
-     * @return The sum of the weight of all outgoing Edge from this Vertex.
-     */
-    double outWeight();
+    void deleteEdge(Edge *edge);
 protected:
     std::string info;                // info node
     std::vector<Edge *> adj;  // outgoing edges
@@ -204,9 +198,6 @@ protected:
 
     std::vector<Edge *> incoming; // incoming edges
 
-    int queueIndex = 0; 		// required by MutablePriorityQueue and UFDS
-
-    void deleteEdge(Edge *edge);
     std::unordered_set<int> paths;
     bool isActive = true;
 
@@ -401,7 +392,7 @@ public:
     /**
      * \brief Gets the number of Vertex in this Graph.
      *
-     * @return The number of Vertex in this Graph.
+     * @retuurn The number of Vertex in this Graph.
      */
     int getNumVertex() const;
     /**

@@ -198,5 +198,11 @@ void MaxFlow::deletePipe(const std::string& source, const std::string& dest, Gra
 
 void MaxFlow::reliabilityPrep(Graph* network) {
     paths.clear();
+    for (auto v: network->getVertexSet()) {
+        v.second->resetPath();
+        for (auto e: v.second->getAdj()) {
+            e->resetPath();
+        }
+    }
     maxFlowWithList(network);
 }

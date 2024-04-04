@@ -161,28 +161,6 @@ bool Vertex::checkActive() {
     return isActive;
 }
 
-double Vertex::getIncomingFlow() {
-    double inc = 0;
-    if(info == "src")  {
-        for(auto e: adj){
-            inc += e->getWeight();
-        }
-        return inc;
-    }
-    for (auto v: incoming) {
-        inc += v->getFlow();
-    }
-    return inc;
-}
-
-double Vertex::outWeight() {
-    double out = 0;
-    for (auto v: adj) {
-        out += v->getWeight();
-    }
-    return out;
-}
-
 /********************** Edge  ****************************/
 
 
