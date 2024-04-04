@@ -521,7 +521,15 @@ vector<Edge*> WaterSupply::transformBidirectionalEdges(){
     return deactivated;
 }
 
-vector<Edge*> WaterSupply::getMaxPathTo(Vertex* city){
+double differenceCapFlow(Edge* edge) {
+    return edge->getWeight() - edge->getFlow();
+}
+
+double invDifferenceCapFlow(Edge* edge) {
+    return 1/(edge->getWeight() - edge->getFlow());
+}
+
+vector<Edge*> WaterSupply::getShortestPathTo(Vertex* city, double (*func)(Edge*)){
     vector<Edge*> res;
     auto order = network.topSort();
 
@@ -536,8 +544,8 @@ vector<Edge*> WaterSupply::getMaxPathTo(Vertex* city){
         auto v = network.findVertex(code);
         for(auto adj : v->getAdj()){
             if(!adj->checkActive()) continue;
-            if(adj->getDest()->getDist() > v->getDist() + (adj->getWeight() - adj->getFlow())){
-                adj->getDest()->setDist(v->getDist() + (adj->getWeight() - adj->getFlow()));
+            if(adj->getDest()->getDist() > v->getDist() + func(adj)){
+                adj->getDest()->setDist(v->getDist() + func(adj));
                 adj->getDest()->setPath(adj);
             }
         }
@@ -550,34 +558,6 @@ vector<Edge*> WaterSupply::getMaxPathTo(Vertex* city){
     return res;
 }
 
-vector<Edge*> WaterSupply::findMinAugPath(Vertex * city) {
-    vector<Edge*> res;
-    auto order = network.topSort();
-    for(auto v: network.getVertexSet()){
-        v.second->setDist(INF);
-        v.second->setPath(nullptr);
-    }
-    auto source = network.findVertex("src");
-    source->setDist(0);
-    for(const auto& code : order){
-        if(code == city->getInfo()) break;
-        auto v = network.findVertex(code);
-        for(auto adj : v->getAdj()){
-            if(!adj->checkActive()) continue;
-            if( adj->getFlow() < adj->getWeight()  && adj->getDest()->getDist() > v->getDist() + 1/(adj->getWeight() - adj->getFlow())){
-                adj->getDest()->setDist(v->getDist() + 1/(adj->getWeight() - adj->getFlow()));
-                adj->getDest()->setPath(adj);
-            }
-        }
-    }
-    auto curr = city;
-    while(curr->getPath() != nullptr){
-        res.push_back(curr->getPath());
-        curr = curr->getPath()->getOrig();
-
-    }
-    return res;
-}
 
 void WaterSupply::balancingViaMinCost(){
     for(auto v: network.getVertexSet()){
@@ -595,7 +575,7 @@ void WaterSupply::balancingViaMinCost(){
         for(int i = 1; i <= cities.size(); i++){
             auto city = network.findVertex("C_"+ to_string(i));
 
-            auto path = getMaxPathTo(city);
+            auto path = getShortestPathTo(city, differenceCapFlow);
 
             if(!path.empty() && PathHasFlow(path)){
                 for(auto e : path){
@@ -603,7 +583,7 @@ void WaterSupply::balancingViaMinCost(){
                 }
             }
             else continue;
-            auto minPath = findMinAugPath(city);
+            auto minPath = getShortestPathTo(city, invDifferenceCapFlow);
 
             bool equals = true;
             for(int j = 0; j < minPath.size(); j++){
@@ -612,16 +592,10 @@ void WaterSupply::balancingViaMinCost(){
                     break;
                 }
             }
-            if(equals) {
-                for(auto e : path){
-                    e->setFlow(e->getFlow()+1);
-                }
-                continue;
+            for(auto e : minPath){
+                e->setFlow(e->getFlow()+1);
             }
-            else {
-                for(auto e : minPath){
-                    e->setFlow(e->getFlow()+1);
-                }
+            if(!equals) {
                 i--;
                 diff = true;
             }

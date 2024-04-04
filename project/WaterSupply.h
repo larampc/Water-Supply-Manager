@@ -230,9 +230,7 @@ public:
 
     void balancingViaMinCost();
 
-    std::vector<Edge *> getMaxPathTo(Vertex* city);
-
-    std::vector<Edge *> findMinAugPath(Vertex* city);
+    std::vector<Edge *> getShortestPathTo(Vertex* city, double (*func)(Edge*));
 
     static bool PathHasFlow(std::vector<Edge*> path);
 
