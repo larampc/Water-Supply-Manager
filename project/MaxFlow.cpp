@@ -193,6 +193,7 @@ void MaxFlow::deletePipe(const std::string& source, const std::string& dest, Gra
     auto edge = network->findEdge(source, dest);
     resetPaths(edge->getPaths());
     edge->desactivate();
+    edge->getReverse()->desactivate();
     maxFlowWithList(network);
 }
 

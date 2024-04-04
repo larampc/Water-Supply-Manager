@@ -51,11 +51,12 @@ class Menu {
 private:
     WaterSupply waterSupply;
     MaxFlow maxFlow;
-    bool displayOnDemand = true, displayUnderflow = true, displayOverflow = true;
+    bool displayOnDemand = true, displayUnderflow = true, displayOverflow = true, displayDemand = true;
 public:
     void swapDisplayOnDemand();
     void swapDisplayUnderflow();
     void swapDisplayOverflow();
+    void swapDisplayDemand();
     /**
      * \brief Outputs the dataset menu and handles the respective inputs.
      */
@@ -185,7 +186,7 @@ public:
 
     void getMaxFlowExcessOp();
 
-    void printCitiesFlow();
+    void printCitiesFlow(std::vector<double> citiesPrevFlow = {});
 
     void printNetworkStatistics();
 

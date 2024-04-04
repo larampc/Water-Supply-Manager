@@ -26,9 +26,12 @@ void Menu::changeDisplayMode() {
     ColorPrint("yellow", displayUnderflow ? "Hide" : "Show");
     ColorPrint("white", " underflow\n");
     ColorPrint("cyan", "4. ");
+    ColorPrint("yellow", displayDemand ? "Hide" : "Show");
+    ColorPrint("white", " demand of cities\n");
+    ColorPrint("cyan", "5. ");
     ColorPrint("red", "Cancel\n");
     cin.sync();
-    switch (readOption(4)) {
+    switch (readOption(5)) {
         case '1':
             swapDisplayOnDemand();
             ColorPrint("cyan", displayOnDemand ? "Displaying on demand\n" : "Hiding on demand\n");
@@ -45,6 +48,11 @@ void Menu::changeDisplayMode() {
             pressEnterToContinue();
             break;
         case '4':
+            swapDisplayDemand();
+            ColorPrint("cyan", displayDemand ? "Displaying demand of cities\n" : "Hiding demand of cities\n");
+            pressEnterToContinue();
+            break;
+        case '5':
             settings();
             break;
     }
@@ -308,6 +316,7 @@ void Menu::run() {
                 settings();
                 break;
             case '6':
+                ColorPrint("blue", "Bye Bye :(\n");
                 exit(0);
         }
     }
@@ -810,9 +819,11 @@ void Menu::checkDeactivatedComponents(){
     ColorPrint("cyan", "3. ");
     ColorPrint("white", "Check pipes\n");
     ColorPrint("cyan", "4. ");
+    ColorPrint("white", "Activate all components\n");
+    ColorPrint("cyan", "5. ");
     ColorPrint("red", "Cancel \n");
     cin.sync();
-    switch(readOption(4)) {
+    switch(readOption(5)) {
         case '1':
             checkDeactivatedReservoirs();
             break;
@@ -823,6 +834,11 @@ void Menu::checkDeactivatedComponents(){
             checkDeactivatedPipes();
             break;
         case '4':
+            waterSupply.activateAll();
+            ColorPrint("blue", "Activated all components \n");
+            pressEnterToContinue();
+            break;
+        case '5':
             reliabiltyMenu();
             break;
     }
@@ -884,10 +900,15 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
     string res;
     pair<string, string> pipe;
     bool end = true;
+    vector<double> citiesPrevFlow;
     switch(readOption(4)) {
         case '1':
             res = readReservoirCode();
             if (!res.empty()) {
+                for(int i = 1; i <= waterSupply.getCities().size(); i++) {
+                    auto city = waterSupply.getCity("C_" + to_string(i));
+                    citiesPrevFlow.push_back(waterSupply.computeCityFlow(city.getCode()));
+                }
                 maxFlow.deleteReservoir(res, waterSupply.getNetwork());
                 resStat.push_back(res);
             }
@@ -896,6 +917,10 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
         case '2':
             res = readStationCode();
             if (!res.empty()) {
+                for(int i = 1; i <= waterSupply.getCities().size(); i++) {
+                    auto city = waterSupply.getCity("C_" + to_string(i));
+                    citiesPrevFlow.push_back(waterSupply.computeCityFlow(city.getCode()));
+                }
                 maxFlow.deleteStation(res, waterSupply.getNetwork());
                 resStat.push_back(res);
             }
@@ -904,6 +929,10 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
         case '3':
             pipe =  readPipeCodes();
             if (!pipe.first.empty() && !pipe.second.empty()) {
+                for(int i = 1; i <= waterSupply.getCities().size(); i++) {
+                    auto city = waterSupply.getCity("C_" + to_string(i));
+                    citiesPrevFlow.push_back(waterSupply.computeCityFlow(city.getCode()));
+                }
                 pipes.push_back(pipe);
                 maxFlow.deletePipe(pipe.first, pipe.second, waterSupply.getNetwork());
             }
@@ -914,7 +943,7 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
             return;
     }
     if (end) {
-        printCitiesFlow();
+        printCitiesFlow(citiesPrevFlow);
         pressEnterToContinue();
         ColorPrint("blue", "Do you want to perform another action?\n");
         ColorPrint("cyan", "1. ");
@@ -926,16 +955,26 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
     } else reliabilityTesting(resStat, pipes);
 }
 
-void Menu::printCitiesFlow() {
+void Menu::printCitiesFlow(vector<double> citiesPrevFlow) {
     ostringstream file;
-    ColorPrint("cyan", "\nCity - Flow\n");
-    file << "City - Flow\n\n";
+    if (displayDemand) {
+        ColorPrint("cyan", "\nCity - Flow / Demand\n");
+        file << "City - Flow / Demand\n\n";
+    }
+    else {
+        ColorPrint("cyan", "\nCity - Flow\n");
+        file << "City - Flow\n\n";
+    }
     for(int i = 1; i <= waterSupply.getCities().size(); i++) {
         auto city = waterSupply.getCity("C_" + to_string(i));
         double flow = waterSupply.computeCityFlow(city.getCode());
         ostringstream line;
+        ostringstream flowDemand;
         if ((city.getDemand() < flow && displayOverflow) || (city.getDemand() > flow && displayUnderflow) || (city.getDemand() == flow && displayOnDemand)) {
-            line << left << setw(4) << city.getCode() << " - " << setw(6) << flow;
+            if (displayDemand) {
+                flowDemand << flow << " / " << city.getDemand();
+                line << left << setw(4) << city.getCode() << " - " << setw(13) << flowDemand.str();
+            } else line << left << setw(4) << city.getCode() << " - " << setw(6) << flow;
             ColorPrint("white", line.str());
             file << line.str();
             line.str("");
@@ -949,6 +988,15 @@ void Menu::printCitiesFlow() {
                 line << " (Underflow by " << (city.getDemand()) - flow << ")";
                 ColorPrint("yellow", line.str());
                 file << line.str();
+            }
+            line.str("");
+            line.clear();
+            if (!citiesPrevFlow.empty()) {
+                if(citiesPrevFlow[i-1] != flow) {
+                    line << " (Previous flow : " << citiesPrevFlow[i-1] << ")";
+                    ColorPrint("pink", line.str());
+                    file << line.str();
+                }
             }
             ColorPrint("white", "\n");
             file << "\n";
@@ -993,6 +1041,10 @@ void Menu::swapDisplayUnderflow() {
 
 void Menu::swapDisplayOverflow() {
     displayOverflow? displayOverflow = false : displayOverflow = true;
+}
+
+void Menu::swapDisplayDemand() {
+    displayDemand? displayDemand = false : displayDemand = true;
 }
 
 
