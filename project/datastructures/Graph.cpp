@@ -231,6 +231,14 @@ bool Edge::checkActive() const {
     return isActive;
 }
 
+bool Edge::checkVisited() const {
+    return visited;
+}
+
+void Edge::setVisited(bool newVisited) {
+    visited = newVisited;
+}
+
 /********************** Graph  ****************************/
 
 

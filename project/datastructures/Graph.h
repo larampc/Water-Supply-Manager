@@ -313,6 +313,8 @@ public:
      * @return The Edge active state.
      */
     bool checkActive() const;
+    bool checkVisited() const;
+    void setVisited(bool newVisited);
 protected:
     Vertex * dest; // destination vertex
     double weight; // edge weight, can also be used for capacity
@@ -324,6 +326,7 @@ protected:
     double flow = 0; // for flow-related problems
     std::unordered_set<int> paths;
     bool isActive = true;
+    bool visited = false;
 };
 
 /********************** Graph  ****************************/

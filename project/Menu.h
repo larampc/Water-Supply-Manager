@@ -182,6 +182,10 @@ public:
      */
     static void pressEnterToContinue();
 
+    void listReliabilityTesting();
+
+    void printlistReliability(std::vector<std::pair<std::string, std::vector<std::tuple<std::string, double, double, double>>>> result, int mode);
+
     void printPipeDestinations(const std::string& code);
 
     void getMaxFlowExcessOp();
