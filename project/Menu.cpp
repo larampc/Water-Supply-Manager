@@ -976,42 +976,52 @@ void Menu::listReliabilityTesting() {
     vector<pair<string, vector<tuple<string, double, double, double>>>> res;
     pair<string, vector<tuple<string, double, double, double>>> result;
     vector<double> citiesPrevFlow;
+
+    waterSupply.maxFlow();
     for(int i = 1; i <= waterSupply.getCities().size(); i++) {
         auto city = waterSupply.getCity("C_" + to_string(i));
         citiesPrevFlow.push_back(waterSupply.computeCityFlow(city.getCode()));
     }
     switch(readOption(4)) {
         case '1':
-            for (auto r : waterSupply.getReservoirs()) {
-                if(waterSupply.getNetwork()->findVertex(r.first)->checkActive()) {
-                    maxFlow.deleteReservoir(r.first, waterSupply.getNetwork());
-                    result.first = r.first;
+            for (int i = 1; i <= waterSupply.getReservoirs().size(); i++) {
+                string name = "R_" + to_string(i);
+                if(waterSupply.getNetwork()->findVertex(name)->checkActive()) {
+                    result.second.clear();
+                    maxFlow.deleteReservoir(name, waterSupply.getNetwork());
+                    result.first = name;
                     for(int i = 1; i <= waterSupply.getCities().size(); i++) {
                         auto city = waterSupply.getCity("C_" + to_string(i));
                         double flow = waterSupply.computeCityFlow(city.getCode());
                         if (flow != citiesPrevFlow[i-1]) result.second.emplace_back("C_" + to_string(i), flow, city.getDemand(), flow - citiesPrevFlow[i-1]);
                     }
                     res.push_back(result);
-                    waterSupply.getNetwork()->findVertex(r.first)->activate();
+                    waterSupply.getNetwork()->findVertex(name)->activate();
                 }
             }
             printlistReliability(res, 1);
+            waterSupply.maxFlow();
+            pressEnterToContinue();
             break;
         case '2':
-            for (auto s : waterSupply.getStations()) {
-                if(waterSupply.getNetwork()->findVertex(s.first)->checkActive()) {
-                    maxFlow.deleteStation(s.first, waterSupply.getNetwork());
-                    result.first = s.first;
+            for (int i = 1; i <= waterSupply.getStations().size(); i++) {
+                string name = "PS_" + to_string(i);
+                if(waterSupply.getNetwork()->findVertex(name)->checkActive()) {
+                    result.second.clear();
+                    maxFlow.deleteStation(name, waterSupply.getNetwork());
+                    result.first = name;
                     for(int i = 1; i <= waterSupply.getCities().size(); i++) {
                         auto city = waterSupply.getCity("C_" + to_string(i));
                         double flow = waterSupply.computeCityFlow(city.getCode());
                         if (flow != citiesPrevFlow[i-1]) result.second.emplace_back("C_" + to_string(i), flow, city.getDemand(), flow - citiesPrevFlow[i-1]);
                     }
                     res.push_back(result);
-                    waterSupply.getNetwork()->findVertex(s.first)->activate();
+                    waterSupply.getNetwork()->findVertex(name)->activate();
                 }
             }
             printlistReliability(res, 2);
+            waterSupply.maxFlow();
+            pressEnterToContinue();
             break;
         case '3':
             for (auto v : waterSupply.getNetwork()->getVertexSet()) {
@@ -1024,6 +1034,7 @@ void Menu::listReliabilityTesting() {
                     for (auto e: v.second->getAdj()) {
                         if (e->getDest()->getInfo() != "sink" && e->getDest()->getInfo() != "src") {
                             if(e->checkActive() && !e->checkVisited()) {
+                                result.second.clear();
                                 maxFlow.deletePipe(e->getOrig()->getInfo(), e->getDest()->getInfo(), waterSupply.getNetwork());
                                 result.first = (e->getOrig()->getInfo() + " - " + e->getDest()->getInfo());
                                 for(int i = 1; i <= waterSupply.getCities().size(); i++) {
@@ -1044,6 +1055,8 @@ void Menu::listReliabilityTesting() {
                 }
             }
             printlistReliability(res, 3);
+            waterSupply.maxFlow();
+            pressEnterToContinue();
             break;
         case '4':
             reliabiltyMenu();
@@ -1064,15 +1077,15 @@ void Menu::printlistReliability(vector<pair<string, vector<tuple<string, double,
     }
 
     for (auto line: result) {
-        ostringstream name;
+        ostringstream tmp;
+        if (mode <= 2) {
+            tmp << left << setw(7) << line.first + ": ";
+        }
+        else {
+            tmp << left << setw(15) << line.first + ": ";
+        }
+        ColorPrint("blue", tmp.str());
         if (!line.second.empty()) {
-            if (mode <= 2) {
-                name << left << setw(7) << line.first + ": ";
-            }
-            else {
-                name << left << setw(15) << line.first + ": ";
-            }
-            ColorPrint("white", name.str());
             for (int c = 0; c < line.second.size(); c++) {
                 if (c != 0 && c%4 == 0) {
                     if (mode <= 2) {
@@ -1083,14 +1096,21 @@ void Menu::printlistReliability(vector<pair<string, vector<tuple<string, double,
                     }
                 }
                 tuple<string, double, double, double> city = line.second[c];
-                if (c != 0 && (c%4 != 0)) ColorPrint("white", " | ");
-                ColorPrint("white", get<0>(city));
+                tmp.clear();
+                tmp.str("");
+                tmp << left << setw(4) << get<0>(city);
+                if (c != 0 && (c%4 != 0)) ColorPrint("white", " | " + tmp.str());
+                else ColorPrint("white", tmp.str());
                 string color;
+                string signal;
                 (get<3>(city) > 0)? (color = "green") : (color = "red");
-                ColorPrint(color, " [" + convertDouble(get<3>(city), 0) + "]");
+                (get<3>(city) > 0)? (signal = " [+") : (signal = " [");
+                ColorPrint(color, signal + convertDouble(get<3>(city), 0) + "]");
                 ColorPrint("cyan", "(" + convertDouble(get<1>(city), 0) + "/" + convertDouble(get<2>(city), 0) + ")");
             }
-            ColorPrint("white", "\n");
+            ColorPrint("white", "\n\n");
+        } else {
+            ColorPrint("pink", "(No changes of flow to any City)\n\n");
         }
     }
     waterSupply.computeFlow();
