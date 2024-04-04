@@ -166,25 +166,24 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
 <div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    <span class="keywordtype">void</span> balancingViaMinCost();</div>
 <div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span> </div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    std::vector&lt;Edge *&gt; getShortestPathTo(<a class="code hl_class" href="class_vertex.html">Vertex</a>* city);</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    std::vector&lt;Edge *&gt; getShortestPathTo(<a class="code hl_class" href="class_vertex.html">Vertex</a>* city, <span class="keywordtype">double</span> (*func)(<a class="code hl_class" href="class_edge.html">Edge</a>*));</div>
 <div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span> </div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    std::vector&lt;Edge *&gt; findMinAugPath(<a class="code hl_class" href="class_vertex.html">Vertex</a>* city);</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    <span class="keyword">static</span> <span class="keywordtype">bool</span> PathHasFlow(std::vector&lt;Edge*&gt; path);</div>
 <div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    <span class="keyword">static</span> <span class="keywordtype">bool</span> PathHasFlow(std::vector&lt;Edge*&gt; path);</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span> </div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    <span class="keywordtype">void</span> setSuperSinkWithDemand();</div>
 <div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    <span class="keywordtype">void</span> setSuperSinkWithDemand();</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    <span class="keywordtype">void</span> optimalCityMaxFlow(<span class="keyword">const</span> std::vector&lt;std::string&gt; &amp;cityList);</div>
 <div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <span class="keywordtype">void</span> optimalCityMaxFlow(<span class="keyword">const</span> std::vector&lt;std::string&gt; &amp;cityList);</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span> </div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    <span class="keywordtype">void</span> setSuperSinkNull();</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>};</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <span class="keywordtype">void</span> setSuperSinkNull();</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>};</div>
 </div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span> </div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span> </div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span><span class="preprocessor">#endif </span><span class="comment">//WATERSUPPLYMANAGER_WATERSUPPLY_H</span></div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span> </div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span><span class="preprocessor">#endif </span><span class="comment">//WATERSUPPLYMANAGER_WATERSUPPLY_H</span></div>
 <div class="ttc" id="aclass_city_html"><div class="ttname"><a href="class_city.html">City</a></div><div class="ttdoc">A custom class to represent a City.</div><div class="ttdef"><b>Definition</b> City.h:12</div></div>
-<div class="ttc" id="aclass_graph_html"><div class="ttname"><a href="class_graph.html">Graph</a></div><div class="ttdoc">A custom class to represent a Graph.</div><div class="ttdef"><b>Definition</b> Graph.h:346</div></div>
+<div class="ttc" id="aclass_edge_html"><div class="ttname"><a href="class_edge.html">Edge</a></div><div class="ttdoc">A custom class to represent a Graph's Edge.</div><div class="ttdef"><b>Definition</b> Graph.h:214</div></div>
+<div class="ttc" id="aclass_graph_html"><div class="ttname"><a href="class_graph.html">Graph</a></div><div class="ttdoc">A custom class to represent a Graph.</div><div class="ttdef"><b>Definition</b> Graph.h:340</div></div>
 <div class="ttc" id="aclass_reservoir_html"><div class="ttname"><a href="class_reservoir.html">Reservoir</a></div><div class="ttdoc">A custom class to represent a Reservoir.</div><div class="ttdef"><b>Definition</b> Reservoir.h:12</div></div>
 <div class="ttc" id="aclass_vertex_html"><div class="ttname"><a href="class_vertex.html">Vertex</a></div><div class="ttdoc">A custom class to represent a Graph's Vertex.</div><div class="ttdef"><b>Definition</b> Graph.h:25</div></div>
 <div class="ttc" id="aclass_water_supply_html"><div class="ttname"><a href="class_water_supply.html">WaterSupply</a></div><div class="ttdoc">This class stores all the data and performs different functions on it.</div><div class="ttdef"><b>Definition</b> WaterSupply.h:16</div></div>

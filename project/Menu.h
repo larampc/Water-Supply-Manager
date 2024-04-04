@@ -181,11 +181,22 @@ public:
      * \brief Pauses the output until user presses ENTER.
      */
     static void pressEnterToContinue();
-
+    /**
+     * \brief Outputs the list reliability testing options and handles the respective inputs.
+     */
     void listReliabilityTesting();
-
+    /**
+     * \brief Outputs the information of the given result from listReliabilityTesting().
+     *
+     * @param result The information calculated in listReliabilityTesting().
+     * @param mode The type of list (Reservoir, Station or Pipe).
+     */
     void printlistReliability(std::vector<std::pair<std::string, std::vector<std::tuple<std::string, double, double, double>>>> result, int mode);
-
+    /**
+     * \brief Outputs all the adjacent Vertex of the Vertex with the given code.
+     *
+     * @param code The vertex to output all adjacent Vertex.
+     */
     void printPipeDestinations(const std::string& code);
 
     void getMaxFlowExcessOp();
