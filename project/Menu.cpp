@@ -888,6 +888,7 @@ void Menu::auxReliability() {
         for (const auto& s: pipes) {
             waterSupply.getNetwork()->findEdge(s.first,s.second)->activate();
         }
+        waterSupply.maxFlow();
     }
 }
 
