@@ -310,6 +310,8 @@ public:
      * @param city The City vertex to calculate the shortest path to.
      * @param func The function to calculate the distance.
      * @return The shortest path to the given City Vertex using the given function to calculate the distance.
+     * \par Complexity
+     * O(V+E) in which V is the number of vertex and E the number of edges of the Graph.
      */
     std::vector<Edge *> getShortestPathTo(Vertex* city, double (*func)(Edge*));
     /**

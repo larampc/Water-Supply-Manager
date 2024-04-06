@@ -569,7 +569,6 @@ void WaterSupply::balancingViaMinCost(){
     vector<Edge*> deactivated = transformBidirectionalEdges();
     if(!network.isDAG()) {
         cout << "NETWORK IS NOT DAG\n";
-        return;
     }
     bool improved;
     do {
