@@ -112,12 +112,54 @@ public:
     std::unordered_map<std::string, Station> getStations();
 
     /********************** Checkers  ****************************/
+    /**
+     * \brief Checks if exists a City with the given ID.
+     *
+     * @param id The ID to check.
+     * @return The City code of the City with the given ID or empty if invalid ID.
+     */
     std::string existsCityByID(int id);
+    /**
+     * \brief Checks if exists a City with the given code.
+     *
+     * @param code The code to check.
+     * @return True if exists a City with the given code, false otherwise.
+     */
     bool existsCityByCode(const std::string& code);
+    /**
+     * \brief Checks if exists a City with the given name.
+     *
+     * @param name The name to check.
+     * @return The City code of the City with the given name or empty if invalid name.
+     */
     std::string existsCityByName(const std::string& name);
+    /**
+     * \brief Checks if exists a Reservoir with the given name.
+     *
+     * @param name The name to check.
+     * @return The Reservoir code of the Reservoir with the given name or empty if invalid name.
+     */
     std::string existsReservoirByName(const std::string& name);
+    /**
+     * \brief Checks if exists a Reservoir with the given ID.
+     *
+     * @param id The ID to check.
+     * @return The Reservoir code of the Reservoir with the given ID or empty if invalid ID.
+     */
     std::string existsReservoirByID(int id);
+    /**
+     * \brief Checks if exists a Reservoir with the given code.
+     *
+     * @param code The code to check.
+     * @return True if exists a Reservoir with the given code, false otherwise.
+     */
     bool existsReservoirByCode(const std::string& code);
+    /**
+     * \brief Checks if exists any Reservoir with the given municipality.
+     *
+     * @param municipality The municipality to check.
+     * @return The Reservoir code of all the Reservoir with the given municipality or empty if invalid municipality.
+     */
     std::vector<Reservoir> existsMunicipality(const std::string& municipality);
 
     /********************** Statistics  ****************************/

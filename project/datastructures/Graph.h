@@ -313,7 +313,17 @@ public:
      * @return The Edge active state.
      */
     bool checkActive() const;
+    /**
+     * \brief Gets the Edge visited state.
+     *
+     * @return The Edge visited state.
+     */
     bool checkVisited() const;
+    /**
+     * \brief Sets the Edge visited state to the given state.
+     *
+     * @param newVisited The state to set the Edge visited state.
+     */
     void setVisited(bool newVisited);
 protected:
     Vertex * dest; // destination vertex

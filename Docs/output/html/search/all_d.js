@@ -9,9 +9,13 @@ var searchData=
   ['setprocessing_6',['setProcessing',['../class_vertex.html#ab8e07026d427d6fde1422236004fb548',1,'Vertex']]],
   ['setreverse_7',['setReverse',['../class_edge.html#a64881280015bd83702fe3b2c6234b7e5',1,'Edge']]],
   ['settings_8',['settings',['../class_menu.html#a6e524f61c2d1b76d806a7ebe4f852c30',1,'Menu']]],
-  ['setvisited_9',['setVisited',['../class_vertex.html#a15eeabbbb6d517af746ae137c6d5b595',1,'Vertex']]],
+  ['setvisited_9',['setvisited',['../class_vertex.html#a15eeabbbb6d517af746ae137c6d5b595',1,'Vertex::setVisited()'],['../class_edge.html#aac1d8338a2808e36bbc2ed48ccaa7c4c',1,'Edge::setVisited(bool newVisited)']]],
   ['setweight_10',['setWeight',['../class_edge.html#a452013a3525db6e2dbbbcb614acf728b',1,'Edge']]],
   ['station_11',['station',['../class_station.html',1,'Station'],['../class_station.html#aca5d1d7de6052a396c7a8fe9affd153c',1,'Station::Station()']]],
   ['supply_20management_20program_12',['Welcome to the Water Supply Management Program',['../index.html',1,'']]],
-  ['swapcolormode_13',['swapColorMode',['../class_color_print.html#a314025715cb8697f6f9fb87068d7284a',1,'ColorPrint']]]
+  ['swapcolormode_13',['swapColorMode',['../class_color_print.html#a314025715cb8697f6f9fb87068d7284a',1,'ColorPrint']]],
+  ['swapdisplaydemand_14',['swapDisplayDemand',['../class_menu.html#ad7e88bc722a091b2f3e119a47e9a5d31',1,'Menu']]],
+  ['swapdisplayondemand_15',['swapDisplayOnDemand',['../class_menu.html#a40b59f47f8f92f35e7429639a4cf065c',1,'Menu']]],
+  ['swapdisplayoverflow_16',['swapDisplayOverflow',['../class_menu.html#ae635bc190510f4f1fdd86eb2f5515cfe',1,'Menu']]],
+  ['swapdisplayunderflow_17',['swapDisplayUnderflow',['../class_menu.html#a750e5689663c040b23efdd86633ab414',1,'Menu']]]
 ];

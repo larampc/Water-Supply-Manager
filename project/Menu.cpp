@@ -305,7 +305,7 @@ void Menu::run() {
                 getMaxFlowOp();
                 break;
             case '3':
-                reliabiltyMenu();
+                reliabilityMenu();
                 break;
             case '4':
                 waterSupply.balancingViaMinCost();
@@ -839,13 +839,13 @@ void Menu::checkDeactivatedComponents(){
             pressEnterToContinue();
             break;
         case '5':
-            reliabiltyMenu();
+            reliabilityMenu();
             break;
     }
 }
 
 
-void Menu::reliabiltyMenu() {
+void Menu::reliabilityMenu() {
     ColorPrint("blue", "Select option:\n");
     ColorPrint("cyan", "1. ");
     ColorPrint("white", "Deactivate components\n");
@@ -945,7 +945,7 @@ void Menu::reliabilityTesting(vector<std::string>& resStat, vector<pair<string, 
             else end = false;
             break;
         case '4':
-            if (resStat.empty() && pipes.empty()) reliabiltyMenu();
+            if (resStat.empty() && pipes.empty()) reliabilityMenu();
             return;
     }
     if (end) {
@@ -1060,7 +1060,7 @@ void Menu::listReliabilityTesting() {
             pressEnterToContinue();
             break;
         case '4':
-            reliabiltyMenu();
+            reliabilityMenu();
             break;
     }
 }

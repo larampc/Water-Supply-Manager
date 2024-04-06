@@ -44,7 +44,7 @@
  * \class Menu
  * \brief This class handles and runs the different commands.
  *
- * This class has the --- and different functions to analyze and get information from the data.
+ * This class stores the WaterSupply and different functions to analyze and get information from the data.
  * It is also responsible for handling inputs and outputs.
  */
 class Menu {
@@ -53,9 +53,21 @@ private:
     MaxFlow maxFlow;
     bool displayOnDemand = true, displayUnderflow = true, displayOverflow = true, displayDemand = true;
 public:
+    /**
+     * \brief Toggles the display City on demand mode.
+     */
     void swapDisplayOnDemand();
+    /**
+     * \brief Toggles the display City on underflow mode.
+     */
     void swapDisplayUnderflow();
+    /**
+     * \brief Toggles the display City on overflow mode.
+     */
     void swapDisplayOverflow();
+    /**
+     * \brief Toggles the display City demand mode.
+     */
     void swapDisplayDemand();
     /**
      * \brief Outputs the dataset menu and handles the respective inputs.
@@ -198,25 +210,53 @@ public:
      * @param code The vertex to output all adjacent Vertex.
      */
     void printPipeDestinations(const std::string& code);
-
+    /**
+     * \brief Outputs the max flow with excess options and handles the respective inputs.
+     */
     void getMaxFlowExcessOp();
-
+    /**
+     * \brief Outputs the flow and demand of all City and the previous flow if given so.
+     *
+     * @param citiesPrevFlow The previous flow of all City (can be empty).
+     */
     void printCitiesFlow(std::vector<double> citiesPrevFlow = {});
-
+    /**
+     * \brief Calls the printCitiesFlow() and outputs the average, max and variance of (Capacity - Flow) of the Graph.
+     */
     void printNetworkStatistics();
-
+    /**
+     * \brief Asks user for a list of valid City codes.
+     *
+     * @return The given list of City codes.
+     */
     std::vector<std::string> readCitiesCodes();
-
+    /**
+     * \brief Outputs the max flow with prioritized City options and handles the respective inputs.
+     */
     void MaxFlowWithPrioritizedCities();
-
+    /**
+     * \brief Outputs the change display mode options and handles the respective inputs.
+     */
     void changeDisplayMode();
-
-    void reliabiltyMenu();
-
+    /**
+     * \brief Outputs the reliability options and handles the respective inputs.
+     */
+    void reliabilityMenu();
+    /**
+     * \brief Outputs the check deactivated components options and handles the respective inputs.
+     */
     void checkDeactivatedComponents();
-
+    /**
+     * \brief Outputs the deactivated Reservoir options and handles the respective inputs.
+     */
     void checkDeactivatedReservoirs();
+    /**
+     * \brief Outputs the deactivated Station options and handles the respective inputs.
+     */
     void checkDeactivatedStations();
+    /**
+     * \brief Outputs the deactivated Pipes options and handles the respective inputs.
+     */
     void checkDeactivatedPipes();
 
 
