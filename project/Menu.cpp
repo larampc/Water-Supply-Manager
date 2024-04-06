@@ -308,7 +308,7 @@ void Menu::run() {
                 reliabiltyMenu();
                 break;
             case '4':
-                waterSupply.balancingViaMinCost();
+                waterSupply.fromScratch();
                 printNetworkStatistics();
                 pressEnterToContinue();
                 break;

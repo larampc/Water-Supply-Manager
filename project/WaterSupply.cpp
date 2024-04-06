@@ -562,11 +562,11 @@ vector<Edge*> WaterSupply::getShortestPathTo(Vertex* city, double (*func)(Edge*)
     return res;
 }
 
-vector<Edge*> WaterSupply::minDijstrka(Vertex* city, double(*func)(Edge*)){
-    vector<Edge*> res;
+vector<Edge*> WaterSupply::minDijstrka(Vertex* city, double(*func)(Edge*)) {
+    vector<Edge *> res;
 
     MutablePriorityQueue<Vertex> q;
-    for(auto v : network.getVertexSet()){
+    for (auto v: network.getVertexSet()) {
         v.second->setDist(INF);
         v.second->setPath(nullptr);
         v.second->setVisited(false);
@@ -576,17 +576,17 @@ vector<Edge*> WaterSupply::minDijstrka(Vertex* city, double(*func)(Edge*)){
         start->setDist(0);
         q.insert(start);
     }
-    while(!q.empty()){
-        Vertex* u = q.extractMin();
+    while (!q.empty()) {
+        Vertex *u = q.extractMin();
         u->setVisited(true);
-        for(auto* e : u->getAdj()){
-            if(!e->checkActive()) continue;
-            Vertex* v = e->getDest();
-            if(!v->isVisited() && v->getDist() > u->getDist() + func(e)){
+        for (auto *e: u->getAdj()) {
+            if (!e->checkActive()) continue;
+            Vertex *v = e->getDest();
+            if (!v->isVisited() && v->getDist() > u->getDist() + func(e)) {
                 double oldPathCost = v->getDist();
                 v->setPath(e);
                 v->setDist(u->getDist() + func(e));
-                if(oldPathCost == INF)
+                if (oldPathCost == INF)
                     q.insert(v);
                 else
                     q.decreaseKey(v);
@@ -594,12 +594,75 @@ vector<Edge*> WaterSupply::minDijstrka(Vertex* city, double(*func)(Edge*)){
         }
     }
     auto curr = city;
-    while(curr->getPath() != nullptr){
+    while (curr->getPath() != nullptr) {
         res.push_back(curr->getPath());
         curr = curr->getPath()->getOrig();
     }
     return res;
+}
 
+
+double residualC2(Edge* e, bool out){
+    return out ? e->getWeight() - e->getFlow() : e->getFlow();
+}
+
+double getCf2(Vertex* source, Vertex* target) {
+    double minC = INF;
+    Vertex *curr = target;
+    while (curr != source) {
+        bool outgoing = curr->getPath()->getDest() == curr;
+        minC = std::min(minC, residualC2(curr->getPath(), outgoing));
+        curr = outgoing ? curr->getPath()->getOrig() : curr->getPath()->getDest();
+    }
+    return minC;
+}
+
+void augmentPath2(Vertex* source, Vertex* target, double cf) {
+    Vertex* curr = target;
+    while (curr != source){
+        bool outgoing = curr->getPath()->getDest() == curr;
+        curr->getPath()->setFlow(outgoing ? curr->getPath()->getFlow() + cf : curr->getPath()->getFlow() - cf);
+        curr = outgoing ? curr->getPath()->getOrig() : curr->getPath()->getDest();
+    }
+}
+
+bool WaterSupply::minDijstrka(double(*func)(Edge*)){
+        MutablePriorityQueue<Vertex> q;
+        for(auto v : network.getVertexSet()){
+            v.second->setDist(INF);
+            v.second->setPath(nullptr);
+            v.second->setVisited(false);
+        }
+        {
+            auto *start = network.findVertex("src");
+            start->setDist(0);
+            q.insert(start);
+        }
+        while(!q.empty()){
+            Vertex* u = q.extractMin();
+            u->setVisited(true);
+            for(auto* e : u->getAdj()){
+                if(!e->checkActive()) continue;
+                Vertex* v = e->getDest();
+                if(!v->isVisited() && v->getDist() > u->getDist() + func(e)){
+                    double oldPathCost = v->getDist();
+                    v->setPath(e);
+                    v->setDist(u->getDist() + func(e));
+                    if(oldPathCost == INF)
+                        q.insert(v);
+                    else
+                        q.decreaseKey(v);
+                }
+            }
+        }
+        return network.findVertex("sink")->isVisited();
+    }
+
+void WaterSupply::fromScratch(){
+    while(minDijstrka(invDifferenceCapFlow)){
+        double cf = getCf2(network.findVertex("src"), network.findVertex("sink"));
+        augmentPath2(network.findVertex("src"), network.findVertex("sink"), cf);
+    }
 }
 
 

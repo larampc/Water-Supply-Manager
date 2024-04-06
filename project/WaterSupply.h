@@ -252,6 +252,10 @@ public:
     void Dijkstra();
 
     std::vector<Edge *> minDijstrka(Vertex *city, double (*func)(Edge *));
+
+    bool minDijstrka(double (*func)(Edge *));
+
+    void fromScratch();
 };
 
 
