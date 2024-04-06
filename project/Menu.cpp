@@ -7,7 +7,7 @@
 
 using namespace std;
 
-std::string convertDouble(double d, double precision = 2) {
+std::string convertDouble(double d, int precision = 2) {
     ostringstream os;
     os << std::fixed << std::setprecision(precision) << d;
     return os.str();
@@ -1031,12 +1031,12 @@ void Menu::listReliabilityTesting() {
             pressEnterToContinue();
             break;
         case '3':
-            for (auto v : waterSupply.getNetwork()->getVertexSet()) {
+            for (const auto& v : waterSupply.getNetwork()->getVertexSet()) {
                 for (auto e: v.second->getAdj()) {
                     e->setVisited(false);
                 }
             }
-            for (auto v : waterSupply.getNetwork()->getVertexSet()) {
+            for (const auto& v : waterSupply.getNetwork()->getVertexSet()) {
                 if (v.first != "sink" && v.first != "src") {
                     for (auto e: v.second->getAdj()) {
                         if (e->getDest()->getInfo() != "sink" && e->getDest()->getInfo() != "src") {
@@ -1071,7 +1071,7 @@ void Menu::listReliabilityTesting() {
     }
 }
 
-void Menu::printlistReliability(vector<pair<string, vector<tuple<string, double, double, double>>>> result, int mode) {
+void Menu::printlistReliability(const vector<pair<string, vector<tuple<string, double, double, double>>>>& result, int mode) {
     ostringstream file;
     if (mode == 1) {
         ColorPrint("cyan", "\nReservoir: Altered City [Flow Difference](Flow / Demand) | ...\n");

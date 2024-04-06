@@ -203,7 +203,7 @@ public:
      * @param result The information calculated in listReliabilityTesting().
      * @param mode The type of list (Reservoir, Station or Pipe).
      */
-    void printlistReliability(std::vector<std::pair<std::string, std::vector<std::tuple<std::string, double, double, double>>>> result, int mode);
+    void printlistReliability(const std::vector<std::pair<std::string, std::vector<std::tuple<std::string, double, double, double>>>>& result, int mode);
     /**
      * \brief Outputs all the adjacent Vertex of the Vertex with the given code.
      *
