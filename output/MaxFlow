@@ -1,25 +1,13 @@
 City - Flow / Demand
 
-C_1  - 52 / 52      
-C_2  - 515 / 515    
-C_3  - 110 / 160     (Underflow by 50)
-C_4  - 1208 / 1208  
-C_5  - 125 / 152     (Underflow by 27)
-C_6  - 230 / 230    
-C_7  - 896 / 896    
-C_8  - 100 / 122     (Underflow by 22)
-C_9  - 53 / 53      
-C_10 - 220 / 313     (Underflow by 93)
-C_11 - 380 / 407     (Underflow by 27)
-C_12 - 177 / 177    
-C_13 - 150 / 158     (Underflow by 8)
-C_14 - 406 / 406    
-C_15 - 12250 / 12250
-C_16 - 96 / 96      
-C_17 - 5650 / 6324   (Underflow by 674)
-C_18 - 200 / 200    
-C_19 - 780 / 780    
-C_20 - 100 / 168     (Underflow by 68)
-C_21 - 135 / 161     (Underflow by 26)
-C_22 - 330 / 397     (Underflow by 67)
-Total: 24163
+C_1  - 0 / 18        (Underflow by 18)
+C_2  - 0 / 34        (Underflow by 34)
+C_3  - 0 / 46        (Underflow by 46)
+C_4  - 0 / 137       (Underflow by 137)
+C_5  - 0 / 295       (Underflow by 295)
+C_6  - 0 / 740       (Underflow by 740)
+C_7  - 0 / 225       (Underflow by 225)
+C_8  - 0 / 89        (Underflow by 89)
+C_9  - 0 / 59        (Underflow by 59)
+C_10 - 0 / 76        (Underflow by 76)
+Total: 0
