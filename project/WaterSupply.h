@@ -255,21 +255,54 @@ public:
     void maxFlowToCity(const std::string& target);
 
     /********************** MaxFlow Reverse ****************************/
+    /**
+     * \brief Deletes the given Reservoir and recomputes the max flow using the reverseMaxFlow method.
+     *
+     * @param reservoir The Reservoir to delete.
+     */
     void deleteReservoirMaxReverse(const std::string& reservoir);
-
+    /**
+     * \brief Outputs the given string to the file with the given file name.
+     *
+     * @param fileName The file name of the file to output to.
+     * @param text The string to output to the given file.
+     */
     static void OutputToFile(const std::string &fileName, const std::string &text);
-
+    /**
+     * \brief Checks if exists a Station with the given code.
+     *
+     * @param code The code to check.
+     * @return True if exists a Station with the given code, false otherwise.
+     */
     bool existsStationByCode(const std::string& code);
-
+    /**
+     * \brief Checks if exists a Pipe with the given source and destination.
+     *
+     * @param source The source to check.
+     * @param dest The destination to check.
+     * @return True if exists a Pipe with the given source and destination, false otherwise.
+     */
     bool existsPipe(const std::string& source, const std::string& dest);
+    /**
+     * \brief Checks if exists a Reservoir, City or Station with the given code.
+     *
+     * @param code The code to check.
+     * @return True if exists a Reservoir, City or Station with the given code, false otherwise.
+     */
     bool existsCode(const std::string& code);
-
+    /**
+     * \brief Activates all deactivated Vertex.
+     */
     void activateAll();
-
-    void exportToFile(bool flow);
-
+    /**
+     * \brief Transforms all bidirectional Edge to be one directional without altering the current flow of the Graph.
+     *
+     * @return The deactivated part of all the bidirectional Edge.
+     */
     std::vector<Edge*> transformBidirectionalEdges();
-
+    /**
+     * \brief Balances the demand - flow across the Graph.
+     */
     void balancingViaMinCost();
 
     std::vector<Edge *> getShortestPathTo(Vertex* city, double (*func)(Edge*));

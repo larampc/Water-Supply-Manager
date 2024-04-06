@@ -606,37 +606,6 @@ void WaterSupply::balancingViaMinCost(){
     }
 }
 
-void WaterSupply::exportToFile(bool flow) {
-    fstream file;
-    file.open("../graph.csv", ios::out);
-    unordered_map<string, int> ids;
-    int id = 1;
-    for(const auto& v: network.getVertexSet()){
-        if(v.first == "src" || v.first == "sink") continue;
-        ids.emplace(v.first,id++);
-    }
-    ids.emplace("src", 0);
-    ids.emplace("sink", id);
-    for (const auto& v: network.getVertexSet()) {
-        for (auto w: v.second->getAdj()) {
-            file << w->getOrig()->getInfo() << ' ' << w->getDest()->getInfo() << ' ' << w->getWeight() ;
-            if (flow) file << "/" << w->getFlow();
-            file << '\n';
-        }
-    }
-    file.close();
-    ofstream file2("../graph2.csv");
-    ifstream file1("../graph.csv");
-    string line;
-    while(getline(file1,line)){
-        istringstream iss(line);
-        unsigned long long src, dest, c;
-        iss >> src >> dest >> c;
-        file2 << "g.addEdge(" << src << "," << dest << "," << c <<");\n";
-    }
-    file2.close();
-}
-
 bool WaterSupply::PathHasFlow(std::vector<Edge *> path) {
     return std::all_of(path.begin(), path.end(), [](Edge* e) {return e->getFlow() >= 1;});
 }

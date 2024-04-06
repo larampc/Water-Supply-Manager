@@ -1,11 +1,12 @@
 var searchData=
 [
-  ['edge_0',['edge',['../class_edge.html',1,'Edge'],['../class_edge.html#addd388ca7a2bd9134b471b6795060083',1,'Edge::Edge()']]],
-  ['existscitybycode_1',['existsCityByCode',['../class_water_supply.html#ad1f1759a1910e511521679733c4a1d14',1,'WaterSupply']]],
-  ['existscitybyid_2',['existsCityByID',['../class_water_supply.html#a563501121e4ae54c53f22da840bc38f8',1,'WaterSupply']]],
-  ['existscitybyname_3',['existsCityByName',['../class_water_supply.html#a011a74db15bac7410fb1f738019a7a75',1,'WaterSupply']]],
-  ['existsmunicipality_4',['existsMunicipality',['../class_water_supply.html#a3e5348b11dd23372659d8b42d611a833',1,'WaterSupply']]],
-  ['existsreservoirbycode_5',['existsReservoirByCode',['../class_water_supply.html#a797300ffd485e9bada68731bdf2499d1',1,'WaterSupply']]],
-  ['existsreservoirbyid_6',['existsReservoirByID',['../class_water_supply.html#a82f2009f3daa9783844ac3ed49be84ad',1,'WaterSupply']]],
-  ['existsreservoirbyname_7',['existsReservoirByName',['../class_water_supply.html#a0e1df567741802e162e0c506cec5def2',1,'WaterSupply']]]
+  ['deleteedge_0',['deleteEdge',['../class_vertex.html#ac2a80daa5a6a208173f55d4d161334f1',1,'Vertex']]],
+  ['deletepipe_1',['deletePipe',['../class_max_flow.html#a4f8419bc53f6161d6d5eaa73002ed889',1,'MaxFlow']]],
+  ['deletereservoir_2',['deleteReservoir',['../class_max_flow.html#a80d40855fc8ffe0db5223e661bce3d6b',1,'MaxFlow']]],
+  ['deletereservoirmaxreverse_3',['deleteReservoirMaxReverse',['../class_water_supply.html#af41a6beb0b015dd489028c9d650f7431',1,'WaterSupply']]],
+  ['deletestation_4',['deleteStation',['../class_max_flow.html#a81d338e9865ff7ff997c462012402ad3',1,'MaxFlow']]],
+  ['desactivate_5',['desactivate',['../class_vertex.html#a6cc0d08ee11e7f93e642db33c78da6c1',1,'Vertex::desactivate()'],['../class_edge.html#aa08c363e824828b97053406fbaa64204',1,'Edge::desactivate()']]],
+  ['description_6',['Project description',['../index.html#description_sec',1,'']]],
+  ['dfsisdag_7',['dfsIsDAG',['../class_graph.html#a03ef8f6e2f6ecbecc6068a5a5dc1f7c7',1,'Graph']]],
+  ['do_8',['What can this project do?',['../index.html#utility_sec',1,'']]]
 ];
