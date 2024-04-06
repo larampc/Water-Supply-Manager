@@ -161,14 +161,6 @@ bool Vertex::checkActive() {
     return isActive;
 }
 
-long Vertex::getIncomingFlow() {
-    long sum = 0;
-    for(auto e : adj){
-        sum += e->getFlow();
-    }
-    return sum;
-}
-
 /********************** Edge  ****************************/
 
 

@@ -1,4 +1,5 @@
 #include "MaxFlow.h"
+#include "datastructures/MutablePriorityQueue.h"
 #include <queue>
 #include <stack>
 using namespace std;
@@ -206,4 +207,47 @@ void MaxFlow::reliabilityPrep(Graph* network) {
         }
     }
     maxFlowWithList(network);
+}
+
+bool MaxFlow::findMinAugmentingPath(Graph* network, const string& source, const string& target, double(*cost)(Edge*)){
+    MutablePriorityQueue<Vertex> q;
+    for(auto v : network->getVertexSet()){
+        v.second->setDist(INF);
+        v.second->setPath(nullptr);
+        v.second->setVisited(false);
+    }
+    auto *start = network->findVertex(source);
+    start->setDist(0);
+    q.insert(start);
+    while(!q.empty()){
+        Vertex* v = q.extractMin();
+        v->setVisited(true);
+        if(!v->checkActive()) continue;
+        for(auto* e : v->getAdj()){
+            if(!e->checkActive() || e->getFlow() == e->getWeight()) continue;
+            Vertex* w = e->getDest();
+            if(!w->checkActive() || w->isVisited()) continue;
+            double currentCost = w->getDist(), nextCost = v->getDist() + cost(e);
+            if(currentCost > nextCost){
+                w->setPath(e);
+                w->setDist(nextCost);
+                if(currentCost == INF)
+                    q.insert(w);
+                else
+                    q.decreaseKey(w);
+            }
+        }
+    }
+    return network->findVertex(target)->isVisited();
+}
+
+void MaxFlow::balancedMaxFlow(Graph* network, const string& source, const string& sink){
+    Vertex* src = network->findVertex(source);
+    Vertex* snk = network->findVertex(sink);
+    network->resetFlow();
+    while(findMinAugmentingPath(network, source, sink,
+            [](Edge* edge) -> double { return 1/(edge->getWeight() - edge->getFlow());})){
+        double cf = getCf(src, snk);
+        augmentPath(src, snk, cf);
+    }
 }

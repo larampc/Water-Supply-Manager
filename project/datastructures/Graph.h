@@ -26,7 +26,6 @@ class Edge;
  */
 class Vertex {
 public:
-    int queueIndex = 0;
     /**
      * \brief Vertex constructor.
      *
@@ -188,9 +187,7 @@ public:
      * @param edge The Edge to remove.
      */
     void deleteEdge(Edge *edge);
-
-    long getIncomingFlow();
-
+    int queueIndex = 0;
 protected:
     std::string info;                // info node
     std::vector<Edge *> adj;  // outgoing edges

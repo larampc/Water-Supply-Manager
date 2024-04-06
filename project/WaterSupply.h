@@ -224,8 +224,6 @@ public:
 
     void activateAll();
 
-    void exportToFile(bool flow);
-
     std::vector<Edge*> transformBidirectionalEdges();
 
     void balancingViaMinCost();
@@ -244,18 +242,6 @@ public:
     void exportToFile(const std::string& path, bool flow);
 
     void exportMermaid(const std::string& path);
-
-    double maxWeight();
-
-    std::vector<Edge *> getShortestPathTo(Vertex *city, double (*func)(Vertex *, Edge *));
-
-    void Dijkstra();
-
-    std::vector<Edge *> minDijstrka(Vertex *city, double (*func)(Edge *));
-
-    bool minDijstrka(double (*func)(Edge *));
-
-    void fromScratch();
 };
 
 

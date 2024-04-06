@@ -533,24 +533,26 @@ double invDifferenceCapFlow(Edge* edge) {
     return 1/((edge->getWeight() - edge->getFlow()));
 }
 
-vector<Edge*> WaterSupply::getShortestPathTo(Vertex* city, double (*func)(Edge*)){
+vector<Edge*> WaterSupply::getShortestPathTo(Vertex* city, double (*cost)(Edge*)){
     vector<Edge*> res;
     auto order = network.topSort();
-
     for(auto v: network.getVertexSet()){
         v.second->setDist(INF);
         v.second->setPath(nullptr);
     }
     auto source = network.findVertex("src");
     source->setDist(0);
+
     for(const auto& code : order){
         if(code == city->getInfo()) break;
         auto v = network.findVertex(code);
         for(auto adj : v->getAdj()){
             if(!adj->checkActive()) continue;
-            if(adj->getDest()->getDist() > v->getDist() + func(adj)){
-                adj->getDest()->setDist(v->getDist() + func(adj));
-                adj->getDest()->setPath(adj);
+            double nextCost = v->getDist() + cost(adj);
+            auto w = adj->getDest();
+            if(w->getDist() > nextCost){
+                w->setDist(nextCost);
+                w->setPath(adj);
             }
         }
     }
@@ -561,160 +563,6 @@ vector<Edge*> WaterSupply::getShortestPathTo(Vertex* city, double (*func)(Edge*)
     }
     return res;
 }
-
-vector<Edge*> WaterSupply::minDijstrka(Vertex* city, double(*func)(Edge*)) {
-    vector<Edge *> res;
-
-    MutablePriorityQueue<Vertex> q;
-    for (auto v: network.getVertexSet()) {
-        v.second->setDist(INF);
-        v.second->setPath(nullptr);
-        v.second->setVisited(false);
-    }
-    {
-        auto *start = network.findVertex("src");
-        start->setDist(0);
-        q.insert(start);
-    }
-    while (!q.empty()) {
-        Vertex *u = q.extractMin();
-        u->setVisited(true);
-        for (auto *e: u->getAdj()) {
-            if (!e->checkActive()) continue;
-            Vertex *v = e->getDest();
-            if (!v->isVisited() && v->getDist() > u->getDist() + func(e)) {
-                double oldPathCost = v->getDist();
-                v->setPath(e);
-                v->setDist(u->getDist() + func(e));
-                if (oldPathCost == INF)
-                    q.insert(v);
-                else
-                    q.decreaseKey(v);
-            }
-        }
-    }
-    auto curr = city;
-    while (curr->getPath() != nullptr) {
-        res.push_back(curr->getPath());
-        curr = curr->getPath()->getOrig();
-    }
-    return res;
-}
-
-
-double residualC2(Edge* e, bool out){
-    return out ? e->getWeight() - e->getFlow() : e->getFlow();
-}
-
-double getCf2(Vertex* source, Vertex* target) {
-    double minC = INF;
-    Vertex *curr = target;
-    while (curr != source) {
-        bool outgoing = curr->getPath()->getDest() == curr;
-        minC = std::min(minC, residualC2(curr->getPath(), outgoing));
-        curr = outgoing ? curr->getPath()->getOrig() : curr->getPath()->getDest();
-    }
-    return minC;
-}
-
-void augmentPath2(Vertex* source, Vertex* target, double cf) {
-    Vertex* curr = target;
-    while (curr != source){
-        bool outgoing = curr->getPath()->getDest() == curr;
-        curr->getPath()->setFlow(outgoing ? curr->getPath()->getFlow() + cf : curr->getPath()->getFlow() - cf);
-        curr = outgoing ? curr->getPath()->getOrig() : curr->getPath()->getDest();
-    }
-}
-
-bool WaterSupply::minDijstrka(double(*func)(Edge*)){
-        MutablePriorityQueue<Vertex> q;
-        for(auto v : network.getVertexSet()){
-            v.second->setDist(INF);
-            v.second->setPath(nullptr);
-            v.second->setVisited(false);
-        }
-        {
-            auto *start = network.findVertex("src");
-            start->setDist(0);
-            q.insert(start);
-        }
-        while(!q.empty()){
-            Vertex* u = q.extractMin();
-            u->setVisited(true);
-            for(auto* e : u->getAdj()){
-                if(!e->checkActive()) continue;
-                Vertex* v = e->getDest();
-                if(!v->isVisited() && v->getDist() > u->getDist() + func(e)){
-                    double oldPathCost = v->getDist();
-                    v->setPath(e);
-                    v->setDist(u->getDist() + func(e));
-                    if(oldPathCost == INF)
-                        q.insert(v);
-                    else
-                        q.decreaseKey(v);
-                }
-            }
-        }
-        return network.findVertex("sink")->isVisited();
-    }
-
-void WaterSupply::fromScratch(){
-    while(minDijstrka(invDifferenceCapFlow)){
-        double cf = getCf2(network.findVertex("src"), network.findVertex("sink"));
-        augmentPath2(network.findVertex("src"), network.findVertex("sink"), cf);
-    }
-}
-
-
-void WaterSupply::Dijkstra(){
-    for (const auto& entry : std::filesystem::directory_iterator("../Mermaid/"))
-        std::filesystem::remove_all(entry.path());
-    for (const auto& entry : std::filesystem::directory_iterator("../States/"))
-        std::filesystem::remove_all(entry.path());
-    exportMermaid("Mermaid/initial");
-    exportToFile("States/initial",true);
-    for(auto v: network.getVertexSet()){
-        v.second->setVisited(false);
-        v.second->setPath(nullptr);
-    }
-    bool diff = true;
-    int pathn = 0;
-    while (diff) {
-        diff = false;
-        for(int i = 1; i <= cities.size(); i++){
-
-            auto city = network.findVertex("C_"+ to_string(i));
-
-            auto path = minDijstrka(city, differenceCapFlow);
-
-            if(!path.empty() && PathHasFlow(path)){
-                for(auto e : path){
-                    e->setFlow(e->getFlow()-1);
-                }
-            }
-            else continue;
-            auto minPath = minDijstrka(city, invDifferenceCapFlow);
-
-            bool equals = true;
-            for(int j = 0; j < minPath.size(); j++){
-                if(minPath[j] != path[j]) {
-                    equals = false;
-                    break;
-                }
-            }
-            for(auto e : minPath){
-                e->setFlow(e->getFlow()+1);
-            }
-            if(!equals) {
-                i--;
-                diff = true;
-            }
-            exportToFile("States/st" + to_string(pathn),true);
-            exportMermaid("Mermaid/st" + to_string(pathn++));
-        }
-    }
-}
-
 
 void WaterSupply::balancingViaMinCost(){
     for (const auto& entry : std::filesystem::directory_iterator("../Mermaid/"))
@@ -731,23 +579,24 @@ void WaterSupply::balancingViaMinCost(){
     vector<Edge*> deactivated = transformBidirectionalEdges();
     if(!network.isDAG()) {
         cout << "NETWORK IS NOT DAG\n";
+        return;
     }
-    bool diff = true;
+    bool improved = false;
     int pathn = 0;
-    while (diff) {
-        diff = false;
+    do {
         for(int i = 1; i <= cities.size(); i++){
             auto city = network.findVertex("C_"+ to_string(i));
-
             auto path = getShortestPathTo(city, differenceCapFlow);
+            if(path.empty() || !PathHasFlow(path)) continue;
 
-            if(!path.empty() && PathHasFlow(path)){
-                for(auto e : path){
-                    e->setFlow(e->getFlow()-1);
-                }
+            for(auto e : path){
+                e->setFlow(e->getFlow()-1);
             }
-            else continue;
+
             auto minPath = getShortestPathTo(city, invDifferenceCapFlow);
+            for(auto e : minPath){
+                e->setFlow(e->getFlow()+1);
+            }
 
             bool equals = true;
             for(int j = 0; j < minPath.size(); j++){
@@ -756,17 +605,15 @@ void WaterSupply::balancingViaMinCost(){
                     break;
                 }
             }
-            for(auto e : minPath){
-                e->setFlow(e->getFlow()+1);
-            }
             if(!equals) {
                 i--;
-                diff = true;
+                improved = true;
             }
             exportToFile("States/st" + to_string(pathn),true);
             exportMermaid("Mermaid/st" + to_string(pathn++));
         }
-    }
+    } while( improved );
+
     for (auto e: deactivated) {
         e->activate();
     }
