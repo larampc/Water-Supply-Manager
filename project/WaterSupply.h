@@ -248,6 +248,10 @@ public:
     double maxWeight();
 
     std::vector<Edge *> getShortestPathTo(Vertex *city, double (*func)(Vertex *, Edge *));
+
+    void Dijkstra();
+
+    std::vector<Edge *> minDijstrka(Vertex *city, double (*func)(Edge *));
 };
 
 

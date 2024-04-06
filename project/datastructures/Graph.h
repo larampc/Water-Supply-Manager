@@ -26,6 +26,7 @@ class Edge;
  */
 class Vertex {
 public:
+    int queueIndex = 0;
     /**
      * \brief Vertex constructor.
      *

@@ -1,5 +1,6 @@
 #include "WaterSupply.h"
 #include "Reservoir.h"
+#include "datastructures/MutablePriorityQueue.h"
 #include <fstream>
 #include <sstream>
 #include <string>
@@ -529,7 +530,7 @@ double differenceCapFlow(Edge* edge) {
 }
 
 double invDifferenceCapFlow(Edge* edge) {
-    return 1/(edge->getWeight() - edge->getFlow());
+    return 1/((edge->getWeight() - edge->getFlow()));
 }
 
 vector<Edge*> WaterSupply::getShortestPathTo(Vertex* city, double (*func)(Edge*)){
@@ -559,6 +560,96 @@ vector<Edge*> WaterSupply::getShortestPathTo(Vertex* city, double (*func)(Edge*)
         curr = curr->getPath()->getOrig();
     }
     return res;
+}
+
+vector<Edge*> WaterSupply::minDijstrka(Vertex* city, double(*func)(Edge*)){
+    vector<Edge*> res;
+
+    MutablePriorityQueue<Vertex> q;
+    for(auto v : network.getVertexSet()){
+        v.second->setDist(INF);
+        v.second->setPath(nullptr);
+        v.second->setVisited(false);
+    }
+    {
+        auto *start = network.findVertex("src");
+        start->setDist(0);
+        q.insert(start);
+    }
+    while(!q.empty()){
+        Vertex* u = q.extractMin();
+        u->setVisited(true);
+        for(auto* e : u->getAdj()){
+            if(!e->checkActive()) continue;
+            Vertex* v = e->getDest();
+            if(!v->isVisited() && v->getDist() > u->getDist() + func(e)){
+                double oldPathCost = v->getDist();
+                v->setPath(e);
+                v->setDist(u->getDist() + func(e));
+                if(oldPathCost == INF)
+                    q.insert(v);
+                else
+                    q.decreaseKey(v);
+            }
+        }
+    }
+    auto curr = city;
+    while(curr->getPath() != nullptr){
+        res.push_back(curr->getPath());
+        curr = curr->getPath()->getOrig();
+    }
+    return res;
+
+}
+
+
+void WaterSupply::Dijkstra(){
+    for (const auto& entry : std::filesystem::directory_iterator("../Mermaid/"))
+        std::filesystem::remove_all(entry.path());
+    for (const auto& entry : std::filesystem::directory_iterator("../States/"))
+        std::filesystem::remove_all(entry.path());
+    exportMermaid("Mermaid/initial");
+    exportToFile("States/initial",true);
+    for(auto v: network.getVertexSet()){
+        v.second->setVisited(false);
+        v.second->setPath(nullptr);
+    }
+    bool diff = true;
+    int pathn = 0;
+    while (diff) {
+        diff = false;
+        for(int i = 1; i <= cities.size(); i++){
+
+            auto city = network.findVertex("C_"+ to_string(i));
+
+            auto path = minDijstrka(city, differenceCapFlow);
+
+            if(!path.empty() && PathHasFlow(path)){
+                for(auto e : path){
+                    e->setFlow(e->getFlow()-1);
+                }
+            }
+            else continue;
+            auto minPath = minDijstrka(city, invDifferenceCapFlow);
+
+            bool equals = true;
+            for(int j = 0; j < minPath.size(); j++){
+                if(minPath[j] != path[j]) {
+                    equals = false;
+                    break;
+                }
+            }
+            for(auto e : minPath){
+                e->setFlow(e->getFlow()+1);
+            }
+            if(!equals) {
+                i--;
+                diff = true;
+            }
+            exportToFile("States/st" + to_string(pathn),true);
+            exportMermaid("Mermaid/st" + to_string(pathn++));
+        }
+    }
 }
 
 
@@ -649,8 +740,11 @@ void WaterSupply::exportMermaid(const string& path){
         string  ss = v.first;
         for(auto w : network.findVertex(ss)->getAdj()){
             if(v.first == "src" || v.first == "sink" || w->getDest()->getInfo() == "src" || w->getDest()->getInfo() == "sink") continue;
-            file << ss << "((" << ss; if(ss[0] == 'R') file << " : " << (int)v.second->getIncomingFlow(); else if(ss[0] == 'C') file << " : " << getCity(ss).getDemand();
-            file << ")) -->|" << w->getFlow() << "/" << w->getWeight() << "| " << w->getDest()->getInfo() << "((" << w->getDest()->getInfo() <<"))" << endl;
+            file << ss << "((" << ss;
+            if(ss[0] == 'R') file << " : " << getReservoir(ss).getDelivery();
+            file << ")) -->|" << w->getFlow() << "/" << w->getWeight() << "| " << w->getDest()->getInfo() << "((" << w->getDest()->getInfo();
+            if(w->getDest()->getInfo()[0] == 'C') file << " : " << getCity(w->getDest()->getInfo()).getDemand();
+            file <<"))" << endl;
         }
     }
 }
