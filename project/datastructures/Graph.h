@@ -82,7 +82,6 @@ public:
      * @param dist The Vertex dist to set.
      */
     void setDist(double dist);
-
     /**
      * \brief Gets the Vertex path.
      *
@@ -95,7 +94,6 @@ public:
      * @return All incoming Edge to the Vertex.
      */
     std::vector<Edge *> getIncoming() const;
-
     /**
      * \brief Sets the Vertex info.
      *
@@ -224,7 +222,6 @@ public:
      * @param w The Edge weight.
      */
     Edge(Vertex *orig, Vertex *dest, double w);
-
     /**
      * \brief Gets the Edge destination Vertex.
      *
@@ -385,7 +382,6 @@ public:
      * @return True if Vertex was deleted, false otherwise.
      */
     bool removeVertex(const std::string &in);
-
     /**
      * \brief Adds a new Edge with the given weight from the Vertex with the given origin info to the Vertex with the given destination info to this Graph.
      *
@@ -404,7 +400,6 @@ public:
      * @return True if both Edge were added, false otherwise.
      */
     bool addBidirectionalEdge(const std::string &sourc, const std::string &dest, double w) const;
-
     /**
      * \brief Gets the number of Vertex in this Graph.
      *
@@ -417,7 +412,6 @@ public:
      * @return The VertexSet of this Graph.
      */
     std::unordered_map<std::string, Vertex*> getVertexSet() const;
-
     /**
      * \brief Checks if this Graph is a DAG (Directed Acyclic Graph).
      *
