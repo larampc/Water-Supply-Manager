@@ -571,8 +571,9 @@ void WaterSupply::balancingViaMinCost(){
         cout << "NETWORK IS NOT DAG\n";
         return;
     }
-    bool improved = false;
+    bool improved;
     do {
+        improved = false;
         for(int i = 1; i <= cities.size(); i++){
             auto city = network.findVertex("C_"+ to_string(i));
             auto path = getShortestPathTo(city, differenceCapFlow);
