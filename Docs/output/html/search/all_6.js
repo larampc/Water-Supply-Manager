@@ -9,7 +9,7 @@ var searchData=
   ['getcitymindemand_6',['getCityMinDemand',['../class_water_supply.html#ad2ae313f51c1d6d6a5ac1fde2a79790a',1,'WaterSupply']]],
   ['getcityminpop_7',['getCityMinPop',['../class_water_supply.html#a2fd4ba5c5384da7867b2496d18cfae09',1,'WaterSupply']]],
   ['getcitystatistics_8',['getCityStatistics',['../class_menu.html#a34b6e528092f9fc9bd6f798a8d033971',1,'Menu']]],
-  ['getcode_9',['getcode',['../class_city.html#a4e4a50d6df3fc1b0009d289a81db116d',1,'City::getCode()'],['../class_reservoir.html#a685f82431777503906e2454b97b14150',1,'Reservoir::getCode()'],['../class_station.html#acebe4b1627bbce79ace0e3e0b655c9a9',1,'Station::getCode()']]],
+  ['getcode_9',['getcode',['../class_station.html#acebe4b1627bbce79ace0e3e0b655c9a9',1,'Station::getCode()'],['../class_city.html#a4e4a50d6df3fc1b0009d289a81db116d',1,'City::getCode()'],['../class_reservoir.html#a685f82431777503906e2454b97b14150',1,'Reservoir::getCode() const']]],
   ['getdelivery_10',['getDelivery',['../class_reservoir.html#a855ed05d4b00ee3e488099ad11ef2339',1,'Reservoir']]],
   ['getdemand_11',['getDemand',['../class_city.html#a49d90f5913832295150b401643f341e7',1,'City']]],
   ['getdest_12',['getDest',['../class_edge.html#a5cda44e9ba257b03963a1ac301371a59',1,'Edge']]],
@@ -37,8 +37,9 @@ var searchData=
   ['getreservoirs_34',['getReservoirs',['../class_water_supply.html#a9fa1818045adcf8d0b40cdd251f68237',1,'WaterSupply']]],
   ['getreservoirstatistics_35',['getReservoirStatistics',['../class_menu.html#a371cc620ce8ef8f8b7d80e1e4ff8fb7b',1,'Menu']]],
   ['getreverse_36',['getReverse',['../class_edge.html#a756d2d246aa5445d0f396626c7d4fd56',1,'Edge']]],
-  ['getstations_37',['getStations',['../class_water_supply.html#a477a82ded685ba1e37273e18f72ee052',1,'WaterSupply']]],
-  ['getvertexset_38',['getVertexSet',['../class_graph.html#a12678caa0ff4bc797a98845b8f267cb1',1,'Graph']]],
-  ['getweight_39',['getWeight',['../class_edge.html#a1caaffca117bab3ff5b7387623a356f8',1,'Edge']]],
-  ['graph_40',['Graph',['../class_graph.html',1,'']]]
+  ['getshortestpathto_37',['getShortestPathTo',['../class_water_supply.html#a70ce99bb313d41894f1b623cafaf6975',1,'WaterSupply']]],
+  ['getstations_38',['getStations',['../class_water_supply.html#a477a82ded685ba1e37273e18f72ee052',1,'WaterSupply']]],
+  ['getvertexset_39',['getVertexSet',['../class_graph.html#a12678caa0ff4bc797a98845b8f267cb1',1,'Graph']]],
+  ['getweight_40',['getWeight',['../class_edge.html#a1caaffca117bab3ff5b7387623a356f8',1,'Edge']]],
+  ['graph_41',['Graph',['../class_graph.html',1,'']]]
 ];

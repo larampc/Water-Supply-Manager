@@ -211,17 +211,19 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>activateAll</b> ()</t
 void&#160;</td><td class="memItemRight" valign="bottom"><b>balancingViaMinCost</b> ()</td></tr>
 <tr class="memdesc:adc552c50c3a2c275a65c47682a385b06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Balances the demand - flow across the <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>. <br /></td></tr>
 <tr class="separator:adc552c50c3a2c275a65c47682a385b06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70ce99bb313d41894f1b623cafaf6975" id="r_a70ce99bb313d41894f1b623cafaf6975"><td class="memItemLeft" align="right" valign="top"><a id="a70ce99bb313d41894f1b623cafaf6975" name="a70ce99bb313d41894f1b623cafaf6975"></a>
-std::vector&lt; <a class="el" href="class_edge.html">Edge</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getShortestPathTo</b> (<a class="el" href="class_vertex.html">Vertex</a> *city, double(*func)(<a class="el" href="class_edge.html">Edge</a> *))</td></tr>
+<tr class="memitem:a70ce99bb313d41894f1b623cafaf6975" id="r_a70ce99bb313d41894f1b623cafaf6975"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_edge.html">Edge</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a70ce99bb313d41894f1b623cafaf6975">getShortestPathTo</a> (<a class="el" href="class_vertex.html">Vertex</a> *city, double(*func)(<a class="el" href="class_edge.html">Edge</a> *))</td></tr>
+<tr class="memdesc:a70ce99bb313d41894f1b623cafaf6975"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the shortest path to the given <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a> using the given function to calculate the distance.  <br /></td></tr>
 <tr class="separator:a70ce99bb313d41894f1b623cafaf6975"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab3d29e5c80b532191f1c32a1f8eed165" id="r_ab3d29e5c80b532191f1c32a1f8eed165"><td class="memItemLeft" align="right" valign="top"><a id="ab3d29e5c80b532191f1c32a1f8eed165" name="ab3d29e5c80b532191f1c32a1f8eed165"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setSuperSinkWithDemand</b> ()</td></tr>
+<tr class="memdesc:ab3d29e5c80b532191f1c32a1f8eed165"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets all <a class="el" href="class_edge.html" title="A custom class to represent a Graph&#39;s Edge.">Edge</a> from <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> to super sink capacity to the respective <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> demand. <br /></td></tr>
 <tr class="separator:ab3d29e5c80b532191f1c32a1f8eed165"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d101f417e5f152e2371f531a85136fb" id="r_a0d101f417e5f152e2371f531a85136fb"><td class="memItemLeft" align="right" valign="top"><a id="a0d101f417e5f152e2371f531a85136fb" name="a0d101f417e5f152e2371f531a85136fb"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>optimalCityMaxFlow</b> (const std::vector&lt; std::string &gt; &amp;cityList)</td></tr>
+<tr class="memitem:a0d101f417e5f152e2371f531a85136fb" id="r_a0d101f417e5f152e2371f531a85136fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a0d101f417e5f152e2371f531a85136fb">optimalCityMaxFlow</a> (const std::vector&lt; std::string &gt; &amp;cityList)</td></tr>
+<tr class="memdesc:a0d101f417e5f152e2371f531a85136fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the optimal max flow to the given <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> list ignoring every other <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a>.  <br /></td></tr>
 <tr class="separator:a0d101f417e5f152e2371f531a85136fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad697ae4253ef4a459b8f771ce1761fd0" id="r_ad697ae4253ef4a459b8f771ce1761fd0"><td class="memItemLeft" align="right" valign="top"><a id="ad697ae4253ef4a459b8f771ce1761fd0" name="ad697ae4253ef4a459b8f771ce1761fd0"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setSuperSinkNull</b> ()</td></tr>
+<tr class="memdesc:ad697ae4253ef4a459b8f771ce1761fd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets all <a class="el" href="class_edge.html" title="A custom class to represent a Graph&#39;s Edge.">Edge</a> from <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> to super sink capacity to 0. <br /></td></tr>
 <tr class="separator:ad697ae4253ef4a459b8f771ce1761fd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
@@ -229,8 +231,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a75290403a45178184ee4f4e8a7b4c4d1" id="r_a75290403a45178184ee4f4e8a7b4c4d1"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a75290403a45178184ee4f4e8a7b4c4d1">OutputToFile</a> (const std::string &amp;fileName, const std::string &amp;text)</td></tr>
 <tr class="memdesc:a75290403a45178184ee4f4e8a7b4c4d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Outputs the given string to the file with the given file name.  <br /></td></tr>
 <tr class="separator:a75290403a45178184ee4f4e8a7b4c4d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a596f0bca412270f11fd223dfbd619b05" id="r_a596f0bca412270f11fd223dfbd619b05"><td class="memItemLeft" align="right" valign="top"><a id="a596f0bca412270f11fd223dfbd619b05" name="a596f0bca412270f11fd223dfbd619b05"></a>
-static bool&#160;</td><td class="memItemRight" valign="bottom"><b>PathHasFlow</b> (std::vector&lt; <a class="el" href="class_edge.html">Edge</a> * &gt; path)</td></tr>
+<tr class="memitem:a596f0bca412270f11fd223dfbd619b05" id="r_a596f0bca412270f11fd223dfbd619b05"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a596f0bca412270f11fd223dfbd619b05">PathHasFlow</a> (std::vector&lt; <a class="el" href="class_edge.html">Edge</a> * &gt; path)</td></tr>
+<tr class="memdesc:a596f0bca412270f11fd223dfbd619b05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the given path has any flow.  <br /></td></tr>
 <tr class="separator:a596f0bca412270f11fd223dfbd619b05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
@@ -922,6 +924,44 @@ std::unordered_map&lt; std::string, <a class="el" href="class_station.html">Stat
 
 </div>
 </div>
+<a id="a70ce99bb313d41894f1b623cafaf6975" name="a70ce99bb313d41894f1b623cafaf6975"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70ce99bb313d41894f1b623cafaf6975">&#9670;&#160;</a></span>getShortestPathTo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">vector&lt; <a class="el" href="class_edge.html">Edge</a> * &gt; WaterSupply::getShortestPathTo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_vertex.html">Vertex</a> *&#160;</td>
+          <td class="paramname"><em>city</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double(*)(<a class="el" href="class_edge.html">Edge</a> *)&#160;</td>
+          <td class="paramname"><em>func</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Finds the shortest path to the given <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a> using the given function to calculate the distance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">city</td><td>The <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> vertex to calculate the shortest path to. </td></tr>
+    <tr><td class="paramname">func</td><td>The function to calculate the distance. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The shortest path to the given <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a> using the given function to calculate the distance. </dd></dl>
+
+</div>
+</div>
 <a id="a477a82ded685ba1e37273e18f72ee052" name="a477a82ded685ba1e37273e18f72ee052"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a477a82ded685ba1e37273e18f72ee052">&#9670;&#160;</a></span>getStations()</h2>
 
@@ -1181,6 +1221,32 @@ std::unordered_map&lt; std::string, <a class="el" href="class_station.html">Stat
 
 </div>
 </div>
+<a id="a0d101f417e5f152e2371f531a85136fb" name="a0d101f417e5f152e2371f531a85136fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d101f417e5f152e2371f531a85136fb">&#9670;&#160;</a></span>optimalCityMaxFlow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WaterSupply::optimalCityMaxFlow </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; std::string &gt; &amp;&#160;</td>
+          <td class="paramname"><em>cityList</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates the optimal max flow to the given <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> list ignoring every other <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cityList</td><td>The <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> list to calculate the optimal max flow to. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a75290403a45178184ee4f4e8a7b4c4d1" name="a75290403a45178184ee4f4e8a7b4c4d1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a75290403a45178184ee4f4e8a7b4c4d1">&#9670;&#160;</a></span>OutputToFile()</h2>
 
@@ -1223,6 +1289,41 @@ std::unordered_map&lt; std::string, <a class="el" href="class_station.html">Stat
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a596f0bca412270f11fd223dfbd619b05" name="a596f0bca412270f11fd223dfbd619b05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a596f0bca412270f11fd223dfbd619b05">&#9670;&#160;</a></span>PathHasFlow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool WaterSupply::PathHasFlow </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; <a class="el" href="class_edge.html">Edge</a> * &gt;&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if the given path has any flow. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>The path to check. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if the given path has any flow, false otherwise. </dd></dl>
 
 </div>
 </div>

@@ -304,16 +304,34 @@ public:
      * \brief Balances the demand - flow across the Graph.
      */
     void balancingViaMinCost();
-
+    /**
+     * \brief Finds the shortest path to the given City Vertex using the given function to calculate the distance.
+     *
+     * @param city The City vertex to calculate the shortest path to.
+     * @param func The function to calculate the distance.
+     * @return The shortest path to the given City Vertex using the given function to calculate the distance.
+     */
     std::vector<Edge *> getShortestPathTo(Vertex* city, double (*func)(Edge*));
-
+    /**
+     * \brief Checks if the given path has any flow.
+     *
+     * @param path The path to check.
+     * @return True if the given path has any flow, false otherwise.
+     */
     static bool PathHasFlow(std::vector<Edge*> path);
-
-
+    /**
+     * \brief Sets all Edge from City to super sink capacity to the respective City demand.
+     */
     void setSuperSinkWithDemand();
-
+    /**
+     * \brief Calculates the optimal max flow to the given City list ignoring every other City.
+     *
+     * @param cityList The City list to calculate the optimal max flow to.
+     */
     void optimalCityMaxFlow(const std::vector<std::string> &cityList);
-
+    /**
+     * \brief Sets all Edge from City to super sink capacity to 0.
+     */
     void setSuperSinkNull();
 };
 
