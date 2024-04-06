@@ -103,6 +103,11 @@ public:
      * O(VE^2) The complexity of maxFlowWithLists.
      */
     void reliabilityPrep(Graph* network);
+
+    static void balancedMaxFlow(Graph *network, const std::string &source, const std::string &sink);
+
+    static bool
+    findMinAugmentingPath(Graph *network, const std::string &source, const std::string &target, double (*cost)(Edge *));
 };
 
 

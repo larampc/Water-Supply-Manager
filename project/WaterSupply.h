@@ -333,6 +333,10 @@ public:
      * \brief Sets all Edge from City to super sink capacity to 0.
      */
     void setSuperSinkNull();
+
+    void exportToFile(const std::string& path, bool flow);
+
+    void exportMermaid(const std::string& path);
 };
 
 

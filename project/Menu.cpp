@@ -614,6 +614,8 @@ void Menu::getMaxFlowOp() {
     ColorPrint("cyan", "3. ");
     ColorPrint("white", "Max flow with excess options\n");
     ColorPrint("cyan", "4. ");
+    ColorPrint("white", "Balanced Max flow\n");
+    ColorPrint("cyan", "5. ");
     ColorPrint("red", "Cancel \n");
     cin.sync();
     switch (readOption(4)) {
@@ -627,6 +629,11 @@ void Menu::getMaxFlowOp() {
             break;
         case '3':
             getMaxFlowExcessOp();
+            break;
+        case '4':
+            MaxFlow::balancedMaxFlow(waterSupply.getNetwork(), "src", "sink");
+            printNetworkStatistics();
+            pressEnterToContinue();
             break;
     }
 }
@@ -973,7 +980,6 @@ void Menu::listReliabilityTesting() {
     ColorPrint("red", "Cancel\n");
     cin.sync();
     pair<string, string> pipe;
-    bool end = true;
     vector<pair<string, vector<tuple<string, double, double, double>>>> res;
     pair<string, vector<tuple<string, double, double, double>>> result;
     vector<double> citiesPrevFlow;
@@ -991,10 +997,10 @@ void Menu::listReliabilityTesting() {
                     result.second.clear();
                     maxFlow.deleteReservoir(name, waterSupply.getNetwork());
                     result.first = name;
-                    for(int i = 1; i <= waterSupply.getCities().size(); i++) {
-                        auto city = waterSupply.getCity("C_" + to_string(i));
+                    for(int j = 1; j <= waterSupply.getCities().size(); j++) {
+                        auto city = waterSupply.getCity("C_" + to_string(j));
                         double flow = waterSupply.computeCityFlow(city.getCode());
-                        if (flow != citiesPrevFlow[i-1]) result.second.emplace_back("C_" + to_string(i), flow, city.getDemand(), flow - citiesPrevFlow[i-1]);
+                        if (flow != citiesPrevFlow[j-1]) result.second.emplace_back("C_" + to_string(j), flow, city.getDemand(), flow - citiesPrevFlow[j-1]);
                     }
                     res.push_back(result);
                     waterSupply.getNetwork()->findVertex(name)->activate();
@@ -1011,10 +1017,10 @@ void Menu::listReliabilityTesting() {
                     result.second.clear();
                     maxFlow.deleteStation(name, waterSupply.getNetwork());
                     result.first = name;
-                    for(int i = 1; i <= waterSupply.getCities().size(); i++) {
-                        auto city = waterSupply.getCity("C_" + to_string(i));
+                    for(int j = 1; j <= waterSupply.getCities().size(); j++) {
+                        auto city = waterSupply.getCity("C_" + to_string(j));
                         double flow = waterSupply.computeCityFlow(city.getCode());
-                        if (flow != citiesPrevFlow[i-1]) result.second.emplace_back("C_" + to_string(i), flow, city.getDemand(), flow - citiesPrevFlow[i-1]);
+                        if (flow != citiesPrevFlow[j-1]) result.second.emplace_back("C_" + to_string(j), flow, city.getDemand(), flow - citiesPrevFlow[j-1]);
                     }
                     res.push_back(result);
                     waterSupply.getNetwork()->findVertex(name)->activate();
@@ -1194,19 +1200,19 @@ void Menu::printNetworkStatistics() {
 }
 
 void Menu::swapDisplayOnDemand() {
-    displayOnDemand? displayOnDemand = false : displayOnDemand = true;
+    displayOnDemand = !displayOnDemand;
 }
 
 void Menu::swapDisplayUnderflow() {
-    displayUnderflow? displayUnderflow = false : displayUnderflow = true;
+    displayUnderflow = !displayUnderflow;
 }
 
 void Menu::swapDisplayOverflow() {
-    displayOverflow? displayOverflow = false : displayOverflow = true;
+    displayOverflow = !displayOverflow;
 }
 
 void Menu::swapDisplayDemand() {
-    displayDemand? displayDemand = false : displayDemand = true;
+    displayDemand = !displayDemand;
 }
 
 

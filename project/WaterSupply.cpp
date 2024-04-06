@@ -1,5 +1,6 @@
 #include "WaterSupply.h"
 #include "Reservoir.h"
+#include "datastructures/MutablePriorityQueue.h"
 #include <fstream>
 #include <sstream>
 #include <string>
@@ -8,6 +9,9 @@
 #include <stack>
 #include <cmath>
 #include <utility>
+#include <list>
+#include <filesystem>
+
 #ifdef _WIN32
 #include <codecvt>
 #endif
@@ -529,24 +533,26 @@ double invDifferenceCapFlow(Edge* edge) {
     return 1/(edge->getWeight() - edge->getFlow());
 }
 
-vector<Edge*> WaterSupply::getShortestPathTo(Vertex* city, double (*func)(Edge*)){
+vector<Edge*> WaterSupply::getShortestPathTo(Vertex* city, double (*cost)(Edge*)){
     vector<Edge*> res;
     auto order = network.topSort();
-
     for(auto v: network.getVertexSet()){
         v.second->setDist(INF);
         v.second->setPath(nullptr);
     }
     auto source = network.findVertex("src");
     source->setDist(0);
+
     for(const auto& code : order){
         if(code == city->getInfo()) break;
         auto v = network.findVertex(code);
         for(auto adj : v->getAdj()){
             if(!adj->checkActive()) continue;
-            if(adj->getDest()->getDist() > v->getDist() + func(adj)){
-                adj->getDest()->setDist(v->getDist() + func(adj));
-                adj->getDest()->setPath(adj);
+            double nextCost = v->getDist() + cost(adj);
+            auto w = adj->getDest();
+            if(w->getDist() > nextCost){
+                w->setDist(nextCost);
+                w->setPath(adj);
             }
         }
     }
@@ -558,8 +564,13 @@ vector<Edge*> WaterSupply::getShortestPathTo(Vertex* city, double (*func)(Edge*)
     return res;
 }
 
-
 void WaterSupply::balancingViaMinCost(){
+    for (const auto& entry : std::filesystem::directory_iterator("../Mermaid/"))
+        std::filesystem::remove_all(entry.path());
+    for (const auto& entry : std::filesystem::directory_iterator("../States/"))
+        std::filesystem::remove_all(entry.path());
+    exportMermaid("Mermaid/initial");
+    exportToFile("States/initial",true);
     for(auto v: network.getVertexSet()){
         v.second->setVisited(false);
         v.second->setPath(nullptr);
@@ -568,22 +579,24 @@ void WaterSupply::balancingViaMinCost(){
     vector<Edge*> deactivated = transformBidirectionalEdges();
     if(!network.isDAG()) {
         cout << "NETWORK IS NOT DAG\n";
+        return;
     }
-    bool diff = true;
-    while (diff) {
-        diff = false;
+    bool improved = false;
+    int pathn = 0;
+    do {
         for(int i = 1; i <= cities.size(); i++){
             auto city = network.findVertex("C_"+ to_string(i));
-
             auto path = getShortestPathTo(city, differenceCapFlow);
+            if(path.empty() || !PathHasFlow(path)) continue;
 
-            if(!path.empty() && PathHasFlow(path)){
-                for(auto e : path){
-                    e->setFlow(e->getFlow()-1);
-                }
+            for(auto e : path){
+                e->setFlow(e->getFlow()-1);
             }
-            else continue;
+
             auto minPath = getShortestPathTo(city, invDifferenceCapFlow);
+            for(auto e : minPath){
+                e->setFlow(e->getFlow()+1);
+            }
 
             bool equals = true;
             for(int j = 0; j < minPath.size(); j++){
@@ -592,20 +605,56 @@ void WaterSupply::balancingViaMinCost(){
                     break;
                 }
             }
-            for(auto e : minPath){
-                e->setFlow(e->getFlow()+1);
-            }
             if(!equals) {
                 i--;
-                diff = true;
+                improved = true;
             }
+            exportToFile("States/st" + to_string(pathn),true);
+            exportMermaid("Mermaid/st" + to_string(pathn++));
         }
-    }
+    } while( improved );
+
     for (auto e: deactivated) {
         e->activate();
     }
 }
 
+void WaterSupply::exportToFile(const string& path, bool flow) {
+    fstream file;
+    file.open("../" + path, ios::out);
+    unordered_map<string, int> ids;
+    int id = 1;
+    for(const auto& v: network.getVertexSet()){
+        ids.emplace(v.first,id++);
+    }
+    for (const auto& v: network.getVertexSet()) {
+        for (auto w: v.second->getAdj()) {
+            if(v.first == "src" || v.first == "sink" || w->getDest()->getInfo() == "src" || w->getDest()->getInfo() == "sink") continue;
+            file << w->getOrig()->getInfo() << ' ' << w->getDest()->getInfo() << ' ' ;
+            if (flow) file << w->getFlow();
+            file << "/" << w->getWeight();
+            file << '\n';
+        }
+    }
+    file.close();
+}
+
 bool WaterSupply::PathHasFlow(std::vector<Edge *> path) {
     return std::all_of(path.begin(), path.end(), [](Edge* e) {return e->getFlow() >= 1;});
+}
+
+void WaterSupply::exportMermaid(const string& path){
+    fstream file;
+    file.open("../" + path, ios::out);
+    for (auto v : network.getVertexSet()){
+        string  ss = v.first;
+        for(auto w : network.findVertex(ss)->getAdj()){
+            if(v.first == "src" || v.first == "sink" || w->getDest()->getInfo() == "src" || w->getDest()->getInfo() == "sink") continue;
+            file << ss << "((" << ss;
+            if(ss[0] == 'R') file << " : " << getReservoir(ss).getDelivery();
+            file << ")) -->|" << w->getFlow() << "/" << w->getWeight() << "| " << w->getDest()->getInfo() << "((" << w->getDest()->getInfo();
+            if(w->getDest()->getInfo()[0] == 'C') file << " : " << getCity(w->getDest()->getInfo()).getDemand();
+            file <<"))" << endl;
+        }
+    }
 }
