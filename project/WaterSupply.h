@@ -240,6 +240,14 @@ public:
     void optimalCityMaxFlow(const std::vector<std::string> &cityList);
 
     void setSuperSinkNull();
+
+    void exportToFile(const std::string& path, bool flow);
+
+    void exportMermaid(const std::string& path);
+
+    double maxWeight();
+
+    std::vector<Edge *> getShortestPathTo(Vertex *city, double (*func)(Vertex *, Edge *));
 };
 
 

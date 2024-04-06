@@ -8,6 +8,8 @@
 #include <algorithm>
 #include <unordered_map>
 #include <unordered_set>
+#include <list>
+#include <stack>
 
 class Edge;
 
@@ -185,6 +187,9 @@ public:
      * @param edge The Edge to remove.
      */
     void deleteEdge(Edge *edge);
+
+    long getIncomingFlow();
+
 protected:
     std::string info;                // info node
     std::vector<Edge *> adj;  // outgoing edges
@@ -428,6 +433,9 @@ public:
      * \brief Resets all Edge's flow of this Graph to 0.
      */
     void resetFlow();
+
+    std::list<std::list<std::string>> scc();
+    void dfs_scc(Vertex *v, std::list<std::list<std::string >> &l, std::stack<std::string>& aux,  std::unordered_map<std::string, int>& ids, int* low, int* num, int &i);
 protected:
     std::unordered_map<std::string, Vertex *> vertexSet;    // vertex set
 };
