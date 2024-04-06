@@ -69,18 +69,6 @@ void MaxFlow::maxFlow(const string& source, const string& sink, Graph* network) 
 
 /********************** MaxFlow Reverse  ****************************/
 
-void reverseAugmentPath(Vertex* source, Vertex* target, double cf) {
-    Vertex* curr = target;
-    while (curr != source){
-        bool outgoing = curr->getPath()->getDest() == curr;
-        curr->getPath()->setFlow(outgoing ? curr->getPath()->getFlow() - cf : curr->getPath()->getFlow() + cf);
-        curr = outgoing ? curr->getPath()->getOrig() : curr->getPath()->getDest();
-    }
-}
-
-double reverseResidualC(Edge* e, bool out){
-    return out ? e->getFlow() : e->getWeight() - e->getFlow();
-}
 bool reverseFindAugPath(Graph* g, Vertex* src, Vertex* target){
     for(auto v : g->getVertexSet())
         v.second->setVisited(false); //reset
@@ -91,10 +79,10 @@ bool reverseFindAugPath(Graph* g, Vertex* src, Vertex* target){
         Vertex* v = aux.front();
         aux.pop();
         for(Edge* adj : v->getAdj()){
-            testAndVisit(aux, adj, adj->getDest(), reverseResidualC(adj, true));
+            testAndVisit(aux, adj, adj->getDest(), residualC(adj, false));
         }
         for(Edge* adj : v->getIncoming()){
-            testAndVisit(aux, adj, adj->getOrig(), reverseResidualC(adj, false));
+            testAndVisit(aux, adj, adj->getOrig(), residualC(adj, true));
         }
     }
     return target->isVisited();
@@ -104,7 +92,7 @@ double reverseGetCf(Vertex* source, Vertex* target) {
     Vertex *curr = target;
     while (curr != source) {
         bool outgoing = curr->getPath()->getDest() == curr;
-        minC = std::min(minC, reverseResidualC(curr->getPath(), outgoing));
+        minC = std::min(minC, residualC(curr->getPath(), !outgoing));
         curr = outgoing ? curr->getPath()->getOrig() : curr->getPath()->getDest();
     }
     return minC;
@@ -115,7 +103,7 @@ void MaxFlow::reverseMaxFlow(const string& source, const string& sink, Graph* ne
     Vertex* snk = network->findVertex(sink);
     while(reverseFindAugPath(network, src, snk)){
         double cf = reverseGetCf(src, snk);
-        reverseAugmentPath(src, snk, cf);
+        augmentPath(src, snk, -cf);
     }
 }
 
