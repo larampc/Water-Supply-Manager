@@ -197,7 +197,7 @@ void MaxFlow::reliabilityPrep(Graph* network) {
     maxFlowWithList(network);
 }
 
-bool MaxFlow::findMinAugmentingPath(Graph* network, const string& source, const string& target, double(*cost)(Edge*)){
+bool findMinAugmentingPath(Graph* network, const string& source, const string& target, double(*cost)(Edge*)){
     MutablePriorityQueue<Vertex> q;
     for(auto v : network->getVertexSet()){
         v.second->setDist(INF);
