@@ -302,6 +302,9 @@ public:
     std::vector<Edge*> transformBidirectionalEdges();
     /**
      * \brief Balances the demand - flow across the Graph.
+     *
+     * \par Complexity
+     * O(E|f*|) in which E is the number of edges of the graph and |f*| is limited by the value of the maximum flow.
      */
     void balancingViaMinCost();
     /**
