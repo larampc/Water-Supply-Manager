@@ -649,7 +649,7 @@ void Menu::MaxFlowWithPrioritizedCities(){
     ColorPrint("cyan", "4. ");
     ColorPrint("red", "Cancel \n");
     cin.sync();
-    switch (readOption(3)) {
+    switch (readOption(4)) {
         case '1':
         {
             vector<string> cities = readCitiesCodes();
@@ -898,11 +898,11 @@ void Menu::auxReliabilityList() {
     ColorPrint("red", "Cancel \n");
     cin.sync();
     switch (readOption(3)) {
-        case '2':
-            listReliabilityTesting();
-            break;
         case '1':
             listReliabilityScratch();
+            break;
+        case '2':
+            listReliabilityTesting();
             break;
         case '3':
             reliabilityMenu();
@@ -1036,7 +1036,7 @@ void Menu::listReliabilityTesting() {
             pressEnterToContinue();
             break;
         case '4':
-            reliabilityMenu();
+            auxReliabilityList();
             break;
     }
 }
@@ -1072,7 +1072,7 @@ void Menu::listReliabilityScratch() {
             pressEnterToContinue();
             break;
         case '4':
-            reliabilityMenu();
+            auxReliabilityList();
             break;
     }
 }
