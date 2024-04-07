@@ -114,7 +114,18 @@ public:
      * O(VE²log(V)) in which V is the number of vertex and E the number of edges of the Graph.
      */
     static void balancedMaxFlow(Graph *network, const std::string &source, const std::string &sink);
+    /**
+     * \brief Gets the current paths of the network.
+     *
+     * @return The current paths of the network.
+     */
     std::unordered_map<unsigned int, std::pair<double, std::vector<std::pair<bool, Edge*>>>> getPaths();
+    /**
+     * \brief Updates the current paths of the network.
+     *
+     * @param paths The new paths to set in the network.
+     * @param network The network to update the paths of.
+     */
     void setPaths(std::unordered_map<unsigned int, std::pair<double, std::vector<std::pair<bool, Edge*>>>> paths, Graph* network);
 };
 

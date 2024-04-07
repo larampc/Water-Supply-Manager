@@ -258,8 +258,6 @@ public:
      * \brief Outputs the deactivated Pipes options and handles the respective inputs.
      */
     void checkDeactivatedPipes();
-
-
 };
 
 
