@@ -359,20 +359,6 @@ bool Graph::dfsIsDAG(Vertex *v) const {
     return true;
 }
 
-/****************** toposort ********************/
-//=============================================================================
-// Exercise 1: std::string
-// opological Sorting
-//=============================================================================
-// std::string
-// ODO
-/*
- * Performs a topological sorting of the vertices of a graph (this).
- * Returns a vector with the contents of the vertices by topological order.
- * If the graph has cycles, returns an empty vector.
- * Follows the algorithm described in theoretical classes.
- */
-
 void dfsVisit(Vertex* v, std::stack<std::string>& aux){
     v->setVisited(true);
     v->setProcessing(true);
@@ -424,10 +410,4 @@ Graph::~Graph() {
     for (const auto& v: vertexSet) {
         removeVertex(v.first);
     }
-}
-
-bool inStack(const std::string& n, std::stack<std::string> s) {
-    while (!s.empty() && !(s.top() == n))
-        s.pop();
-    return !s.empty();
 }
