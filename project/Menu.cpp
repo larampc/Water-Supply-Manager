@@ -618,7 +618,7 @@ void Menu::getMaxFlowOp() {
     ColorPrint("cyan", "5. ");
     ColorPrint("red", "Cancel \n");
     cin.sync();
-    switch (readOption(4)) {
+    switch (readOption(5)) {
         case '1':
             waterSupply.maxFlow();
             printCitiesFlow();
