@@ -997,9 +997,7 @@ void Menu::listReliabilityTesting() {
             for (int i = 1; i <= waterSupply.getReservoirs().size(); i++) {
                 string name = "R_" + to_string(i);
                 if(!waterSupply.getNetwork()->findVertex(name)->checkActive()) continue;
-                result.second.clear();
                 maxFlow.deleteReservoir(name, waterSupply.getNetwork());
-                result.first = name;
                 int count = 0;
                 {
                     ostringstream tmp;
@@ -1024,32 +1022,36 @@ void Menu::listReliabilityTesting() {
             pressEnterToContinue();
             break;
         case '2':
+            ColorPrint("cyan", "\nStation: Altered City [Flow Difference](Flow / Demand) | ...\n");
             for (int i = 1; i <= waterSupply.getStations().size(); i++) {
                 string name = "PS_" + to_string(i);
-                if(waterSupply.getNetwork()->findVertex(name)->checkActive()) {
-                    result.second.clear();
-                    maxFlow.deleteStation(name, waterSupply.getNetwork());
-                    result.first = name;
-                    for(int j = 1; j <= waterSupply.getCities().size(); j++) {
-                        auto city = waterSupply.getCity("C_" + to_string(j));
-                        double flow = waterSupply.computeCityFlow(city.getCode());
-                        if (flow != citiesPrevFlow[j-1]) result.second.emplace_back("C_" + to_string(j), flow, city.getDemand(), flow - citiesPrevFlow[j-1]);
-                    }
-                    res.push_back(result);
-                    waterSupply.getNetwork()->findVertex(name)->activate();
-                    waterSupply.readNetwork(network);
-                    maxFlow.setPaths(paths, waterSupply.getNetwork());
+                if(!waterSupply.getNetwork()->findVertex(name)->checkActive()) continue;
+                int count = 0;
+                {
+                    ostringstream tmp;
+                    tmp << left << setw(6) << name + ": ";
+                    ColorPrint("blue", tmp.str());
                 }
+                maxFlow.deleteStation(name, waterSupply.getNetwork());
+                for(int j = 1; j <= waterSupply.getCities().size(); j++) {
+                    auto city = waterSupply.getCity("C_" + to_string(j));
+                    double flow = waterSupply.computeCityFlow(city.getCode());
+                    if (flow != citiesPrevFlow[j-1]) {
+                        printAffectedCity("C_" + to_string(j), flow, city.getDemand(), flow - citiesPrevFlow[j-1], count);
+                        count++;
+                    }
+                }
+                if(!count) ColorPrint("pink", "(No changes of flow to any City)");
+                waterSupply.getNetwork()->findVertex(name)->activate();
+                waterSupply.readNetwork(network);
+                maxFlow.setPaths(paths, waterSupply.getNetwork());
+
             }
             printlistReliability(res, 2);
             pressEnterToContinue();
             break;
         case '3':
-            for (const auto& v : waterSupply.getNetwork()->getVertexSet()) {
-                for (auto e: v.second->getAdj()) {
-                    e->setVisited(false);
-                }
-            }
+            ColorPrint("cyan", "\nPipe origin - Pipe destination: Altered City [Flow Difference](Flow / Demand) | ...\n");
             for (const auto& v : waterSupply.getNetwork()->getVertexSet()) {
                 if (v.first.substr(0,1) == "C" || v.first == "src") continue;
                 for (auto e: v.second->getAdj()) {
