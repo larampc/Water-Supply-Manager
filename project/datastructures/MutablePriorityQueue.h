@@ -4,9 +4,31 @@
 #include <vector>
 #include "Graph.h"
 
+/**
+ * \class MutablePriorityQueue
+ * \brief A custom class to represent a min priority queue of Vertexes.
+ *
+ * This class handles basic min heap operations to provide a mutable min priority queue implementation for Vertexes.
+ */
 class MutablePriorityQueue {
     std::vector<Vertex* > H;
+    /**
+     * \brief Moves the element provided up the heap until it is in the correct position.
+     *
+     * @param i the key of the element to be updated.
+     *
+     * @par Complexity
+     * O(log n), in which n is the number of elements in the queue.
+     */
     void heapifyUp(unsigned i);
+    /**
+     * \brief Moves the element provided down the heap until it is in the correct position.
+     *
+     * @param i the key of the element to be updated.
+     *
+     * @par Complexity
+     * O(log n), in which n is the number of elements in the queue.
+     */
     void heapifyDown(unsigned i);
     inline void set(unsigned i, Vertex* x);
 public:
@@ -16,6 +38,7 @@ public:
     MutablePriorityQueue();
     /**
      * \brief Inserts a new element into the mutable priority queue.
+     *
      * @param x A pointer to the element to be inserted.
      *
      * @par Complexity
@@ -33,6 +56,7 @@ public:
     Vertex* extractMin();
     /**
      * \brief Decreases the key of an element in the queue, moving it up in priority.
+     *
      * @param x A pointer to the element whose key is to be decreased.
      *
      * @par Complexity
