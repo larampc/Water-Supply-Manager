@@ -114,6 +114,8 @@ public:
      * O(VE²log(V)) in which V is the number of vertex and E the number of edges of the Graph.
      */
     static void balancedMaxFlow(Graph *network, const std::string &source, const std::string &sink);
+    std::unordered_map<unsigned int, std::pair<double, std::vector<std::pair<bool, Edge*>>>> getPaths();
+    void setPaths(std::unordered_map<unsigned int, std::pair<double, std::vector<std::pair<bool, Edge*>>>> paths, Graph* network);
 };
 
 

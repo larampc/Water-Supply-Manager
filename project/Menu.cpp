@@ -989,6 +989,9 @@ void Menu::listReliabilityTesting() {
         auto city = waterSupply.getCity("C_" + to_string(i));
         citiesPrevFlow.push_back(waterSupply.computeCityFlow(city.getCode()));
     }
+    maxFlow.reliabilityPrep(waterSupply.getNetwork());
+    std::unordered_map<unsigned int, std::pair<double, std::vector<std::pair<bool, Edge*>>>> paths = maxFlow.getPaths();
+    string network = waterSupply.saveNetwork();
     switch(readOption(4)) {
         case '1':
             for (int i = 1; i <= waterSupply.getReservoirs().size(); i++) {
@@ -1004,10 +1007,11 @@ void Menu::listReliabilityTesting() {
                     }
                     res.push_back(result);
                     waterSupply.getNetwork()->findVertex(name)->activate();
+                    waterSupply.readNetwork(network);
+                    maxFlow.setPaths(paths, waterSupply.getNetwork());
                 }
             }
             printlistReliability(res, 1);
-            waterSupply.maxFlow();
             pressEnterToContinue();
             break;
         case '2':
@@ -1024,10 +1028,11 @@ void Menu::listReliabilityTesting() {
                     }
                     res.push_back(result);
                     waterSupply.getNetwork()->findVertex(name)->activate();
+                    waterSupply.readNetwork(network);
+                    maxFlow.setPaths(paths, waterSupply.getNetwork());
                 }
             }
             printlistReliability(res, 2);
-            waterSupply.maxFlow();
             pressEnterToContinue();
             break;
         case '3':
@@ -1037,30 +1042,28 @@ void Menu::listReliabilityTesting() {
                 }
             }
             for (const auto& v : waterSupply.getNetwork()->getVertexSet()) {
-                if (v.first != "sink" && v.first != "src") {
-                    for (auto e: v.second->getAdj()) {
-                        if (e->getDest()->getInfo() != "sink" && e->getDest()->getInfo() != "src") {
-                            if(e->checkActive() && !e->checkVisited()) {
-                                result.second.clear();
-                                maxFlow.deletePipe(e->getOrig()->getInfo(), e->getDest()->getInfo(), waterSupply.getNetwork());
-                                result.first = (e->getOrig()->getInfo() + " - " + e->getDest()->getInfo());
-                                for(int i = 1; i <= waterSupply.getCities().size(); i++) {
-                                    auto city = waterSupply.getCity("C_" + to_string(i));
-                                    double flow = waterSupply.computeCityFlow(city.getCode());
-                                    if (flow != citiesPrevFlow[i-1]) result.second.emplace_back("C_" + to_string(i), flow, city.getDemand(), flow - citiesPrevFlow[i-1]);
-                                }
-                                res.push_back(result);
-                                e->activate();
-                                e->setVisited(true);
-                                if (e->getReverse() != nullptr) {
-                                    e->getReverse()->activate();
-                                    e->getReverse()->setVisited(true);
-                                }
-                            }
+                if (v.first.substr(0,1) == "C" || v.first == "src") continue;
+                for (auto e: v.second->getAdj()) {
+                    if(e->checkActive()) {
+                        if ((e->getReverse() != nullptr) && e->getOrig()->getInfo() < e->getDest()->getInfo()) continue;
+                        result.second.clear();
+                        maxFlow.deletePipe(e->getOrig()->getInfo(), e->getDest()->getInfo(), waterSupply.getNetwork());
+                        result.first = (e->getOrig()->getInfo() + " - " + e->getDest()->getInfo());
+                        for(int i = 1; i <= waterSupply.getCities().size(); i++) {
+                            auto city = waterSupply.getCity("C_" + to_string(i));
+                            double flow = waterSupply.computeCityFlow(city.getCode());
+                            if (flow != citiesPrevFlow[i-1]) result.second.emplace_back("C_" + to_string(i), flow, city.getDemand(), flow - citiesPrevFlow[i-1]);
                         }
+                        res.push_back(result);
+                        e->activate();
+                        if (e->getReverse() != nullptr) {
+                            e->getReverse()->activate();
+                        }
+                        waterSupply.readNetwork(network);
+                        maxFlow.setPaths(paths, waterSupply.getNetwork());
                     }
                 }
-            }
+                }
             printlistReliability(res, 3);
             waterSupply.maxFlow();
             pressEnterToContinue();

@@ -175,6 +175,7 @@ void MaxFlow::deleteStation(const std::string& station, Graph* network) {
 void MaxFlow::deletePipe(const std::string& source, const std::string& dest, Graph* network) {
     auto edge = network->findEdge(source, dest);
     resetPaths(edge->getPaths());
+    if (edge->getReverse() != nullptr) resetPaths(edge->getReverse()->getPaths());
     edge->desactivate();
     if (edge->getReverse() != nullptr) edge->getReverse()->desactivate();
     maxFlowWithList(network);
@@ -232,5 +233,27 @@ void MaxFlow::balancedMaxFlow(Graph* network, const string& source, const string
             [](Edge* edge) -> double { return 1/(edge->getWeight() - edge->getFlow());})){
         double cf = getCf(src, snk);
         augmentPath(src, snk, cf);
+    }
+}
+
+std::unordered_map<unsigned int, std::pair<double, std::vector<std::pair<bool, Edge *>>>> MaxFlow::getPaths() {
+    return paths;
+}
+
+void
+MaxFlow::setPaths(std::unordered_map<unsigned int, std::pair<double, std::vector<std::pair<bool, Edge *>>>> paths, Graph* network) {
+    this->paths = paths;
+    for (auto v: network->getVertexSet()) {
+        v.second->resetPath();
+        for (auto e: v.second->getAdj()) {
+            e->resetPath();
+        }
+    }
+    for (auto e: paths) {
+        for (auto v: e.second.second) {
+            v.second->getDest()->addPath(e.first);
+            v.second->getOrig()->addPath(e.first);
+            v.second->addPath(e.first);
+        }
     }
 }

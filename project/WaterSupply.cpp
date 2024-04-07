@@ -608,3 +608,26 @@ void WaterSupply::balancingViaMinCost(){
 bool WaterSupply::PathHasFlow(std::vector<Edge *> path) {
     return std::all_of(path.begin(), path.end(), [](Edge* e) {return e->getFlow() >= 1;});
 }
+
+string WaterSupply::saveNetwork(){
+    stringstream ss;
+    for(const auto& v : network.getVertexSet()){
+        for(auto e :v.second->getAdj()){
+            ss << e->getOrig()->getInfo() << "," << e->getDest()->getInfo() << "," << e->getFlow() << '\n';
+        }
+    }
+    return ss.str();
+}
+
+void WaterSupply::readNetwork(const string& s){
+    istringstream ss(s);
+    string line;
+    while(getline(ss, line)){
+        string orig, dest; double flow;
+        istringstream iss(line);
+        getline(iss, orig, ',');
+        getline(iss, dest, ',');
+        iss >> flow;
+        network.findEdge(orig, dest)->setFlow(flow);
+        }
+}

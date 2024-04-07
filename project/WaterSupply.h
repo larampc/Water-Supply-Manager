@@ -335,6 +335,10 @@ public:
      * \brief Sets all Edge from City to super sink capacity to 0.
      */
     void setSuperSinkNull();
+
+    void readNetwork(const std::string &s);
+
+    std::string saveNetwork();
 };
 
 
