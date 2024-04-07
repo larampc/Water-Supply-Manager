@@ -22,7 +22,7 @@ public:
      * @param network The network Graph in which to perform the maxFlow.
      *
      *\par Complexity
-     * O(VE^2) in which V is the number of vertex and E the number of edges of the Graph.
+     * O(VE²) in which V is the number of vertex and E the number of edges of the Graph.
      */
     static void maxFlow(const std::string& source, const std::string& sink, Graph* network);
     /**
@@ -33,7 +33,7 @@ public:
      * @param network The network Graph in which to perform the maxFlow.
      *
      *\par Complexity
-     * O(VE^2) in which V is the number of vertex and E the number of edges of the Graph.
+     * O(VE²) in which V is the number of vertex and E the number of edges of the Graph.
      */
     static void reverseMaxFlow(const std::string& source, const std::string& sink, Graph* network);
     /********************** MaxFlow List ****************************/
@@ -43,7 +43,7 @@ public:
      * @param network The network Graph in which to perform the maxFlow.
      *
      *\par Complexity
-     * O(VE^2) in which V is the number of vertex and E the number of edges of the Graph.
+     * O(VE²) in which V is the number of vertex and E the number of edges of the Graph.
      */
     void maxFlowWithList(Graph* network);
     /**
@@ -70,7 +70,7 @@ public:
      * @param network The network Graph to remove the reservoir from.
      *
      * \par Complexity
-     * O(NL + VE^2) where NL is the complexity of removing the used augmentation paths from the reservoir and VE^2 is the complexity of updating the existing network flow.
+     * O(NL + VE²) where NL is the complexity of removing the used augmentation paths from the reservoir and VE^2 is the complexity of updating the existing network flow.
      */
     void deleteReservoir(const std::string& reservoir, Graph* network);
     /**
@@ -80,7 +80,7 @@ public:
      * @param network The network Graph to remove the reservoir from.
      *
      * \par Complexity
-     * O(NL + VE^2) where NL is the complexity of removing the used augmentation paths containing the given station and VE^2 is the complexity of updating the existing network flow.
+     * O(NL + VE²) where NL is the complexity of removing the used augmentation paths containing the given station and VE^2 is the complexity of updating the existing network flow.
      */
     void deleteStation(const std::string& station, Graph* network);
     /**
@@ -91,7 +91,7 @@ public:
      * @param network The network Graph to remove the pipe from.
      *
      * \par Complexity
-     * O(NL + VE^2) where NL is the complexity of removing the used augmentation paths containing the given pipe and VE^2 is the complexity of updating the existing network flow.
+     * O(NL + VE²) where NL is the complexity of removing the used augmentation paths containing the given pipe and VE^2 is the complexity of updating the existing network flow.
      */
     void deletePipe(const std::string& source, const std::string& dest, Graph* network);
     /**
@@ -100,7 +100,7 @@ public:
      * @param network The network Graph that will be tested.
      *
      * \par Complexity
-     * O(VE^2) The complexity of maxFlowWithLists.
+     * O(VE²) The complexity of maxFlowWithLists.
      */
     void reliabilityPrep(Graph* network);
     /**

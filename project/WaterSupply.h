@@ -335,9 +335,21 @@ public:
      * \brief Sets all Edge from City to super sink capacity to 0.
      */
     void setSuperSinkNull();
-
+    /**
+     * \brief Reads the network flows from a string representation.
+     *
+     * @param s The string representation of the network.
+     * \par Complexity
+     * O(E) in which E is the number of Edges of the network.
+     */
     void readNetwork(const std::string &s);
-
+    /**
+     * \brief Produces a string representation of the current network state.
+     *
+     * @return The string representation of the network.
+     * \par Complexity
+     * O(E) in which E is the number of Edges of the network.
+     */
     std::string saveNetwork();
 };
 
