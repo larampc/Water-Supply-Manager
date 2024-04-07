@@ -194,16 +194,9 @@ public:
      */
     static void pressEnterToContinue();
     /**
-     * \brief Outputs the list reliability testing options and handles the respective inputs.
+     * \brief Outputs the list reliability testing options without doing maxflow from scratch and handles the respective inputs.
      */
     void listReliabilityTesting();
-    /**
-     * \brief Outputs the information of the given result from listReliabilityTesting().
-     *
-     * @param result The information calculated in listReliabilityTesting().
-     * @param mode The type of list (Reservoir, Station or Pipe).
-     */
-    void printlistReliability(const std::vector<std::pair<std::string, std::vector<std::tuple<std::string, double, double, double>>>>& result, int mode);
     /**
      * \brief Outputs all the adjacent Vertex of the Vertex with the given code.
      *
@@ -258,25 +251,44 @@ public:
      * \brief Outputs the deactivated Pipes options and handles the respective inputs.
      */
     void checkDeactivatedPipes();
-
+    /**
+     * \brief Prints a City affected by the removal of an element in the network.
+     */
     void printAffectedCity(std::string city, double flow, double demand, double delta, int position);
-
+     /**
+     * \brief Outputs the result of removing the reservoirs of the network one by one without doing maxflow from scratch.
+     */
     void removeReservoirs(std::unordered_map<unsigned int, std::pair<double, std::vector<std::pair<bool, Edge *>>>> paths,
                           std::string network, std::vector<double> citiesPrevFlow);
-
+    /**
+    * \brief Outputs the result of removing the stations of the network one by one without doing maxflow from scratch.
+    */
     void removeStations(std::unordered_map<unsigned int, std::pair<double, std::vector<std::pair<bool, Edge *>>>> paths,
                         std::string network, std::vector<double> citiesPrevFlow);
-
+    /**
+    * \brief Outputs the result of removing the pipes of the network one by one without doing maxflow from scratch.
+    */
     void removePipes(std::unordered_map<unsigned int, std::pair<double, std::vector<std::pair<bool, Edge *>>>> paths,
                      std::string network, std::vector<double> citiesPrevFlow);
+    /**
+     * \brief Outputs the list reliability testing options and handles the respective inputs.
+     */
     void auxReliabilityList();
-
+    /**
+     * \brief Outputs the list reliability testing options doing maxflow from scratch and handles the respective inputs.
+     */
     void listReliabilityScratch();
-
+     /**
+     * \brief Outputs the result of removing the reservoirs of the network one by one doing maxflow from scratch.
+     */
     void removeReservoirsScratch(std::vector<double> citiesPrevFlow);
-
+     /**
+     * \brief Outputs the result of removing the stations of the network one by one doing maxflow from scratch.
+     */
     void removeStationsScratch(std::vector<double> citiesPrevFlow);
-
+      /**
+     * \brief Outputs the result of removing the pipes of the network one by one doing maxflow from scratch.
+     */
     void removePipesScratch(std::vector<double> citiesPrevFlow);
 };
 

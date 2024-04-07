@@ -64,7 +64,7 @@ public:
      */
     void resetPaths(const std::unordered_set<int>& pathSet);
     /**
-     * \brief Deletes the given reservoir from the given network Graph, updating the network's flow.
+     * \brief Deletes the given reservoir from the given network Graph, updating the network's flow without doing maxflow from scratch.
      *
      * @param reservoir The reservoir to delete.
      * @param network The network Graph to remove the reservoir from.
@@ -74,7 +74,7 @@ public:
      */
     void deleteReservoir(const std::string& reservoir, Graph* network);
     /**
-     * \brief Deletes the given station from the given network Graph, updating the network's flow.
+     * \brief Deletes the given station from the given network Graph, updating the network's flow without doing maxflow from scratch.
      *
      * @param station The station to delete.
      * @param network The network Graph to remove the reservoir from.
@@ -84,7 +84,7 @@ public:
      */
     void deleteStation(const std::string& station, Graph* network);
     /**
-     * \brief Deletes the given station from the given network Graph, updating the network's flow.
+     * \brief Deletes the given pipe from the given network Graph, updating the network's flow without doing maxflow from scratch.
      *
      * @param source The source vertex of the pipe to delete.
      * @param dest The destination vertex of the pipe to delete.
@@ -127,11 +127,36 @@ public:
      * @param network The network to update the paths of.
      */
     void setPaths(std::unordered_map<unsigned int, std::pair<double, std::vector<std::pair<bool, Edge*>>>> paths, Graph* network);
-
+     /**
+     * \brief Deletes the given reservoir from the given network Graph, updating the network's flow.
+     *
+     * @param reservoir The reservoir to delete.
+     * @param network The network Graph to remove the reservoir from.
+     *
+     * \par Complexity
+     * O(VE²)
+     */
     void deleteReservoirScratch(const std::string &reservoir, Graph *network);
-
+    /**
+     * \brief Deletes the given Station from the given network Graph, updating the network's flow.
+     *
+     * @param station The Station to delete.
+     * @param network The network Graph to remove the Reservoir from.
+     *
+     * \par Complexity
+     * O(VE²)
+     */
     void deleteStationScratch(const std::string &station, Graph *network);
-
+      /**
+     * \brief Deletes the given pipe from the given network Graph, updating the network's flow.
+     *
+     * @param source The source vertex of the Pipe to delete.
+     * @param dest The destination vertex of the pipe to delete.
+     * @param network The network Graph to remove the pipe from.
+     *
+     * \par Complexity
+     * O(VE²)
+     */
     void deletePipeScratch(const std::string &source, const std::string &dest, Graph *network);
 };
 
