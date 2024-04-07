@@ -254,7 +254,7 @@ public:
     /**
      * \brief Prints a City affected by the removal of an element in the network.
      */
-    void printAffectedCity(std::string city, double flow, double demand, double delta, int position);
+    static void printAffectedCity(const std::string& city, double flow, double demand, double delta, int position);
      /**
      * \brief Outputs the result of removing the reservoirs of the network one by one without doing maxflow from scratch.
      */

@@ -645,9 +645,11 @@ void Menu::MaxFlowWithPrioritizedCities(){
     ColorPrint("cyan", "2. ");
     ColorPrint("white", "Population-based priority\n");
     ColorPrint("cyan", "3. ");
+    ColorPrint("white", "Maximum amount of water possible to each city\n");
+    ColorPrint("cyan", "4. ");
     ColorPrint("red", "Cancel \n");
     cin.sync();
-    switch (readOption(3)) {
+    switch (readOption(4)) {
         case '1':
         {
             vector<string> cities = readCitiesCodes();
@@ -691,6 +693,16 @@ void Menu::MaxFlowWithPrioritizedCities(){
         }
             break;
         case '3':
+            ColorPrint("cyan", "\nCity - Flow\n");
+            for(int i = 1; i < waterSupply.getCities().size(); i++){
+                string city = "C_" + to_string(i);
+                waterSupply.optimalCityMaxFlow({city});
+                ostringstream tmp; tmp << left << setw(4) << city << ": " << waterSupply.computeCityFlow(city) << "\n";
+                ColorPrint("white", tmp.str());
+            }
+            pressEnterToContinue();
+            break;
+        case '4':
             getMaxFlowOp();
             break;
     }
@@ -886,11 +898,11 @@ void Menu::auxReliabilityList() {
     ColorPrint("red", "Cancel \n");
     cin.sync();
     switch (readOption(3)) {
-        case '2':
-            listReliabilityTesting();
-            break;
         case '1':
             listReliabilityScratch();
+            break;
+        case '2':
+            listReliabilityTesting();
             break;
         case '3':
             reliabilityMenu();
@@ -1024,7 +1036,7 @@ void Menu::listReliabilityTesting() {
             pressEnterToContinue();
             break;
         case '4':
-            reliabilityMenu();
+            auxReliabilityList();
             break;
     }
 }
@@ -1060,7 +1072,7 @@ void Menu::listReliabilityScratch() {
             pressEnterToContinue();
             break;
         case '4':
-            reliabilityMenu();
+            auxReliabilityList();
             break;
     }
 }
@@ -1157,8 +1169,7 @@ void Menu::swapDisplayDemand() {
     displayDemand = !displayDemand;
 }
 
-void
-Menu::printAffectedCity(string city, double flow, double demand,
+void Menu::printAffectedCity(const string& city, double flow, double demand,
                         double delta, int position) {
     if(position%4 == 0 && position != 0) ColorPrint("white", "\n      ");
     ostringstream tmp;
