@@ -983,7 +983,6 @@ void Menu::listReliabilityTesting() {
     vector<pair<string, vector<tuple<string, double, double, double>>>> res;
     pair<string, vector<tuple<string, double, double, double>>> result;
     vector<double> citiesPrevFlow;
-
     waterSupply.maxFlow();
     for(int i = 1; i <= waterSupply.getCities().size(); i++) {
         auto city = waterSupply.getCity("C_" + to_string(i));

@@ -183,6 +183,7 @@ void MaxFlow::deletePipe(const std::string& source, const std::string& dest, Gra
 
 void MaxFlow::reliabilityPrep(Graph* network) {
     paths.clear();
+    free.clear();
     for (auto v: network->getVertexSet()) {
         v.second->resetPath();
         for (auto e: v.second->getAdj()) {
@@ -243,6 +244,7 @@ std::unordered_map<unsigned int, std::pair<double, std::vector<std::pair<bool, E
 void
 MaxFlow::setPaths(std::unordered_map<unsigned int, std::pair<double, std::vector<std::pair<bool, Edge *>>>> paths, Graph* network) {
     this->paths = paths;
+    free.clear();
     for (auto v: network->getVertexSet()) {
         v.second->resetPath();
         for (auto e: v.second->getAdj()) {
