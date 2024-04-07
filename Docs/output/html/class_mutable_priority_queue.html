@@ -78,6 +78,11 @@ $(function() {
   <div class="headertitle"><div class="title">MutablePriorityQueue Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>A custom class to represent a min priority queue of <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a>.  
+ <a href="class_mutable_priority_queue.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="_mutable_priority_queue_8h_source.html">MutablePriorityQueue.h</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -100,11 +105,11 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:adb468172b4ca67384b8ed72c9c1ee135" id="r_adb468172b4ca67384b8ed72c9c1ee135"><td class="memItemLeft" align="right" valign="top"><a id="adb468172b4ca67384b8ed72c9c1ee135" name="adb468172b4ca67384b8ed72c9c1ee135"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>heapifyUp</b> (unsigned i)</td></tr>
+<tr class="memitem:adb468172b4ca67384b8ed72c9c1ee135" id="r_adb468172b4ca67384b8ed72c9c1ee135"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mutable_priority_queue.html#adb468172b4ca67384b8ed72c9c1ee135">heapifyUp</a> (unsigned i)</td></tr>
+<tr class="memdesc:adb468172b4ca67384b8ed72c9c1ee135"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves the element provided up the heap until it is in the correct position.  <br /></td></tr>
 <tr class="separator:adb468172b4ca67384b8ed72c9c1ee135"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab240d8ca4dc53703f994d049b6fc6ae2" id="r_ab240d8ca4dc53703f994d049b6fc6ae2"><td class="memItemLeft" align="right" valign="top"><a id="ab240d8ca4dc53703f994d049b6fc6ae2" name="ab240d8ca4dc53703f994d049b6fc6ae2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>heapifyDown</b> (unsigned i)</td></tr>
+<tr class="memitem:ab240d8ca4dc53703f994d049b6fc6ae2" id="r_ab240d8ca4dc53703f994d049b6fc6ae2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mutable_priority_queue.html#ab240d8ca4dc53703f994d049b6fc6ae2">heapifyDown</a> (unsigned i)</td></tr>
+<tr class="memdesc:ab240d8ca4dc53703f994d049b6fc6ae2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves the element provided down the heap until it is in the correct position.  <br /></td></tr>
 <tr class="separator:ab240d8ca4dc53703f994d049b6fc6ae2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0efbc4f388fccda5d53b6d2397df4cb8" id="r_a0efbc4f388fccda5d53b6d2397df4cb8"><td class="memItemLeft" align="right" valign="top"><a id="a0efbc4f388fccda5d53b6d2397df4cb8" name="a0efbc4f388fccda5d53b6d2397df4cb8"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>set</b> (unsigned i, <a class="el" href="class_vertex.html">Vertex</a> *x)</td></tr>
@@ -116,7 +121,10 @@ Private Attributes</h2></td></tr>
 std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>H</b></td></tr>
 <tr class="separator:a1180479cfb82880c875e7e9482aa5823"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A custom class to represent a min priority queue of <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a>. </p>
+<p>This class handles basic min heap operations to provide a mutable min priority queue implementation for <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a>. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="acb6545f56dd4e9ac7302db207d7cd8e3" name="acb6545f56dd4e9ac7302db207d7cd8e3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acb6545f56dd4e9ac7302db207d7cd8e3">&#9670;&#160;</a></span>decreaseKey()</h2>
 
@@ -181,6 +189,76 @@ std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt;&#160;</
 
 <p>Extracts the minimum element from the mutable priority queue, removing it from the queue. </p>
 <dl class="section return"><dt>Returns</dt><dd>A pointer to the minimum element in the queue.</dd></dl>
+<dl class="section user"><dt>Complexity</dt><dd>O(log n), in which n is the number of elements in the queue. </dd></dl>
+
+</div>
+</div>
+<a id="ab240d8ca4dc53703f994d049b6fc6ae2" name="ab240d8ca4dc53703f994d049b6fc6ae2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab240d8ca4dc53703f994d049b6fc6ae2">&#9670;&#160;</a></span>heapifyDown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MutablePriorityQueue::heapifyDown </td>
+          <td>(</td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Moves the element provided down the heap until it is in the correct position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>the key of the element to be updated.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Complexity</dt><dd>O(log n), in which n is the number of elements in the queue. </dd></dl>
+
+</div>
+</div>
+<a id="adb468172b4ca67384b8ed72c9c1ee135" name="adb468172b4ca67384b8ed72c9c1ee135"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb468172b4ca67384b8ed72c9c1ee135">&#9670;&#160;</a></span>heapifyUp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MutablePriorityQueue::heapifyUp </td>
+          <td>(</td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Moves the element provided up the heap until it is in the correct position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>the key of the element to be updated.</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section user"><dt>Complexity</dt><dd>O(log n), in which n is the number of elements in the queue. </dd></dl>
 
 </div>

@@ -6,9 +6,9 @@
 
 /**
  * \class MutablePriorityQueue
- * \brief A custom class to represent a min priority queue of Vertexes.
+ * \brief A custom class to represent a min priority queue of Vertex.
  *
- * This class handles basic min heap operations to provide a mutable min priority queue implementation for Vertexes.
+ * This class handles basic min heap operations to provide a mutable min priority queue implementation for Vertex.
  */
 class MutablePriorityQueue {
     std::vector<Vertex* > H;
