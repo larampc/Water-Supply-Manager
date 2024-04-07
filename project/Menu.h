@@ -258,6 +258,8 @@ public:
      * \brief Outputs the deactivated Pipes options and handles the respective inputs.
      */
     void checkDeactivatedPipes();
+
+    void printAffectedCity(std::string city, double flow, double demand, double delta, int position);
 };
 
 
