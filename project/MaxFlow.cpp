@@ -259,3 +259,25 @@ MaxFlow::setPaths(std::unordered_map<unsigned int, std::pair<double, std::vector
         }
     }
 }
+
+void MaxFlow::deleteReservoirScratch(const std::string& reservoir, Graph* network) {
+    Vertex* v = network->findVertex(reservoir);
+    v->desactivate();
+    network->resetFlow();
+    maxFlow("src", "sink", network);
+}
+
+void MaxFlow::deleteStationScratch(const std::string& station, Graph* network) {
+    Vertex* v = network->findVertex(station);
+    v->desactivate();
+    network->resetFlow();
+    maxFlow("src", "sink", network);
+}
+
+void MaxFlow::deletePipeScratch(const std::string& source, const std::string& dest, Graph* network) {
+    auto edge = network->findEdge(source, dest);
+    edge->desactivate();
+    if (edge->getReverse() != nullptr) edge->getReverse()->desactivate();
+    network->resetFlow();
+    maxFlow("src", "sink", network);
+}

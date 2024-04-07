@@ -260,6 +260,24 @@ public:
     void checkDeactivatedPipes();
 
     void printAffectedCity(std::string city, double flow, double demand, double delta, int position);
+
+    void removeReservoirs(std::unordered_map<unsigned int, std::pair<double, std::vector<std::pair<bool, Edge *>>>> paths,
+                          std::string network, std::vector<double> citiesPrevFlow);
+
+    void removeStations(std::unordered_map<unsigned int, std::pair<double, std::vector<std::pair<bool, Edge *>>>> paths,
+                        std::string network, std::vector<double> citiesPrevFlow);
+
+    void removePipes(std::unordered_map<unsigned int, std::pair<double, std::vector<std::pair<bool, Edge *>>>> paths,
+                     std::string network, std::vector<double> citiesPrevFlow);
+    void auxReliabilityList();
+
+    void listReliabilityScratch();
+
+    void removeReservoirsScratch(std::vector<double> citiesPrevFlow);
+
+    void removeStationsScratch(std::vector<double> citiesPrevFlow);
+
+    void removePipesScratch(std::vector<double> citiesPrevFlow);
 };
 
 

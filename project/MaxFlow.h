@@ -127,6 +127,12 @@ public:
      * @param network The network to update the paths of.
      */
     void setPaths(std::unordered_map<unsigned int, std::pair<double, std::vector<std::pair<bool, Edge*>>>> paths, Graph* network);
+
+    void deleteReservoirScratch(const std::string &reservoir, Graph *network);
+
+    void deleteStationScratch(const std::string &station, Graph *network);
+
+    void deletePipeScratch(const std::string &source, const std::string &dest, Graph *network);
 };
 
 
