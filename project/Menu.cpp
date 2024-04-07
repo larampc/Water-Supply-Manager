@@ -697,7 +697,7 @@ void Menu::MaxFlowWithPrioritizedCities(){
             for(int i = 1; i < waterSupply.getCities().size(); i++){
                 string city = "C_" + to_string(i);
                 waterSupply.optimalCityMaxFlow({city});
-                ostringstream tmp; tmp << left << setw(4) << city << ": " << waterSupply.computeCityFlow(city) << "\n";
+                ostringstream tmp; tmp << left << setw(4) << city << "- " << waterSupply.computeCityFlow(city) << "\n";
                 ColorPrint("white", tmp.str());
             }
             pressEnterToContinue();
