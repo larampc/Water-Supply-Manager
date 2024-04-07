@@ -133,12 +133,6 @@ void MaxFlow::augmentPathList(Vertex* source, Vertex* target, double cf) {
 void MaxFlow::maxFlowWithList(Graph* network) {
     Vertex* src = network->findVertex("src");
     Vertex* snk = network->findVertex("sink");
-    for(const auto& v: network->getVertexSet()) {
-        for (Edge *e: v.second->getAdj()) {
-            e->setFlow(0);
-            e->resetPath();
-        }
-    }
     while(findAugPath(network, src, snk)){
         double cf = getCf(src, snk);
         augmentPathList(src, snk, cf);
@@ -192,6 +186,7 @@ void MaxFlow::reliabilityPrep(Graph* network) {
         v.second->resetPath();
         for (auto e: v.second->getAdj()) {
             e->resetPath();
+            e->setFlow(0);
         }
     }
     maxFlowWithList(network);
