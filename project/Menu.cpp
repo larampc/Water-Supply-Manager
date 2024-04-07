@@ -645,6 +645,8 @@ void Menu::MaxFlowWithPrioritizedCities(){
     ColorPrint("cyan", "2. ");
     ColorPrint("white", "Population-based priority\n");
     ColorPrint("cyan", "3. ");
+    ColorPrint("white", "Maximum amount of water possible to each city\n");
+    ColorPrint("cyan", "4. ");
     ColorPrint("red", "Cancel \n");
     cin.sync();
     switch (readOption(3)) {
@@ -691,6 +693,16 @@ void Menu::MaxFlowWithPrioritizedCities(){
         }
             break;
         case '3':
+            ColorPrint("cyan", "\nCity - Flow\n");
+            for(int i = 1; i < waterSupply.getCities().size(); i++){
+                string city = "C_" + to_string(i);
+                waterSupply.optimalCityMaxFlow({city});
+                ostringstream tmp; tmp << left << setw(4) << city << ": " << waterSupply.computeCityFlow(city) << "\n";
+                ColorPrint("white", tmp.str());
+            }
+            pressEnterToContinue();
+            break;
+        case '4':
             getMaxFlowOp();
             break;
     }
