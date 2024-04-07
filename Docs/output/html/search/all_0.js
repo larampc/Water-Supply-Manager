@@ -9,5 +9,6 @@ var searchData=
   ['addsupersource_6',['addSuperSource',['../class_water_supply.html#a3a4fbf2f35e4dec95164f503cb8b6b17',1,'WaterSupply']]],
   ['addvertex_7',['addVertex',['../class_graph.html#ae8a1dfa12035bf32078af9f7321ed38d',1,'Graph']]],
   ['augmentpathlist_8',['augmentPathList',['../class_max_flow.html#ab4cdf3fcf68aa2b9ed5cec378a5b498c',1,'MaxFlow']]],
-  ['auxreliability_9',['auxReliability',['../class_menu.html#acec0330a4f5550cf0073aecef575b487',1,'Menu']]]
+  ['auxreliability_9',['auxReliability',['../class_menu.html#acec0330a4f5550cf0073aecef575b487',1,'Menu']]],
+  ['auxreliabilitylist_10',['auxReliabilityList',['../class_menu.html#a08903026142eec65960bca882fa7f8ab',1,'Menu']]]
 ];

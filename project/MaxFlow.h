@@ -128,9 +128,9 @@ public:
      */
     void setPaths(std::unordered_map<unsigned int, std::pair<double, std::vector<std::pair<bool, Edge*>>>> paths, Graph* network);
      /**
-     * \brief Deletes the given reservoir from the given network Graph, updating the network's flow.
+     * \brief Deletes the given Reservoir from the given network Graph, updating the network's flow.
      *
-     * @param reservoir The reservoir to delete.
+     * @param reservoir The Reservoir to delete.
      * @param network The network Graph to remove the reservoir from.
      *
      * \par Complexity

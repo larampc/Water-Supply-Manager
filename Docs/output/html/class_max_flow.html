@@ -96,13 +96,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:acdb890f4170935e8a6c1c20bdf573fa2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the given paths from the currently used augmentation paths, updating the network.  <br /></td></tr>
 <tr class="separator:acdb890f4170935e8a6c1c20bdf573fa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a80d40855fc8ffe0db5223e661bce3d6b" id="r_a80d40855fc8ffe0db5223e661bce3d6b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_max_flow.html#a80d40855fc8ffe0db5223e661bce3d6b">deleteReservoir</a> (const std::string &amp;reservoir, <a class="el" href="class_graph.html">Graph</a> *network)</td></tr>
-<tr class="memdesc:a80d40855fc8ffe0db5223e661bce3d6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the given reservoir from the given network <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>, updating the network's flow.  <br /></td></tr>
+<tr class="memdesc:a80d40855fc8ffe0db5223e661bce3d6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the given reservoir from the given network <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>, updating the network's flow without doing maxflow from scratch.  <br /></td></tr>
 <tr class="separator:a80d40855fc8ffe0db5223e661bce3d6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81d338e9865ff7ff997c462012402ad3" id="r_a81d338e9865ff7ff997c462012402ad3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_max_flow.html#a81d338e9865ff7ff997c462012402ad3">deleteStation</a> (const std::string &amp;station, <a class="el" href="class_graph.html">Graph</a> *network)</td></tr>
-<tr class="memdesc:a81d338e9865ff7ff997c462012402ad3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the given station from the given network <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>, updating the network's flow.  <br /></td></tr>
+<tr class="memdesc:a81d338e9865ff7ff997c462012402ad3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the given station from the given network <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>, updating the network's flow without doing maxflow from scratch.  <br /></td></tr>
 <tr class="separator:a81d338e9865ff7ff997c462012402ad3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f8419bc53f6161d6d5eaa73002ed889" id="r_a4f8419bc53f6161d6d5eaa73002ed889"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_max_flow.html#a4f8419bc53f6161d6d5eaa73002ed889">deletePipe</a> (const std::string &amp;source, const std::string &amp;dest, <a class="el" href="class_graph.html">Graph</a> *network)</td></tr>
-<tr class="memdesc:a4f8419bc53f6161d6d5eaa73002ed889"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the given station from the given network <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>, updating the network's flow.  <br /></td></tr>
+<tr class="memdesc:a4f8419bc53f6161d6d5eaa73002ed889"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the given pipe from the given network <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>, updating the network's flow without doing maxflow from scratch.  <br /></td></tr>
 <tr class="separator:a4f8419bc53f6161d6d5eaa73002ed889"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaab7b3fa048fbf0e7b225a9e2c30b252" id="r_aaab7b3fa048fbf0e7b225a9e2c30b252"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_max_flow.html#aaab7b3fa048fbf0e7b225a9e2c30b252">reliabilityPrep</a> (<a class="el" href="class_graph.html">Graph</a> *network)</td></tr>
 <tr class="memdesc:aaab7b3fa048fbf0e7b225a9e2c30b252"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares the given network for reliability testing initializing its flow and used augmentation paths by calling maxFlowWithLists.  <br /></td></tr>
@@ -113,14 +113,14 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8f3f4ac6a082345fa37656abcdaf4ba0" id="r_a8f3f4ac6a082345fa37656abcdaf4ba0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_max_flow.html#a8f3f4ac6a082345fa37656abcdaf4ba0">setPaths</a> (std::unordered_map&lt; unsigned int, std::pair&lt; double, std::vector&lt; std::pair&lt; bool, <a class="el" href="class_edge.html">Edge</a> * &gt; &gt; &gt; &gt; paths, <a class="el" href="class_graph.html">Graph</a> *network)</td></tr>
 <tr class="memdesc:a8f3f4ac6a082345fa37656abcdaf4ba0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the current paths of the network.  <br /></td></tr>
 <tr class="separator:a8f3f4ac6a082345fa37656abcdaf4ba0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa67f121ae4b2422f85a3ab29b9658ca0" id="r_aa67f121ae4b2422f85a3ab29b9658ca0"><td class="memItemLeft" align="right" valign="top"><a id="aa67f121ae4b2422f85a3ab29b9658ca0" name="aa67f121ae4b2422f85a3ab29b9658ca0"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>deleteReservoirScratch</b> (const std::string &amp;reservoir, <a class="el" href="class_graph.html">Graph</a> *network)</td></tr>
+<tr class="memitem:aa67f121ae4b2422f85a3ab29b9658ca0" id="r_aa67f121ae4b2422f85a3ab29b9658ca0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_max_flow.html#aa67f121ae4b2422f85a3ab29b9658ca0">deleteReservoirScratch</a> (const std::string &amp;reservoir, <a class="el" href="class_graph.html">Graph</a> *network)</td></tr>
+<tr class="memdesc:aa67f121ae4b2422f85a3ab29b9658ca0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the given reservoir from the given network <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>, updating the network's flow.  <br /></td></tr>
 <tr class="separator:aa67f121ae4b2422f85a3ab29b9658ca0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1a898758c49e87d8c036fa58ba60842" id="r_af1a898758c49e87d8c036fa58ba60842"><td class="memItemLeft" align="right" valign="top"><a id="af1a898758c49e87d8c036fa58ba60842" name="af1a898758c49e87d8c036fa58ba60842"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>deleteStationScratch</b> (const std::string &amp;station, <a class="el" href="class_graph.html">Graph</a> *network)</td></tr>
+<tr class="memitem:af1a898758c49e87d8c036fa58ba60842" id="r_af1a898758c49e87d8c036fa58ba60842"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_max_flow.html#af1a898758c49e87d8c036fa58ba60842">deleteStationScratch</a> (const std::string &amp;station, <a class="el" href="class_graph.html">Graph</a> *network)</td></tr>
+<tr class="memdesc:af1a898758c49e87d8c036fa58ba60842"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the given <a class="el" href="class_station.html" title="A custom class to represent a Station.">Station</a> from the given network <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>, updating the network's flow.  <br /></td></tr>
 <tr class="separator:af1a898758c49e87d8c036fa58ba60842"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adef15e5c6149e66c53d94b8342918cea" id="r_adef15e5c6149e66c53d94b8342918cea"><td class="memItemLeft" align="right" valign="top"><a id="adef15e5c6149e66c53d94b8342918cea" name="adef15e5c6149e66c53d94b8342918cea"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>deletePipeScratch</b> (const std::string &amp;source, const std::string &amp;dest, <a class="el" href="class_graph.html">Graph</a> *network)</td></tr>
+<tr class="memitem:adef15e5c6149e66c53d94b8342918cea" id="r_adef15e5c6149e66c53d94b8342918cea"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_max_flow.html#adef15e5c6149e66c53d94b8342918cea">deletePipeScratch</a> (const std::string &amp;source, const std::string &amp;dest, <a class="el" href="class_graph.html">Graph</a> *network)</td></tr>
+<tr class="memdesc:adef15e5c6149e66c53d94b8342918cea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the given pipe from the given network <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>, updating the network's flow.  <br /></td></tr>
 <tr class="separator:adef15e5c6149e66c53d94b8342918cea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
@@ -276,7 +276,7 @@ std::vector&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bot
       </table>
 </div><div class="memdoc">
 
-<p>Deletes the given station from the given network <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>, updating the network's flow. </p>
+<p>Deletes the given pipe from the given network <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>, updating the network's flow without doing maxflow from scratch. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">source</td><td>The source vertex of the pipe to delete. </td></tr>
@@ -286,6 +286,51 @@ std::vector&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bot
   </dd>
 </dl>
 <dl class="section user"><dt>Complexity</dt><dd>O(NL + VE²) where NL is the complexity of removing the used augmentation paths containing the given pipe and VE^2 is the complexity of updating the existing network flow. </dd></dl>
+
+</div>
+</div>
+<a id="adef15e5c6149e66c53d94b8342918cea" name="adef15e5c6149e66c53d94b8342918cea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adef15e5c6149e66c53d94b8342918cea">&#9670;&#160;</a></span>deletePipeScratch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MaxFlow::deletePipeScratch </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>source</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>dest</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_graph.html">Graph</a> *&#160;</td>
+          <td class="paramname"><em>network</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deletes the given pipe from the given network <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>, updating the network's flow. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">source</td><td>The source vertex of the Pipe to delete. </td></tr>
+    <tr><td class="paramname">dest</td><td>The destination vertex of the pipe to delete. </td></tr>
+    <tr><td class="paramname">network</td><td>The network <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a> to remove the pipe from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Complexity</dt><dd>O(VE²) </dd></dl>
 
 </div>
 </div>
@@ -315,7 +360,7 @@ std::vector&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bot
       </table>
 </div><div class="memdoc">
 
-<p>Deletes the given reservoir from the given network <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>, updating the network's flow. </p>
+<p>Deletes the given reservoir from the given network <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>, updating the network's flow without doing maxflow from scratch. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">reservoir</td><td>The reservoir to delete. </td></tr>
@@ -324,6 +369,44 @@ std::vector&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bot
   </dd>
 </dl>
 <dl class="section user"><dt>Complexity</dt><dd>O(NL + VE²) where NL is the complexity of removing the used augmentation paths from the reservoir and VE^2 is the complexity of updating the existing network flow. </dd></dl>
+
+</div>
+</div>
+<a id="aa67f121ae4b2422f85a3ab29b9658ca0" name="aa67f121ae4b2422f85a3ab29b9658ca0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa67f121ae4b2422f85a3ab29b9658ca0">&#9670;&#160;</a></span>deleteReservoirScratch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MaxFlow::deleteReservoirScratch </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>reservoir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_graph.html">Graph</a> *&#160;</td>
+          <td class="paramname"><em>network</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deletes the given reservoir from the given network <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>, updating the network's flow. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">reservoir</td><td>The reservoir to delete. </td></tr>
+    <tr><td class="paramname">network</td><td>The network <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a> to remove the reservoir from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Complexity</dt><dd>O(VE²) </dd></dl>
 
 </div>
 </div>
@@ -353,7 +436,7 @@ std::vector&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bot
       </table>
 </div><div class="memdoc">
 
-<p>Deletes the given station from the given network <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>, updating the network's flow. </p>
+<p>Deletes the given station from the given network <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>, updating the network's flow without doing maxflow from scratch. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">station</td><td>The station to delete. </td></tr>
@@ -362,6 +445,44 @@ std::vector&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bot
   </dd>
 </dl>
 <dl class="section user"><dt>Complexity</dt><dd>O(NL + VE²) where NL is the complexity of removing the used augmentation paths containing the given station and VE^2 is the complexity of updating the existing network flow. </dd></dl>
+
+</div>
+</div>
+<a id="af1a898758c49e87d8c036fa58ba60842" name="af1a898758c49e87d8c036fa58ba60842"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1a898758c49e87d8c036fa58ba60842">&#9670;&#160;</a></span>deleteStationScratch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MaxFlow::deleteStationScratch </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>station</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_graph.html">Graph</a> *&#160;</td>
+          <td class="paramname"><em>network</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deletes the given <a class="el" href="class_station.html" title="A custom class to represent a Station.">Station</a> from the given network <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>, updating the network's flow. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">station</td><td>The <a class="el" href="class_station.html" title="A custom class to represent a Station.">Station</a> to delete. </td></tr>
+    <tr><td class="paramname">network</td><td>The network <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a> to remove the <a class="el" href="class_reservoir.html" title="A custom class to represent a Reservoir.">Reservoir</a> from.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Complexity</dt><dd>O(VE²) </dd></dl>
 
 </div>
 </div>
