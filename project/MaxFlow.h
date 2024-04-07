@@ -103,7 +103,7 @@ public:
      * O(VE^2) The complexity of maxFlowWithLists.
      */
     void reliabilityPrep(Graph* network);
-/**
+    /**
      * \brief Performs the maxFlow algorithm on the provided network Graph using Dijkstra's SSSP algorithm to find the emptiest augmentation path.
      *
      * @param network The network Graph in which to perform the maxFlow.

@@ -198,7 +198,7 @@ void MaxFlow::reliabilityPrep(Graph* network) {
 }
 
 bool findMinAugmentingPath(Graph* network, const string& source, const string& target, double(*cost)(Edge*)){
-    MutablePriorityQueue<Vertex> q;
+    MutablePriorityQueue q;
     for(auto v : network->getVertexSet()){
         v.second->setDist(INF);
         v.second->setPath(nullptr);

@@ -185,7 +185,7 @@ public:
      * @param edge The Edge to remove.
      */
     void deleteEdge(Edge *edge);
-    int queueIndex = 0;
+    unsigned queueIndex = 0;
 protected:
     std::string info;                // info node
     std::vector<Edge *> adj;  // outgoing edges

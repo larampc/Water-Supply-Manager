@@ -1,31 +1,48 @@
-/*
- * MutablePriorityQueue.h
- * A simple implementation of mutable priority queues, required by Dijkstra algorithm.
- *
- * Created on: 17/03/2018
- *      Author: João Pascoal Faria
- */
-
 #ifndef WATERSUPPLYMANAGER_MUTABLEPRIORITYQUEUE
 #define WATERSUPPLYMANAGER_MUTABLEPRIORITYQUEUE
 
 #include <vector>
 
-/**
- * class T must have: (i) accessible field int queueIndex; (ii) operator< defined.
- */
-
-template <class T>
 class MutablePriorityQueue {
-    std::vector<T *> H;
+    std::vector<Vertex* > H;
     void heapifyUp(unsigned i);
     void heapifyDown(unsigned i);
-    inline void set(unsigned i, T * x);
+    inline void set(unsigned i, Vertex* x);
 public:
+    /**
+     * Creates a new mutable priority queue
+     */
     MutablePriorityQueue();
-    void insert(T * x);
-    T * extractMin();
-    void decreaseKey(T * x);
+    /**
+     * Inserts a new element into the mutable priority queue.
+     * @param x A pointer to the element to be inserted.
+     *
+     * @par Complexity
+     * O(log n), in which n is the number of elements in the queue.
+     */
+    void insert(Vertex* x);
+    /**
+     * Extracts the minimum element from the mutable priority queue, removing it from the queue.
+     *
+     * @return A pointer to the minimum element in the queue.
+     *
+     * @par Complexity
+     * O(log n), in which n is the number of elements in the queue.
+     */
+    Vertex* extractMin();
+    /**
+     * Decreases the key of an element in the queue, moving it up in priority.
+     * @param x A pointer to the element whose key is to be decreased.
+     *
+     * @par Complexity
+     * O(log n), in which n is the number of elements in the queue.
+     */
+    void decreaseKey(Vertex* x);
+    /**
+     * This function checks whether the mutable priority queue is empty or not.
+     *
+     * @return True if the heap doesn't have any elements, false otherwise.
+     */
     bool empty();
 };
 
@@ -33,20 +50,18 @@ public:
 #define parent(i) ((i) / 2)
 #define leftChild(i) ((i) * 2)
 
-template <class T>
-MutablePriorityQueue<T>::MutablePriorityQueue() {
+MutablePriorityQueue::MutablePriorityQueue() {
     H.push_back(nullptr);
     // indices will be used starting in 1
     // to facilitate parent/child calculations
 }
 
-template <class T>
-bool MutablePriorityQueue<T>::empty() {
+
+bool MutablePriorityQueue::empty() {
     return H.size() == 1;
 }
 
-template <class T>
-T* MutablePriorityQueue<T>::extractMin() {
+Vertex* MutablePriorityQueue::extractMin() {
     auto x = H[1];
     H[1] = H.back();
     H.pop_back();
@@ -55,19 +70,16 @@ T* MutablePriorityQueue<T>::extractMin() {
     return x;
 }
 
-template <class T>
-void MutablePriorityQueue<T>::insert(T *x) {
+void MutablePriorityQueue::insert(Vertex* x) {
     H.push_back(x);
     heapifyUp(H.size()-1);
 }
 
-template <class T>
-void MutablePriorityQueue<T>::decreaseKey(T *x) {
+void MutablePriorityQueue::decreaseKey(Vertex* x) {
     heapifyUp(x->queueIndex);
 }
 
-template <class T>
-void MutablePriorityQueue<T>::heapifyUp(unsigned i) {
+void MutablePriorityQueue::heapifyUp(unsigned i) {
     auto x = H[i];
     while (i > 1 && *x < *H[parent(i)]) {
         set(i, H[parent(i)]);
@@ -76,8 +88,7 @@ void MutablePriorityQueue<T>::heapifyUp(unsigned i) {
     set(i, x);
 }
 
-template <class T>
-void MutablePriorityQueue<T>::heapifyDown(unsigned i) {
+void MutablePriorityQueue::heapifyDown(unsigned i) {
     auto x = H[i];
     while (true) {
         unsigned k = leftChild(i);
@@ -93,8 +104,7 @@ void MutablePriorityQueue<T>::heapifyDown(unsigned i) {
     set(i, x);
 }
 
-template <class T>
-void MutablePriorityQueue<T>::set(unsigned i, T * x) {
+void MutablePriorityQueue::set(unsigned i, Vertex* x) {
     H[i] = x;
     x->queueIndex = i;
 }
