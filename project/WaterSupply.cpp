@@ -9,6 +9,8 @@
 #include <list>
 #ifdef _WIN32
 #include <codecvt>
+#include <filesystem>
+
 #endif
 
 using namespace std;
@@ -35,6 +37,7 @@ void WaterSupply::load(std::string citiesPath, std::string reservoirsPath, std::
     addSuperSource();
     addSuperSink();
     network.resetFlow();
+    std::filesystem::create_directory("../output");
 }
 
 void WaterSupply::loadCities(std::string path) {
