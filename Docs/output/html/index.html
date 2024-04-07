@@ -78,7 +78,31 @@ Project description</h1>
 <p>This program was made for DA course unit of Bachelor in Informatics and Computing Engineering at FEUP. This program is an analysis tool that can support the Management Team of a water supply network in Portugal to make informed decisions about how to best allocate its resources.</p>
 <h1><a class="anchor" id="utility_sec"></a>
 What can this project do?</h1>
-<p>Change settings such enabling colour mode. </p>
+<p>Choose to import from the original dataset (big or small) or a custom dataset from file paths.</p>
+<p>Get information such as:</p><ul>
+<li>List of all <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> in the dataset and there respective information;</li>
+<li>Get the information of a specific <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> from a given code or name or ID;</li>
+<li>Get the information of the <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> that has max or min demand;</li>
+<li>Get the information of the <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> that has max or min population;</li>
+<li>List of all <a class="el" href="class_reservoir.html" title="A custom class to represent a Reservoir.">Reservoir</a> in the dataset and there respective information;</li>
+<li>Get the information of a specific <a class="el" href="class_reservoir.html" title="A custom class to represent a Reservoir.">Reservoir</a> from a given code or name or ID or Municipality;</li>
+<li>Get the information of the <a class="el" href="class_reservoir.html" title="A custom class to represent a Reservoir.">Reservoir</a> that has max or min delivery;</li>
+<li>List of all <a class="el" href="class_station.html" title="A custom class to represent a Station.">Station</a> in the dataset and there respective information;</li>
+<li>Get the statistics of the network such as Average (Capacity - Flow), Max (Capacity - Flow), Variance (Capacity - Flow), current flow to all <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> and current max flow.</li>
+</ul>
+<p>Make requests such as:</p><ul>
+<li>Compute the standard max flow of the network;</li>
+<li>Compute the max flow of the network but prioritizing specific <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> given by the user or in order of population;</li>
+<li>Compute the max flow of the network with overflow;</li>
+<li>Compute the max flow of the network with overflow that is able to reach a specific <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a>;</li>
+<li>Compute the max flow of the network with overflow for only a given list of <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a>;</li>
+<li>Erase specific <a class="el" href="class_reservoir.html" title="A custom class to represent a Reservoir.">Reservoir</a>, <a class="el" href="class_station.html" title="A custom class to represent a Station.">Station</a> or pipes from the <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>;</li>
+<li>Balance the flow of the network in order to reduce the Variance (Capacity - Flow).</li>
+</ul>
+<p>Change settings such as:</p><ul>
+<li>Enabling colour mode;</li>
+<li>Changing the display mode of the network statistics. </li>
+</ul>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
 <!-- start footer part -->

@@ -17,6 +17,10 @@ int City::getID() const {
     return id;
 }
 
-std::string City::getCode() {
+std::string City::getCode() const{
     return code;
+}
+
+bool City::operator<(const City& c) const {
+    return id < c.id;
 }

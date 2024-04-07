@@ -11,7 +11,7 @@ void ColorPrint::swapColorMode() {
 #ifdef _WIN32
 
 #include <windows.h>
-ColorPrint::ColorPrint(std::string color, std::string line) {
+ColorPrint::ColorPrint(const std::string& color, const std::string& line) {
     if (colorMode)
     {
         HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -37,7 +37,7 @@ ColorPrint::ColorPrint(std::string color, std::string line) {
 
 #else
 
-ColorPrint::ColorPrint(std::string color, std::string line) {
+ColorPrint::ColorPrint(const std::string& color, const std::string& line) {
     if (colorMode)
     {
         std::string col = "\033[0";

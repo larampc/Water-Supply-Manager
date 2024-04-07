@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Water Supply Manager: project/City.h Source File</title>
+<title>Water Supply Manager: C:/Users/Bruno/Desktop/FEUP/Aulas/DA/watersupplymanager/project/City.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -87,27 +87,35 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="foldopen" id="foldopen00006" data-start="{" data-end="};">
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="class_city.html">    6</a></span><span class="keyword">class </span><a class="code hl_class" href="class_city.html">City</a> {</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keywordtype">int</span> id;</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    std::string code;</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    std::string name;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keywordtype">int</span> demand;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordtype">unsigned</span> population;</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <a class="code hl_class" href="class_city.html">City</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>, std::string code, std::string name, <span class="keywordtype">double</span> demand, <span class="keywordtype">int</span> population): id(<span class="keywordtype">id</span>), code(std::move(code)), name(std::move(name)), demand(std::move(demand)), population(population) {};</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    [[nodiscard]] std::string getName() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    [[nodiscard]] <span class="keywordtype">int</span> getDemand() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    [[nodiscard]] <span class="keywordtype">unsigned</span> getPopulation() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordtype">int</span> getID() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    std::string getCode();</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>};</div>
+<div class="foldopen" id="foldopen00012" data-start="{" data-end="};">
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="class_city.html">   12</a></span><span class="keyword">class </span><a class="code hl_class" href="class_city.html">City</a> {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordtype">int</span> id;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    std::string code;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    std::string name;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordtype">double</span> demand;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordtype">unsigned</span> population;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="class_city.html#a17b4dc83c5ea1e15f5bb20a9e47a35bf">   29</a></span>    <a class="code hl_function" href="class_city.html#a17b4dc83c5ea1e15f5bb20a9e47a35bf">City</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>, std::string code, std::string name, <span class="keywordtype">double</span> demand, <span class="keywordtype">unsigned</span> population): id(id), code(std::move(code)), name(std::move(name)), demand(demand), population(population) {};</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    [[nodiscard]] std::string <a class="code hl_function" href="class_city.html#a79ba022573d8174291b5dac268ee5ec0">getName</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="class_city.html#a49d90f5913832295150b401643f341e7">getDemand</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    [[nodiscard]] <span class="keywordtype">unsigned</span> <a class="code hl_function" href="class_city.html#aa8369cb5703c7558812af5ca34a1ea5e">getPopulation</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="class_city.html#a463917ebc676a8a9813b53942d663c83">getID</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    [[nodiscard]] std::string <a class="code hl_function" href="class_city.html#a4e4a50d6df3fc1b0009d289a81db116d">getCode</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="class_city.html#a0acfb5911198bcd00f9a96c4b9683a73">operator&lt;</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_city.html">City</a>&amp; c) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>};</div>
 </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#endif </span><span class="comment">//WATERSUPPLYMANAGER_CITY_H</span></div>
-<div class="ttc" id="aclass_city_html"><div class="ttname"><a href="class_city.html">City</a></div><div class="ttdef"><b>Definition</b> City.h:6</div></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="preprocessor">#endif </span><span class="comment">//WATERSUPPLYMANAGER_CITY_H</span></div>
+<div class="ttc" id="aclass_city_html"><div class="ttname"><a href="class_city.html">City</a></div><div class="ttdoc">A custom class to represent a City.</div><div class="ttdef"><b>Definition</b> City.h:12</div></div>
+<div class="ttc" id="aclass_city_html_a0acfb5911198bcd00f9a96c4b9683a73"><div class="ttname"><a href="class_city.html#a0acfb5911198bcd00f9a96c4b9683a73">City::operator&lt;</a></div><div class="ttdeci">bool operator&lt;(const City &amp;c) const</div><div class="ttdoc">Less than operator to compare City IDs.</div><div class="ttdef"><b>Definition</b> City.cpp:24</div></div>
+<div class="ttc" id="aclass_city_html_a17b4dc83c5ea1e15f5bb20a9e47a35bf"><div class="ttname"><a href="class_city.html#a17b4dc83c5ea1e15f5bb20a9e47a35bf">City::City</a></div><div class="ttdeci">City(int id, std::string code, std::string name, double demand, unsigned population)</div><div class="ttdoc">City constructor.</div><div class="ttdef"><b>Definition</b> City.h:29</div></div>
+<div class="ttc" id="aclass_city_html_a463917ebc676a8a9813b53942d663c83"><div class="ttname"><a href="class_city.html#a463917ebc676a8a9813b53942d663c83">City::getID</a></div><div class="ttdeci">int getID() const</div><div class="ttdoc">Gets the City ID.</div><div class="ttdef"><b>Definition</b> City.cpp:16</div></div>
+<div class="ttc" id="aclass_city_html_a49d90f5913832295150b401643f341e7"><div class="ttname"><a href="class_city.html#a49d90f5913832295150b401643f341e7">City::getDemand</a></div><div class="ttdeci">int getDemand() const</div><div class="ttdoc">Gets the City demand.</div><div class="ttdef"><b>Definition</b> City.cpp:8</div></div>
+<div class="ttc" id="aclass_city_html_a4e4a50d6df3fc1b0009d289a81db116d"><div class="ttname"><a href="class_city.html#a4e4a50d6df3fc1b0009d289a81db116d">City::getCode</a></div><div class="ttdeci">std::string getCode() const</div><div class="ttdoc">Gets the City code.</div><div class="ttdef"><b>Definition</b> City.cpp:20</div></div>
+<div class="ttc" id="aclass_city_html_a79ba022573d8174291b5dac268ee5ec0"><div class="ttname"><a href="class_city.html#a79ba022573d8174291b5dac268ee5ec0">City::getName</a></div><div class="ttdeci">std::string getName() const</div><div class="ttdoc">Gets the City name.</div><div class="ttdef"><b>Definition</b> City.cpp:4</div></div>
+<div class="ttc" id="aclass_city_html_aa8369cb5703c7558812af5ca34a1ea5e"><div class="ttname"><a href="class_city.html#aa8369cb5703c7558812af5ca34a1ea5e">City::getPopulation</a></div><div class="ttdeci">unsigned getPopulation() const</div><div class="ttdoc">Gets the City population.</div><div class="ttdef"><b>Definition</b> City.cpp:12</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

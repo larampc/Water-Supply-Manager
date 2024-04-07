@@ -1,19 +1,23 @@
 #include "WaterSupply.h"
 #include "Reservoir.h"
+#include "datastructures/MutablePriorityQueue.h"
 #include <fstream>
 #include <sstream>
 #include <string>
-#include <float.h>
-#include <climits>
-
-#include <locale>
-#include <codecvt>
 #include <iostream>
-#include <iomanip>
+#include <cmath>
+#include <utility>
+#include <list>
+#ifdef _WIN32
+#include <codecvt>
+#endif
 
 using namespace std;
 
 unsigned readPopulation(string pop){
+    if(pop[0] != '"') {
+        return stoi(pop);
+    }
     string res;
     pop = pop.substr(1,pop.length() - 2);
     for(char c: pop){
@@ -24,15 +28,18 @@ unsigned readPopulation(string pop){
 
 /********************** Load  ****************************/
 
-void WaterSupply::load() {
-    loadCities();
-    loadReservoir();
-    loadStations();
-    loadPipes();
+void WaterSupply::load(std::string citiesPath, std::string reservoirsPath, std::string pipesPath, std::string stationsPath) {
+    loadCities(std::move(citiesPath));
+    loadReservoir(std::move(reservoirsPath));
+    loadStations(std::move(stationsPath));
+    loadPipes(std::move(pipesPath));
+    addSuperSource();
+    addSuperSink();
+    network.resetFlow();
 }
 
-void WaterSupply::loadCities() {
-    string path = dataSet? "../dataSet/Cities.csv": "../dataSetSmall/Cities_Madeira.csv";
+void WaterSupply::loadCities(std::string path) {
+    path = "../" + path;
 #ifdef _WIN32
     setlocale (LC_ALL, "");
     wifstream  file(path);
@@ -60,8 +67,8 @@ void WaterSupply::loadCities() {
     file.close();
 }
 
-void WaterSupply::loadReservoir() {
-    string path = dataSet? "../dataSet/Reservoir.csv": "../dataSetSmall/Reservoirs_Madeira.csv";
+void WaterSupply::loadReservoir(std::string path) {
+    path = "../" + path;
 #ifdef _WIN32
     setlocale (LC_ALL, "");
     wifstream  reservoirsFile(path);
@@ -88,8 +95,8 @@ void WaterSupply::loadReservoir() {
     reservoirsFile.close();
 }
 
-void WaterSupply::loadStations() {
-    string path = dataSet ? "../dataSet/Stations.csv": "../dataSetSmall/Stations_Madeira.csv";
+void WaterSupply::loadStations(std::string path) {
+    path = "../"+path;
     ifstream  stationsFile(path);
     string line;
     getline(stationsFile, line);
@@ -106,8 +113,8 @@ void WaterSupply::loadStations() {
     stationsFile.close();
 }
 
-void WaterSupply::loadPipes() {
-    string path = dataSet? "../dataSet/Pipes.csv": "../dataSetSmall/Pipes_Madeira.csv";
+void WaterSupply::loadPipes(std::string path) {
+    path = "../"+path;
     ifstream  pipesFile(path);
     string line;
     getline(pipesFile, line);
@@ -126,20 +133,16 @@ void WaterSupply::loadPipes() {
 
 /********************** Getters  ****************************/
 
-Graph WaterSupply::getNetwork() {
-    return network;
+Graph* WaterSupply::getNetwork() {
+    return &network;
 }
 
-City WaterSupply::getCity(std::string code) {
-    if (cities.find(code)!=cities.end()) return cities.at(code);
+City WaterSupply::getCity(const std::string& code) {
+    return cities.at(code);
 }
 
-Reservoir WaterSupply::getReservoir(std::string code) {
-    if (reservoirs.find(code)!=reservoirs.end()) return reservoirs.at(code);
-}
-
-Station WaterSupply::getStation(std::string code) {
-    if (stations.find(code)!=stations.end()) return stations.at(code);
+Reservoir WaterSupply::getReservoir(const std::string& code) {
+    return reservoirs.at(code);
 }
 
 std::unordered_map<std::string, City> WaterSupply::getCities() {
@@ -156,41 +159,38 @@ std::unordered_map<std::string, Station> WaterSupply::getStations() {
 
 /********************** Setters  ****************************/
 
-void WaterSupply::setDataSmall() {
-    dataSet = false;
-}
-
-void WaterSupply::setDataDefault() {
-    dataSet = true;
-}
-
-void WaterSupply::setSuperSource() {
+void WaterSupply::addSuperSource() {
     network.addVertex("src");
-    for(auto v: reservoirs) {
+    for(const auto& v: reservoirs) {
         network.addEdge("src", v.first, v.second.getDelivery());
     }
 }
 
-void WaterSupply::setSuperSink() {
+void WaterSupply::addSuperSink() {
     network.addVertex("sink");
-    for(auto v: cities) {
+    for(const auto& v: cities) {
         network.addEdge( v.first, "sink", v.second.getDemand());
     }
 }
 
-
-void WaterSupply::setInfSuperSink() {
-    network.addVertex("sink");
-    for(auto v: cities) {
-        network.addEdge( v.first, "sink", INF);
+void WaterSupply::setSuperSinkWithDemand() {
+    Vertex* sink = network.findVertex("sink");
+    for(const auto& e: sink->getIncoming()) {
+        e->setWeight(cities.find(e->getOrig()->getInfo())->second.getDemand());
     }
 }
 
-void WaterSupply::setSuperWithout(std::string reservoir) {
-    network.addVertex("src");
-    for(auto v: reservoirs) {
-        if (v.first == reservoir) network.addEdge("src", v.first, 0);
-        else network.addEdge("src", v.first, v.second.getDelivery());
+void WaterSupply::setInfSuperSink() {
+    Vertex* sink = network.findVertex("sink");
+    for(const auto& e: sink->getIncoming()) {
+        e->setWeight(INF);
+    }
+}
+
+void WaterSupply::setSuperSinkNull() {
+    Vertex* sink = network.findVertex("sink");
+    for(const auto& e: sink->getIncoming()) {
+        e->setWeight(0);
     }
 }
 
@@ -203,19 +203,28 @@ string WaterSupply::existsCityByID(int id) {
     return "";
 }
 
-bool WaterSupply::existsCityByCode(std::string code) {
+bool WaterSupply::existsCityByCode(const std::string& code) {
     return cities.count(code);
+}
+
+bool WaterSupply::existsPipe(const std::string& source, const std::string& dest) {
+    return network.findEdge(source, dest) != nullptr;
+}
+
+bool WaterSupply::existsStationByCode(const std::string& code) {
+    return stations.count(code);
 }
 
 bool compareString(string s1, string s2) {
     int count = 0;
+    if (s1.size()!=s2.size()) return false;
     for (int i = 0; i < s1.size(); i++) {
         if (s1[i] != s2[i]) count++;
     }
     return (count <= 2);
 }
 
-string WaterSupply::existsCityByName(std::string name) {
+string WaterSupply::existsCityByName(const std::string& name) {
     for (const auto& c: cities) {
         string nameC = c.second.getName();
         transform(nameC.begin(), nameC.end(), nameC.begin(), ::toupper);
@@ -224,7 +233,7 @@ string WaterSupply::existsCityByName(std::string name) {
     return "";
 }
 
-string WaterSupply::existsReservoirByName(std::string name) {
+string WaterSupply::existsReservoirByName(const std::string& name) {
     for (const auto& r: reservoirs) {
         string nameR = r.second.getName();
         transform(nameR.begin(), nameR.end(), nameR.begin(), ::toupper);
@@ -240,11 +249,11 @@ std::string WaterSupply::existsReservoirByID(int id) {
     return "";
 }
 
-bool WaterSupply::existsReservoirByCode(std::string code) {
+bool WaterSupply::existsReservoirByCode(const std::string& code) {
     return reservoirs.count(code);
 }
 
-vector<Reservoir> WaterSupply::existsMunicipality(std::string municipality) {
+vector<Reservoir> WaterSupply::existsMunicipality(const std::string& municipality) {
     vector<Reservoir> res;
     for (const auto& r: reservoirs) {
         string mun = r.second.getMunicipality();
@@ -257,15 +266,12 @@ vector<Reservoir> WaterSupply::existsMunicipality(std::string municipality) {
 /********************** Statistics  ****************************/
 
 vector<City> WaterSupply::getCityMaxDemand() {
-    int maxDemand = 0;
+    double maxDemand = max_element(cities.begin(), cities.end(),
+                                   [](const pair<std::string, City>& p1, const pair<std::string, City>& p2)
+                                   {return p1.second.getDemand() < p2.second.getDemand();})->second.getDemand();
     vector<City> max;
-    for (const auto& c: cities) {
-        if (c.second.getDemand() > maxDemand) {
-            max.clear();
-            max.push_back(c.second);
-            maxDemand = c.second.getDemand();
-        }
-        else if (c.second.getDemand() == maxDemand) {
+    for (const auto &c: cities) {
+        if (c.second.getDemand() == maxDemand) {
             max.push_back(c.second);
         }
     }
@@ -273,31 +279,25 @@ vector<City> WaterSupply::getCityMaxDemand() {
 }
 
 vector<City> WaterSupply::getCityMinDemand() {
-    int minDemand = DBL_MAX;
-    vector<City> max;
+    double minDemand = min_element(cities.begin(), cities.end(),
+                                   [](const pair<std::string, City>& p1, const pair<std::string, City>& p2)
+    {return p1.second.getDemand() < p2.second.getDemand();})->second.getDemand();
+    vector<City> min;
     for (const auto &c: cities) {
-        if (c.second.getDemand() < minDemand) {
-            max.clear();
-            max.push_back(c.second);
-            minDemand = c.second.getDemand();
-        }
-        else if (c.second.getDemand() == minDemand) {
-            max.push_back(c.second);
+        if (c.second.getDemand() == minDemand) {
+            min.push_back(c.second);
         }
     }
-    return max;
+    return min;
 }
 
 vector<City> WaterSupply::getCityMaxPop() {
-    int maxPop = 0;
+    unsigned maxPop = max_element(cities.begin(), cities.end(),
+                                  [](const pair<std::string, City>& p1, const pair<std::string, City>& p2)
+                                  {return p1.second.getPopulation() < p2.second.getPopulation();})->second.getPopulation();
     vector<City> max;
     for (const auto& c: cities) {
-        if (c.second.getPopulation() > maxPop) {
-            max.clear();
-            max.push_back(c.second);
-            maxPop = c.second.getPopulation();
-        }
-        else if (c.second.getPopulation() == maxPop) {
+        if (c.second.getPopulation() == maxPop) {
             max.push_back(c.second);
         }
     }
@@ -305,31 +305,25 @@ vector<City> WaterSupply::getCityMaxPop() {
 }
 
 vector<City> WaterSupply::getCityMinPop() {
-    int minPop = UINT_MAX;
-    vector<City> max;
+    unsigned minPop = min_element(cities.begin(), cities.end(),
+                                   [](const pair<std::string, City>& p1, const pair<std::string, City>& p2)
+                                   {return p1.second.getPopulation() < p2.second.getPopulation();})->second.getPopulation();
+    vector<City> min;
     for (const auto& c: cities) {
-        if (c.second.getPopulation() < minPop) {
-            max.clear();
-            max.push_back(c.second);
-            minPop = c.second.getPopulation();
-        }
-        else if (c.second.getPopulation() == minPop) {
-            max.push_back(c.second);
+        if (c.second.getPopulation() == minPop) {
+            min.push_back(c.second);
         }
     }
-    return max;
+    return min;
 }
 
 std::vector<Reservoir> WaterSupply::getReservoirMaxDel() {
-    int maxDel = 0;
+    int maxDel = max_element(reservoirs.begin(), reservoirs.end(),
+                                  [](const pair<std::string, Reservoir>& p1, const pair<std::string, Reservoir>& p2)
+                                  {return p1.second.getDelivery() < p2.second.getDelivery();})->second.getDelivery();
     vector<Reservoir> max;
     for (const auto& c: reservoirs) {
-        if (c.second.getDelivery() > maxDel) {
-            max.clear();
-            max.push_back(c.second);
-            maxDel = c.second.getDelivery();
-        }
-        else if (c.second.getDelivery() == maxDel) {
+        if (c.second.getDelivery() == maxDel) {
             max.push_back(c.second);
         }
     }
@@ -337,220 +331,143 @@ std::vector<Reservoir> WaterSupply::getReservoirMaxDel() {
 }
 
 std::vector<Reservoir> WaterSupply::getReservoirMinDel() {
-    int maxDel = UINT_MAX;
-    vector<Reservoir> max;
+    int minDel = min_element(reservoirs.begin(), reservoirs.end(),
+                             [](const pair<std::string, Reservoir>& p1, const pair<std::string, Reservoir>& p2)
+                             {return p1.second.getDelivery() < p2.second.getDelivery();})->second.getDelivery();
+    vector<Reservoir> min;
     for (const auto& c: reservoirs) {
-        if (c.second.getDelivery() < maxDel) {
-            max.clear();
-            max.push_back(c.second);
-            maxDel = c.second.getDelivery();
-        }
-        else if (c.second.getDelivery() == maxDel) {
-            max.push_back(c.second);
+        if (c.second.getDelivery() == minDel) {
+            min.push_back(c.second);
         }
     }
-    return max;
+    return min;
 }
 
-void WaterSupply::computeAverageAndVarianceOfPipes() {
+double WaterSupply::computeMaxDiffCapacityFlow() {
+    double maxDiff = 0;
+    for(const auto& v: network.getVertexSet()){
+        if (v.second->getInfo() != "src" && v.second->getInfo().substr(0, 1) != "C") {
+            for (Edge *e: v.second->getAdj()) {
+                if (e->checkActive()) {
+                    double flow = e->getFlow();
+                    if (e->getReverse() && e->getFlow() > e->getReverse()->getFlow()) {
+                        flow = abs(e->getFlow()-e->getReverse()->getFlow());
+                    }
+                    else if (e->getReverse()) continue;
+                    if (maxDiff < (e->getWeight() - flow)) maxDiff = (e->getWeight() - flow);
+                }
+            }
+        }
+    }
+    return maxDiff;
+}
+
+double WaterSupply::computeAverageDiffCapacityFlow() {
     int n_edges = 0;
     double sum = 0;
-    double max = 0;
-    for(auto v: network.getVertexSet()){
-        for(Edge* e: v.second->getAdj()){
-            sum += (e->getWeight() - e->getFlow());
-            if (max < (e->getWeight() - e->getFlow())) max = (e->getWeight() - e->getFlow());
-            n_edges++;
+    for(const auto& v: network.getVertexSet()){
+        if (v.second->getInfo() != "src" && v.second->getInfo().substr(0, 1) != "C") {
+            for(Edge* e: v.second->getAdj()){
+                if (e->checkActive()) {
+                    double flow = e->getFlow();
+                    if (e->getReverse() && e->getFlow() > e->getReverse()->getFlow()) {
+                        flow = abs(e->getFlow()-e->getReverse()->getFlow());
+                    }
+                    else if (e->getReverse()) continue;
+                    sum += (e->getWeight() - flow);
+                    n_edges++;
+                }
+            }
         }
     }
-    double average = sum / ((double)n_edges);
+    return sum / ((double)n_edges);
+}
 
-    cout << "Average (Capacity - Flow): " << average << endl;
-    cout << "Max (Capacity - Flow): " << max << endl;
-
+double WaterSupply::computeVarianceDiffCapacityFlow(double average) {
+    int n_edges = 0;
     double square_diff = 0;
-    for(auto v: network.getVertexSet()){
-        for(Edge* e: v.second->getAdj()){
-            square_diff += ((e->getWeight() - e->getFlow()) - average) * ((e->getWeight() - e->getFlow()) - average);
-            n_edges++;
+    for(const auto& v: network.getVertexSet()){
+        if (v.second->getInfo() != "src" && v.second->getInfo().substr(0, 1) != "C") {
+            for (Edge *e: v.second->getAdj()) {
+                if (e->checkActive()) {
+                    double flow = e->getFlow();
+                    if (e->getReverse() && e->getFlow() > e->getReverse()->getFlow()) {
+                        flow = abs(e->getFlow() - e->getReverse()->getFlow());
+                    }
+                    else if (e->getReverse()) continue;
+                    square_diff += ((e->getWeight() - flow) - average) * ((e->getWeight() - flow) - average);
+                    n_edges++;
+                }
+            }
         }
     }
-    double variance = square_diff / n_edges;
-
-    cout << "Variance (Capacity - Flow): " << variance << endl;
+    return square_diff / n_edges;
 }
 
-void WaterSupply::computeCitiesStatistics() {
-    ostringstream oss;
-    oss << "City - Flow\n\n";
-    for(auto v: cities) {
-        double flow = 0;
-        for(Edge* e: network.findVertex(v.first)->getIncoming()) {
-            flow += e->getFlow();
-        }
-        oss << left << setw(4) << v.second.getCode() << " - " << setw(6) << v.second.getDemand();
-        if ((v.second.getDemand()) < flow) oss << " (Overflow by " << flow - (v.second.getDemand()) << ")";
-        else if ((v.second.getDemand()) > flow) oss << " (Underflow by " << (v.second.getDemand()) - flow << ")";
-        oss << "\n";
-    }
-    cout << oss.str() << "\n";
-    OutputToFile("../output/MaxFlow", oss.str());
-}
-
-int WaterSupply::computeCityFlow(std::string city) {
+int WaterSupply::computeCityFlow(const std::string& city) {
     Vertex* end = network.findVertex(city);
-    int count = 0;
+    double flow = 0;
     for (Edge* e: end->getIncoming()) {
-        count += e->getFlow();
+        flow += e->getFlow();
     }
-    return count;
+    return (int)round(flow);
 }
 
-int WaterSupply::computeMaxFlow() {
-    int total = 0;
-    for (auto v: cities) {
+int WaterSupply::computeFlow() {
+    double flow = 0;
+    for (const auto& v: cities) {
         Vertex* end = network.findVertex(v.first);
-        int count = 0;
+        double cityFlow = 0;
         for (Edge* e: end->getIncoming()) {
-            count += e->getFlow();
+            cityFlow += e->getFlow();
         }
-        total += count;
+        flow += cityFlow;
     }
-    return total;
+    return (int)round(flow);
 }
 
-/********************** Max Flow  ****************************/
 
-double residualC(Edge* e, bool out){
-    return out ? e->getWeight() - e->getFlow() : e->getFlow();
-}
-
-double getCf(Vertex* source, Vertex* target) {
-    double minC = INF;
-    Vertex *curr = target;
-    while (curr != source) {
-        bool outgoing = curr->getPath()->getDest() == curr;
-        minC = std::min(minC, residualC(curr->getPath(), outgoing));
-        curr = outgoing ? curr->getPath()->getOrig() : curr->getPath()->getDest();
-    }
-    return minC;
-}
-
-void augmentPath(Vertex* source, Vertex* target, double cf) {
-    Vertex* curr = target;
-    while (curr != source){
-        bool outgoing = curr->getPath()->getDest() == curr;
-        curr->getPath()->setFlow(outgoing ? curr->getPath()->getFlow() + cf : curr->getPath()->getFlow() - cf);
-        curr = outgoing ? curr->getPath()->getOrig() : curr->getPath()->getDest();
-    }
-}
-
-void testAndVisit(queue<Vertex*>& q, Edge* e, Vertex* w, double residual) {
-    if (! w->isVisited() && residual > 0) {
-        w->setVisited(true);
-        w->setPath(e);
-        q.push(w);
-    }
-}
-
-bool findAugPath(Graph* g, Vertex* src, Vertex* target){
-    for(auto v : g->getVertexSet())
-        v.second->setVisited(false); //reset
-    std::queue<Vertex*> aux;
-    aux.push(src);
-    src->setVisited(true);
-    while(!aux.empty() && !target->isVisited()){
-        Vertex* v = aux.front();
-        aux.pop();
-        for(Edge* adj : v->getAdj()){
-            testAndVisit(aux, adj, adj->getDest(), residualC(adj, true));
-        }
-        for(Edge* adj : v->getIncoming()){
-            testAndVisit(aux, adj, adj->getOrig(), residualC(adj, false));
-        }
-    }
-    return target->isVisited();
-}
-
-void WaterSupply::maxFlow(string source, string sink) {
-    Vertex* src = network.findVertex(source);
-    Vertex* snk = network.findVertex(sink);
-    while(findAugPath(&network, src, snk)){
-        double cf = getCf(src, snk);
-        augmentPath(src, snk, cf);
-    }
-}
 
 /********************** MaxFlow Options  ****************************/
 
-void WaterSupply::optimalResMaxFlow() {
-    setSuperSource();
-    setSuperSink();
-    for(auto v: network.getVertexSet()){
-        for(Edge* e: v.second->getAdj()){
-            e->setFlow(0);
-        }
-    }
-    maxFlow("src", "sink");
-    network.removeVertex("src");
-    network.removeVertex("sink");
+void WaterSupply::maxFlow() {
+    setSuperSinkWithDemand();
+    network.resetFlow();
+    MaxFlow::maxFlow("src", "sink", &network);
 }
 
-void WaterSupply::optimalExcessMaxFlow() {
-    setSuperSource();
-    setSuperSink();
-    for(auto v: network.getVertexSet()){
-        for(Edge* e: v.second->getAdj()){
-            e->setFlow(0);
-        }
-    }
-    maxFlow("src", "sink");
-    network.removeVertex("sink");
+void WaterSupply::maxFlowWithExcess() {
+    setSuperSinkWithDemand();
+    network.resetFlow();
+    MaxFlow::maxFlow("src", "sink", &network);
     setInfSuperSink();
-    maxFlow("src", "sink");
-    network.removeVertex("src");
-    network.removeVertex("sink");
+    MaxFlow::maxFlow("src", "sink", &network);
 }
 
-void WaterSupply::optimalExcessCityMaxFlow(std::string target) {
-    setSuperSource();
-    setSuperSink();
-    Vertex* targ = network.findVertex(target);
-    for (auto e: targ->getAdj()) {                          //only one edge but verify if it's sink
-        if (e->getDest()->getInfo() == "sink") e->setWeight(INF);
+void WaterSupply::maxFlowWithExcessToCities(const std::vector<std::string> &target) {
+    setSuperSinkWithDemand();
+    network.resetFlow();
+    MaxFlow::maxFlow("src", "sink", &network);
+    for (const auto& e: target) {
+        network.findEdge(e, "sink")->setWeight(INF);
     }
-    for(auto v: network.getVertexSet()){
-        for(Edge* e: v.second->getAdj()){
-            e->setFlow(0);
-        }
-    }
-    maxFlow("src", "sink");
-    network.removeVertex("src");
-    network.removeVertex("sink");
+    MaxFlow::maxFlow("src", "sink", &network);
 }
 
-void WaterSupply::cityMaxFlow(std::string target) {
-    setSuperSource();
-    for(auto v: network.getVertexSet()){
-        for(Edge* e: v.second->getAdj()){
-            e->setFlow(0);
-        }
+void WaterSupply::optimalCityMaxFlow(const vector<std::string>& cityList) {
+    setSuperSinkNull();
+    network.resetFlow();
+    for(const auto& city : cityList){
+        network.findEdge(city, "sink")->setWeight(cities.find(city)->second.getDemand());
+        MaxFlow::maxFlow("src", "sink", &network);
     }
-    maxFlow("src", target);
-    network.removeVertex("src");
+    setSuperSinkWithDemand();
+    MaxFlow::maxFlow("src", "sink", &network);
 }
 
-void WaterSupply::optimalDelete(std::string reservoir) {
-    setSuperWithout(reservoir);
-    setSuperSink();
-    for(auto v: network.getVertexSet()){
-        for(Edge* e: v.second->getAdj()){
-            e->setFlow(0);
-        }
-    }
-    maxFlow("src", "sink");
-    network.removeVertex("src");
-    network.removeVertex("sink");
+void WaterSupply::maxFlowToCity(const std::string& target) {
+    network.resetFlow();
+    MaxFlow::maxFlow("src", target, &network);
 }
 
 void WaterSupply::OutputToFile(const string& fileName, const string& text){
@@ -559,172 +476,136 @@ void WaterSupply::OutputToFile(const string& fileName, const string& text){
     out.close();
 }
 
-
-/********************** MaxFlow Reverse  ****************************/
-
-void reverseAugmentPath(Vertex* source, Vertex* target, double cf) {
-    Vertex* curr = target;
-    while (curr != source){
-        bool outgoing = curr->getPath()->getDest() == curr;
-        curr->getPath()->setFlow(outgoing ? curr->getPath()->getFlow() - cf : curr->getPath()->getFlow() + cf);
-        curr = outgoing ? curr->getPath()->getOrig() : curr->getPath()->getDest();
-    }
+void WaterSupply::deleteReservoirMaxReverse(const std::string& reservoir) {
+    maxFlow();
+    MaxFlow::reverseMaxFlow(reservoir, "sink", &network);
+    network.findVertex(reservoir)->desactivate();
+    MaxFlow::maxFlow("src", "sink", &network);
 }
 
-double reverseResidualC(Edge* e, bool out){
-    return out ? e->getFlow() : e->getWeight() - e->getFlow();
+bool WaterSupply::existsCode(const std::string& code) {
+    return (cities.count(code) || stations.count(code) || reservoirs.count(code));
 }
-bool reverseFindAugPath(Graph* g, Vertex* src, Vertex* target){
-    for(auto v : g->getVertexSet())
-        v.second->setVisited(false); //reset
-    std::queue<Vertex*> aux;
-    aux.push(src);
-    src->setVisited(true);
-    while(!aux.empty() && !target->isVisited()){
-        Vertex* v = aux.front();
-        aux.pop();
-        for(Edge* adj : v->getAdj()){
-            testAndVisit(aux, adj, adj->getDest(), reverseResidualC(adj, true));
+
+void WaterSupply::activateAll() {
+    for (const auto& v: network.getVertexSet()) {
+        for (auto e: v.second->getAdj()) {
+            e->activate();
         }
-        for(Edge* adj : v->getIncoming()){
-            testAndVisit(aux, adj, adj->getOrig(), reverseResidualC(adj, false));
+        v.second->activate();
+    }
+}
+
+vector<Edge*> WaterSupply::transformBidirectionalEdges(){
+    vector<Edge*> deactivated;
+    for(const auto& v: network.getVertexSet()){
+        for(auto e : v.second->getAdj()){
+            if(!e->checkActive()) continue;
+            auto reverse = e->getReverse();
+            if(reverse == nullptr || !reverse->checkActive()) continue;
+
+            double resultingFlow = abs(reverse->getFlow() - e->getFlow());
+            reverse->setFlow(reverse->getFlow() > e->getFlow() ? resultingFlow : 0);
+            e->setFlow(reverse->getFlow() == 0 ? resultingFlow : 0);
+
+            if (e->getFlow() == 0) {
+                e->desactivate();
+                deactivated.push_back(e);
+            }
+            else {
+                reverse->desactivate();
+                deactivated.push_back(reverse);
+            }
         }
     }
-    return target->isVisited();
-}
-double reverseGetCf(Vertex* source, Vertex* target) {
-    double minC = INF;
-    Vertex *curr = target;
-    while (curr != source) {
-        bool outgoing = curr->getPath()->getDest() == curr;
-        minC = std::min(minC, reverseResidualC(curr->getPath(), outgoing));
-        curr = outgoing ? curr->getPath()->getOrig() : curr->getPath()->getDest();
-    }
-    return minC;
+    return deactivated;
 }
 
-void WaterSupply::reverseMaxFlow(string source, string sink) {
-    Vertex* src = network.findVertex(source);
-    Vertex* snk = network.findVertex(sink);
-    while(reverseFindAugPath(&network, src, snk)){
-        double cf = reverseGetCf(src, snk);
-        reverseAugmentPath(src, snk, cf);
-    }
+double differenceCapFlow(Edge* edge) {
+    return edge->getWeight() - edge->getFlow();
 }
 
-void WaterSupply::deleteReservoirMaxReverse(std::string reservoir) {
-    setSuperSource();
-    setSuperSink();
+double invDifferenceCapFlow(Edge* edge) {
+    return 1/(edge->getWeight() - edge->getFlow());
+}
+
+vector<Edge*> WaterSupply::getShortestPathTo(Vertex* city, double (*cost)(Edge*)){
+    auto order = network.topSort();
     for(auto v: network.getVertexSet()){
-        for(Edge* e: v.second->getAdj()){
-            e->setFlow(0);
+        v.second->setDist(INF);
+        v.second->setPath(nullptr);
+    }
+    auto source = network.findVertex("src");
+    source->setDist(0);
+
+    for(const auto& code : order){
+        if(code == city->getInfo()) break;
+        auto v = network.findVertex(code);
+        for(auto adj : v->getAdj()){
+            if(!adj->checkActive()) continue;
+            double nextCost = v->getDist() + cost(adj);
+            auto w = adj->getDest();
+            if(w->getDist() > nextCost){
+                w->setDist(nextCost);
+                w->setPath(adj);
+            }
         }
     }
-    maxFlow("src", "sink");
-    reverseMaxFlow(reservoir, "sink");
-    for(auto v: network.findVertex("src")->getAdj()) {
-        if (v->getDest()->getInfo() == reservoir) v->setWeight(0);
+    vector<Edge*> path;
+    auto curr = city;
+    while(curr->getPath() != nullptr){
+        path.push_back(curr->getPath());
+        curr = curr->getPath()->getOrig();
     }
-    maxFlow("src", "sink");
-    network.removeVertex("src");
-    network.removeVertex("sink");
+    return path;
 }
 
-/********************** Delete with paths  ****************************/
-
-void WaterSupply::augmentPathList(Vertex* source, Vertex* target, double cf) {
-    Vertex* curr = target;
-    vector<pair<bool, Edge*>> path;
-    while (curr != source){
-        bool outgoing = curr->getPath()->getDest() == curr;
-        path.emplace_back(outgoing, curr->getPath());
-        curr->getPath()->setFlow(outgoing ? curr->getPath()->getFlow() + cf : curr->getPath()->getFlow() - cf);
-        curr = outgoing ? curr->getPath()->getOrig() : curr->getPath()->getDest();
+void WaterSupply::balancingViaMinCost(){
+    for(auto v: network.getVertexSet()){
+        v.second->setVisited(false);
+        v.second->setPath(nullptr);
     }
-    path.erase(path.end()-1);
-    for (auto e: path) {
-        e.second->addPath(free.empty()? paths.size(): free.at(0));
-        e.second->getDest()->addPath(free.empty()? paths.size(): free.at(0));
-        e.second->getOrig()->addPath(free.empty()? paths.size(): free.at(0));
-    }
-    paths.emplace(free.empty()? paths.size(): free.at(0), pair<double, vector<pair<bool, Edge*>>>{make_pair(cf, path)});
-    if (!free.empty()) free.erase(free.begin());
-}
 
-void WaterSupply::maxFlowWithList() {
-    Vertex* src = network.findVertex("src");
-    Vertex* snk = network.findVertex("sink");
-    for(auto v: network.getVertexSet()) {
-        for (Edge *e: v.second->getAdj()) {
-            e->setFlow(0);
-            e->resetPath();
-        }
+    vector<Edge*> deactivated = transformBidirectionalEdges();
+    if(!network.isDAG()) {
+        cout << "NETWORK IS NOT DAG\n";
     }
-    while(findAugPath(&network, src, snk)){
-        double cf = getCf(src, snk);
-        augmentPathList(src, snk, cf);
-    }
-}
+    bool improved;
+    do {
+        improved = false;
+        for(int i = 1; i <= cities.size(); i++){
+            auto city = network.findVertex("C_"+ to_string(i));
+            vector<Edge*> path = getShortestPathTo(city, differenceCapFlow);
 
+            if(path.empty() || !PathHasFlow(path)) continue;
+            for(auto e : path){
+                e->setFlow(e->getFlow()-1);
+            }
 
-void WaterSupply::resetPaths(std::unordered_set<int> pat) {
-    for (auto k: pat) {
-        if (paths.count(k)) {
-            for (auto e: paths.at(k).second) {
-                if (e.second->hasPath(k)) {
-                    e.second->setFlow(e.second->getFlow() - (e.first ? paths.at(k).first: -paths.at(k).first));
-                    e.second->removePath(k);
-                    e.second->getDest()->removePath(k);
-                    e.second->getOrig()->removePath(k);
-                    if (e.second->getFlow() < 0) resetPaths(e.second->getPaths());
+            vector<Edge*> minPath = getShortestPathTo(city, invDifferenceCapFlow);
+            for(auto e : minPath){
+                e->setFlow(e->getFlow()+1);
+            }
+
+            bool equals = true;
+            for(int j = 0; j < minPath.size(); j++){
+                if(minPath[j] != path[j]) {
+                    equals = false;
+                    break;
                 }
             }
-            paths.erase(k);
-            free.push_back(k);
+            if(!equals) {
+                i--;
+                improved = true;
+            }
         }
+    } while( improved );
+
+    for (auto e: deactivated) {
+        e->activate();
     }
 }
 
-void WaterSupply::deleteReservoir(std::string reservoir) {
-    Vertex* v = network.findVertex(reservoir);
-    resetPaths(v->getPaths());
-    for(auto r: network.findVertex("src")->getAdj()) {
-        if (r->getDest()->getInfo() == reservoir) r->setWeight(0);
-    }
-    maxFlowWithList();
-}
-
-void WaterSupply::verification() {
-    int count = 0;
-    paths.clear();
-    setSuperSource();
-    setSuperSink();
-    maxFlowWithList();
-    for (auto c: stations) {
-        cout << c.first << " ";
-        deleteStation(c.first);
-        int g = computeMaxFlow();
-        cout << " Given: " << g << endl;
-    }
-    cout << count;
-    network.removeVertex("src");
-    network.removeVertex("sink");
-}
-
-void WaterSupply::deleteStation(std::string station) {
-    Vertex* v = network.findVertex(station);
-    resetPaths(v->getPaths());
-    for(auto e: v->getAdj()) {
-        e->setWeight(0);
-    }
-    maxFlowWithList();
-}
-
-void WaterSupply::deletePipe(std::string source, std::string dest) {
-    Vertex* v = network.findVertex(source);
-    resetPaths(v->getPaths());
-    for(auto e: v->getAdj()) {
-        if (e->getDest()->getInfo() == dest) e->setWeight(0);
-    }
-    maxFlowWithList();
+bool WaterSupply::PathHasFlow(std::vector<Edge *> path) {
+    return std::all_of(path.begin(), path.end(), [](Edge* e) {return e->getFlow() >= 1;});
 }

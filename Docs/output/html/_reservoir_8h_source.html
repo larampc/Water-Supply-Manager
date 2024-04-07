@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Water Supply Manager: project/Reservoir.h Source File</title>
+<title>Water Supply Manager: C:/Users/Bruno/Desktop/FEUP/Aulas/DA/watersupplymanager/project/Reservoir.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -87,27 +87,35 @@ $(document).ready(function() { init_codefold(0); });
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="foldopen" id="foldopen00006" data-start="{" data-end="};">
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="class_reservoir.html">    6</a></span><span class="keyword">class </span><a class="code hl_class" href="class_reservoir.html">Reservoir</a> {</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keywordtype">int</span> id;</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    std::string code;</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    std::string name;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    std::string municipality;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordtype">int</span> maxDelivery; <span class="comment">// m³/sec</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <a class="code hl_class" href="class_reservoir.html">Reservoir</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>, std::string code, std::string name, std::string municipality, <span class="keywordtype">int</span> maxDelivery): id(<span class="keywordtype">id</span>), code(std::move(code)), name(std::move(name)), municipality(std::move(municipality)), maxDelivery(maxDelivery) {};</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    [[nodiscard]] std::string getName() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    [[nodiscard]] std::string getMunicipality() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    [[nodiscard]] <span class="keywordtype">int</span> getDelivery() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    [[nodiscard]] <span class="keywordtype">int</span> getId() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    std::string getCode() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>};</div>
+<div class="foldopen" id="foldopen00012" data-start="{" data-end="};">
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="class_reservoir.html">   12</a></span><span class="keyword">class </span><a class="code hl_class" href="class_reservoir.html">Reservoir</a> {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordtype">int</span> id;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    std::string code;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    std::string name;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    std::string municipality;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordtype">int</span> maxDelivery; <span class="comment">// m³/sec</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="class_reservoir.html#a4bc405f7ea908f2eea60678384877d08">   29</a></span>    <a class="code hl_function" href="class_reservoir.html#a4bc405f7ea908f2eea60678384877d08">Reservoir</a>(<span class="keywordtype">int</span> <span class="keywordtype">id</span>, std::string code, std::string name, std::string municipality, <span class="keywordtype">int</span> maxDelivery): id(id), code(std::move(code)), name(std::move(name)), municipality(std::move(municipality)), maxDelivery(maxDelivery) {};</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    [[nodiscard]] std::string <a class="code hl_function" href="class_reservoir.html#aa73308e734ce198e2217ce00205763ba">getName</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    [[nodiscard]] std::string <a class="code hl_function" href="class_reservoir.html#a05b3ae3fe93212c1e5608cd5aeee1231">getMunicipality</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="class_reservoir.html#a855ed05d4b00ee3e488099ad11ef2339">getDelivery</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    [[nodiscard]] <span class="keywordtype">int</span> <a class="code hl_function" href="class_reservoir.html#a6e4efd03b4a0d44ef5fa3c57ddcc4803">getId</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    [[nodiscard]] std::string <a class="code hl_function" href="class_reservoir.html#a685f82431777503906e2454b97b14150">getCode</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordtype">bool</span> <a class="code hl_function" href="class_reservoir.html#a32a70eb7f375cfaea5c4710b008aab88">operator&lt;</a>(<span class="keyword">const</span> <a class="code hl_class" href="class_reservoir.html">Reservoir</a>&amp; reservoir) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>};</div>
 </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">#endif </span><span class="comment">//WATERSUPPLYMANAGER_RESERVOIR_H</span></div>
-<div class="ttc" id="aclass_reservoir_html"><div class="ttname"><a href="class_reservoir.html">Reservoir</a></div><div class="ttdef"><b>Definition</b> Reservoir.h:6</div></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="preprocessor">#endif </span><span class="comment">//WATERSUPPLYMANAGER_RESERVOIR_H</span></div>
+<div class="ttc" id="aclass_reservoir_html"><div class="ttname"><a href="class_reservoir.html">Reservoir</a></div><div class="ttdoc">A custom class to represent a Reservoir.</div><div class="ttdef"><b>Definition</b> Reservoir.h:12</div></div>
+<div class="ttc" id="aclass_reservoir_html_a05b3ae3fe93212c1e5608cd5aeee1231"><div class="ttname"><a href="class_reservoir.html#a05b3ae3fe93212c1e5608cd5aeee1231">Reservoir::getMunicipality</a></div><div class="ttdeci">std::string getMunicipality() const</div><div class="ttdoc">Gets the Reservoir municipality.</div><div class="ttdef"><b>Definition</b> Reservoir.cpp:9</div></div>
+<div class="ttc" id="aclass_reservoir_html_a32a70eb7f375cfaea5c4710b008aab88"><div class="ttname"><a href="class_reservoir.html#a32a70eb7f375cfaea5c4710b008aab88">Reservoir::operator&lt;</a></div><div class="ttdeci">bool operator&lt;(const Reservoir &amp;reservoir) const</div><div class="ttdoc">Less than operator to compare Reservoir IDs.</div><div class="ttdef"><b>Definition</b> Reservoir.cpp:25</div></div>
+<div class="ttc" id="aclass_reservoir_html_a4bc405f7ea908f2eea60678384877d08"><div class="ttname"><a href="class_reservoir.html#a4bc405f7ea908f2eea60678384877d08">Reservoir::Reservoir</a></div><div class="ttdeci">Reservoir(int id, std::string code, std::string name, std::string municipality, int maxDelivery)</div><div class="ttdoc">Reservoir constructor.</div><div class="ttdef"><b>Definition</b> Reservoir.h:29</div></div>
+<div class="ttc" id="aclass_reservoir_html_a685f82431777503906e2454b97b14150"><div class="ttname"><a href="class_reservoir.html#a685f82431777503906e2454b97b14150">Reservoir::getCode</a></div><div class="ttdeci">std::string getCode() const</div><div class="ttdoc">Gets the Reservoir code.</div><div class="ttdef"><b>Definition</b> Reservoir.cpp:21</div></div>
+<div class="ttc" id="aclass_reservoir_html_a6e4efd03b4a0d44ef5fa3c57ddcc4803"><div class="ttname"><a href="class_reservoir.html#a6e4efd03b4a0d44ef5fa3c57ddcc4803">Reservoir::getId</a></div><div class="ttdeci">int getId() const</div><div class="ttdoc">Gets the Reservoir ID.</div><div class="ttdef"><b>Definition</b> Reservoir.cpp:17</div></div>
+<div class="ttc" id="aclass_reservoir_html_a855ed05d4b00ee3e488099ad11ef2339"><div class="ttname"><a href="class_reservoir.html#a855ed05d4b00ee3e488099ad11ef2339">Reservoir::getDelivery</a></div><div class="ttdeci">int getDelivery() const</div><div class="ttdoc">Gets the Reservoir max delivery in m³/sec.</div><div class="ttdef"><b>Definition</b> Reservoir.cpp:13</div></div>
+<div class="ttc" id="aclass_reservoir_html_aa73308e734ce198e2217ce00205763ba"><div class="ttname"><a href="class_reservoir.html#aa73308e734ce198e2217ce00205763ba">Reservoir::getName</a></div><div class="ttdeci">std::string getName() const</div><div class="ttdoc">Gets the Reservoir name.</div><div class="ttdef"><b>Definition</b> Reservoir.cpp:5</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

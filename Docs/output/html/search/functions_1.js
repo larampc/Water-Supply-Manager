@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['dfsisdag_0',['dfsIsDAG',['../class_graph.html#a03ef8f6e2f6ecbecc6068a5a5dc1f7c7',1,'Graph']]]
+  ['balancingviamincost_0',['balancingViaMinCost',['../class_water_supply.html#adc552c50c3a2c275a65c47682a385b06',1,'WaterSupply']]]
 ];

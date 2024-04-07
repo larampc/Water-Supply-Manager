@@ -1,9 +1,12 @@
 #include "Graph.h"
 
+#include <utility>
+#include <stack>
+
 /************************* Vertex  **************************/
 
 
-Vertex::Vertex(std::string in): info(in) {}
+Vertex::Vertex(std::string in): info(std::move(in)) {}
 /*
  * Auxiliary function to add an outgoing edge to a vertex (this),
  * with a given destination vertex (d) and edge weight (w).
@@ -22,7 +25,7 @@ Edge * Vertex::addEdge(Vertex *d, double w) {
  * Returns true if successful, and false if such edge does not exist.
  */
 
-bool Vertex::removeEdge(std::string in) {
+bool Vertex::removeEdge(const std::string& in) {
     bool removedEdge = false;
     auto it = adj.begin();
     while (it != adj.end()) {
@@ -92,14 +95,14 @@ std::vector<Edge *> Vertex::getIncoming() const {
 }
 
 void Vertex::setInfo(std::string in) {
-    this->info = in;
+    this->info = std::move(in);
 }
 
 void Vertex::setVisited(bool visited) {
     this->visited = visited;
 }
 
-void Vertex::setProcesssing(bool processing) {
+void Vertex::setProcessing(bool processing) {
     this->processing = processing;
 }
 
@@ -146,6 +149,18 @@ void Vertex::resetPath() {
     paths.clear();
 }
 
+void Vertex::activate() {
+    isActive = true;
+}
+
+void Vertex::desactivate() {
+    isActive = false;
+}
+
+bool Vertex::checkActive() {
+    return isActive;
+}
+
 /********************** Edge  ****************************/
 
 
@@ -167,16 +182,8 @@ Edge *Edge::getReverse() const {
     return this->reverse;
 }
 
-bool Edge::isSelected() const {
-    return this->selected;
-}
-
 double Edge::getFlow() const {
     return flow;
-}
-
-void Edge::setSelected(bool selected) {
-    this->selected = selected;
 }
 
 void Edge::setReverse(Edge *reverse) {
@@ -210,6 +217,26 @@ void Edge::resetPath() {
 
 bool Edge::hasPath(int p) {
     return paths.count(p);
+}
+
+void Edge::desactivate() {
+    isActive = false;
+}
+
+void Edge::activate() {
+    isActive = true;
+}
+
+bool Edge::checkActive() const {
+    return isActive;
+}
+
+bool Edge::checkVisited() const {
+    return visited;
+}
+
+void Edge::setVisited(bool newVisited) {
+    visited = newVisited;
 }
 
 /********************** Graph  ****************************/
@@ -269,7 +296,7 @@ bool Graph::removeVertex(const std::string& in) {
  * Returns true if successful, and false if the source or destination vertex does not exist.
  */
 
-bool Graph::addEdge(const std::string &sourc, const std::string& dest, double w) {
+bool Graph::addEdge(const std::string &sourc, const std::string& dest, double w) const {
     auto v1 = findVertex(sourc);
     auto v2 = findVertex(dest);
     if (v1 == nullptr || v2 == nullptr)
@@ -278,21 +305,7 @@ bool Graph::addEdge(const std::string &sourc, const std::string& dest, double w)
     return true;
 }
 
-/*
- * Removes an edge from a graph (this).
- * std::string
- * he edge is identified by the source (sourc) and destination (dest) contents.
- * Returns true if successful, and false if such edge does not exist.
- */
-bool Graph::removeEdge(const std::string& sourc, const std::string& dest) {
-    Vertex * srcVertex = findVertex(sourc);
-    if (srcVertex == nullptr) {
-        return false;
-    }
-    return srcVertex->removeEdge(dest);
-}
-
-bool Graph::addBidirectionalEdge(const std::string& sourc, const std::string& dest, double w) {
+bool Graph::addBidirectionalEdge(const std::string& sourc, const std::string& dest, double w) const {
     auto v1 = findVertex(sourc);
     auto v2 = findVertex(dest);
     if (v1 == nullptr || v2 == nullptr)
@@ -302,101 +315,6 @@ bool Graph::addBidirectionalEdge(const std::string& sourc, const std::string& de
     e1->setReverse(e2);
     e2->setReverse(e1);
     return true;
-}
-
-/****************** DFS ********************/
-
-/*
- * Performs a depth-first search (dfs) traversal in a graph (this).
- * Returns a vector with the contents of the vertices by dfs order.
- */
-
-std::vector<std::string> Graph::dfs() const {
-    std::vector<std::string> res;
-    for (auto v : vertexSet)
-        v.second->setVisited(false);
-    for (auto v : vertexSet)
-        if (!v.second->isVisited())
-            dfsVisit(v.second, res);
-    return res;
-}
-
-/*
- * Performs a depth-first search (dfs) in a graph (this) from the source node.
- * Returns a vector with the contents of the vertices by dfs order.
- */
-
-std::vector<std::string> Graph::dfs(const std::string& source) const {
-    std::vector<std::string> res;
-    // Get the source vertex
-    auto s = findVertex(source);
-    if (s == nullptr) {
-        return res;
-    }
-    // Set that no vertex has been visited yet
-    for (auto v : vertexSet) {
-        v.second->setVisited(false);
-    }
-    // Perform the actual DFS using recursion
-    dfsVisit(s, res);
-
-    return res;
-}
-
-/*
- * Auxiliary function that visits a vertex (v) and its adjacent, recursively.
- * Updates a parameter with the list of visited node contents.
- */
-
-void Graph::dfsVisit(Vertex *v, std::vector<std::string> & res) const {
-    v->setVisited(true);
-    res.push_back(v->getInfo());
-    for (auto & e : v->getAdj()) {
-        auto w = e->getDest();
-        if (!w->isVisited()) {
-            dfsVisit(w, res);
-        }
-    }
-}
-
-/****************** BFS ********************/
-/*
- * Performs a breadth-first search (bfs) in a graph (this), starting
- * from the vertex with the given source contents (source).
- * Returns a vector with the contents of the vertices by bfs order.
- */
-
-std::vector<std::string> Graph::bfs(const std::string
-                                    & source) const {
-    std::vector<std::string> res;
-    // Get the source vertex
-    auto s = findVertex(source);
-    if (s == nullptr) {
-        return res;
-    }
-
-    // Set that no vertex has been visited yet
-    for (auto v : vertexSet) {
-        v.second->setVisited(false);
-    }
-
-    // Perform the actual BFS using a queue
-    std::queue<Vertex *> q;
-    q.push(s);
-    s->setVisited(true);
-    while (!q.empty()) {
-        auto v = q.front();
-        q.pop();
-        res.push_back(v->getInfo());
-        for (auto & e : v->getAdj()) {
-            auto w = e->getDest();
-            if ( ! w->isVisited()) {
-                q.push(w);
-                w->setVisited(true);
-            }
-        }
-    }
-    return res;
 }
 
 /****************** isDAG  ********************/
@@ -411,7 +329,7 @@ std::vector<std::string> Graph::bfs(const std::string
 bool Graph::isDAG() const {
     for (auto v : vertexSet) {
         v.second->setVisited(false);
-        v.second->setProcesssing(false);
+        v.second->setProcessing(false);
     }
     for (auto v : vertexSet) {
         if (! v.second->isVisited()) {
@@ -428,15 +346,16 @@ bool Graph::isDAG() const {
 
 bool Graph::dfsIsDAG(Vertex *v) const {
     v->setVisited(true);
-    v->setProcesssing(true);
+    v->setProcessing(true);
     for (auto e : v->getAdj()) {
+        if(!e->checkActive()) continue;
         auto w = e->getDest();
         if (w->isProcessing()) return false;
         if (! w->isVisited()) {
             if (! dfsIsDAG(w)) return false;
         }
     }
-    v->setProcesssing(false);
+    v->setProcessing(false);
     return true;
 }
 
@@ -454,69 +373,61 @@ bool Graph::dfsIsDAG(Vertex *v) const {
  * Follows the algorithm described in theoretical classes.
  */
 
+void dfsVisit(Vertex* v, std::stack<std::string>& aux){
+    v->setVisited(true);
+    v->setProcessing(true);
+    for(Edge* adj : v->getAdj()){
+        if (adj->checkActive()) {
+            if(!adj->getDest()->isVisited()) dfsVisit(adj->getDest(), aux);
+        }
+    }
+    v->setProcessing(false);
+    aux.push(v->getInfo());
+}
 
-std::vector<std::string> Graph::topsort() const {
+std::vector<std::string> Graph::topSort() const {
     std::vector<std::string> res;
-
-    for (auto v : vertexSet) {
-        v.second->setIndegree(0);
+    std::stack<std::string> aux;
+    for(auto v : vertexSet){
+        v.second->setVisited(false);
+        v.second->setProcessing(false);
     }
-    for (auto v : vertexSet) {
-        for (auto e : v.second->getAdj()) {
-            unsigned int indegree = e->getDest()->getIndegree();
-            e->getDest()->setIndegree(indegree + 1);
+    for(const auto& v : vertexSet){
+        if(!v.second->isVisited()){
+            dfsVisit(v.second, aux);
         }
     }
-
-    std::queue<Vertex *> q;
-    for (auto v : vertexSet) {
-        if (v.second->getIndegree() == 0) {
-            q.push(v.second);
-        }
+    while (!aux.empty()) {
+        res.push_back(aux.top());
+        aux.pop();
     }
-
-    while( !q.empty() ) {
-        Vertex * v = q.front();
-        q.pop();
-        res.push_back(v->getInfo());
-        for(auto e : v->getAdj()) {
-            auto w = e->getDest();
-            w->setIndegree(w->getIndegree() - 1);
-            if(w->getIndegree() == 0) {
-                q.push(w);
-            }
-        }
-    }
-
-    if ( res.size() != vertexSet.size() ) {
-        //std::cout << "Impossible topological ordering!" << std::endl;
-        res.clear();
-        return res;
-    }
-
     return res;
 }
 
-inline void deleteMatrix(int **m, int n) {
-    if (m != nullptr) {
-        for (int i = 0; i < n; i++)
-            if (m[i] != nullptr)
-                delete [] m[i];
-        delete [] m;
+void Graph::resetFlow() {
+    for(const auto& v: vertexSet){
+        for(Edge* e: v.second->getAdj()){
+            e->setFlow(0);
+        }
     }
 }
 
-inline void deleteMatrix(double **m, int n) {
-    if (m != nullptr) {
-        for (int i = 0; i < n; i++)
-            if (m[i] != nullptr)
-                delete [] m[i];
-        delete [] m;
+Edge *Graph::findEdge(const std::string &source, const std::string &dest) const {
+    auto v = findVertex(source);
+    for(auto adj: v->getAdj()){
+        if(adj->getDest()->getInfo() == dest) return adj;
     }
+    return nullptr;
 }
 
 Graph::~Graph() {
-    deleteMatrix(distMatrix, vertexSet.size());
-    deleteMatrix(pathMatrix, vertexSet.size());
+    for (const auto& v: vertexSet) {
+        removeVertex(v.first);
+    }
 }
 
+bool inStack(const std::string& n, std::stack<std::string> s) {
+    while (!s.empty() && !(s.top() == n))
+        s.pop();
+    return !s.empty();
+}

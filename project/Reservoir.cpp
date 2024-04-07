@@ -21,3 +21,7 @@ int Reservoir::getId() const {
 std::string Reservoir::getCode() const {
     return code;
 }
+
+bool Reservoir::operator<(const Reservoir& reservoir) const {
+    return id < reservoir.id;
+}

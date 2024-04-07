@@ -18,7 +18,7 @@ public:
      * @param color The color of the letters, if applicable.
      * @param line The string to print.
      */
-    ColorPrint(std::string color, std::string line);
+    ColorPrint(const std::string& color, const std::string& line);
     /**
      * \brief Swaps the printing mode between colored and non colored.
      */

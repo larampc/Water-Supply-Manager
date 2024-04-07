@@ -1,12 +1,17 @@
 var searchData=
 [
-  ['readcitycode_0',['readCityCode',['../class_menu.html#a2a6cba26010a47c6ba93f15803d383b6',1,'Menu']]],
-  ['readcityid_1',['readCityId',['../class_menu.html#af3c6783b0808f636a5cdc9b6950c2d87',1,'Menu']]],
-  ['readcityname_2',['readCityName',['../class_menu.html#aa6e2fe76e3aa3eb105dce931d680145b',1,'Menu']]],
-  ['readoption_3',['readOption',['../class_menu.html#ac73ec1ca775b8527d976e0a1418c7a24',1,'Menu']]],
-  ['readreservoircode_4',['readReservoirCode',['../class_menu.html#a5763002daf8783f4e335785dd92ac817',1,'Menu']]],
-  ['readreservoirid_5',['readReservoirID',['../class_menu.html#afbb0e033f2711b1486c1aff3b2c440a0',1,'Menu']]],
-  ['readreservoirmunicipality_6',['readReservoirMunicipality',['../class_menu.html#abd21ef1577bcf1fc9186caac3cfb62b3',1,'Menu']]],
-  ['readreservoirname_7',['readReservoirName',['../class_menu.html#ac57a806c4cf98a08532769dde5952ec9',1,'Menu']]],
-  ['run_8',['run',['../class_menu.html#a35656cd130e24d69383a5c9d0a73a38c',1,'Menu']]]
+  ['changedisplaymode_0',['changeDisplayMode',['../class_menu.html#a517d154e00475320477874b4dea906cf',1,'Menu']]],
+  ['checkactive_1',['checkactive',['../class_vertex.html#a544a45435e5dddf5c825cce67a2449c4',1,'Vertex::checkActive()'],['../class_edge.html#aee2169cdf292492b6f2cc221a0055627',1,'Edge::checkActive()']]],
+  ['checkdeactivatedcomponents_2',['checkDeactivatedComponents',['../class_menu.html#a210b0d6d3495536f3613e5713998373c',1,'Menu']]],
+  ['checkdeactivatedpipes_3',['checkDeactivatedPipes',['../class_menu.html#ae0e414b356829b84ad7e94f22bfff47f',1,'Menu']]],
+  ['checkdeactivatedreservoirs_4',['checkDeactivatedReservoirs',['../class_menu.html#a20eb62f806c44d0f106ad692913202f8',1,'Menu']]],
+  ['checkdeactivatedstations_5',['checkDeactivatedStations',['../class_menu.html#a90e5f8a31336f3d63314ac4bf6a769e1',1,'Menu']]],
+  ['checkvisited_6',['checkVisited',['../class_edge.html#a01252c383ae33c3f50512dcfac329ad1',1,'Edge']]],
+  ['city_7',['City',['../class_city.html#a17b4dc83c5ea1e15f5bb20a9e47a35bf',1,'City']]],
+  ['colorprint_8',['ColorPrint',['../class_color_print.html#a875c8caa93ba444631f9139137f39a19',1,'ColorPrint']]],
+  ['computeaveragediffcapacityflow_9',['computeAverageDiffCapacityFlow',['../class_water_supply.html#a0d9a0478af48bb3196d968b0d2fc62b1',1,'WaterSupply']]],
+  ['computecityflow_10',['computeCityFlow',['../class_water_supply.html#a48238c370acb23e874e70cd7004b89eb',1,'WaterSupply']]],
+  ['computeflow_11',['computeFlow',['../class_water_supply.html#a315c748811328853d995e4cf623e5399',1,'WaterSupply']]],
+  ['computemaxdiffcapacityflow_12',['computeMaxDiffCapacityFlow',['../class_water_supply.html#a8a24e27b60c6d9bb0f829e3d8c208dd3',1,'WaterSupply']]],
+  ['computevariancediffcapacityflow_13',['computeVarianceDiffCapacityFlow',['../class_water_supply.html#abadbf42d890ef1c556dd2233a8a1db6b',1,'WaterSupply']]]
 ];
