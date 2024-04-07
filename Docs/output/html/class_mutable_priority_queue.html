@@ -111,8 +111,8 @@ Private Member Functions</h2></td></tr>
 <tr class="memitem:ab240d8ca4dc53703f994d049b6fc6ae2" id="r_ab240d8ca4dc53703f994d049b6fc6ae2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mutable_priority_queue.html#ab240d8ca4dc53703f994d049b6fc6ae2">heapifyDown</a> (unsigned i)</td></tr>
 <tr class="memdesc:ab240d8ca4dc53703f994d049b6fc6ae2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Moves the element provided down the heap until it is in the correct position.  <br /></td></tr>
 <tr class="separator:ab240d8ca4dc53703f994d049b6fc6ae2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0efbc4f388fccda5d53b6d2397df4cb8" id="r_a0efbc4f388fccda5d53b6d2397df4cb8"><td class="memItemLeft" align="right" valign="top"><a id="a0efbc4f388fccda5d53b6d2397df4cb8" name="a0efbc4f388fccda5d53b6d2397df4cb8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>set</b> (unsigned i, <a class="el" href="class_vertex.html">Vertex</a> *x)</td></tr>
+<tr class="memitem:a0efbc4f388fccda5d53b6d2397df4cb8" id="r_a0efbc4f388fccda5d53b6d2397df4cb8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_mutable_priority_queue.html#a0efbc4f388fccda5d53b6d2397df4cb8">set</a> (unsigned i, <a class="el" href="class_vertex.html">Vertex</a> *x)</td></tr>
+<tr class="memdesc:a0efbc4f388fccda5d53b6d2397df4cb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the key of an element with a given one.  <br /></td></tr>
 <tr class="separator:a0efbc4f388fccda5d53b6d2397df4cb8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
@@ -287,6 +287,51 @@ std::vector&lt; <a class="el" href="class_vertex.html">Vertex</a> * &gt;&#160;</
   </dd>
 </dl>
 <dl class="section user"><dt>Complexity</dt><dd>O(log n), in which n is the number of elements in the queue. </dd></dl>
+
+</div>
+</div>
+<a id="a0efbc4f388fccda5d53b6d2397df4cb8" name="a0efbc4f388fccda5d53b6d2397df4cb8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0efbc4f388fccda5d53b6d2397df4cb8">&#9670;&#160;</a></span>set()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MutablePriorityQueue::set </td>
+          <td>(</td>
+          <td class="paramtype">unsigned&#160;</td>
+          <td class="paramname"><em>i</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_vertex.html">Vertex</a> *&#160;</td>
+          <td class="paramname"><em>x</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the key of an element with a given one. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>the key to set the element with. </td></tr>
+    <tr><td class="paramname">x</td><td>the element whose key is to be updated. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
