@@ -207,9 +207,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>activateAll</b> ()</t
 <tr class="memitem:a122f3ca9a8c79da8a0a882d8f4bfb49e" id="r_a122f3ca9a8c79da8a0a882d8f4bfb49e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_edge.html">Edge</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a122f3ca9a8c79da8a0a882d8f4bfb49e">transformBidirectionalEdges</a> ()</td></tr>
 <tr class="memdesc:a122f3ca9a8c79da8a0a882d8f4bfb49e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transforms all bidirectional <a class="el" href="class_edge.html" title="A custom class to represent a Graph&#39;s Edge.">Edge</a> to be one directional without altering the current flow of the <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>.  <br /></td></tr>
 <tr class="separator:a122f3ca9a8c79da8a0a882d8f4bfb49e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc552c50c3a2c275a65c47682a385b06" id="r_adc552c50c3a2c275a65c47682a385b06"><td class="memItemLeft" align="right" valign="top"><a id="adc552c50c3a2c275a65c47682a385b06" name="adc552c50c3a2c275a65c47682a385b06"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>balancingViaMinCost</b> ()</td></tr>
-<tr class="memdesc:adc552c50c3a2c275a65c47682a385b06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Balances the demand - flow across the <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>. <br /></td></tr>
+<tr class="memitem:adc552c50c3a2c275a65c47682a385b06" id="r_adc552c50c3a2c275a65c47682a385b06"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#adc552c50c3a2c275a65c47682a385b06">balancingViaMinCost</a> ()</td></tr>
+<tr class="memdesc:adc552c50c3a2c275a65c47682a385b06"><td class="mdescLeft">&#160;</td><td class="mdescRight">Balances the demand - flow across the <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>.  <br /></td></tr>
 <tr class="separator:adc552c50c3a2c275a65c47682a385b06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a70ce99bb313d41894f1b623cafaf6975" id="r_a70ce99bb313d41894f1b623cafaf6975"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="class_edge.html">Edge</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a70ce99bb313d41894f1b623cafaf6975">getShortestPathTo</a> (<a class="el" href="class_vertex.html">Vertex</a> *city, double(*func)(<a class="el" href="class_edge.html">Edge</a> *))</td></tr>
 <tr class="memdesc:a70ce99bb313d41894f1b623cafaf6975"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the shortest path to the given <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> <a class="el" href="class_vertex.html" title="A custom class to represent a Graph&#39;s Vertex.">Vertex</a> using the given function to calculate the distance.  <br /></td></tr>
@@ -225,6 +224,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>setSuperSinkWithDeman
 void&#160;</td><td class="memItemRight" valign="bottom"><b>setSuperSinkNull</b> ()</td></tr>
 <tr class="memdesc:ad697ae4253ef4a459b8f771ce1761fd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets all <a class="el" href="class_edge.html" title="A custom class to represent a Graph&#39;s Edge.">Edge</a> from <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> to super sink capacity to 0. <br /></td></tr>
 <tr class="separator:ad697ae4253ef4a459b8f771ce1761fd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0fe7d28e689af7c309fadbb8f34b2e2" id="r_af0fe7d28e689af7c309fadbb8f34b2e2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#af0fe7d28e689af7c309fadbb8f34b2e2">readNetwork</a> (const std::string &amp;s)</td></tr>
+<tr class="memdesc:af0fe7d28e689af7c309fadbb8f34b2e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads the network flows from a string representation.  <br /></td></tr>
+<tr class="separator:af0fe7d28e689af7c309fadbb8f34b2e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09e40593293cfde457e119e956802a8f" id="r_a09e40593293cfde457e119e956802a8f"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_water_supply.html#a09e40593293cfde457e119e956802a8f">saveNetwork</a> ()</td></tr>
+<tr class="memdesc:a09e40593293cfde457e119e956802a8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Produces a string representation of the current network state.  <br /></td></tr>
+<tr class="separator:a09e40593293cfde457e119e956802a8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -269,6 +274,26 @@ std::unordered_map&lt; std::string, <a class="el" href="class_station.html">Stat
 <div class="textblock"><p>This class stores all the data and performs different functions on it. </p>
 <p>This class initializes, stores and modifies the <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>, all the <a class="el" href="class_city.html" title="A custom class to represent a City.">City</a> data, all the <a class="el" href="class_reservoir.html" title="A custom class to represent a Reservoir.">Reservoir</a> data and all the <a class="el" href="class_station.html" title="A custom class to represent a Station.">Station</a> data. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="adc552c50c3a2c275a65c47682a385b06" name="adc552c50c3a2c275a65c47682a385b06"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc552c50c3a2c275a65c47682a385b06">&#9670;&#160;</a></span>balancingViaMinCost()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WaterSupply::balancingViaMinCost </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Balances the demand - flow across the <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>. </p>
+<dl class="section user"><dt>Complexity</dt><dd>O(E|f*|) in which E is the number of edges of the graph and |f*| is limited by the value of the maximum flow. </dd></dl>
+
+</div>
+</div>
 <a id="a0d9a0478af48bb3196d968b0d2fc62b1" name="a0d9a0478af48bb3196d968b0d2fc62b1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0d9a0478af48bb3196d968b0d2fc62b1">&#9670;&#160;</a></span>computeAverageDiffCapacityFlow()</h2>
 
@@ -1325,6 +1350,54 @@ std::unordered_map&lt; std::string, <a class="el" href="class_station.html">Stat
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>True if the given path has any flow, false otherwise. </dd></dl>
+
+</div>
+</div>
+<a id="af0fe7d28e689af7c309fadbb8f34b2e2" name="af0fe7d28e689af7c309fadbb8f34b2e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0fe7d28e689af7c309fadbb8f34b2e2">&#9670;&#160;</a></span>readNetwork()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void WaterSupply::readNetwork </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Reads the network flows from a string representation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">s</td><td>The string representation of the network. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section user"><dt>Complexity</dt><dd>O(E) in which E is the number of Edges of the network. </dd></dl>
+
+</div>
+</div>
+<a id="a09e40593293cfde457e119e956802a8f" name="a09e40593293cfde457e119e956802a8f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09e40593293cfde457e119e956802a8f">&#9670;&#160;</a></span>saveNetwork()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">string WaterSupply::saveNetwork </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Produces a string representation of the current network state. </p>
+<dl class="section return"><dt>Returns</dt><dd>The string representation of the network. </dd></dl>
+<dl class="section user"><dt>Complexity</dt><dd>O(E) in which E is the number of Edges of the network. </dd></dl>
 
 </div>
 </div>

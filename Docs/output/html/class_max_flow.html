@@ -107,6 +107,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aaab7b3fa048fbf0e7b225a9e2c30b252" id="r_aaab7b3fa048fbf0e7b225a9e2c30b252"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_max_flow.html#aaab7b3fa048fbf0e7b225a9e2c30b252">reliabilityPrep</a> (<a class="el" href="class_graph.html">Graph</a> *network)</td></tr>
 <tr class="memdesc:aaab7b3fa048fbf0e7b225a9e2c30b252"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prepares the given network for reliability testing initializing its flow and used augmentation paths by calling maxFlowWithLists.  <br /></td></tr>
 <tr class="separator:aaab7b3fa048fbf0e7b225a9e2c30b252"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb3fd04609fd3ab864ee1aab3cd6f147" id="r_afb3fd04609fd3ab864ee1aab3cd6f147"><td class="memItemLeft" align="right" valign="top">std::unordered_map&lt; unsigned int, std::pair&lt; double, std::vector&lt; std::pair&lt; bool, <a class="el" href="class_edge.html">Edge</a> * &gt; &gt; &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_max_flow.html#afb3fd04609fd3ab864ee1aab3cd6f147">getPaths</a> ()</td></tr>
+<tr class="memdesc:afb3fd04609fd3ab864ee1aab3cd6f147"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current paths of the network.  <br /></td></tr>
+<tr class="separator:afb3fd04609fd3ab864ee1aab3cd6f147"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f3f4ac6a082345fa37656abcdaf4ba0" id="r_a8f3f4ac6a082345fa37656abcdaf4ba0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_max_flow.html#a8f3f4ac6a082345fa37656abcdaf4ba0">setPaths</a> (std::unordered_map&lt; unsigned int, std::pair&lt; double, std::vector&lt; std::pair&lt; bool, <a class="el" href="class_edge.html">Edge</a> * &gt; &gt; &gt; &gt; paths, <a class="el" href="class_graph.html">Graph</a> *network)</td></tr>
+<tr class="memdesc:a8f3f4ac6a082345fa37656abcdaf4ba0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the current paths of the network.  <br /></td></tr>
+<tr class="separator:a8f3f4ac6a082345fa37656abcdaf4ba0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -270,7 +276,7 @@ std::vector&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bot
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Complexity</dt><dd>O(NL + VE^2) where NL is the complexity of removing the used augmentation paths containing the given pipe and VE^2 is the complexity of updating the existing network flow. </dd></dl>
+<dl class="section user"><dt>Complexity</dt><dd>O(NL + VE²) where NL is the complexity of removing the used augmentation paths containing the given pipe and VE^2 is the complexity of updating the existing network flow. </dd></dl>
 
 </div>
 </div>
@@ -308,7 +314,7 @@ std::vector&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bot
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Complexity</dt><dd>O(NL + VE^2) where NL is the complexity of removing the used augmentation paths from the reservoir and VE^2 is the complexity of updating the existing network flow. </dd></dl>
+<dl class="section user"><dt>Complexity</dt><dd>O(NL + VE²) where NL is the complexity of removing the used augmentation paths from the reservoir and VE^2 is the complexity of updating the existing network flow. </dd></dl>
 
 </div>
 </div>
@@ -346,7 +352,27 @@ std::vector&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bot
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Complexity</dt><dd>O(NL + VE^2) where NL is the complexity of removing the used augmentation paths containing the given station and VE^2 is the complexity of updating the existing network flow. </dd></dl>
+<dl class="section user"><dt>Complexity</dt><dd>O(NL + VE²) where NL is the complexity of removing the used augmentation paths containing the given station and VE^2 is the complexity of updating the existing network flow. </dd></dl>
+
+</div>
+</div>
+<a id="afb3fd04609fd3ab864ee1aab3cd6f147" name="afb3fd04609fd3ab864ee1aab3cd6f147"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb3fd04609fd3ab864ee1aab3cd6f147">&#9670;&#160;</a></span>getPaths()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::unordered_map&lt; unsigned int, std::pair&lt; double, std::vector&lt; std::pair&lt; bool, <a class="el" href="class_edge.html">Edge</a> * &gt; &gt; &gt; &gt; MaxFlow::getPaths </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the current paths of the network. </p>
+<dl class="section return"><dt>Returns</dt><dd>The current paths of the network. </dd></dl>
 
 </div>
 </div>
@@ -399,7 +425,7 @@ std::vector&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bot
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Complexity</dt><dd>O(VE^2) in which V is the number of vertex and E the number of edges of the <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>. </dd></dl>
+<dl class="section user"><dt>Complexity</dt><dd>O(VE²) in which V is the number of vertex and E the number of edges of the <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>. </dd></dl>
 
 </div>
 </div>
@@ -426,7 +452,7 @@ std::vector&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bot
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Complexity</dt><dd>O(VE^2) in which V is the number of vertex and E the number of edges of the <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>. </dd></dl>
+<dl class="section user"><dt>Complexity</dt><dd>O(VE²) in which V is the number of vertex and E the number of edges of the <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>. </dd></dl>
 
 </div>
 </div>
@@ -453,7 +479,7 @@ std::vector&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bot
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Complexity</dt><dd>O(VE^2) The complexity of maxFlowWithLists. </dd></dl>
+<dl class="section user"><dt>Complexity</dt><dd>O(VE²) The complexity of maxFlowWithLists. </dd></dl>
 
 </div>
 </div>
@@ -533,7 +559,44 @@ std::vector&lt; unsigned int &gt;&#160;</td><td class="memItemRight" valign="bot
   </table>
   </dd>
 </dl>
-<dl class="section user"><dt>Complexity</dt><dd>O(VE^2) in which V is the number of vertex and E the number of edges of the <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>. </dd></dl>
+<dl class="section user"><dt>Complexity</dt><dd>O(VE²) in which V is the number of vertex and E the number of edges of the <a class="el" href="class_graph.html" title="A custom class to represent a Graph.">Graph</a>. </dd></dl>
+
+</div>
+</div>
+<a id="a8f3f4ac6a082345fa37656abcdaf4ba0" name="a8f3f4ac6a082345fa37656abcdaf4ba0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f3f4ac6a082345fa37656abcdaf4ba0">&#9670;&#160;</a></span>setPaths()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MaxFlow::setPaths </td>
+          <td>(</td>
+          <td class="paramtype">std::unordered_map&lt; unsigned int, std::pair&lt; double, std::vector&lt; std::pair&lt; bool, <a class="el" href="class_edge.html">Edge</a> * &gt; &gt; &gt; &gt;&#160;</td>
+          <td class="paramname"><em>paths</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="class_graph.html">Graph</a> *&#160;</td>
+          <td class="paramname"><em>network</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates the current paths of the network. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">paths</td><td>The new paths to set in the network. </td></tr>
+    <tr><td class="paramname">network</td><td>The network to update the paths of. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
