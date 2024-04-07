@@ -30,6 +30,12 @@ class MutablePriorityQueue {
      * O(log n), in which n is the number of elements in the queue.
      */
     void heapifyDown(unsigned i);
+    /**
+     * \brief Sets the key of an element with a given one.
+     *
+     * @param i the key to set the element with.
+     * @param x the element whose key is to be updated.
+     */
     inline void set(unsigned i, Vertex* x);
 public:
     /**
