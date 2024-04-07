@@ -1169,8 +1169,7 @@ void Menu::swapDisplayDemand() {
     displayDemand = !displayDemand;
 }
 
-void
-Menu::printAffectedCity(string city, double flow, double demand,
+void Menu::printAffectedCity(const string& city, double flow, double demand,
                         double delta, int position) {
     if(position%4 == 0 && position != 0) ColorPrint("white", "\n      ");
     ostringstream tmp;

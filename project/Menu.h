@@ -259,7 +259,7 @@ public:
      */
     void checkDeactivatedPipes();
 
-    void printAffectedCity(std::string city, double flow, double demand, double delta, int position);
+    static void printAffectedCity(const std::string& city, double flow, double demand, double delta, int position);
 
     void removeReservoirs(std::unordered_map<unsigned int, std::pair<double, std::vector<std::pair<bool, Edge *>>>> paths,
                           std::string network, std::vector<double> citiesPrevFlow);
