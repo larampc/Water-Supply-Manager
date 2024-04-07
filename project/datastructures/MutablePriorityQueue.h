@@ -2,6 +2,7 @@
 #define WATERSUPPLYMANAGER_MUTABLEPRIORITYQUEUE
 
 #include <vector>
+#include "Graph.h"
 
 class MutablePriorityQueue {
     std::vector<Vertex* > H;
@@ -10,11 +11,11 @@ class MutablePriorityQueue {
     inline void set(unsigned i, Vertex* x);
 public:
     /**
-     * Creates a new mutable priority queue
+     * \brief Creates a new mutable priority queue
      */
     MutablePriorityQueue();
     /**
-     * Inserts a new element into the mutable priority queue.
+     * \brief Inserts a new element into the mutable priority queue.
      * @param x A pointer to the element to be inserted.
      *
      * @par Complexity
@@ -22,7 +23,7 @@ public:
      */
     void insert(Vertex* x);
     /**
-     * Extracts the minimum element from the mutable priority queue, removing it from the queue.
+     * \brief Extracts the minimum element from the mutable priority queue, removing it from the queue.
      *
      * @return A pointer to the minimum element in the queue.
      *
@@ -31,7 +32,7 @@ public:
      */
     Vertex* extractMin();
     /**
-     * Decreases the key of an element in the queue, moving it up in priority.
+     * \brief Decreases the key of an element in the queue, moving it up in priority.
      * @param x A pointer to the element whose key is to be decreased.
      *
      * @par Complexity
@@ -39,7 +40,7 @@ public:
      */
     void decreaseKey(Vertex* x);
     /**
-     * This function checks whether the mutable priority queue is empty or not.
+     * \brief This function checks whether the mutable priority queue is empty or not.
      *
      * @return True if the heap doesn't have any elements, false otherwise.
      */

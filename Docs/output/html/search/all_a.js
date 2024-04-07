@@ -8,5 +8,5 @@ var searchData=
   ['maxflowwithlist_5',['maxFlowWithList',['../class_max_flow.html#afb2439480d04f74043db0a900c1542b7',1,'MaxFlow']]],
   ['maxflowwithprioritizedcities_6',['MaxFlowWithPrioritizedCities',['../class_menu.html#a9e471d29ba171018810b5ccb9a2c48af',1,'Menu']]],
   ['menu_7',['Menu',['../class_menu.html',1,'']]],
-  ['mutablepriorityqueue_8',['MutablePriorityQueue',['../class_mutable_priority_queue.html',1,'']]]
+  ['mutablepriorityqueue_8',['mutablepriorityqueue',['../class_mutable_priority_queue.html',1,'MutablePriorityQueue'],['../class_mutable_priority_queue.html#a98af0989a8706eb7c6adebbde1fb9519',1,'MutablePriorityQueue::MutablePriorityQueue()']]]
 ];
